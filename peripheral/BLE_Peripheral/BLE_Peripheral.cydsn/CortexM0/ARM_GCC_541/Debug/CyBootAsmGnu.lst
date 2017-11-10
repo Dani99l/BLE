@@ -10828,7 +10828,7 @@ ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 1
  807              	.set CYDEV_CHIP_FAMILY_PSOC6, 4
  808              	.set CYDEV_CHIP_FAMILY_UNKNOWN, 0
  809              	.set CYDEV_CHIP_FAMILY_USED, CYDEV_CHIP_FAMILY_PSOC4
- 810              	.set CYDEV_CHIP_JTAG_ID, 0x0E51119E
+ 810              	.set CYDEV_CHIP_JTAG_ID, 0x0E34119E
  811              	.set CYDEV_CHIP_MEMBER_3A, 1
  812              	.set CYDEV_CHIP_MEMBER_4A, 16
  813              	.set CYDEV_CHIP_MEMBER_4D, 12
@@ -10956,31 +10956,33 @@ ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 1
  929              	.set CYDEV_STACK_SIZE, 0x0800
  930              	.set CYDEV_USE_BUNDLED_CMSIS, 1
  931              	.set CYDEV_VARIABLE_VDDA, 1
- 932              	.set CYDEV_VDD_MV, 3300
- 933              	.set CYDEV_VDDR_MV, 3300
- 934              	.set CYDEV_WDT_GENERATE_ISR, 0
- 935              	.set CYIPBLOCK_m0s8bless_VERSION, 1
- 936              	.set CYIPBLOCK_m0s8cpussv2_VERSION, 1
- 937              	.set CYIPBLOCK_m0s8csd_VERSION, 1
- 938              	.set CYIPBLOCK_m0s8ioss_VERSION, 1
- 939              	.set CYIPBLOCK_m0s8lcd_VERSION, 2
- 940              	.set CYIPBLOCK_m0s8peri_VERSION, 1
- 941              	.set CYIPBLOCK_m0s8scb_VERSION, 2
- 942              	.set CYIPBLOCK_m0s8srssv2_VERSION, 1
- 943              	.set CYIPBLOCK_m0s8tcpwm_VERSION, 2
- 944              	.set CYIPBLOCK_m0s8udbif_VERSION, 1
- 945              	.set CYIPBLOCK_s8pass4al_VERSION, 1
- 946              	.set CYDEV_BOOTLOADER_ENABLE, 0
- 947              	.endif
+ 932              	.set CYDEV_VDDA_MV, 3300
+ 933              	.set CYDEV_VDDD_MV, 3300
+ 934              	.set CYDEV_VDDR_MV, 3300
+ 935              	.set CYDEV_WDT_GENERATE_ISR, 0
+ 936              	.set CYIPBLOCK_m0s8bless_VERSION, 1
+ 937              	.set CYIPBLOCK_m0s8cpussv2_VERSION, 1
+ 938              	.set CYIPBLOCK_m0s8csd_VERSION, 1
+ 939              	.set CYIPBLOCK_m0s8ioss_VERSION, 1
+ 940              	.set CYIPBLOCK_m0s8lcd_VERSION, 2
+ 941              	.set CYIPBLOCK_m0s8lpcomp_VERSION, 2
+ 942              	.set CYIPBLOCK_m0s8peri_VERSION, 1
+ 943              	.set CYIPBLOCK_m0s8scb_VERSION, 2
+ 944              	.set CYIPBLOCK_m0s8srssv2_VERSION, 1
+ 945              	.set CYIPBLOCK_m0s8tcpwm_VERSION, 2
+ 946              	.set CYIPBLOCK_m0s8udbif_VERSION, 1
+ 947              	.set CYIPBLOCK_s8pass4al_VERSION, 1
+ 948              	.set CYDEV_BOOTLOADER_ENABLE, 0
+ 949              	.endif
   19              	
   20              	
   21              	/*******************************************************************************
   22              	* Function Name: CyDelayCycles
-  23              	****************************************************************************//**
-  24              	*
 ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 184
 
 
+  23              	****************************************************************************//**
+  24              	*
   25              	*  Delays for the specified number of cycles.
   26              	*
   27              	*  \param uint32 cycles: number of cycles to delay.
@@ -11036,11 +11038,11 @@ ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 1
   77              	*  whether interrupts were previously enabled (the actual value depends on
   78              	*  whether the device is PSoC 3 or PSoC 5).
   79              	*
-  80              	*  Note Implementation of CyEnterCriticalSection manipulates the IRQ enable bit
-  81              	*  with interrupts still enabled. The test and set of the interrupt bits is not
 ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 185
 
 
+  80              	*  Note Implementation of CyEnterCriticalSection manipulates the IRQ enable bit
+  81              	*  with interrupts still enabled. The test and set of the interrupt bits is not
   82              	*  atomic; this is true for both PSoC 3 and PSoC 5. Therefore, to avoid a
   83              	*  corrupting processor state, it must be the policy that all interrupt routines
   84              	*  restore the interrupt enable bits as they were found on entry.

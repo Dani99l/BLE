@@ -44,7 +44,8 @@
     ***************************************/
     void AppCallBack(uint32 , void *);  
   //  void sendtoble(uint8* buffer, uint16 size);
-    void sendtoble(uint8 *buf);
+    void sendtoble();
+  //  void sendtoble(uint8 *buf);
     void Getsensor_data();
     uint8 *createPacket();
     void start();
@@ -58,7 +59,7 @@
     ***************************************/
     CYBLE_API_RESULT_T      bleApiResult;
     uint8 count;
-    uint8 buffer[PACKET_LENGHT];
+    //uint8 buffer[PACKET_LENGHT];
     
     int lasTemp, lastHum;
     int sameTemp, sameHum;

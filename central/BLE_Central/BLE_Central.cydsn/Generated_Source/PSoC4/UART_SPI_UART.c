@@ -344,6 +344,7 @@
         for (i=0u; i < count; i++)
         {
             UART_SpiUartWriteTxData((uint32) wrBuf[i]);
+            UART_UartPutString(" ");
         }
     }
 

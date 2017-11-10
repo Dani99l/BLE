@@ -35,7 +35,7 @@ int getTemp(){
     temp *= 175.72;
     temp /= 65536;
     temp -= 46.85;
-    return temp;
+    return (uint8)temp;
 }
 
 int getHum(){
@@ -63,7 +63,7 @@ int getHum(){
     hum /= 65536;
     hum -= 6;
     
-    return hum;
+    return (uint8)hum;
 }
 
 /* [] END OF FILE */

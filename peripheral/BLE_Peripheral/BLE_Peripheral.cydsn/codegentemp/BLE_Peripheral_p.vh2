@@ -1,5 +1,5 @@
 -- Project:   BLE_Peripheral
--- Generated: 11/10/2017 15:20:36
+-- Generated: 11/10/2017 15:54:38
 -- PSoC Creator  4.1 Update 1
 
 ENTITY BLE_Peripheral IS
@@ -9,12 +9,12 @@ ENTITY BLE_Peripheral IS
         \UART:rx(0)_PAD\ : IN std_ulogic;
         \I2C_1:sda(0)_PAD\ : INOUT std_ulogic;
         \I2C_1:scl(0)_PAD\ : INOUT std_ulogic);
+    ATTRIBUTE voltage_VDDA_CTB OF __DEFAULT__ : ENTITY IS 3.3e0;
+    ATTRIBUTE voltage_VDDA_1 OF __DEFAULT__ : ENTITY IS 3.3e0;
     ATTRIBUTE voltage_VDDIO_0 OF __DEFAULT__ : ENTITY IS 3.3e0;
     ATTRIBUTE voltage_VDDD_0 OF __DEFAULT__ : ENTITY IS 3.3e0;
     ATTRIBUTE voltage_VDDIO_2 OF __DEFAULT__ : ENTITY IS 3.3e0;
     ATTRIBUTE voltage_VDDIO_1 OF __DEFAULT__ : ENTITY IS 3.3e0;
-    ATTRIBUTE voltage_VDDA_CTB OF __DEFAULT__ : ENTITY IS 3.3e0;
-    ATTRIBUTE voltage_VDDA_1 OF __DEFAULT__ : ENTITY IS 3.3e0;
     ATTRIBUTE voltage_VDDR_HLS OF __DEFAULT__ : ENTITY IS 3.3e0;
     ATTRIBUTE voltage_VDDR_BGLS OF __DEFAULT__ : ENTITY IS 3.3e0;
     ATTRIBUTE voltage_VDDR_HF OF __DEFAULT__ : ENTITY IS 3.3e0;
