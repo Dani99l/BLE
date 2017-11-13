@@ -41,11 +41,9 @@
     *       Function Prototypes
     ***************************************/
     void AppCallBack(uint32 , void *);  
-  //  void sendtoble(uint8* buffer, uint16 size);
     void sendtoble();
-  //  void sendtoble(uint8 *buf);
     void Getsensor_data();
-    uint8 *createPacket();
+    void createPacket();
     void start();
     void state_machine();    
     void startBLE();
@@ -57,8 +55,8 @@
     ***************************************/
     CYBLE_API_RESULT_T      bleApiResult;
     uint8 count;
-    //uint8 buffer[PACKET_LENGHT];
-    
+    uint8 buffer[PACKET_LENGHT];
+      int api;
     int lasTemp, lastHum;
     int sameTemp, sameHum;
     

@@ -87,7 +87,7 @@ void startBLE(){
 void stopBLE(){
     //Stops any proccesing in BLE Stack
     CyBle_Stop();
-}
+}// uint8   buffer[2]={'4','3'};
 
 void start(){
     
@@ -106,7 +106,6 @@ void start(){
 * Summary:
 *   Handles the BLE state machine for intiating different procedures
 *   during different states of BLESS.
-*
 * Parameters:
 *   None.
 *
@@ -452,15 +451,19 @@ void enableNotifications()
 
 void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotification)
 {
-    
+    int i;
     if(uartRxDataNotification->handleValPair.attrHandle == txCharHandle)
     {
         packetSum++;
         UART_UartPutString("\n\r ");
         UART_UartPutString(ultoa(packetSum));
         UART_UartPutString(" ");
-        UART_SpiUartPutArray(uartRxDataNotification->handleValPair.value.val, \
-            (uint32) uartRxDataNotification->handleValPair.value.len);
+        /*UART_SpiUartPutArray(uartRxDataNotification->handleValPair.value.val, \
+            (uint32) uartRxDataNotification->handleValPair.value.len);*/
+        for (i=0;i<uartRxDataNotification->handleValPair.value.len;i++) {
+            UART_UartPutString(ultoa(uartRxDataNotification->handleValPair.value.val[i]));
+            UART_UartPutString(";");
+        }
         UART_UartPutString("\n\r");
     }
     
