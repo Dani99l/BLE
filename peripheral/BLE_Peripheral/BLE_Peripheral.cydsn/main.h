@@ -31,9 +31,7 @@
      #define     PRINT_MESSAGE_LOG
      #define     DEBUG_ble
      #define     LOW_POWER_MODE
-    
-    
-    
+
     /***************************************
     *       DEFINES Parameters
     ***************************************/

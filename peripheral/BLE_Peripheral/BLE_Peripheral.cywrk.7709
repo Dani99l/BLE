@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="BLE_Peripheral\BLE_Peripheral\Source Files\HTU21D.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="BLE_Peripheral\BLE_Peripheral\Header Files\main.h">
 <ExpandedNodeIds>
 <v>BLE_Peripheral</v>
 <v>BLE_Peripheral\BLE_Peripheral</v>
@@ -46,7 +46,6 @@
 <v>BLE_Peripheral\BLE_Peripheral\Source Files\sleep.c</v>
 <v>BLE_Peripheral\BLE_Peripheral\Source Files\teste.c</v>
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>BLE_Peripheral</v>
@@ -81,10 +80,6 @@
 <v>BLE_Peripheral\BLE_Peripheral\Source Files\teste.c</v>
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source</v>
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\BLE</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\BLE_bless_isr</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\Conn_LED</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cy_boot</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -230,7 +225,29 @@
 </userData>
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
-<OpenDocs />
+<OpenDocs>
+<name v=".\BLE_Peripheral.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\BLE_Peripheral.cydsn\main.c" />
+<name v=".\BLE_Peripheral.cydsn\app_Ble.c" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_StackGatt.h" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_Stack.h" />
+<name v=".\BLE_Peripheral.cydsn\app_UART.c" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\CyLib.c" />
+<name v=".\BLE_Peripheral.cydsn\main.h" />
+<name v=".\BLE_Peripheral.cydsn\app_UART.h" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE.h" />
+<name v=".\BLE_Peripheral.cydsn\app_Ble.h" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\UART_SPI_UART.c" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_StackGattServer.h" />
+<name v=".\BLE_Peripheral.cydsn\HTU21D.c" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1091, 524" SelectedTabbedMdiWindow="3dcdc696-4bd7-4cb1-ae4d-b84b2ce2da68"><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\TopDesign\TopDesign.cysch" Guid="f08251ad-705a-4e05-90af-54bb88a08cca" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\main.c" Guid="3dcdc696-4bd7-4cb1-ae4d-b84b2ce2da68" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\app_Ble.c" Guid="cd3a70a5-2c3a-4dac-b13f-2fc429ba11be" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_StackGatt.h" Guid="2f63f0e2-9c32-42df-a5bb-6ce6f0df0b8a" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_Stack.h" Guid="44a1f2e6-4b83-4b0d-8662-f15bde166309" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\app_UART.c" Guid="ef73bc34-49eb-4fca-adcd-8186bfcb8823" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\CyLib.c" Guid="ac0dda60-885f-43b2-af31-36f9020c4940" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\main.h" Guid="26cce4ee-8fea-4381-b5af-df56c30061d6" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\app_UART.h" Guid="17b659de-a8b9-4edb-9768-098335439192" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE.h" Guid="4e58c570-af7c-4ec0-971a-e3216b011b5e" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\app_Ble.h" Guid="ad31bd1f-43d1-4f08-b830-c22d2a9aab96" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\UART_SPI_UART.c" Guid="fda45378-682f-4e73-b110-e6c4e3236d81" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_StackGattServer.h" Guid="bc5aae25-e597-4929-bbd4-8fdec2b3f726" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\HTU21D.c" Guid="a3102e64-a4a1-42b0-b823-b5a6df713634" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="d47537c9-1178-489f-9cfe-392f30e8014d" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

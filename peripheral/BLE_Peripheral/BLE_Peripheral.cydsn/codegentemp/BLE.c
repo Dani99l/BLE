@@ -65,7 +65,7 @@ CYBLE_GAPP_DISC_PARAM_T cyBle_discoveryParam =
     0x00u,      /* uint8 own_addr_type */
     0x00u,      /* uint8 direct_addr_type */
     {0x00u, 0x00u, 0x00u, 0x50u, 0xA0u, 0xBBu}, /* uint8* direct_addr */
-    0x01u,      /* uint8 advertising_channel_map */
+    0x07u,      /* uint8 advertising_channel_map */
     0x00u,      /* uint8 advertising_filter_policy */
 };
 

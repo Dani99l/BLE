@@ -242,10 +242,15 @@ void sendtoble()
    //this functions sends data from uart RX and pushes it to the server 
     
     CYBLE_GATTS_HANDLE_VALUE_NTF_T      uartTxDataNtf;
- 
-    uint8   buffer[2]={'teste','3'};
-    uint8   index=0;
     uint16  uartTxDataLength;
+    uartTxDataLength=5;
+   
+    uint8   buffer[]={'0','0','0','0','0'};
+    //buffer[uartTxDataLength];
+    //buffer[uartTxDataLength+1]=getHum();
+    
+   buffer[0]='a';
+   buffer[1]=97;
     
     int api;
 
