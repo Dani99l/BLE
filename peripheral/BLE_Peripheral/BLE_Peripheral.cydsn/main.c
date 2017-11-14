@@ -21,8 +21,7 @@ int main()
           //  CYBLE_BLESS_STATE_T     blessState
     #endif
     start();
-    startBLE();
-  
+     
     while(1){
        state_machine();
     }
@@ -48,22 +47,25 @@ void state_machine(){
         #endif
         I2C_1_Start(); 
         createPacket();
+        I2C_1_Stop();
+        #ifdef DEBUG_ble  
+              UART_UartPutString("\n\r After construct packet \n\r ");     
+        #endif
         mode=TX;
         break;
         
      case TX:
+       
+        tx();
         
         #ifdef PRINT_MESSAGE_LOG   
         UART_UartPutString("\n\r After TX mode \n\r ");
         #endif
         
-        tx();
-
         mode=SLEEP;
         break;
 
      case SLEEP:
-        
         //go to sleep mode untill next time to operate! 
         //check sleep time functions
         goSleep();
@@ -85,20 +87,20 @@ void state_machine(){
 void tx(){
     
        startBLE();
-    
+       CyDelay(5);
        int check=0;
     
-        while(check<1){
+        while(1){
             
-               while(CyBle_GetState()!= CYBLE_STATE_CONNECTED ){
-                   HandleBleProcessing();
-                   CyBle_ProcessEvents();
-                   UART_UartPutString("\n\r ++  \n\r ");
-               }
-              // CyDelay(5);
-                sendtoble();
+//               while(CyBle_GetState()!= CYBLE_STATE_CONNECTED ){    //connecta-se apos adv e scaning feito!  
+//                   HandleBleProcessing();                           //quando connectado a comunicação entre central e peripheral é concluída
+//                   CyBle_ProcessEvents();
+//                   UART_UartPutString("\n\r ++  \n\r ");
+//               }
+//              
+                
                if(CyBle_GattGetBusStatus() != CYBLE_STACK_STATE_BUSY){
-                    
+                    sendtoble();
                     check++;
                     UART_UartPutString("\n\r 00  \n\r ");
                 }
@@ -170,9 +172,7 @@ void createPacket(){
     if(count>=250){
         count=0;
     }
-    #ifdef DEBUG_ble  
-     UART_UartPutString("\n\r After construct packet \n\r ");     
-    #endif
+
     
 //    buffer[PACKET_LENGHT]=(uint8)sensor.humidity;
 //    buffer[PACKET_LENGHT-1]=(uint8)sensor.temperature;
@@ -235,5 +235,5 @@ void sendtoble()
         UART_UartPutString("\n\r -- \n\r ");
         api=CyBle_GattsNotification(cyBle_connHandle, &uartTxDataNtf);
         CyBle_ProcessEvents();
-    }while(api!=CYBLE_ERROR_OK);  
+    }while(api!=CYBLE_ERROR_OK && CyBle_GetState()== CYBLE_STATE_CONNECTED);  
 }

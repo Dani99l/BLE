@@ -46,6 +46,8 @@ void HandleBleProcessing(void)
     switch (cyBle_state)
     {
         case CYBLE_STATE_ADVERTISING:
+                    /* RESET Uart and flush all buffers */
+
             if (cyBle_last_state != cyBle_state) {
                 #ifdef PRINT_MESSAGE_LOG   
                 UART_UartPutString("\n\r CYBLE_STATE_ADVERTISING \n\r ");
@@ -79,7 +81,12 @@ void HandleBleProcessing(void)
             txDataClientConfigDesc[1] = NOTIFICATON_DISABLED;
             
             CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
-
+            
+            UART_Stop();
+            UART_SpiUartClearTxBuffer();
+            UART_SpiUartClearRxBuffer();
+            UART_Start();
+            
             break;
        
         case CYBLE_STATE_INITIALIZING:
