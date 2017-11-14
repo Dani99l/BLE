@@ -413,9 +413,8 @@ Discarded input sections
  .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART.o)
  .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART.o)
  .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART.o)
- .rodata        0x00000000        0x2 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART.o)
  .text.UART_SpiUartPutArray
-                0x00000000       0x40 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART.o)
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART.o)
  .text.UART_SpiUartGetTxBufferSize
                 0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART.o)
  .text.UART_SpiUartDisableIntRx
@@ -9706,7 +9705,7 @@ i.CyBle_BleSSInterruptHandler
  .debug_abbrev  0x00001d45      0x101 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(cyPm.o)
  .debug_abbrev  0x00001e46       0x42 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(BLE_HAL_INT.o)
 
-.debug_line     0x00000000     0x3261
+.debug_line     0x00000000     0x325c
  *(.debug_line)
  .debug_line    0x00000000      0x24d .\CortexM0\ARM_GCC_541\Debug\main.o
  .debug_line    0x0000024d       0x9c .\CortexM0\ARM_GCC_541\Debug\app_Ble.o
@@ -9723,17 +9722,17 @@ i.CyBle_BleSSInterruptHandler
  .debug_line    0x0000170a       0xc0 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(Scan_LED.o)
  .debug_line    0x000017ca       0xc0 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(Conn_LED.o)
  .debug_line    0x0000188a      0x11a .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART.o)
- .debug_line    0x000019a4      0x154 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART.o)
- .debug_line    0x00001af8      0x1e0 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_UART.o)
- .debug_line    0x00001cd8      0x4e1 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(CyLib.o)
- .debug_line    0x000021b9      0x721 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(CyLFClk.o)
- .debug_line    0x000028da       0x68 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(CyBootAsmGnu.o)
- .debug_line    0x00002942       0xad .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART_INT.o)
- .debug_line    0x000029ef      0x32f .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(BLE_HAL_PVT.o)
- .debug_line    0x00002d1e      0x15c .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(BLE_bless_isr.o)
- .debug_line    0x00002e7a      0x23b .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(CyFlash.o)
- .debug_line    0x000030b5      0x156 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(cyPm.o)
- .debug_line    0x0000320b       0x56 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(BLE_HAL_INT.o)
+ .debug_line    0x000019a4      0x14f .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART.o)
+ .debug_line    0x00001af3      0x1e0 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_UART.o)
+ .debug_line    0x00001cd3      0x4e1 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(CyLib.o)
+ .debug_line    0x000021b4      0x721 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(CyLFClk.o)
+ .debug_line    0x000028d5       0x68 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(CyBootAsmGnu.o)
+ .debug_line    0x0000293d       0xad .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(UART_SPI_UART_INT.o)
+ .debug_line    0x000029ea      0x32f .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(BLE_HAL_PVT.o)
+ .debug_line    0x00002d19      0x15c .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(BLE_bless_isr.o)
+ .debug_line    0x00002e75      0x23b .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(CyFlash.o)
+ .debug_line    0x000030b0      0x156 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(cyPm.o)
+ .debug_line    0x00003206       0x56 .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a(BLE_HAL_INT.o)
 
 .debug_frame    0x00000000    0x1e32c
  *(.debug_frame)

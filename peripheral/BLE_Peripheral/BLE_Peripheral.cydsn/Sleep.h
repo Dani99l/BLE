@@ -9,7 +9,7 @@
 ***************************************/
 
 #include "BLE_Stack.h"
-
+#include "project.h"
 
 /***************************************
 ##Function Prototypes

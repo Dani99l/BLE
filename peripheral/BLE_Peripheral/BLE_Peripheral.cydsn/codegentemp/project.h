@@ -46,6 +46,7 @@
 #include "I2C_1_I2C_PVT.h"
 #include "I2C_1_PVT.h"
 #include "I2C_1_BOOT.h"
+#include "Sleep_Timer.h"
 #include "BLE_bless_isr.h"
 #include "UART_SCBCLK.h"
 #include "UART_tx.h"

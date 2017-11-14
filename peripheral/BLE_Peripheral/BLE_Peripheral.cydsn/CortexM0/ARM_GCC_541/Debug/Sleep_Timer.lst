@@ -1,0 +1,2375 @@
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Sleep_Timer.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	Sleep_Timer_initVar
+  20              		.bss
+  21              		.type	Sleep_Timer_initVar, %object
+  22              		.size	Sleep_Timer_initVar, 1
+  23              	Sleep_Timer_initVar:
+  24 0000 00       		.space	1
+  25              		.section	.text.Sleep_Timer_Init,"ax",%progbits
+  26              		.align	2
+  27              		.global	Sleep_Timer_Init
+  28              		.code	16
+  29              		.thumb_func
+  30              		.type	Sleep_Timer_Init, %function
+  31              	Sleep_Timer_Init:
+  32              	.LFB2:
+  33              		.file 1 "Generated_Source\\PSoC4\\Sleep_Timer.c"
+   1:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/Sleep_Timer.c **** * File Name: Sleep_Timer.c
+   3:Generated_Source\PSoC4/Sleep_Timer.c **** * Version 2.70
+   4:Generated_Source\PSoC4/Sleep_Timer.c **** *
+   5:Generated_Source\PSoC4/Sleep_Timer.c **** * Description:
+   6:Generated_Source\PSoC4/Sleep_Timer.c **** *  The Timer component consists of a 8, 16, 24 or 32-bit timer with
+   7:Generated_Source\PSoC4/Sleep_Timer.c **** *  a selectable period between 2 and 2^Width - 1.  The timer may free run
+   8:Generated_Source\PSoC4/Sleep_Timer.c **** *  or be used as a capture timer as well.  The capture can be initiated
+   9:Generated_Source\PSoC4/Sleep_Timer.c **** *  by a positive or negative edge signal as well as via software.
+  10:Generated_Source\PSoC4/Sleep_Timer.c **** *  A trigger input can be programmed to enable the timer on rising edge
+  11:Generated_Source\PSoC4/Sleep_Timer.c **** *  falling edge, either edge or continous run.
+  12:Generated_Source\PSoC4/Sleep_Timer.c **** *  Interrupts may be generated due to a terminal count condition
+  13:Generated_Source\PSoC4/Sleep_Timer.c **** *  or a capture event.
+  14:Generated_Source\PSoC4/Sleep_Timer.c **** *
+  15:Generated_Source\PSoC4/Sleep_Timer.c **** * Note:
+  16:Generated_Source\PSoC4/Sleep_Timer.c **** *
+  17:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+  18:Generated_Source\PSoC4/Sleep_Timer.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  19:Generated_Source\PSoC4/Sleep_Timer.c **** * You may use this file only in accordance with the license, terms, conditions,
+  20:Generated_Source\PSoC4/Sleep_Timer.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  21:Generated_Source\PSoC4/Sleep_Timer.c **** * the software package with which this file was provided.
+  22:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************/
+  23:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  24:Generated_Source\PSoC4/Sleep_Timer.c **** #include "Sleep_Timer.h"
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 2
+
+
+  25:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  26:Generated_Source\PSoC4/Sleep_Timer.c **** uint8 Sleep_Timer_initVar = 0u;
+  27:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  28:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  29:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+  30:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_Init
+  31:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+  32:Generated_Source\PSoC4/Sleep_Timer.c **** *
+  33:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+  34:Generated_Source\PSoC4/Sleep_Timer.c **** *  Initialize to the schematic state
+  35:Generated_Source\PSoC4/Sleep_Timer.c **** *
+  36:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+  37:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+  38:Generated_Source\PSoC4/Sleep_Timer.c **** *
+  39:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+  40:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+  41:Generated_Source\PSoC4/Sleep_Timer.c **** *
+  42:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+  43:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_Init(void) 
+  44:Generated_Source\PSoC4/Sleep_Timer.c **** {
+  34              		.loc 1 44 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 8
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 90B5     		push	{r4, r7, lr}
+  39              		.cfi_def_cfa_offset 12
+  40              		.cfi_offset 4, -12
+  41              		.cfi_offset 7, -8
+  42              		.cfi_offset 14, -4
+  43 0002 83B0     		sub	sp, sp, #12
+  44              		.cfi_def_cfa_offset 24
+  45 0004 00AF     		add	r7, sp, #0
+  46              		.cfi_def_cfa_register 7
+  45:Generated_Source\PSoC4/Sleep_Timer.c ****     #if(!Sleep_Timer_UsingFixedFunction)
+  46:Generated_Source\PSoC4/Sleep_Timer.c ****             /* Interrupt State Backup for Critical Region*/
+  47:Generated_Source\PSoC4/Sleep_Timer.c ****             uint8 Sleep_Timer_interruptState;
+  48:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Interrupt state back up for Fixed Function only */
+  49:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  50:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (Sleep_Timer_UsingFixedFunction)
+  51:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Clear all bits but the enable bit (if it's already set) for Timer operation */
+  52:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL &= Sleep_Timer_CTRL_ENABLE;
+  53:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  54:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Clear the mode bits for continuous run mode */
+  55:Generated_Source\PSoC4/Sleep_Timer.c ****         #if (CY_PSOC5A)
+  56:Generated_Source\PSoC4/Sleep_Timer.c ****             Sleep_Timer_CONTROL2 &= ((uint8)(~Sleep_Timer_CTRL_MODE_MASK));
+  57:Generated_Source\PSoC4/Sleep_Timer.c ****         #endif /* Clear bits in CONTROL2 only in PSOC5A */
+  58:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  59:Generated_Source\PSoC4/Sleep_Timer.c ****         #if (CY_PSOC3 || CY_PSOC5LP)
+  60:Generated_Source\PSoC4/Sleep_Timer.c ****             Sleep_Timer_CONTROL3 &= ((uint8)(~Sleep_Timer_CTRL_MODE_MASK));
+  61:Generated_Source\PSoC4/Sleep_Timer.c ****         #endif /* CONTROL3 register exists only in PSoC3 OR PSoC5LP */
+  62:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  63:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Check if One Shot mode is enabled i.e. RunMode !=0*/
+  64:Generated_Source\PSoC4/Sleep_Timer.c ****         #if (Sleep_Timer_RunModeUsed != 0x0u)
+  65:Generated_Source\PSoC4/Sleep_Timer.c ****             /* Set 3rd bit of Control register to enable one shot mode */
+  66:Generated_Source\PSoC4/Sleep_Timer.c ****             Sleep_Timer_CONTROL |= 0x04u;
+  67:Generated_Source\PSoC4/Sleep_Timer.c ****         #endif /* One Shot enabled only when RunModeUsed is not Continuous*/
+  68:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 3
+
+
+  69:Generated_Source\PSoC4/Sleep_Timer.c ****         #if (Sleep_Timer_RunModeUsed == 2)
+  70:Generated_Source\PSoC4/Sleep_Timer.c ****             #if (CY_PSOC5A)
+  71:Generated_Source\PSoC4/Sleep_Timer.c ****                 /* Set last 2 bits of control2 register if one shot(halt on
+  72:Generated_Source\PSoC4/Sleep_Timer.c ****                 interrupt) is enabled*/
+  73:Generated_Source\PSoC4/Sleep_Timer.c ****                 Sleep_Timer_CONTROL2 |= 0x03u;
+  74:Generated_Source\PSoC4/Sleep_Timer.c ****             #endif /* Set One-Shot Halt on Interrupt bit in CONTROL2 for PSoC5A */
+  75:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  76:Generated_Source\PSoC4/Sleep_Timer.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+  77:Generated_Source\PSoC4/Sleep_Timer.c ****                 /* Set last 2 bits of control3 register if one shot(halt on
+  78:Generated_Source\PSoC4/Sleep_Timer.c ****                 interrupt) is enabled*/
+  79:Generated_Source\PSoC4/Sleep_Timer.c ****                 Sleep_Timer_CONTROL3 |= 0x03u;
+  80:Generated_Source\PSoC4/Sleep_Timer.c ****             #endif /* Set One-Shot Halt on Interrupt bit in CONTROL3 for PSoC3 or PSoC5LP */
+  81:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  82:Generated_Source\PSoC4/Sleep_Timer.c ****         #endif /* Remove section if One Shot Halt on Interrupt is not enabled */
+  83:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  84:Generated_Source\PSoC4/Sleep_Timer.c ****         #if (Sleep_Timer_UsingHWEnable != 0)
+  85:Generated_Source\PSoC4/Sleep_Timer.c ****             #if (CY_PSOC5A)
+  86:Generated_Source\PSoC4/Sleep_Timer.c ****                 /* Set the default Run Mode of the Timer to Continuous */
+  87:Generated_Source\PSoC4/Sleep_Timer.c ****                 Sleep_Timer_CONTROL2 |= Sleep_Timer_CTRL_MODE_PULSEWIDTH;
+  88:Generated_Source\PSoC4/Sleep_Timer.c ****             #endif /* Set Continuous Run Mode in CONTROL2 for PSoC5A */
+  89:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  90:Generated_Source\PSoC4/Sleep_Timer.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+  91:Generated_Source\PSoC4/Sleep_Timer.c ****                 /* Clear and Set ROD and COD bits of CFG2 register */
+  92:Generated_Source\PSoC4/Sleep_Timer.c ****                 Sleep_Timer_CONTROL3 &= ((uint8)(~Sleep_Timer_CTRL_RCOD_MASK));
+  93:Generated_Source\PSoC4/Sleep_Timer.c ****                 Sleep_Timer_CONTROL3 |= Sleep_Timer_CTRL_RCOD;
+  94:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  95:Generated_Source\PSoC4/Sleep_Timer.c ****                 /* Clear and Enable the HW enable bit in CFG2 register */
+  96:Generated_Source\PSoC4/Sleep_Timer.c ****                 Sleep_Timer_CONTROL3 &= ((uint8)(~Sleep_Timer_CTRL_ENBL_MASK));
+  97:Generated_Source\PSoC4/Sleep_Timer.c ****                 Sleep_Timer_CONTROL3 |= Sleep_Timer_CTRL_ENBL;
+  98:Generated_Source\PSoC4/Sleep_Timer.c **** 
+  99:Generated_Source\PSoC4/Sleep_Timer.c ****                 /* Set the default Run Mode of the Timer to Continuous */
+ 100:Generated_Source\PSoC4/Sleep_Timer.c ****                 Sleep_Timer_CONTROL3 |= Sleep_Timer_CTRL_MODE_CONTINUOUS;
+ 101:Generated_Source\PSoC4/Sleep_Timer.c ****             #endif /* Set Continuous Run Mode in CONTROL3 for PSoC3ES3 or PSoC5A */
+ 102:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 103:Generated_Source\PSoC4/Sleep_Timer.c ****         #endif /* Configure Run Mode with hardware enable */
+ 104:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 105:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+ 106:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_RT1 &= ((uint8)(~Sleep_Timer_RT1_MASK));
+ 107:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_RT1 |= Sleep_Timer_SYNC;
+ 108:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 109:Generated_Source\PSoC4/Sleep_Timer.c ****         /*Enable DSI Sync all all inputs of the Timer*/
+ 110:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_RT1 &= ((uint8)(~Sleep_Timer_SYNCDSI_MASK));
+ 111:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_RT1 |= Sleep_Timer_SYNCDSI_EN;
+ 112:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 113:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Set the IRQ to use the status register interrupts */
+ 114:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL2 |= Sleep_Timer_CTRL2_IRQ_SEL;
+ 115:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Configuring registers of fixed function implementation */
+ 116:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 117:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Set Initial values from Configuration */
+ 118:Generated_Source\PSoC4/Sleep_Timer.c ****     Sleep_Timer_WritePeriod(Sleep_Timer_INIT_PERIOD);
+  47              		.loc 1 118 0
+  48 0006 0123     		movs	r3, #1
+  49 0008 5B42     		rsbs	r3, r3, #0
+  50 000a 1800     		movs	r0, r3
+  51 000c FFF7FEFF 		bl	Sleep_Timer_WritePeriod
+ 119:Generated_Source\PSoC4/Sleep_Timer.c ****     Sleep_Timer_WriteCounter(Sleep_Timer_INIT_PERIOD);
+  52              		.loc 1 119 0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 4
+
+
+  53 0010 0123     		movs	r3, #1
+  54 0012 5B42     		rsbs	r3, r3, #0
+  55 0014 1800     		movs	r0, r3
+  56 0016 FFF7FEFF 		bl	Sleep_Timer_WriteCounter
+ 120:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 121:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (Sleep_Timer_UsingHWCaptureCounter)/* Capture counter is enabled */
+ 122:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CAPTURE_COUNT_CTRL |= Sleep_Timer_CNTR_ENABLE;
+ 123:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_SetCaptureCount(Sleep_Timer_INIT_CAPTURE_COUNT);
+ 124:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Configure capture counter value */
+ 125:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 126:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (!Sleep_Timer_UsingFixedFunction)
+ 127:Generated_Source\PSoC4/Sleep_Timer.c ****         #if (Sleep_Timer_SoftwareCaptureMode)
+ 128:Generated_Source\PSoC4/Sleep_Timer.c ****             Sleep_Timer_SetCaptureMode(Sleep_Timer_INIT_CAPTURE_MODE);
+ 129:Generated_Source\PSoC4/Sleep_Timer.c ****         #endif /* Set Capture Mode for UDB implementation if capture mode is software controlled */
+ 130:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 131:Generated_Source\PSoC4/Sleep_Timer.c ****         #if (Sleep_Timer_SoftwareTriggerMode)
+ 132:Generated_Source\PSoC4/Sleep_Timer.c ****             #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED)
+ 133:Generated_Source\PSoC4/Sleep_Timer.c ****                 if (0u == (Sleep_Timer_CONTROL & Sleep_Timer__B_TIMER__TM_SOFTWARE))
+ 134:Generated_Source\PSoC4/Sleep_Timer.c ****                 {
+ 135:Generated_Source\PSoC4/Sleep_Timer.c ****                     Sleep_Timer_SetTriggerMode(Sleep_Timer_INIT_TRIGGER_MODE);
+ 136:Generated_Source\PSoC4/Sleep_Timer.c ****                 }
+ 137:Generated_Source\PSoC4/Sleep_Timer.c ****             #endif /* (!Sleep_Timer_UDB_CONTROL_REG_REMOVED) */
+ 138:Generated_Source\PSoC4/Sleep_Timer.c ****         #endif /* Set trigger mode for UDB Implementation if trigger mode is software controlled */
+ 139:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 140:Generated_Source\PSoC4/Sleep_Timer.c ****         /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region critica
+ 141:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Enter Critical Region*/
+ 142:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_interruptState = CyEnterCriticalSection();
+  57              		.loc 1 142 0
+  58 001a FC1D     		adds	r4, r7, #7
+  59 001c FFF7FEFF 		bl	CyEnterCriticalSection
+  60 0020 0300     		movs	r3, r0
+  61 0022 2370     		strb	r3, [r4]
+ 143:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 144:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Use the interrupt output of the status register for IRQ output */
+ 145:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_STATUS_AUX_CTRL |= Sleep_Timer_STATUS_ACTL_INT_EN_MASK;
+  62              		.loc 1 145 0
+  63 0024 0A4A     		ldr	r2, .L2
+  64 0026 0A4B     		ldr	r3, .L2
+  65 0028 1B78     		ldrb	r3, [r3]
+  66 002a DBB2     		uxtb	r3, r3
+  67 002c 1021     		movs	r1, #16
+  68 002e 0B43     		orrs	r3, r1
+  69 0030 DBB2     		uxtb	r3, r3
+  70 0032 1370     		strb	r3, [r2]
+ 146:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 147:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Exit Critical Region*/
+ 148:Generated_Source\PSoC4/Sleep_Timer.c ****         CyExitCriticalSection(Sleep_Timer_interruptState);
+  71              		.loc 1 148 0
+  72 0034 FB1D     		adds	r3, r7, #7
+  73 0036 1B78     		ldrb	r3, [r3]
+  74 0038 1800     		movs	r0, r3
+  75 003a FFF7FEFF 		bl	CyExitCriticalSection
+ 149:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 150:Generated_Source\PSoC4/Sleep_Timer.c ****         #if (Sleep_Timer_EnableTriggerMode)
+ 151:Generated_Source\PSoC4/Sleep_Timer.c ****             Sleep_Timer_EnableTrigger();
+ 152:Generated_Source\PSoC4/Sleep_Timer.c ****         #endif /* Set Trigger enable bit for UDB implementation in the control register*/
+ 153:Generated_Source\PSoC4/Sleep_Timer.c **** 		
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 5
+
+
+ 154:Generated_Source\PSoC4/Sleep_Timer.c **** 		
+ 155:Generated_Source\PSoC4/Sleep_Timer.c ****         #if (Sleep_Timer_InterruptOnCaptureCount && !Sleep_Timer_UDB_CONTROL_REG_REMOVED)
+ 156:Generated_Source\PSoC4/Sleep_Timer.c ****             Sleep_Timer_SetInterruptCount(Sleep_Timer_INIT_INT_CAPTURE_COUNT);
+ 157:Generated_Source\PSoC4/Sleep_Timer.c ****         #endif /* Set interrupt count in UDB implementation if interrupt count feature is checked.*
+ 158:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 159:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_ClearFIFO();
+  76              		.loc 1 159 0
+  77 003e FFF7FEFF 		bl	Sleep_Timer_ClearFIFO
+ 160:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Configure additional features of UDB implementation */
+ 161:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 162:Generated_Source\PSoC4/Sleep_Timer.c ****     Sleep_Timer_SetInterruptMode(Sleep_Timer_INIT_INTERRUPT_MODE);
+  78              		.loc 1 162 0
+  79 0042 0420     		movs	r0, #4
+  80 0044 FFF7FEFF 		bl	Sleep_Timer_SetInterruptMode
+ 163:Generated_Source\PSoC4/Sleep_Timer.c **** }
+  81              		.loc 1 163 0
+  82 0048 C046     		nop
+  83 004a BD46     		mov	sp, r7
+  84 004c 03B0     		add	sp, sp, #12
+  85              		@ sp needed
+  86 004e 90BD     		pop	{r4, r7, pc}
+  87              	.L3:
+  88              		.align	2
+  89              	.L2:
+  90 0050 93000F40 		.word	1074725011
+  91              		.cfi_endproc
+  92              	.LFE2:
+  93              		.size	Sleep_Timer_Init, .-Sleep_Timer_Init
+  94              		.section	.text.Sleep_Timer_Enable,"ax",%progbits
+  95              		.align	2
+  96              		.global	Sleep_Timer_Enable
+  97              		.code	16
+  98              		.thumb_func
+  99              		.type	Sleep_Timer_Enable, %function
+ 100              	Sleep_Timer_Enable:
+ 101              	.LFB3:
+ 164:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 165:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 166:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 167:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_Enable
+ 168:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 169:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 170:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 171:Generated_Source\PSoC4/Sleep_Timer.c **** *  Enable the Timer
+ 172:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 173:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 174:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 175:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 176:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 177:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 178:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 179:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 180:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_Enable(void) 
+ 181:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 102              		.loc 1 181 0
+ 103              		.cfi_startproc
+ 104              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 6
+
+
+ 105              		@ frame_needed = 1, uses_anonymous_args = 0
+ 106 0000 80B5     		push	{r7, lr}
+ 107              		.cfi_def_cfa_offset 8
+ 108              		.cfi_offset 7, -8
+ 109              		.cfi_offset 14, -4
+ 110 0002 00AF     		add	r7, sp, #0
+ 111              		.cfi_def_cfa_register 7
+ 182:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 183:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (Sleep_Timer_UsingFixedFunction)
+ 184:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_GLOBAL_ENABLE |= Sleep_Timer_BLOCK_EN_MASK;
+ 185:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_GLOBAL_STBY_ENABLE |= Sleep_Timer_BLOCK_STBY_EN_MASK;
+ 186:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Set Enable bit for enabling Fixed function timer*/
+ 187:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 188:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Remove assignment if control register is removed */
+ 189:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED || Sleep_Timer_UsingFixedFunction)
+ 190:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL |= Sleep_Timer_CTRL_ENABLE;
+ 112              		.loc 1 190 0
+ 113 0004 0549     		ldr	r1, .L5
+ 114 0006 054B     		ldr	r3, .L5
+ 115 0008 1B78     		ldrb	r3, [r3]
+ 116 000a DBB2     		uxtb	r3, r3
+ 117 000c 8022     		movs	r2, #128
+ 118 000e 5242     		rsbs	r2, r2, #0
+ 119 0010 1343     		orrs	r3, r2
+ 120 0012 DBB2     		uxtb	r3, r3
+ 121 0014 0B70     		strb	r3, [r1]
+ 191:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Remove assignment if control register is removed */
+ 192:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 122              		.loc 1 192 0
+ 123 0016 C046     		nop
+ 124 0018 BD46     		mov	sp, r7
+ 125              		@ sp needed
+ 126 001a 80BD     		pop	{r7, pc}
+ 127              	.L6:
+ 128              		.align	2
+ 129              	.L5:
+ 130 001c 73000F40 		.word	1074724979
+ 131              		.cfi_endproc
+ 132              	.LFE3:
+ 133              		.size	Sleep_Timer_Enable, .-Sleep_Timer_Enable
+ 134              		.section	.text.Sleep_Timer_Start,"ax",%progbits
+ 135              		.align	2
+ 136              		.global	Sleep_Timer_Start
+ 137              		.code	16
+ 138              		.thumb_func
+ 139              		.type	Sleep_Timer_Start, %function
+ 140              	Sleep_Timer_Start:
+ 141              	.LFB4:
+ 193:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 194:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 195:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 196:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_Start
+ 197:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 198:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 199:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 200:Generated_Source\PSoC4/Sleep_Timer.c **** *  The start function initializes the timer with the default values, the
+ 201:Generated_Source\PSoC4/Sleep_Timer.c **** *  enables the timerto begin counting.  It does not enable interrupts,
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 7
+
+
+ 202:Generated_Source\PSoC4/Sleep_Timer.c **** *  the EnableInt command should be called if interrupt generation is required.
+ 203:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 204:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 205:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 206:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 207:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 208:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 209:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 210:Generated_Source\PSoC4/Sleep_Timer.c **** * Global variables:
+ 211:Generated_Source\PSoC4/Sleep_Timer.c **** *  Sleep_Timer_initVar: Is modified when this function is called for the
+ 212:Generated_Source\PSoC4/Sleep_Timer.c **** *   first time. Is used to ensure that initialization happens only once.
+ 213:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 214:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 215:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_Start(void) 
+ 216:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 142              		.loc 1 216 0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 1, uses_anonymous_args = 0
+ 146 0000 80B5     		push	{r7, lr}
+ 147              		.cfi_def_cfa_offset 8
+ 148              		.cfi_offset 7, -8
+ 149              		.cfi_offset 14, -4
+ 150 0002 00AF     		add	r7, sp, #0
+ 151              		.cfi_def_cfa_register 7
+ 217:Generated_Source\PSoC4/Sleep_Timer.c ****     if(Sleep_Timer_initVar == 0u)
+ 152              		.loc 1 217 0
+ 153 0004 064B     		ldr	r3, .L9
+ 154 0006 1B78     		ldrb	r3, [r3]
+ 155 0008 002B     		cmp	r3, #0
+ 156 000a 04D1     		bne	.L8
+ 218:Generated_Source\PSoC4/Sleep_Timer.c ****     {
+ 219:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_Init();
+ 157              		.loc 1 219 0
+ 158 000c FFF7FEFF 		bl	Sleep_Timer_Init
+ 220:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 221:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_initVar = 1u;   /* Clear this bit for Initialization */
+ 159              		.loc 1 221 0
+ 160 0010 034B     		ldr	r3, .L9
+ 161 0012 0122     		movs	r2, #1
+ 162 0014 1A70     		strb	r2, [r3]
+ 163              	.L8:
+ 222:Generated_Source\PSoC4/Sleep_Timer.c ****     }
+ 223:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 224:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Enable the Timer */
+ 225:Generated_Source\PSoC4/Sleep_Timer.c ****     Sleep_Timer_Enable();
+ 164              		.loc 1 225 0
+ 165 0016 FFF7FEFF 		bl	Sleep_Timer_Enable
+ 226:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 166              		.loc 1 226 0
+ 167 001a C046     		nop
+ 168 001c BD46     		mov	sp, r7
+ 169              		@ sp needed
+ 170 001e 80BD     		pop	{r7, pc}
+ 171              	.L10:
+ 172              		.align	2
+ 173              	.L9:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 8
+
+
+ 174 0020 00000000 		.word	Sleep_Timer_initVar
+ 175              		.cfi_endproc
+ 176              	.LFE4:
+ 177              		.size	Sleep_Timer_Start, .-Sleep_Timer_Start
+ 178              		.section	.text.Sleep_Timer_Stop,"ax",%progbits
+ 179              		.align	2
+ 180              		.global	Sleep_Timer_Stop
+ 181              		.code	16
+ 182              		.thumb_func
+ 183              		.type	Sleep_Timer_Stop, %function
+ 184              	Sleep_Timer_Stop:
+ 185              	.LFB5:
+ 227:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 228:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 229:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 230:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_Stop
+ 231:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 232:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 233:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 234:Generated_Source\PSoC4/Sleep_Timer.c **** *  The stop function halts the timer, but does not change any modes or disable
+ 235:Generated_Source\PSoC4/Sleep_Timer.c **** *  interrupts.
+ 236:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 237:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 238:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 239:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 240:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 241:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 242:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 243:Generated_Source\PSoC4/Sleep_Timer.c **** * Side Effects: If the Enable mode is set to Hardware only then this function
+ 244:Generated_Source\PSoC4/Sleep_Timer.c **** *               has no effect on the operation of the timer.
+ 245:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 246:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 247:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_Stop(void) 
+ 248:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 186              		.loc 1 248 0
+ 187              		.cfi_startproc
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190 0000 80B5     		push	{r7, lr}
+ 191              		.cfi_def_cfa_offset 8
+ 192              		.cfi_offset 7, -8
+ 193              		.cfi_offset 14, -4
+ 194 0002 00AF     		add	r7, sp, #0
+ 195              		.cfi_def_cfa_register 7
+ 249:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Disable Timer */
+ 250:Generated_Source\PSoC4/Sleep_Timer.c ****     #if(!Sleep_Timer_UDB_CONTROL_REG_REMOVED || Sleep_Timer_UsingFixedFunction)
+ 251:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL &= ((uint8)(~Sleep_Timer_CTRL_ENABLE));
+ 196              		.loc 1 251 0
+ 197 0004 054A     		ldr	r2, .L12
+ 198 0006 054B     		ldr	r3, .L12
+ 199 0008 1B78     		ldrb	r3, [r3]
+ 200 000a DBB2     		uxtb	r3, r3
+ 201 000c 7F21     		movs	r1, #127
+ 202 000e 0B40     		ands	r3, r1
+ 203 0010 DBB2     		uxtb	r3, r3
+ 204 0012 1370     		strb	r3, [r2]
+ 252:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Remove assignment if control register is removed */
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 9
+
+
+ 253:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 254:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Globally disable the Fixed Function Block chosen */
+ 255:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (Sleep_Timer_UsingFixedFunction)
+ 256:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_GLOBAL_ENABLE &= ((uint8)(~Sleep_Timer_BLOCK_EN_MASK));
+ 257:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_GLOBAL_STBY_ENABLE &= ((uint8)(~Sleep_Timer_BLOCK_STBY_EN_MASK));
+ 258:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Disable global enable for the Timer Fixed function block to stop the Timer*/
+ 259:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 205              		.loc 1 259 0
+ 206 0014 C046     		nop
+ 207 0016 BD46     		mov	sp, r7
+ 208              		@ sp needed
+ 209 0018 80BD     		pop	{r7, pc}
+ 210              	.L13:
+ 211 001a C046     		.align	2
+ 212              	.L12:
+ 213 001c 73000F40 		.word	1074724979
+ 214              		.cfi_endproc
+ 215              	.LFE5:
+ 216              		.size	Sleep_Timer_Stop, .-Sleep_Timer_Stop
+ 217              		.section	.text.Sleep_Timer_SetInterruptMode,"ax",%progbits
+ 218              		.align	2
+ 219              		.global	Sleep_Timer_SetInterruptMode
+ 220              		.code	16
+ 221              		.thumb_func
+ 222              		.type	Sleep_Timer_SetInterruptMode, %function
+ 223              	Sleep_Timer_SetInterruptMode:
+ 224              	.LFB6:
+ 260:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 261:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 262:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 263:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_SetInterruptMode
+ 264:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 265:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 266:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 267:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function selects which of the interrupt inputs may cause an interrupt.
+ 268:Generated_Source\PSoC4/Sleep_Timer.c **** *  The twosources are caputure and terminal.  One, both or neither may
+ 269:Generated_Source\PSoC4/Sleep_Timer.c **** *  be selected.
+ 270:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 271:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 272:Generated_Source\PSoC4/Sleep_Timer.c **** *  interruptMode:   This parameter is used to enable interrups on either/or
+ 273:Generated_Source\PSoC4/Sleep_Timer.c **** *                   terminal count or capture.
+ 274:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 275:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 276:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 277:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 278:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 279:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_SetInterruptMode(uint8 interruptMode) 
+ 280:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 225              		.loc 1 280 0
+ 226              		.cfi_startproc
+ 227              		@ args = 0, pretend = 0, frame = 8
+ 228              		@ frame_needed = 1, uses_anonymous_args = 0
+ 229 0000 80B5     		push	{r7, lr}
+ 230              		.cfi_def_cfa_offset 8
+ 231              		.cfi_offset 7, -8
+ 232              		.cfi_offset 14, -4
+ 233 0002 82B0     		sub	sp, sp, #8
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 10
+
+
+ 234              		.cfi_def_cfa_offset 16
+ 235 0004 00AF     		add	r7, sp, #0
+ 236              		.cfi_def_cfa_register 7
+ 237 0006 0200     		movs	r2, r0
+ 238 0008 FB1D     		adds	r3, r7, #7
+ 239 000a 1A70     		strb	r2, [r3]
+ 281:Generated_Source\PSoC4/Sleep_Timer.c ****     Sleep_Timer_STATUS_MASK = interruptMode;
+ 240              		.loc 1 281 0
+ 241 000c 034A     		ldr	r2, .L15
+ 242 000e FB1D     		adds	r3, r7, #7
+ 243 0010 1B78     		ldrb	r3, [r3]
+ 244 0012 1370     		strb	r3, [r2]
+ 282:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 245              		.loc 1 282 0
+ 246 0014 C046     		nop
+ 247 0016 BD46     		mov	sp, r7
+ 248 0018 02B0     		add	sp, sp, #8
+ 249              		@ sp needed
+ 250 001a 80BD     		pop	{r7, pc}
+ 251              	.L16:
+ 252              		.align	2
+ 253              	.L15:
+ 254 001c 83000F40 		.word	1074724995
+ 255              		.cfi_endproc
+ 256              	.LFE6:
+ 257              		.size	Sleep_Timer_SetInterruptMode, .-Sleep_Timer_SetInterruptMode
+ 258              		.section	.text.Sleep_Timer_SoftwareCapture,"ax",%progbits
+ 259              		.align	2
+ 260              		.global	Sleep_Timer_SoftwareCapture
+ 261              		.code	16
+ 262              		.thumb_func
+ 263              		.type	Sleep_Timer_SoftwareCapture, %function
+ 264              	Sleep_Timer_SoftwareCapture:
+ 265              	.LFB7:
+ 283:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 284:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 285:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 286:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_SoftwareCapture
+ 287:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 288:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 289:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 290:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function forces a capture independent of the capture signal.
+ 291:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 292:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 293:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 294:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 295:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 296:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 297:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 298:Generated_Source\PSoC4/Sleep_Timer.c **** * Side Effects:
+ 299:Generated_Source\PSoC4/Sleep_Timer.c **** *  An existing hardware capture could be overwritten.
+ 300:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 301:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 302:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_SoftwareCapture(void) 
+ 303:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 266              		.loc 1 303 0
+ 267              		.cfi_startproc
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 11
+
+
+ 268              		@ args = 0, pretend = 0, frame = 0
+ 269              		@ frame_needed = 1, uses_anonymous_args = 0
+ 270 0000 80B5     		push	{r7, lr}
+ 271              		.cfi_def_cfa_offset 8
+ 272              		.cfi_offset 7, -8
+ 273              		.cfi_offset 14, -4
+ 274 0002 00AF     		add	r7, sp, #0
+ 275              		.cfi_def_cfa_register 7
+ 304:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Generate a software capture by reading the counter register */
+ 305:Generated_Source\PSoC4/Sleep_Timer.c ****     #if(Sleep_Timer_UsingFixedFunction)
+ 306:Generated_Source\PSoC4/Sleep_Timer.c ****         (void)CY_GET_REG16(Sleep_Timer_COUNTER_LSB_PTR);
+ 307:Generated_Source\PSoC4/Sleep_Timer.c ****     #else
+ 308:Generated_Source\PSoC4/Sleep_Timer.c ****         (void)CY_GET_REG8(Sleep_Timer_COUNTER_LSB_PTR_8BIT);
+ 276              		.loc 1 308 0
+ 277 0004 024B     		ldr	r3, .L18
+ 278 0006 1B78     		ldrb	r3, [r3]
+ 309:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif/* (Sleep_Timer_UsingFixedFunction) */
+ 310:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Capture Data is now in the FIFO */
+ 311:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 279              		.loc 1 311 0
+ 280 0008 C046     		nop
+ 281 000a BD46     		mov	sp, r7
+ 282              		@ sp needed
+ 283 000c 80BD     		pop	{r7, pc}
+ 284              	.L19:
+ 285 000e C046     		.align	2
+ 286              	.L18:
+ 287 0010 00000F40 		.word	1074724864
+ 288              		.cfi_endproc
+ 289              	.LFE7:
+ 290              		.size	Sleep_Timer_SoftwareCapture, .-Sleep_Timer_SoftwareCapture
+ 291              		.section	.text.Sleep_Timer_ReadStatusRegister,"ax",%progbits
+ 292              		.align	2
+ 293              		.global	Sleep_Timer_ReadStatusRegister
+ 294              		.code	16
+ 295              		.thumb_func
+ 296              		.type	Sleep_Timer_ReadStatusRegister, %function
+ 297              	Sleep_Timer_ReadStatusRegister:
+ 298              	.LFB8:
+ 312:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 313:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 314:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 315:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_ReadStatusRegister
+ 316:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 317:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 318:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 319:Generated_Source\PSoC4/Sleep_Timer.c **** *  Reads the status register and returns it's state. This function should use
+ 320:Generated_Source\PSoC4/Sleep_Timer.c **** *  defined types for the bit-field information as the bits in this register may
+ 321:Generated_Source\PSoC4/Sleep_Timer.c **** *  be permuteable.
+ 322:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 323:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 324:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 325:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 326:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 327:Generated_Source\PSoC4/Sleep_Timer.c **** *  The contents of the status register
+ 328:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 329:Generated_Source\PSoC4/Sleep_Timer.c **** * Side Effects:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 12
+
+
+ 330:Generated_Source\PSoC4/Sleep_Timer.c **** *  Status register bits may be clear on read.
+ 331:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 332:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 333:Generated_Source\PSoC4/Sleep_Timer.c **** uint8   Sleep_Timer_ReadStatusRegister(void) 
+ 334:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 299              		.loc 1 334 0
+ 300              		.cfi_startproc
+ 301              		@ args = 0, pretend = 0, frame = 0
+ 302              		@ frame_needed = 1, uses_anonymous_args = 0
+ 303 0000 80B5     		push	{r7, lr}
+ 304              		.cfi_def_cfa_offset 8
+ 305              		.cfi_offset 7, -8
+ 306              		.cfi_offset 14, -4
+ 307 0002 00AF     		add	r7, sp, #0
+ 308              		.cfi_def_cfa_register 7
+ 335:Generated_Source\PSoC4/Sleep_Timer.c ****     return (Sleep_Timer_STATUS);
+ 309              		.loc 1 335 0
+ 310 0004 024B     		ldr	r3, .L22
+ 311 0006 1B78     		ldrb	r3, [r3]
+ 312 0008 DBB2     		uxtb	r3, r3
+ 336:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 313              		.loc 1 336 0
+ 314 000a 1800     		movs	r0, r3
+ 315 000c BD46     		mov	sp, r7
+ 316              		@ sp needed
+ 317 000e 80BD     		pop	{r7, pc}
+ 318              	.L23:
+ 319              		.align	2
+ 320              	.L22:
+ 321 0010 63000F40 		.word	1074724963
+ 322              		.cfi_endproc
+ 323              	.LFE8:
+ 324              		.size	Sleep_Timer_ReadStatusRegister, .-Sleep_Timer_ReadStatusRegister
+ 325              		.section	.text.Sleep_Timer_ReadControlRegister,"ax",%progbits
+ 326              		.align	2
+ 327              		.global	Sleep_Timer_ReadControlRegister
+ 328              		.code	16
+ 329              		.thumb_func
+ 330              		.type	Sleep_Timer_ReadControlRegister, %function
+ 331              	Sleep_Timer_ReadControlRegister:
+ 332              	.LFB9:
+ 337:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 338:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 339:Generated_Source\PSoC4/Sleep_Timer.c **** #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED) /* Remove API if control register is unused */
+ 340:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 341:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 342:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 343:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_ReadControlRegister
+ 344:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 345:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 346:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 347:Generated_Source\PSoC4/Sleep_Timer.c **** *  Reads the control register and returns it's value.
+ 348:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 349:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 350:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 351:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 352:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 13
+
+
+ 353:Generated_Source\PSoC4/Sleep_Timer.c **** *  The contents of the control register
+ 354:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 355:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 356:Generated_Source\PSoC4/Sleep_Timer.c **** uint8 Sleep_Timer_ReadControlRegister(void) 
+ 357:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 333              		.loc 1 357 0
+ 334              		.cfi_startproc
+ 335              		@ args = 0, pretend = 0, frame = 0
+ 336              		@ frame_needed = 1, uses_anonymous_args = 0
+ 337 0000 80B5     		push	{r7, lr}
+ 338              		.cfi_def_cfa_offset 8
+ 339              		.cfi_offset 7, -8
+ 340              		.cfi_offset 14, -4
+ 341 0002 00AF     		add	r7, sp, #0
+ 342              		.cfi_def_cfa_register 7
+ 358:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED) 
+ 359:Generated_Source\PSoC4/Sleep_Timer.c ****         return ((uint8)Sleep_Timer_CONTROL);
+ 343              		.loc 1 359 0
+ 344 0004 024B     		ldr	r3, .L26
+ 345 0006 1B78     		ldrb	r3, [r3]
+ 346 0008 DBB2     		uxtb	r3, r3
+ 360:Generated_Source\PSoC4/Sleep_Timer.c ****     #else
+ 361:Generated_Source\PSoC4/Sleep_Timer.c ****         return (0);
+ 362:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* (!Sleep_Timer_UDB_CONTROL_REG_REMOVED) */
+ 363:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 347              		.loc 1 363 0
+ 348 000a 1800     		movs	r0, r3
+ 349 000c BD46     		mov	sp, r7
+ 350              		@ sp needed
+ 351 000e 80BD     		pop	{r7, pc}
+ 352              	.L27:
+ 353              		.align	2
+ 354              	.L26:
+ 355 0010 73000F40 		.word	1074724979
+ 356              		.cfi_endproc
+ 357              	.LFE9:
+ 358              		.size	Sleep_Timer_ReadControlRegister, .-Sleep_Timer_ReadControlRegister
+ 359              		.section	.text.Sleep_Timer_WriteControlRegister,"ax",%progbits
+ 360              		.align	2
+ 361              		.global	Sleep_Timer_WriteControlRegister
+ 362              		.code	16
+ 363              		.thumb_func
+ 364              		.type	Sleep_Timer_WriteControlRegister, %function
+ 365              	Sleep_Timer_WriteControlRegister:
+ 366              	.LFB10:
+ 364:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 365:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 366:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 367:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_WriteControlRegister
+ 368:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 369:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 370:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 371:Generated_Source\PSoC4/Sleep_Timer.c **** *  Sets the bit-field of the control register.
+ 372:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 373:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 374:Generated_Source\PSoC4/Sleep_Timer.c **** *  control: The contents of the control register
+ 375:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 14
+
+
+ 376:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 377:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 378:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 379:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_WriteControlRegister(uint8 control) 
+ 380:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 367              		.loc 1 380 0
+ 368              		.cfi_startproc
+ 369              		@ args = 0, pretend = 0, frame = 8
+ 370              		@ frame_needed = 1, uses_anonymous_args = 0
+ 371 0000 80B5     		push	{r7, lr}
+ 372              		.cfi_def_cfa_offset 8
+ 373              		.cfi_offset 7, -8
+ 374              		.cfi_offset 14, -4
+ 375 0002 82B0     		sub	sp, sp, #8
+ 376              		.cfi_def_cfa_offset 16
+ 377 0004 00AF     		add	r7, sp, #0
+ 378              		.cfi_def_cfa_register 7
+ 379 0006 0200     		movs	r2, r0
+ 380 0008 FB1D     		adds	r3, r7, #7
+ 381 000a 1A70     		strb	r2, [r3]
+ 381:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED) 
+ 382:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL = control;
+ 382              		.loc 1 382 0
+ 383 000c 034A     		ldr	r2, .L29
+ 384 000e FB1D     		adds	r3, r7, #7
+ 385 0010 1B78     		ldrb	r3, [r3]
+ 386 0012 1370     		strb	r3, [r2]
+ 383:Generated_Source\PSoC4/Sleep_Timer.c ****     #else
+ 384:Generated_Source\PSoC4/Sleep_Timer.c ****         control = 0u;
+ 385:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* (!Sleep_Timer_UDB_CONTROL_REG_REMOVED) */
+ 386:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 387              		.loc 1 386 0
+ 388 0014 C046     		nop
+ 389 0016 BD46     		mov	sp, r7
+ 390 0018 02B0     		add	sp, sp, #8
+ 391              		@ sp needed
+ 392 001a 80BD     		pop	{r7, pc}
+ 393              	.L30:
+ 394              		.align	2
+ 395              	.L29:
+ 396 001c 73000F40 		.word	1074724979
+ 397              		.cfi_endproc
+ 398              	.LFE10:
+ 399              		.size	Sleep_Timer_WriteControlRegister, .-Sleep_Timer_WriteControlRegister
+ 400              		.section	.text.Sleep_Timer_ReadPeriod,"ax",%progbits
+ 401              		.align	2
+ 402              		.global	Sleep_Timer_ReadPeriod
+ 403              		.code	16
+ 404              		.thumb_func
+ 405              		.type	Sleep_Timer_ReadPeriod, %function
+ 406              	Sleep_Timer_ReadPeriod:
+ 407              	.LFB11:
+ 387:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 388:Generated_Source\PSoC4/Sleep_Timer.c **** #endif /* Remove API if control register is unused */
+ 389:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 390:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 391:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 15
+
+
+ 392:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_ReadPeriod
+ 393:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 394:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 395:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 396:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function returns the current value of the Period.
+ 397:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 398:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 399:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 400:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 401:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 402:Generated_Source\PSoC4/Sleep_Timer.c **** *  The present value of the counter.
+ 403:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 404:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 405:Generated_Source\PSoC4/Sleep_Timer.c **** uint32 Sleep_Timer_ReadPeriod(void) 
+ 406:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 408              		.loc 1 406 0
+ 409              		.cfi_startproc
+ 410              		@ args = 0, pretend = 0, frame = 0
+ 411              		@ frame_needed = 1, uses_anonymous_args = 0
+ 412 0000 80B5     		push	{r7, lr}
+ 413              		.cfi_def_cfa_offset 8
+ 414              		.cfi_offset 7, -8
+ 415              		.cfi_offset 14, -4
+ 416 0002 00AF     		add	r7, sp, #0
+ 417              		.cfi_def_cfa_register 7
+ 407:Generated_Source\PSoC4/Sleep_Timer.c ****    #if(Sleep_Timer_UsingFixedFunction)
+ 408:Generated_Source\PSoC4/Sleep_Timer.c ****        return ((uint32)CY_GET_REG16(Sleep_Timer_PERIOD_LSB_PTR));
+ 409:Generated_Source\PSoC4/Sleep_Timer.c ****    #else
+ 410:Generated_Source\PSoC4/Sleep_Timer.c ****        return (CY_GET_REG32(Sleep_Timer_PERIOD_LSB_PTR));
+ 418              		.loc 1 410 0
+ 419 0004 024B     		ldr	r3, .L33
+ 420 0006 1B68     		ldr	r3, [r3]
+ 411:Generated_Source\PSoC4/Sleep_Timer.c ****    #endif /* (Sleep_Timer_UsingFixedFunction) */
+ 412:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 421              		.loc 1 412 0
+ 422 0008 1800     		movs	r0, r3
+ 423 000a BD46     		mov	sp, r7
+ 424              		@ sp needed
+ 425 000c 80BD     		pop	{r7, pc}
+ 426              	.L34:
+ 427 000e C046     		.align	2
+ 428              	.L33:
+ 429 0010 80200F40 		.word	1074733184
+ 430              		.cfi_endproc
+ 431              	.LFE11:
+ 432              		.size	Sleep_Timer_ReadPeriod, .-Sleep_Timer_ReadPeriod
+ 433              		.section	.text.Sleep_Timer_WritePeriod,"ax",%progbits
+ 434              		.align	2
+ 435              		.global	Sleep_Timer_WritePeriod
+ 436              		.code	16
+ 437              		.thumb_func
+ 438              		.type	Sleep_Timer_WritePeriod, %function
+ 439              	Sleep_Timer_WritePeriod:
+ 440              	.LFB12:
+ 413:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 414:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 415:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 16
+
+
+ 416:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_WritePeriod
+ 417:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 418:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 419:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 420:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function is used to change the period of the counter.  The new period
+ 421:Generated_Source\PSoC4/Sleep_Timer.c **** *  will be loaded the next time terminal count is detected.
+ 422:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 423:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 424:Generated_Source\PSoC4/Sleep_Timer.c **** *  period: This value may be between 1 and (2^Resolution)-1.  A value of 0 will
+ 425:Generated_Source\PSoC4/Sleep_Timer.c **** *          result in the counter remaining at zero.
+ 426:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 427:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 428:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 429:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 430:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 431:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_WritePeriod(uint32 period) 
+ 432:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 441              		.loc 1 432 0
+ 442              		.cfi_startproc
+ 443              		@ args = 0, pretend = 0, frame = 8
+ 444              		@ frame_needed = 1, uses_anonymous_args = 0
+ 445 0000 80B5     		push	{r7, lr}
+ 446              		.cfi_def_cfa_offset 8
+ 447              		.cfi_offset 7, -8
+ 448              		.cfi_offset 14, -4
+ 449 0002 82B0     		sub	sp, sp, #8
+ 450              		.cfi_def_cfa_offset 16
+ 451 0004 00AF     		add	r7, sp, #0
+ 452              		.cfi_def_cfa_register 7
+ 453 0006 7860     		str	r0, [r7, #4]
+ 433:Generated_Source\PSoC4/Sleep_Timer.c ****     #if(Sleep_Timer_UsingFixedFunction)
+ 434:Generated_Source\PSoC4/Sleep_Timer.c ****         uint16 period_temp = (uint16)period;
+ 435:Generated_Source\PSoC4/Sleep_Timer.c ****         CY_SET_REG16(Sleep_Timer_PERIOD_LSB_PTR, period_temp);
+ 436:Generated_Source\PSoC4/Sleep_Timer.c ****     #else
+ 437:Generated_Source\PSoC4/Sleep_Timer.c ****         CY_SET_REG32(Sleep_Timer_PERIOD_LSB_PTR, period);
+ 454              		.loc 1 437 0
+ 455 0008 034B     		ldr	r3, .L36
+ 456 000a 7A68     		ldr	r2, [r7, #4]
+ 457 000c 1A60     		str	r2, [r3]
+ 438:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /*Write Period value with appropriate resolution suffix depending on UDB or fixed functi
+ 439:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 458              		.loc 1 439 0
+ 459 000e C046     		nop
+ 460 0010 BD46     		mov	sp, r7
+ 461 0012 02B0     		add	sp, sp, #8
+ 462              		@ sp needed
+ 463 0014 80BD     		pop	{r7, pc}
+ 464              	.L37:
+ 465 0016 C046     		.align	2
+ 466              	.L36:
+ 467 0018 80200F40 		.word	1074733184
+ 468              		.cfi_endproc
+ 469              	.LFE12:
+ 470              		.size	Sleep_Timer_WritePeriod, .-Sleep_Timer_WritePeriod
+ 471              		.section	.text.Sleep_Timer_ReadCapture,"ax",%progbits
+ 472              		.align	2
+ 473              		.global	Sleep_Timer_ReadCapture
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 17
+
+
+ 474              		.code	16
+ 475              		.thumb_func
+ 476              		.type	Sleep_Timer_ReadCapture, %function
+ 477              	Sleep_Timer_ReadCapture:
+ 478              	.LFB13:
+ 440:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 441:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 442:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 443:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_ReadCapture
+ 444:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 445:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 446:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 447:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function returns the last value captured.
+ 448:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 449:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 450:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 451:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 452:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 453:Generated_Source\PSoC4/Sleep_Timer.c **** *  Present Capture value.
+ 454:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 455:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 456:Generated_Source\PSoC4/Sleep_Timer.c **** uint32 Sleep_Timer_ReadCapture(void) 
+ 457:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 479              		.loc 1 457 0
+ 480              		.cfi_startproc
+ 481              		@ args = 0, pretend = 0, frame = 0
+ 482              		@ frame_needed = 1, uses_anonymous_args = 0
+ 483 0000 80B5     		push	{r7, lr}
+ 484              		.cfi_def_cfa_offset 8
+ 485              		.cfi_offset 7, -8
+ 486              		.cfi_offset 14, -4
+ 487 0002 00AF     		add	r7, sp, #0
+ 488              		.cfi_def_cfa_register 7
+ 458:Generated_Source\PSoC4/Sleep_Timer.c ****    #if(Sleep_Timer_UsingFixedFunction)
+ 459:Generated_Source\PSoC4/Sleep_Timer.c ****        return ((uint32)CY_GET_REG16(Sleep_Timer_CAPTURE_LSB_PTR));
+ 460:Generated_Source\PSoC4/Sleep_Timer.c ****    #else
+ 461:Generated_Source\PSoC4/Sleep_Timer.c ****        return (CY_GET_REG32(Sleep_Timer_CAPTURE_LSB_PTR));
+ 489              		.loc 1 461 0
+ 490 0004 024B     		ldr	r3, .L40
+ 491 0006 1B68     		ldr	r3, [r3]
+ 462:Generated_Source\PSoC4/Sleep_Timer.c ****    #endif /* (Sleep_Timer_UsingFixedFunction) */
+ 463:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 492              		.loc 1 463 0
+ 493 0008 1800     		movs	r0, r3
+ 494 000a BD46     		mov	sp, r7
+ 495              		@ sp needed
+ 496 000c 80BD     		pop	{r7, pc}
+ 497              	.L41:
+ 498 000e C046     		.align	2
+ 499              	.L40:
+ 500 0010 00210F40 		.word	1074733312
+ 501              		.cfi_endproc
+ 502              	.LFE13:
+ 503              		.size	Sleep_Timer_ReadCapture, .-Sleep_Timer_ReadCapture
+ 504              		.section	.text.Sleep_Timer_WriteCounter,"ax",%progbits
+ 505              		.align	2
+ 506              		.global	Sleep_Timer_WriteCounter
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 18
+
+
+ 507              		.code	16
+ 508              		.thumb_func
+ 509              		.type	Sleep_Timer_WriteCounter, %function
+ 510              	Sleep_Timer_WriteCounter:
+ 511              	.LFB14:
+ 464:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 465:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 466:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 467:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_WriteCounter
+ 468:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 469:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 470:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 471:Generated_Source\PSoC4/Sleep_Timer.c **** *  This funtion is used to set the counter to a specific value
+ 472:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 473:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 474:Generated_Source\PSoC4/Sleep_Timer.c **** *  counter:  New counter value.
+ 475:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 476:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 477:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 478:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 479:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 480:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_WriteCounter(uint32 counter) 
+ 481:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 512              		.loc 1 481 0
+ 513              		.cfi_startproc
+ 514              		@ args = 0, pretend = 0, frame = 8
+ 515              		@ frame_needed = 1, uses_anonymous_args = 0
+ 516 0000 80B5     		push	{r7, lr}
+ 517              		.cfi_def_cfa_offset 8
+ 518              		.cfi_offset 7, -8
+ 519              		.cfi_offset 14, -4
+ 520 0002 82B0     		sub	sp, sp, #8
+ 521              		.cfi_def_cfa_offset 16
+ 522 0004 00AF     		add	r7, sp, #0
+ 523              		.cfi_def_cfa_register 7
+ 524 0006 7860     		str	r0, [r7, #4]
+ 482:Generated_Source\PSoC4/Sleep_Timer.c ****    #if(Sleep_Timer_UsingFixedFunction)
+ 483:Generated_Source\PSoC4/Sleep_Timer.c ****         /* This functionality is removed until a FixedFunction HW update to
+ 484:Generated_Source\PSoC4/Sleep_Timer.c ****          * allow this register to be written
+ 485:Generated_Source\PSoC4/Sleep_Timer.c ****          */
+ 486:Generated_Source\PSoC4/Sleep_Timer.c ****         CY_SET_REG16(Sleep_Timer_COUNTER_LSB_PTR, (uint16)counter);
+ 487:Generated_Source\PSoC4/Sleep_Timer.c ****         
+ 488:Generated_Source\PSoC4/Sleep_Timer.c ****     #else
+ 489:Generated_Source\PSoC4/Sleep_Timer.c ****         CY_SET_REG32(Sleep_Timer_COUNTER_LSB_PTR, counter);
+ 525              		.loc 1 489 0
+ 526 0008 034B     		ldr	r3, .L43
+ 527 000a 7A68     		ldr	r2, [r7, #4]
+ 528 000c 1A60     		str	r2, [r3]
+ 490:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Set Write Counter only for the UDB implementation (Write Counter not available in fix
+ 491:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 529              		.loc 1 491 0
+ 530 000e C046     		nop
+ 531 0010 BD46     		mov	sp, r7
+ 532 0012 02B0     		add	sp, sp, #8
+ 533              		@ sp needed
+ 534 0014 80BD     		pop	{r7, pc}
+ 535              	.L44:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 19
+
+
+ 536 0016 C046     		.align	2
+ 537              	.L43:
+ 538 0018 00200F40 		.word	1074733056
+ 539              		.cfi_endproc
+ 540              	.LFE14:
+ 541              		.size	Sleep_Timer_WriteCounter, .-Sleep_Timer_WriteCounter
+ 542              		.section	.text.Sleep_Timer_ReadCounter,"ax",%progbits
+ 543              		.align	2
+ 544              		.global	Sleep_Timer_ReadCounter
+ 545              		.code	16
+ 546              		.thumb_func
+ 547              		.type	Sleep_Timer_ReadCounter, %function
+ 548              	Sleep_Timer_ReadCounter:
+ 549              	.LFB15:
+ 492:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 493:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 494:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 495:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_ReadCounter
+ 496:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 497:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 498:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 499:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function returns the current counter value.
+ 500:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 501:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 502:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 503:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 504:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 505:Generated_Source\PSoC4/Sleep_Timer.c **** *  Present compare value.
+ 506:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 507:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 508:Generated_Source\PSoC4/Sleep_Timer.c **** uint32 Sleep_Timer_ReadCounter(void) 
+ 509:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 550              		.loc 1 509 0
+ 551              		.cfi_startproc
+ 552              		@ args = 0, pretend = 0, frame = 0
+ 553              		@ frame_needed = 1, uses_anonymous_args = 0
+ 554 0000 80B5     		push	{r7, lr}
+ 555              		.cfi_def_cfa_offset 8
+ 556              		.cfi_offset 7, -8
+ 557              		.cfi_offset 14, -4
+ 558 0002 00AF     		add	r7, sp, #0
+ 559              		.cfi_def_cfa_register 7
+ 510:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Force capture by reading Accumulator */
+ 511:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Must first do a software capture to be able to read the counter */
+ 512:Generated_Source\PSoC4/Sleep_Timer.c ****     /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 513:Generated_Source\PSoC4/Sleep_Timer.c ****     #if(Sleep_Timer_UsingFixedFunction)
+ 514:Generated_Source\PSoC4/Sleep_Timer.c ****         (void)CY_GET_REG16(Sleep_Timer_COUNTER_LSB_PTR);
+ 515:Generated_Source\PSoC4/Sleep_Timer.c ****     #else
+ 516:Generated_Source\PSoC4/Sleep_Timer.c ****         (void)CY_GET_REG8(Sleep_Timer_COUNTER_LSB_PTR_8BIT);
+ 560              		.loc 1 516 0
+ 561 0004 034B     		ldr	r3, .L47
+ 562 0006 1B78     		ldrb	r3, [r3]
+ 517:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif/* (Sleep_Timer_UsingFixedFunction) */
+ 518:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 519:Generated_Source\PSoC4/Sleep_Timer.c ****     /* Read the data from the FIFO (or capture register for Fixed Function)*/
+ 520:Generated_Source\PSoC4/Sleep_Timer.c ****     #if(Sleep_Timer_UsingFixedFunction)
+ 521:Generated_Source\PSoC4/Sleep_Timer.c ****         return ((uint32)CY_GET_REG16(Sleep_Timer_CAPTURE_LSB_PTR));
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 20
+
+
+ 522:Generated_Source\PSoC4/Sleep_Timer.c ****     #else
+ 523:Generated_Source\PSoC4/Sleep_Timer.c ****         return (CY_GET_REG32(Sleep_Timer_CAPTURE_LSB_PTR));
+ 563              		.loc 1 523 0
+ 564 0008 034B     		ldr	r3, .L47+4
+ 565 000a 1B68     		ldr	r3, [r3]
+ 524:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* (Sleep_Timer_UsingFixedFunction) */
+ 525:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 566              		.loc 1 525 0
+ 567 000c 1800     		movs	r0, r3
+ 568 000e BD46     		mov	sp, r7
+ 569              		@ sp needed
+ 570 0010 80BD     		pop	{r7, pc}
+ 571              	.L48:
+ 572 0012 C046     		.align	2
+ 573              	.L47:
+ 574 0014 00000F40 		.word	1074724864
+ 575 0018 00210F40 		.word	1074733312
+ 576              		.cfi_endproc
+ 577              	.LFE15:
+ 578              		.size	Sleep_Timer_ReadCounter, .-Sleep_Timer_ReadCounter
+ 579              		.section	.text.Sleep_Timer_ClearFIFO,"ax",%progbits
+ 580              		.align	2
+ 581              		.global	Sleep_Timer_ClearFIFO
+ 582              		.code	16
+ 583              		.thumb_func
+ 584              		.type	Sleep_Timer_ClearFIFO, %function
+ 585              	Sleep_Timer_ClearFIFO:
+ 586              	.LFB16:
+ 526:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 527:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 528:Generated_Source\PSoC4/Sleep_Timer.c **** #if(!Sleep_Timer_UsingFixedFunction) /* UDB Specific Functions */
+ 529:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 530:Generated_Source\PSoC4/Sleep_Timer.c ****     
+ 531:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 532:Generated_Source\PSoC4/Sleep_Timer.c ****  * The functions below this point are only available using the UDB
+ 533:Generated_Source\PSoC4/Sleep_Timer.c ****  * implementation.  If a feature is selected, then the API is enabled.
+ 534:Generated_Source\PSoC4/Sleep_Timer.c ****  ******************************************************************************/
+ 535:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 536:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 537:Generated_Source\PSoC4/Sleep_Timer.c **** #if (Sleep_Timer_SoftwareCaptureMode)
+ 538:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 539:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 540:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 541:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_SetCaptureMode
+ 542:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 543:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 544:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 545:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function sets the capture mode to either rising or falling edge.
+ 546:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 547:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 548:Generated_Source\PSoC4/Sleep_Timer.c **** *  captureMode: This parameter sets the capture mode of the UDB capture feature
+ 549:Generated_Source\PSoC4/Sleep_Timer.c **** *  The parameter values are defined using the
+ 550:Generated_Source\PSoC4/Sleep_Timer.c **** *  #define Sleep_Timer__B_TIMER__CM_NONE 0
+ 551:Generated_Source\PSoC4/Sleep_Timer.c **** #define Sleep_Timer__B_TIMER__CM_RISINGEDGE 1
+ 552:Generated_Source\PSoC4/Sleep_Timer.c **** #define Sleep_Timer__B_TIMER__CM_FALLINGEDGE 2
+ 553:Generated_Source\PSoC4/Sleep_Timer.c **** #define Sleep_Timer__B_TIMER__CM_EITHEREDGE 3
+ 554:Generated_Source\PSoC4/Sleep_Timer.c **** #define Sleep_Timer__B_TIMER__CM_SOFTWARE 4
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 21
+
+
+ 555:Generated_Source\PSoC4/Sleep_Timer.c ****  identifiers
+ 556:Generated_Source\PSoC4/Sleep_Timer.c **** *  The following are the possible values of the parameter
+ 557:Generated_Source\PSoC4/Sleep_Timer.c **** *  Sleep_Timer__B_TIMER__CM_NONE        - Set Capture mode to None
+ 558:Generated_Source\PSoC4/Sleep_Timer.c **** *  Sleep_Timer__B_TIMER__CM_RISINGEDGE  - Rising edge of Capture input
+ 559:Generated_Source\PSoC4/Sleep_Timer.c **** *  Sleep_Timer__B_TIMER__CM_FALLINGEDGE - Falling edge of Capture input
+ 560:Generated_Source\PSoC4/Sleep_Timer.c **** *  Sleep_Timer__B_TIMER__CM_EITHEREDGE  - Either edge of Capture input
+ 561:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 562:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 563:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 564:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 565:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 566:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_SetCaptureMode(uint8 captureMode) 
+ 567:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 568:Generated_Source\PSoC4/Sleep_Timer.c ****     /* This must only set to two bits of the control register associated */
+ 569:Generated_Source\PSoC4/Sleep_Timer.c ****     captureMode = ((uint8)((uint8)captureMode << Sleep_Timer_CTRL_CAP_MODE_SHIFT));
+ 570:Generated_Source\PSoC4/Sleep_Timer.c ****     captureMode &= (Sleep_Timer_CTRL_CAP_MODE_MASK);
+ 571:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 572:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED)
+ 573:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Clear the Current Setting */
+ 574:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL &= ((uint8)(~Sleep_Timer_CTRL_CAP_MODE_MASK));
+ 575:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 576:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Write The New Setting */
+ 577:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL |= captureMode;
+ 578:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* (!Sleep_Timer_UDB_CONTROL_REG_REMOVED) */
+ 579:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 580:Generated_Source\PSoC4/Sleep_Timer.c **** #endif /* Remove API if Capture Mode is not Software Controlled */
+ 581:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 582:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 583:Generated_Source\PSoC4/Sleep_Timer.c **** #if (Sleep_Timer_SoftwareTriggerMode)
+ 584:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 585:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 586:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 587:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_SetTriggerMode
+ 588:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 589:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 590:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 591:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function sets the trigger input mode
+ 592:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 593:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 594:Generated_Source\PSoC4/Sleep_Timer.c **** *  triggerMode: Pass one of the pre-defined Trigger Modes (except Software)
+ 595:Generated_Source\PSoC4/Sleep_Timer.c ****     #define Sleep_Timer__B_TIMER__TM_NONE 0x00u
+ 596:Generated_Source\PSoC4/Sleep_Timer.c ****     #define Sleep_Timer__B_TIMER__TM_RISINGEDGE 0x04u
+ 597:Generated_Source\PSoC4/Sleep_Timer.c ****     #define Sleep_Timer__B_TIMER__TM_FALLINGEDGE 0x08u
+ 598:Generated_Source\PSoC4/Sleep_Timer.c ****     #define Sleep_Timer__B_TIMER__TM_EITHEREDGE 0x0Cu
+ 599:Generated_Source\PSoC4/Sleep_Timer.c ****     #define Sleep_Timer__B_TIMER__TM_SOFTWARE 0x10u
+ 600:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 601:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 602:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 603:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 604:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 605:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_SetTriggerMode(uint8 triggerMode) 
+ 606:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 607:Generated_Source\PSoC4/Sleep_Timer.c ****     /* This must only set to two bits of the control register associated */
+ 608:Generated_Source\PSoC4/Sleep_Timer.c ****     triggerMode &= Sleep_Timer_CTRL_TRIG_MODE_MASK;
+ 609:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 610:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED)   /* Remove assignment if control register is remove
+ 611:Generated_Source\PSoC4/Sleep_Timer.c ****     
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 22
+
+
+ 612:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Clear the Current Setting */
+ 613:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL &= ((uint8)(~Sleep_Timer_CTRL_TRIG_MODE_MASK));
+ 614:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 615:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Write The New Setting */
+ 616:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL |= (triggerMode | Sleep_Timer__B_TIMER__TM_SOFTWARE);
+ 617:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Remove code section if control register is not used */
+ 618:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 619:Generated_Source\PSoC4/Sleep_Timer.c **** #endif /* Remove API if Trigger Mode is not Software Controlled */
+ 620:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 621:Generated_Source\PSoC4/Sleep_Timer.c **** #if (Sleep_Timer_EnableTriggerMode)
+ 622:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 623:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 624:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 625:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_EnableTrigger
+ 626:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 627:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 628:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 629:Generated_Source\PSoC4/Sleep_Timer.c **** *  Sets the control bit enabling Hardware Trigger mode
+ 630:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 631:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 632:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 633:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 634:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 635:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 636:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 637:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 638:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_EnableTrigger(void) 
+ 639:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 640:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED)   /* Remove assignment if control register is remove
+ 641:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL |= Sleep_Timer_CTRL_TRIG_EN;
+ 642:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Remove code section if control register is not used */
+ 643:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 644:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 645:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 646:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 647:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_DisableTrigger
+ 648:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 649:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 650:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 651:Generated_Source\PSoC4/Sleep_Timer.c **** *  Clears the control bit enabling Hardware Trigger mode
+ 652:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 653:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 654:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 655:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 656:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 657:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 658:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 659:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 660:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_DisableTrigger(void) 
+ 661:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 662:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED )   /* Remove assignment if control register is remov
+ 663:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL &= ((uint8)(~Sleep_Timer_CTRL_TRIG_EN));
+ 664:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* Remove code section if control register is not used */
+ 665:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 666:Generated_Source\PSoC4/Sleep_Timer.c **** #endif /* Remove API is Trigger Mode is set to None */
+ 667:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 668:Generated_Source\PSoC4/Sleep_Timer.c **** #if(Sleep_Timer_InterruptOnCaptureCount)
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 23
+
+
+ 669:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 670:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 671:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 672:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_SetInterruptCount
+ 673:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 674:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 675:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 676:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function sets the capture count before an interrupt is triggered.
+ 677:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 678:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 679:Generated_Source\PSoC4/Sleep_Timer.c **** *  interruptCount:  A value between 0 and 3 is valid.  If the value is 0, then
+ 680:Generated_Source\PSoC4/Sleep_Timer.c **** *                   an interrupt will occur each time a capture occurs.
+ 681:Generated_Source\PSoC4/Sleep_Timer.c **** *                   A value of 1 to 3 will cause the interrupt
+ 682:Generated_Source\PSoC4/Sleep_Timer.c **** *                   to delay by the same number of captures.
+ 683:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 684:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 685:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 686:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 687:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 688:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_SetInterruptCount(uint8 interruptCount) 
+ 689:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 690:Generated_Source\PSoC4/Sleep_Timer.c ****     /* This must only set to two bits of the control register associated */
+ 691:Generated_Source\PSoC4/Sleep_Timer.c ****     interruptCount &= Sleep_Timer_CTRL_INTCNT_MASK;
+ 692:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 693:Generated_Source\PSoC4/Sleep_Timer.c ****     #if (!Sleep_Timer_UDB_CONTROL_REG_REMOVED)
+ 694:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Clear the Current Setting */
+ 695:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL &= ((uint8)(~Sleep_Timer_CTRL_INTCNT_MASK));
+ 696:Generated_Source\PSoC4/Sleep_Timer.c ****         /* Write The New Setting */
+ 697:Generated_Source\PSoC4/Sleep_Timer.c ****         Sleep_Timer_CONTROL |= interruptCount;
+ 698:Generated_Source\PSoC4/Sleep_Timer.c ****     #endif /* (!Sleep_Timer_UDB_CONTROL_REG_REMOVED) */
+ 699:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 700:Generated_Source\PSoC4/Sleep_Timer.c **** #endif /* Sleep_Timer_InterruptOnCaptureCount */
+ 701:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 702:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 703:Generated_Source\PSoC4/Sleep_Timer.c **** #if (Sleep_Timer_UsingHWCaptureCounter)
+ 704:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 705:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 706:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 707:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_SetCaptureCount
+ 708:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 709:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 710:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 711:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function sets the capture count
+ 712:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 713:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 714:Generated_Source\PSoC4/Sleep_Timer.c **** *  captureCount: A value between 2 and 127 inclusive is valid.  A value of 1
+ 715:Generated_Source\PSoC4/Sleep_Timer.c **** *                to 127 will cause the interrupt to delay by the same number of
+ 716:Generated_Source\PSoC4/Sleep_Timer.c **** *                captures.
+ 717:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 718:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 719:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 720:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 721:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 722:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_SetCaptureCount(uint8 captureCount) 
+ 723:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 724:Generated_Source\PSoC4/Sleep_Timer.c ****     Sleep_Timer_CAP_COUNT = captureCount;
+ 725:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 24
+
+
+ 726:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 727:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 728:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 729:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_ReadCaptureCount
+ 730:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 731:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 732:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 733:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function reads the capture count setting
+ 734:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 735:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 736:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 737:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 738:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 739:Generated_Source\PSoC4/Sleep_Timer.c **** *  Returns the Capture Count Setting
+ 740:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 741:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 742:Generated_Source\PSoC4/Sleep_Timer.c **** uint8 Sleep_Timer_ReadCaptureCount(void) 
+ 743:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 744:Generated_Source\PSoC4/Sleep_Timer.c ****     return ((uint8)Sleep_Timer_CAP_COUNT);
+ 745:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 746:Generated_Source\PSoC4/Sleep_Timer.c **** #endif /* Sleep_Timer_UsingHWCaptureCounter */
+ 747:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 748:Generated_Source\PSoC4/Sleep_Timer.c **** 
+ 749:Generated_Source\PSoC4/Sleep_Timer.c **** /*******************************************************************************
+ 750:Generated_Source\PSoC4/Sleep_Timer.c **** * Function Name: Sleep_Timer_ClearFIFO
+ 751:Generated_Source\PSoC4/Sleep_Timer.c **** ********************************************************************************
+ 752:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 753:Generated_Source\PSoC4/Sleep_Timer.c **** * Summary:
+ 754:Generated_Source\PSoC4/Sleep_Timer.c **** *  This function clears all capture data from the capture FIFO
+ 755:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 756:Generated_Source\PSoC4/Sleep_Timer.c **** * Parameters:
+ 757:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 758:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 759:Generated_Source\PSoC4/Sleep_Timer.c **** * Return:
+ 760:Generated_Source\PSoC4/Sleep_Timer.c **** *  void
+ 761:Generated_Source\PSoC4/Sleep_Timer.c **** *
+ 762:Generated_Source\PSoC4/Sleep_Timer.c **** *******************************************************************************/
+ 763:Generated_Source\PSoC4/Sleep_Timer.c **** void Sleep_Timer_ClearFIFO(void) 
+ 764:Generated_Source\PSoC4/Sleep_Timer.c **** {
+ 587              		.loc 1 764 0
+ 588              		.cfi_startproc
+ 589              		@ args = 0, pretend = 0, frame = 0
+ 590              		@ frame_needed = 1, uses_anonymous_args = 0
+ 591 0000 80B5     		push	{r7, lr}
+ 592              		.cfi_def_cfa_offset 8
+ 593              		.cfi_offset 7, -8
+ 594              		.cfi_offset 14, -4
+ 595 0002 00AF     		add	r7, sp, #0
+ 596              		.cfi_def_cfa_register 7
+ 765:Generated_Source\PSoC4/Sleep_Timer.c ****     while(0u != (Sleep_Timer_ReadStatusRegister() & Sleep_Timer_STATUS_FIFONEMP))
+ 597              		.loc 1 765 0
+ 598 0004 01E0     		b	.L50
+ 599              	.L51:
+ 766:Generated_Source\PSoC4/Sleep_Timer.c ****     {
+ 767:Generated_Source\PSoC4/Sleep_Timer.c ****         (void)Sleep_Timer_ReadCapture();
+ 600              		.loc 1 767 0
+ 601 0006 FFF7FEFF 		bl	Sleep_Timer_ReadCapture
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 25
+
+
+ 602              	.L50:
+ 765:Generated_Source\PSoC4/Sleep_Timer.c ****     while(0u != (Sleep_Timer_ReadStatusRegister() & Sleep_Timer_STATUS_FIFONEMP))
+ 603              		.loc 1 765 0
+ 604 000a FFF7FEFF 		bl	Sleep_Timer_ReadStatusRegister
+ 605 000e 0300     		movs	r3, r0
+ 606 0010 1A00     		movs	r2, r3
+ 607 0012 0823     		movs	r3, #8
+ 608 0014 1340     		ands	r3, r2
+ 609 0016 F6D1     		bne	.L51
+ 768:Generated_Source\PSoC4/Sleep_Timer.c ****     }
+ 769:Generated_Source\PSoC4/Sleep_Timer.c **** }
+ 610              		.loc 1 769 0
+ 611 0018 C046     		nop
+ 612 001a BD46     		mov	sp, r7
+ 613              		@ sp needed
+ 614 001c 80BD     		pop	{r7, pc}
+ 615              		.cfi_endproc
+ 616              	.LFE16:
+ 617              		.size	Sleep_Timer_ClearFIFO, .-Sleep_Timer_ClearFIFO
+ 618 001e C046     		.text
+ 619              	.Letext0:
+ 620              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 621              		.section	.debug_info,"",%progbits
+ 622              	.Ldebug_info0:
+ 623 0000 57020000 		.4byte	0x257
+ 624 0004 0400     		.2byte	0x4
+ 625 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 626 000a 04       		.byte	0x4
+ 627 000b 01       		.uleb128 0x1
+ 628 000c 45010000 		.4byte	.LASF37
+ 629 0010 0C       		.byte	0xc
+ 630 0011 E4000000 		.4byte	.LASF38
+ 631 0015 38000000 		.4byte	.LASF39
+ 632 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 633 001d 00000000 		.4byte	0
+ 634 0021 00000000 		.4byte	.Ldebug_line0
+ 635 0025 02       		.uleb128 0x2
+ 636 0026 01       		.byte	0x1
+ 637 0027 06       		.byte	0x6
+ 638 0028 5D030000 		.4byte	.LASF0
+ 639 002c 02       		.uleb128 0x2
+ 640 002d 01       		.byte	0x1
+ 641 002e 08       		.byte	0x8
+ 642 002f B8000000 		.4byte	.LASF1
+ 643 0033 02       		.uleb128 0x2
+ 644 0034 02       		.byte	0x2
+ 645 0035 05       		.byte	0x5
+ 646 0036 F2020000 		.4byte	.LASF2
+ 647 003a 02       		.uleb128 0x2
+ 648 003b 02       		.byte	0x2
+ 649 003c 07       		.byte	0x7
+ 650 003d 25000000 		.4byte	.LASF3
+ 651 0041 02       		.uleb128 0x2
+ 652 0042 04       		.byte	0x4
+ 653 0043 05       		.byte	0x5
+ 654 0044 22030000 		.4byte	.LASF4
+ 655 0048 02       		.uleb128 0x2
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 26
+
+
+ 656 0049 04       		.byte	0x4
+ 657 004a 07       		.byte	0x7
+ 658 004b 09010000 		.4byte	.LASF5
+ 659 004f 02       		.uleb128 0x2
+ 660 0050 08       		.byte	0x8
+ 661 0051 05       		.byte	0x5
+ 662 0052 D6020000 		.4byte	.LASF6
+ 663 0056 02       		.uleb128 0x2
+ 664 0057 08       		.byte	0x8
+ 665 0058 07       		.byte	0x7
+ 666 0059 52020000 		.4byte	.LASF7
+ 667 005d 03       		.uleb128 0x3
+ 668 005e 04       		.byte	0x4
+ 669 005f 05       		.byte	0x5
+ 670 0060 696E7400 		.ascii	"int\000"
+ 671 0064 02       		.uleb128 0x2
+ 672 0065 04       		.byte	0x4
+ 673 0066 07       		.byte	0x7
+ 674 0067 34020000 		.4byte	.LASF8
+ 675 006b 04       		.uleb128 0x4
+ 676 006c 1B010000 		.4byte	.LASF9
+ 677 0070 02       		.byte	0x2
+ 678 0071 D201     		.2byte	0x1d2
+ 679 0073 2C000000 		.4byte	0x2c
+ 680 0077 04       		.uleb128 0x4
+ 681 0078 0D020000 		.4byte	.LASF10
+ 682 007c 02       		.byte	0x2
+ 683 007d D401     		.2byte	0x1d4
+ 684 007f 48000000 		.4byte	0x48
+ 685 0083 02       		.uleb128 0x2
+ 686 0084 04       		.byte	0x4
+ 687 0085 04       		.byte	0x4
+ 688 0086 94000000 		.4byte	.LASF11
+ 689 008a 02       		.uleb128 0x2
+ 690 008b 08       		.byte	0x8
+ 691 008c 04       		.byte	0x4
+ 692 008d EB010000 		.4byte	.LASF12
+ 693 0091 02       		.uleb128 0x2
+ 694 0092 01       		.byte	0x1
+ 695 0093 08       		.byte	0x8
+ 696 0094 2B030000 		.4byte	.LASF13
+ 697 0098 04       		.uleb128 0x4
+ 698 0099 DF000000 		.4byte	.LASF14
+ 699 009d 02       		.byte	0x2
+ 700 009e 7C02     		.2byte	0x27c
+ 701 00a0 A4000000 		.4byte	0xa4
+ 702 00a4 05       		.uleb128 0x5
+ 703 00a5 6B000000 		.4byte	0x6b
+ 704 00a9 04       		.uleb128 0x4
+ 705 00aa 00000000 		.4byte	.LASF15
+ 706 00ae 02       		.byte	0x2
+ 707 00af 7E02     		.2byte	0x27e
+ 708 00b1 B5000000 		.4byte	0xb5
+ 709 00b5 05       		.uleb128 0x5
+ 710 00b6 77000000 		.4byte	0x77
+ 711 00ba 02       		.uleb128 0x2
+ 712 00bb 08       		.byte	0x8
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 27
+
+
+ 713 00bc 04       		.byte	0x4
+ 714 00bd 30030000 		.4byte	.LASF16
+ 715 00c1 02       		.uleb128 0x2
+ 716 00c2 04       		.byte	0x4
+ 717 00c3 07       		.byte	0x7
+ 718 00c4 CD020000 		.4byte	.LASF17
+ 719 00c8 06       		.uleb128 0x6
+ 720 00c9 41020000 		.4byte	.LASF21
+ 721 00cd 01       		.byte	0x1
+ 722 00ce 2B       		.byte	0x2b
+ 723 00cf 00000000 		.4byte	.LFB2
+ 724 00d3 54000000 		.4byte	.LFE2-.LFB2
+ 725 00d7 01       		.uleb128 0x1
+ 726 00d8 9C       		.byte	0x9c
+ 727 00d9 EC000000 		.4byte	0xec
+ 728 00dd 07       		.uleb128 0x7
+ 729 00de F2010000 		.4byte	.LASF40
+ 730 00e2 01       		.byte	0x1
+ 731 00e3 2F       		.byte	0x2f
+ 732 00e4 6B000000 		.4byte	0x6b
+ 733 00e8 02       		.uleb128 0x2
+ 734 00e9 91       		.byte	0x91
+ 735 00ea 6F       		.sleb128 -17
+ 736 00eb 00       		.byte	0
+ 737 00ec 08       		.uleb128 0x8
+ 738 00ed 81000000 		.4byte	.LASF18
+ 739 00f1 01       		.byte	0x1
+ 740 00f2 B4       		.byte	0xb4
+ 741 00f3 00000000 		.4byte	.LFB3
+ 742 00f7 20000000 		.4byte	.LFE3-.LFB3
+ 743 00fb 01       		.uleb128 0x1
+ 744 00fc 9C       		.byte	0x9c
+ 745 00fd 09       		.uleb128 0x9
+ 746 00fe FC020000 		.4byte	.LASF19
+ 747 0102 01       		.byte	0x1
+ 748 0103 D7       		.byte	0xd7
+ 749 0104 00000000 		.4byte	.LFB4
+ 750 0108 24000000 		.4byte	.LFE4-.LFB4
+ 751 010c 01       		.uleb128 0x1
+ 752 010d 9C       		.byte	0x9c
+ 753 010e 08       		.uleb128 0x8
+ 754 010f BC020000 		.4byte	.LASF20
+ 755 0113 01       		.byte	0x1
+ 756 0114 F7       		.byte	0xf7
+ 757 0115 00000000 		.4byte	.LFB5
+ 758 0119 20000000 		.4byte	.LFE5-.LFB5
+ 759 011d 01       		.uleb128 0x1
+ 760 011e 9C       		.byte	0x9c
+ 761 011f 0A       		.uleb128 0xa
+ 762 0120 9F020000 		.4byte	.LASF22
+ 763 0124 01       		.byte	0x1
+ 764 0125 1701     		.2byte	0x117
+ 765 0127 00000000 		.4byte	.LFB6
+ 766 012b 20000000 		.4byte	.LFE6-.LFB6
+ 767 012f 01       		.uleb128 0x1
+ 768 0130 9C       		.byte	0x9c
+ 769 0131 45010000 		.4byte	0x145
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 28
+
+
+ 770 0135 0B       		.uleb128 0xb
+ 771 0136 E4020000 		.4byte	.LASF27
+ 772 013a 01       		.byte	0x1
+ 773 013b 1701     		.2byte	0x117
+ 774 013d 6B000000 		.4byte	0x6b
+ 775 0141 02       		.uleb128 0x2
+ 776 0142 91       		.byte	0x91
+ 777 0143 77       		.sleb128 -9
+ 778 0144 00       		.byte	0
+ 779 0145 0C       		.uleb128 0xc
+ 780 0146 29010000 		.4byte	.LASF23
+ 781 014a 01       		.byte	0x1
+ 782 014b 2E01     		.2byte	0x12e
+ 783 014d 00000000 		.4byte	.LFB7
+ 784 0151 14000000 		.4byte	.LFE7-.LFB7
+ 785 0155 01       		.uleb128 0x1
+ 786 0156 9C       		.byte	0x9c
+ 787 0157 0D       		.uleb128 0xd
+ 788 0158 80020000 		.4byte	.LASF24
+ 789 015c 01       		.byte	0x1
+ 790 015d 4D01     		.2byte	0x14d
+ 791 015f 6B000000 		.4byte	0x6b
+ 792 0163 00000000 		.4byte	.LFB8
+ 793 0167 14000000 		.4byte	.LFE8-.LFB8
+ 794 016b 01       		.uleb128 0x1
+ 795 016c 9C       		.byte	0x9c
+ 796 016d 0D       		.uleb128 0xd
+ 797 016e 14020000 		.4byte	.LASF25
+ 798 0172 01       		.byte	0x1
+ 799 0173 6401     		.2byte	0x164
+ 800 0175 6B000000 		.4byte	0x6b
+ 801 0179 00000000 		.4byte	.LFB9
+ 802 017d 14000000 		.4byte	.LFE9-.LFB9
+ 803 0181 01       		.uleb128 0x1
+ 804 0182 9C       		.byte	0x9c
+ 805 0183 0A       		.uleb128 0xa
+ 806 0184 3C030000 		.4byte	.LASF26
+ 807 0188 01       		.byte	0x1
+ 808 0189 7B01     		.2byte	0x17b
+ 809 018b 00000000 		.4byte	.LFB10
+ 810 018f 20000000 		.4byte	.LFE10-.LFB10
+ 811 0193 01       		.uleb128 0x1
+ 812 0194 9C       		.byte	0x9c
+ 813 0195 A9010000 		.4byte	0x1a9
+ 814 0199 0B       		.uleb128 0xb
+ 815 019a 21010000 		.4byte	.LASF28
+ 816 019e 01       		.byte	0x1
+ 817 019f 7B01     		.2byte	0x17b
+ 818 01a1 6B000000 		.4byte	0x6b
+ 819 01a5 02       		.uleb128 0x2
+ 820 01a6 91       		.byte	0x91
+ 821 01a7 77       		.sleb128 -9
+ 822 01a8 00       		.byte	0
+ 823 01a9 0D       		.uleb128 0xd
+ 824 01aa 69020000 		.4byte	.LASF29
+ 825 01ae 01       		.byte	0x1
+ 826 01af 9501     		.2byte	0x195
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 29
+
+
+ 827 01b1 77000000 		.4byte	0x77
+ 828 01b5 00000000 		.4byte	.LFB11
+ 829 01b9 14000000 		.4byte	.LFE11-.LFB11
+ 830 01bd 01       		.uleb128 0x1
+ 831 01be 9C       		.byte	0x9c
+ 832 01bf 0A       		.uleb128 0xa
+ 833 01c0 D3010000 		.4byte	.LASF30
+ 834 01c4 01       		.byte	0x1
+ 835 01c5 AF01     		.2byte	0x1af
+ 836 01c7 00000000 		.4byte	.LFB12
+ 837 01cb 1C000000 		.4byte	.LFE12-.LFB12
+ 838 01cf 01       		.uleb128 0x1
+ 839 01d0 9C       		.byte	0x9c
+ 840 01d1 E5010000 		.4byte	0x1e5
+ 841 01d5 0B       		.uleb128 0xb
+ 842 01d6 1E000000 		.4byte	.LASF31
+ 843 01da 01       		.byte	0x1
+ 844 01db AF01     		.2byte	0x1af
+ 845 01dd 77000000 		.4byte	0x77
+ 846 01e1 02       		.uleb128 0x2
+ 847 01e2 91       		.byte	0x91
+ 848 01e3 74       		.sleb128 -12
+ 849 01e4 00       		.byte	0
+ 850 01e5 0D       		.uleb128 0xd
+ 851 01e6 69030000 		.4byte	.LASF32
+ 852 01ea 01       		.byte	0x1
+ 853 01eb C801     		.2byte	0x1c8
+ 854 01ed 77000000 		.4byte	0x77
+ 855 01f1 00000000 		.4byte	.LFB13
+ 856 01f5 14000000 		.4byte	.LFE13-.LFB13
+ 857 01f9 01       		.uleb128 0x1
+ 858 01fa 9C       		.byte	0x9c
+ 859 01fb 0A       		.uleb128 0xa
+ 860 01fc C6000000 		.4byte	.LASF33
+ 861 0200 01       		.byte	0x1
+ 862 0201 E001     		.2byte	0x1e0
+ 863 0203 00000000 		.4byte	.LFB14
+ 864 0207 1C000000 		.4byte	.LFE14-.LFB14
+ 865 020b 01       		.uleb128 0x1
+ 866 020c 9C       		.byte	0x9c
+ 867 020d 21020000 		.4byte	0x221
+ 868 0211 0B       		.uleb128 0xb
+ 869 0212 9A000000 		.4byte	.LASF34
+ 870 0216 01       		.byte	0x1
+ 871 0217 E001     		.2byte	0x1e0
+ 872 0219 77000000 		.4byte	0x77
+ 873 021d 02       		.uleb128 0x2
+ 874 021e 91       		.byte	0x91
+ 875 021f 74       		.sleb128 -12
+ 876 0220 00       		.byte	0
+ 877 0221 0D       		.uleb128 0xd
+ 878 0222 06000000 		.4byte	.LASF35
+ 879 0226 01       		.byte	0x1
+ 880 0227 FC01     		.2byte	0x1fc
+ 881 0229 77000000 		.4byte	0x77
+ 882 022d 00000000 		.4byte	.LFB15
+ 883 0231 1C000000 		.4byte	.LFE15-.LFB15
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 30
+
+
+ 884 0235 01       		.uleb128 0x1
+ 885 0236 9C       		.byte	0x9c
+ 886 0237 0E       		.uleb128 0xe
+ 887 0238 A2000000 		.4byte	.LASF36
+ 888 023c 01       		.byte	0x1
+ 889 023d FB02     		.2byte	0x2fb
+ 890 023f 00000000 		.4byte	.LFB16
+ 891 0243 1E000000 		.4byte	.LFE16-.LFB16
+ 892 0247 01       		.uleb128 0x1
+ 893 0248 9C       		.byte	0x9c
+ 894 0249 0F       		.uleb128 0xf
+ 895 024a 0E030000 		.4byte	.LASF41
+ 896 024e 01       		.byte	0x1
+ 897 024f 1A       		.byte	0x1a
+ 898 0250 6B000000 		.4byte	0x6b
+ 899 0254 05       		.uleb128 0x5
+ 900 0255 03       		.byte	0x3
+ 901 0256 00000000 		.4byte	Sleep_Timer_initVar
+ 902 025a 00       		.byte	0
+ 903              		.section	.debug_abbrev,"",%progbits
+ 904              	.Ldebug_abbrev0:
+ 905 0000 01       		.uleb128 0x1
+ 906 0001 11       		.uleb128 0x11
+ 907 0002 01       		.byte	0x1
+ 908 0003 25       		.uleb128 0x25
+ 909 0004 0E       		.uleb128 0xe
+ 910 0005 13       		.uleb128 0x13
+ 911 0006 0B       		.uleb128 0xb
+ 912 0007 03       		.uleb128 0x3
+ 913 0008 0E       		.uleb128 0xe
+ 914 0009 1B       		.uleb128 0x1b
+ 915 000a 0E       		.uleb128 0xe
+ 916 000b 55       		.uleb128 0x55
+ 917 000c 17       		.uleb128 0x17
+ 918 000d 11       		.uleb128 0x11
+ 919 000e 01       		.uleb128 0x1
+ 920 000f 10       		.uleb128 0x10
+ 921 0010 17       		.uleb128 0x17
+ 922 0011 00       		.byte	0
+ 923 0012 00       		.byte	0
+ 924 0013 02       		.uleb128 0x2
+ 925 0014 24       		.uleb128 0x24
+ 926 0015 00       		.byte	0
+ 927 0016 0B       		.uleb128 0xb
+ 928 0017 0B       		.uleb128 0xb
+ 929 0018 3E       		.uleb128 0x3e
+ 930 0019 0B       		.uleb128 0xb
+ 931 001a 03       		.uleb128 0x3
+ 932 001b 0E       		.uleb128 0xe
+ 933 001c 00       		.byte	0
+ 934 001d 00       		.byte	0
+ 935 001e 03       		.uleb128 0x3
+ 936 001f 24       		.uleb128 0x24
+ 937 0020 00       		.byte	0
+ 938 0021 0B       		.uleb128 0xb
+ 939 0022 0B       		.uleb128 0xb
+ 940 0023 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 31
+
+
+ 941 0024 0B       		.uleb128 0xb
+ 942 0025 03       		.uleb128 0x3
+ 943 0026 08       		.uleb128 0x8
+ 944 0027 00       		.byte	0
+ 945 0028 00       		.byte	0
+ 946 0029 04       		.uleb128 0x4
+ 947 002a 16       		.uleb128 0x16
+ 948 002b 00       		.byte	0
+ 949 002c 03       		.uleb128 0x3
+ 950 002d 0E       		.uleb128 0xe
+ 951 002e 3A       		.uleb128 0x3a
+ 952 002f 0B       		.uleb128 0xb
+ 953 0030 3B       		.uleb128 0x3b
+ 954 0031 05       		.uleb128 0x5
+ 955 0032 49       		.uleb128 0x49
+ 956 0033 13       		.uleb128 0x13
+ 957 0034 00       		.byte	0
+ 958 0035 00       		.byte	0
+ 959 0036 05       		.uleb128 0x5
+ 960 0037 35       		.uleb128 0x35
+ 961 0038 00       		.byte	0
+ 962 0039 49       		.uleb128 0x49
+ 963 003a 13       		.uleb128 0x13
+ 964 003b 00       		.byte	0
+ 965 003c 00       		.byte	0
+ 966 003d 06       		.uleb128 0x6
+ 967 003e 2E       		.uleb128 0x2e
+ 968 003f 01       		.byte	0x1
+ 969 0040 3F       		.uleb128 0x3f
+ 970 0041 19       		.uleb128 0x19
+ 971 0042 03       		.uleb128 0x3
+ 972 0043 0E       		.uleb128 0xe
+ 973 0044 3A       		.uleb128 0x3a
+ 974 0045 0B       		.uleb128 0xb
+ 975 0046 3B       		.uleb128 0x3b
+ 976 0047 0B       		.uleb128 0xb
+ 977 0048 27       		.uleb128 0x27
+ 978 0049 19       		.uleb128 0x19
+ 979 004a 11       		.uleb128 0x11
+ 980 004b 01       		.uleb128 0x1
+ 981 004c 12       		.uleb128 0x12
+ 982 004d 06       		.uleb128 0x6
+ 983 004e 40       		.uleb128 0x40
+ 984 004f 18       		.uleb128 0x18
+ 985 0050 9642     		.uleb128 0x2116
+ 986 0052 19       		.uleb128 0x19
+ 987 0053 01       		.uleb128 0x1
+ 988 0054 13       		.uleb128 0x13
+ 989 0055 00       		.byte	0
+ 990 0056 00       		.byte	0
+ 991 0057 07       		.uleb128 0x7
+ 992 0058 34       		.uleb128 0x34
+ 993 0059 00       		.byte	0
+ 994 005a 03       		.uleb128 0x3
+ 995 005b 0E       		.uleb128 0xe
+ 996 005c 3A       		.uleb128 0x3a
+ 997 005d 0B       		.uleb128 0xb
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 32
+
+
+ 998 005e 3B       		.uleb128 0x3b
+ 999 005f 0B       		.uleb128 0xb
+ 1000 0060 49       		.uleb128 0x49
+ 1001 0061 13       		.uleb128 0x13
+ 1002 0062 02       		.uleb128 0x2
+ 1003 0063 18       		.uleb128 0x18
+ 1004 0064 00       		.byte	0
+ 1005 0065 00       		.byte	0
+ 1006 0066 08       		.uleb128 0x8
+ 1007 0067 2E       		.uleb128 0x2e
+ 1008 0068 00       		.byte	0
+ 1009 0069 3F       		.uleb128 0x3f
+ 1010 006a 19       		.uleb128 0x19
+ 1011 006b 03       		.uleb128 0x3
+ 1012 006c 0E       		.uleb128 0xe
+ 1013 006d 3A       		.uleb128 0x3a
+ 1014 006e 0B       		.uleb128 0xb
+ 1015 006f 3B       		.uleb128 0x3b
+ 1016 0070 0B       		.uleb128 0xb
+ 1017 0071 27       		.uleb128 0x27
+ 1018 0072 19       		.uleb128 0x19
+ 1019 0073 11       		.uleb128 0x11
+ 1020 0074 01       		.uleb128 0x1
+ 1021 0075 12       		.uleb128 0x12
+ 1022 0076 06       		.uleb128 0x6
+ 1023 0077 40       		.uleb128 0x40
+ 1024 0078 18       		.uleb128 0x18
+ 1025 0079 9742     		.uleb128 0x2117
+ 1026 007b 19       		.uleb128 0x19
+ 1027 007c 00       		.byte	0
+ 1028 007d 00       		.byte	0
+ 1029 007e 09       		.uleb128 0x9
+ 1030 007f 2E       		.uleb128 0x2e
+ 1031 0080 00       		.byte	0
+ 1032 0081 3F       		.uleb128 0x3f
+ 1033 0082 19       		.uleb128 0x19
+ 1034 0083 03       		.uleb128 0x3
+ 1035 0084 0E       		.uleb128 0xe
+ 1036 0085 3A       		.uleb128 0x3a
+ 1037 0086 0B       		.uleb128 0xb
+ 1038 0087 3B       		.uleb128 0x3b
+ 1039 0088 0B       		.uleb128 0xb
+ 1040 0089 27       		.uleb128 0x27
+ 1041 008a 19       		.uleb128 0x19
+ 1042 008b 11       		.uleb128 0x11
+ 1043 008c 01       		.uleb128 0x1
+ 1044 008d 12       		.uleb128 0x12
+ 1045 008e 06       		.uleb128 0x6
+ 1046 008f 40       		.uleb128 0x40
+ 1047 0090 18       		.uleb128 0x18
+ 1048 0091 9642     		.uleb128 0x2116
+ 1049 0093 19       		.uleb128 0x19
+ 1050 0094 00       		.byte	0
+ 1051 0095 00       		.byte	0
+ 1052 0096 0A       		.uleb128 0xa
+ 1053 0097 2E       		.uleb128 0x2e
+ 1054 0098 01       		.byte	0x1
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 33
+
+
+ 1055 0099 3F       		.uleb128 0x3f
+ 1056 009a 19       		.uleb128 0x19
+ 1057 009b 03       		.uleb128 0x3
+ 1058 009c 0E       		.uleb128 0xe
+ 1059 009d 3A       		.uleb128 0x3a
+ 1060 009e 0B       		.uleb128 0xb
+ 1061 009f 3B       		.uleb128 0x3b
+ 1062 00a0 05       		.uleb128 0x5
+ 1063 00a1 27       		.uleb128 0x27
+ 1064 00a2 19       		.uleb128 0x19
+ 1065 00a3 11       		.uleb128 0x11
+ 1066 00a4 01       		.uleb128 0x1
+ 1067 00a5 12       		.uleb128 0x12
+ 1068 00a6 06       		.uleb128 0x6
+ 1069 00a7 40       		.uleb128 0x40
+ 1070 00a8 18       		.uleb128 0x18
+ 1071 00a9 9742     		.uleb128 0x2117
+ 1072 00ab 19       		.uleb128 0x19
+ 1073 00ac 01       		.uleb128 0x1
+ 1074 00ad 13       		.uleb128 0x13
+ 1075 00ae 00       		.byte	0
+ 1076 00af 00       		.byte	0
+ 1077 00b0 0B       		.uleb128 0xb
+ 1078 00b1 05       		.uleb128 0x5
+ 1079 00b2 00       		.byte	0
+ 1080 00b3 03       		.uleb128 0x3
+ 1081 00b4 0E       		.uleb128 0xe
+ 1082 00b5 3A       		.uleb128 0x3a
+ 1083 00b6 0B       		.uleb128 0xb
+ 1084 00b7 3B       		.uleb128 0x3b
+ 1085 00b8 05       		.uleb128 0x5
+ 1086 00b9 49       		.uleb128 0x49
+ 1087 00ba 13       		.uleb128 0x13
+ 1088 00bb 02       		.uleb128 0x2
+ 1089 00bc 18       		.uleb128 0x18
+ 1090 00bd 00       		.byte	0
+ 1091 00be 00       		.byte	0
+ 1092 00bf 0C       		.uleb128 0xc
+ 1093 00c0 2E       		.uleb128 0x2e
+ 1094 00c1 00       		.byte	0
+ 1095 00c2 3F       		.uleb128 0x3f
+ 1096 00c3 19       		.uleb128 0x19
+ 1097 00c4 03       		.uleb128 0x3
+ 1098 00c5 0E       		.uleb128 0xe
+ 1099 00c6 3A       		.uleb128 0x3a
+ 1100 00c7 0B       		.uleb128 0xb
+ 1101 00c8 3B       		.uleb128 0x3b
+ 1102 00c9 05       		.uleb128 0x5
+ 1103 00ca 27       		.uleb128 0x27
+ 1104 00cb 19       		.uleb128 0x19
+ 1105 00cc 11       		.uleb128 0x11
+ 1106 00cd 01       		.uleb128 0x1
+ 1107 00ce 12       		.uleb128 0x12
+ 1108 00cf 06       		.uleb128 0x6
+ 1109 00d0 40       		.uleb128 0x40
+ 1110 00d1 18       		.uleb128 0x18
+ 1111 00d2 9742     		.uleb128 0x2117
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 34
+
+
+ 1112 00d4 19       		.uleb128 0x19
+ 1113 00d5 00       		.byte	0
+ 1114 00d6 00       		.byte	0
+ 1115 00d7 0D       		.uleb128 0xd
+ 1116 00d8 2E       		.uleb128 0x2e
+ 1117 00d9 00       		.byte	0
+ 1118 00da 3F       		.uleb128 0x3f
+ 1119 00db 19       		.uleb128 0x19
+ 1120 00dc 03       		.uleb128 0x3
+ 1121 00dd 0E       		.uleb128 0xe
+ 1122 00de 3A       		.uleb128 0x3a
+ 1123 00df 0B       		.uleb128 0xb
+ 1124 00e0 3B       		.uleb128 0x3b
+ 1125 00e1 05       		.uleb128 0x5
+ 1126 00e2 27       		.uleb128 0x27
+ 1127 00e3 19       		.uleb128 0x19
+ 1128 00e4 49       		.uleb128 0x49
+ 1129 00e5 13       		.uleb128 0x13
+ 1130 00e6 11       		.uleb128 0x11
+ 1131 00e7 01       		.uleb128 0x1
+ 1132 00e8 12       		.uleb128 0x12
+ 1133 00e9 06       		.uleb128 0x6
+ 1134 00ea 40       		.uleb128 0x40
+ 1135 00eb 18       		.uleb128 0x18
+ 1136 00ec 9742     		.uleb128 0x2117
+ 1137 00ee 19       		.uleb128 0x19
+ 1138 00ef 00       		.byte	0
+ 1139 00f0 00       		.byte	0
+ 1140 00f1 0E       		.uleb128 0xe
+ 1141 00f2 2E       		.uleb128 0x2e
+ 1142 00f3 00       		.byte	0
+ 1143 00f4 3F       		.uleb128 0x3f
+ 1144 00f5 19       		.uleb128 0x19
+ 1145 00f6 03       		.uleb128 0x3
+ 1146 00f7 0E       		.uleb128 0xe
+ 1147 00f8 3A       		.uleb128 0x3a
+ 1148 00f9 0B       		.uleb128 0xb
+ 1149 00fa 3B       		.uleb128 0x3b
+ 1150 00fb 05       		.uleb128 0x5
+ 1151 00fc 27       		.uleb128 0x27
+ 1152 00fd 19       		.uleb128 0x19
+ 1153 00fe 11       		.uleb128 0x11
+ 1154 00ff 01       		.uleb128 0x1
+ 1155 0100 12       		.uleb128 0x12
+ 1156 0101 06       		.uleb128 0x6
+ 1157 0102 40       		.uleb128 0x40
+ 1158 0103 18       		.uleb128 0x18
+ 1159 0104 9642     		.uleb128 0x2116
+ 1160 0106 19       		.uleb128 0x19
+ 1161 0107 00       		.byte	0
+ 1162 0108 00       		.byte	0
+ 1163 0109 0F       		.uleb128 0xf
+ 1164 010a 34       		.uleb128 0x34
+ 1165 010b 00       		.byte	0
+ 1166 010c 03       		.uleb128 0x3
+ 1167 010d 0E       		.uleb128 0xe
+ 1168 010e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 35
+
+
+ 1169 010f 0B       		.uleb128 0xb
+ 1170 0110 3B       		.uleb128 0x3b
+ 1171 0111 0B       		.uleb128 0xb
+ 1172 0112 49       		.uleb128 0x49
+ 1173 0113 13       		.uleb128 0x13
+ 1174 0114 3F       		.uleb128 0x3f
+ 1175 0115 19       		.uleb128 0x19
+ 1176 0116 02       		.uleb128 0x2
+ 1177 0117 18       		.uleb128 0x18
+ 1178 0118 00       		.byte	0
+ 1179 0119 00       		.byte	0
+ 1180 011a 00       		.byte	0
+ 1181              		.section	.debug_aranges,"",%progbits
+ 1182 0000 8C000000 		.4byte	0x8c
+ 1183 0004 0200     		.2byte	0x2
+ 1184 0006 00000000 		.4byte	.Ldebug_info0
+ 1185 000a 04       		.byte	0x4
+ 1186 000b 00       		.byte	0
+ 1187 000c 0000     		.2byte	0
+ 1188 000e 0000     		.2byte	0
+ 1189 0010 00000000 		.4byte	.LFB2
+ 1190 0014 54000000 		.4byte	.LFE2-.LFB2
+ 1191 0018 00000000 		.4byte	.LFB3
+ 1192 001c 20000000 		.4byte	.LFE3-.LFB3
+ 1193 0020 00000000 		.4byte	.LFB4
+ 1194 0024 24000000 		.4byte	.LFE4-.LFB4
+ 1195 0028 00000000 		.4byte	.LFB5
+ 1196 002c 20000000 		.4byte	.LFE5-.LFB5
+ 1197 0030 00000000 		.4byte	.LFB6
+ 1198 0034 20000000 		.4byte	.LFE6-.LFB6
+ 1199 0038 00000000 		.4byte	.LFB7
+ 1200 003c 14000000 		.4byte	.LFE7-.LFB7
+ 1201 0040 00000000 		.4byte	.LFB8
+ 1202 0044 14000000 		.4byte	.LFE8-.LFB8
+ 1203 0048 00000000 		.4byte	.LFB9
+ 1204 004c 14000000 		.4byte	.LFE9-.LFB9
+ 1205 0050 00000000 		.4byte	.LFB10
+ 1206 0054 20000000 		.4byte	.LFE10-.LFB10
+ 1207 0058 00000000 		.4byte	.LFB11
+ 1208 005c 14000000 		.4byte	.LFE11-.LFB11
+ 1209 0060 00000000 		.4byte	.LFB12
+ 1210 0064 1C000000 		.4byte	.LFE12-.LFB12
+ 1211 0068 00000000 		.4byte	.LFB13
+ 1212 006c 14000000 		.4byte	.LFE13-.LFB13
+ 1213 0070 00000000 		.4byte	.LFB14
+ 1214 0074 1C000000 		.4byte	.LFE14-.LFB14
+ 1215 0078 00000000 		.4byte	.LFB15
+ 1216 007c 1C000000 		.4byte	.LFE15-.LFB15
+ 1217 0080 00000000 		.4byte	.LFB16
+ 1218 0084 1E000000 		.4byte	.LFE16-.LFB16
+ 1219 0088 00000000 		.4byte	0
+ 1220 008c 00000000 		.4byte	0
+ 1221              		.section	.debug_ranges,"",%progbits
+ 1222              	.Ldebug_ranges0:
+ 1223 0000 00000000 		.4byte	.LFB2
+ 1224 0004 54000000 		.4byte	.LFE2
+ 1225 0008 00000000 		.4byte	.LFB3
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 36
+
+
+ 1226 000c 20000000 		.4byte	.LFE3
+ 1227 0010 00000000 		.4byte	.LFB4
+ 1228 0014 24000000 		.4byte	.LFE4
+ 1229 0018 00000000 		.4byte	.LFB5
+ 1230 001c 20000000 		.4byte	.LFE5
+ 1231 0020 00000000 		.4byte	.LFB6
+ 1232 0024 20000000 		.4byte	.LFE6
+ 1233 0028 00000000 		.4byte	.LFB7
+ 1234 002c 14000000 		.4byte	.LFE7
+ 1235 0030 00000000 		.4byte	.LFB8
+ 1236 0034 14000000 		.4byte	.LFE8
+ 1237 0038 00000000 		.4byte	.LFB9
+ 1238 003c 14000000 		.4byte	.LFE9
+ 1239 0040 00000000 		.4byte	.LFB10
+ 1240 0044 20000000 		.4byte	.LFE10
+ 1241 0048 00000000 		.4byte	.LFB11
+ 1242 004c 14000000 		.4byte	.LFE11
+ 1243 0050 00000000 		.4byte	.LFB12
+ 1244 0054 1C000000 		.4byte	.LFE12
+ 1245 0058 00000000 		.4byte	.LFB13
+ 1246 005c 14000000 		.4byte	.LFE13
+ 1247 0060 00000000 		.4byte	.LFB14
+ 1248 0064 1C000000 		.4byte	.LFE14
+ 1249 0068 00000000 		.4byte	.LFB15
+ 1250 006c 1C000000 		.4byte	.LFE15
+ 1251 0070 00000000 		.4byte	.LFB16
+ 1252 0074 1E000000 		.4byte	.LFE16
+ 1253 0078 00000000 		.4byte	0
+ 1254 007c 00000000 		.4byte	0
+ 1255              		.section	.debug_line,"",%progbits
+ 1256              	.Ldebug_line0:
+ 1257 0000 70010000 		.section	.debug_str,"MS",%progbits,1
+ 1257      02004800 
+ 1257      00000201 
+ 1257      FB0E0D00 
+ 1257      01010101 
+ 1258              	.LASF15:
+ 1259 0000 72656733 		.ascii	"reg32\000"
+ 1259      3200
+ 1260              	.LASF35:
+ 1261 0006 536C6565 		.ascii	"Sleep_Timer_ReadCounter\000"
+ 1261      705F5469 
+ 1261      6D65725F 
+ 1261      52656164 
+ 1261      436F756E 
+ 1262              	.LASF31:
+ 1263 001e 70657269 		.ascii	"period\000"
+ 1263      6F6400
+ 1264              	.LASF3:
+ 1265 0025 73686F72 		.ascii	"short unsigned int\000"
+ 1265      7420756E 
+ 1265      7369676E 
+ 1265      65642069 
+ 1265      6E7400
+ 1266              	.LASF39:
+ 1267 0038 433A5C55 		.ascii	"C:\\Users\\7709\\Desktop\\BLE\\peripheral\\BLE_Peri"
+ 1267      73657273 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 37
+
+
+ 1267      5C373730 
+ 1267      395C4465 
+ 1267      736B746F 
+ 1268 0065 70686572 		.ascii	"pheral\\BLE_Peripheral.cydsn\000"
+ 1268      616C5C42 
+ 1268      4C455F50 
+ 1268      65726970 
+ 1268      68657261 
+ 1269              	.LASF18:
+ 1270 0081 536C6565 		.ascii	"Sleep_Timer_Enable\000"
+ 1270      705F5469 
+ 1270      6D65725F 
+ 1270      456E6162 
+ 1270      6C6500
+ 1271              	.LASF11:
+ 1272 0094 666C6F61 		.ascii	"float\000"
+ 1272      7400
+ 1273              	.LASF34:
+ 1274 009a 636F756E 		.ascii	"counter\000"
+ 1274      74657200 
+ 1275              	.LASF36:
+ 1276 00a2 536C6565 		.ascii	"Sleep_Timer_ClearFIFO\000"
+ 1276      705F5469 
+ 1276      6D65725F 
+ 1276      436C6561 
+ 1276      72464946 
+ 1277              	.LASF1:
+ 1278 00b8 756E7369 		.ascii	"unsigned char\000"
+ 1278      676E6564 
+ 1278      20636861 
+ 1278      7200
+ 1279              	.LASF33:
+ 1280 00c6 536C6565 		.ascii	"Sleep_Timer_WriteCounter\000"
+ 1280      705F5469 
+ 1280      6D65725F 
+ 1280      57726974 
+ 1280      65436F75 
+ 1281              	.LASF14:
+ 1282 00df 72656738 		.ascii	"reg8\000"
+ 1282      00
+ 1283              	.LASF38:
+ 1284 00e4 47656E65 		.ascii	"Generated_Source\\PSoC4\\Sleep_Timer.c\000"
+ 1284      72617465 
+ 1284      645F536F 
+ 1284      75726365 
+ 1284      5C50536F 
+ 1285              	.LASF5:
+ 1286 0109 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1286      20756E73 
+ 1286      69676E65 
+ 1286      6420696E 
+ 1286      7400
+ 1287              	.LASF9:
+ 1288 011b 75696E74 		.ascii	"uint8\000"
+ 1288      3800
+ 1289              	.LASF28:
+ 1290 0121 636F6E74 		.ascii	"control\000"
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 38
+
+
+ 1290      726F6C00 
+ 1291              	.LASF23:
+ 1292 0129 536C6565 		.ascii	"Sleep_Timer_SoftwareCapture\000"
+ 1292      705F5469 
+ 1292      6D65725F 
+ 1292      536F6674 
+ 1292      77617265 
+ 1293              	.LASF37:
+ 1294 0145 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1294      43313120 
+ 1294      352E342E 
+ 1294      31203230 
+ 1294      31363036 
+ 1295 0178 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1295      20726576 
+ 1295      6973696F 
+ 1295      6E203233 
+ 1295      37373135 
+ 1296 01ab 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1296      66756E63 
+ 1296      74696F6E 
+ 1296      2D736563 
+ 1296      74696F6E 
+ 1297              	.LASF30:
+ 1298 01d3 536C6565 		.ascii	"Sleep_Timer_WritePeriod\000"
+ 1298      705F5469 
+ 1298      6D65725F 
+ 1298      57726974 
+ 1298      65506572 
+ 1299              	.LASF12:
+ 1300 01eb 646F7562 		.ascii	"double\000"
+ 1300      6C6500
+ 1301              	.LASF40:
+ 1302 01f2 536C6565 		.ascii	"Sleep_Timer_interruptState\000"
+ 1302      705F5469 
+ 1302      6D65725F 
+ 1302      696E7465 
+ 1302      72727570 
+ 1303              	.LASF10:
+ 1304 020d 75696E74 		.ascii	"uint32\000"
+ 1304      333200
+ 1305              	.LASF25:
+ 1306 0214 536C6565 		.ascii	"Sleep_Timer_ReadControlRegister\000"
+ 1306      705F5469 
+ 1306      6D65725F 
+ 1306      52656164 
+ 1306      436F6E74 
+ 1307              	.LASF8:
+ 1308 0234 756E7369 		.ascii	"unsigned int\000"
+ 1308      676E6564 
+ 1308      20696E74 
+ 1308      00
+ 1309              	.LASF21:
+ 1310 0241 536C6565 		.ascii	"Sleep_Timer_Init\000"
+ 1310      705F5469 
+ 1310      6D65725F 
+ 1310      496E6974 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 39
+
+
+ 1310      00
+ 1311              	.LASF7:
+ 1312 0252 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1312      206C6F6E 
+ 1312      6720756E 
+ 1312      7369676E 
+ 1312      65642069 
+ 1313              	.LASF29:
+ 1314 0269 536C6565 		.ascii	"Sleep_Timer_ReadPeriod\000"
+ 1314      705F5469 
+ 1314      6D65725F 
+ 1314      52656164 
+ 1314      50657269 
+ 1315              	.LASF24:
+ 1316 0280 536C6565 		.ascii	"Sleep_Timer_ReadStatusRegister\000"
+ 1316      705F5469 
+ 1316      6D65725F 
+ 1316      52656164 
+ 1316      53746174 
+ 1317              	.LASF22:
+ 1318 029f 536C6565 		.ascii	"Sleep_Timer_SetInterruptMode\000"
+ 1318      705F5469 
+ 1318      6D65725F 
+ 1318      53657449 
+ 1318      6E746572 
+ 1319              	.LASF20:
+ 1320 02bc 536C6565 		.ascii	"Sleep_Timer_Stop\000"
+ 1320      705F5469 
+ 1320      6D65725F 
+ 1320      53746F70 
+ 1320      00
+ 1321              	.LASF17:
+ 1322 02cd 73697A65 		.ascii	"sizetype\000"
+ 1322      74797065 
+ 1322      00
+ 1323              	.LASF6:
+ 1324 02d6 6C6F6E67 		.ascii	"long long int\000"
+ 1324      206C6F6E 
+ 1324      6720696E 
+ 1324      7400
+ 1325              	.LASF27:
+ 1326 02e4 696E7465 		.ascii	"interruptMode\000"
+ 1326      72727570 
+ 1326      744D6F64 
+ 1326      6500
+ 1327              	.LASF2:
+ 1328 02f2 73686F72 		.ascii	"short int\000"
+ 1328      7420696E 
+ 1328      7400
+ 1329              	.LASF19:
+ 1330 02fc 536C6565 		.ascii	"Sleep_Timer_Start\000"
+ 1330      705F5469 
+ 1330      6D65725F 
+ 1330      53746172 
+ 1330      7400
+ 1331              	.LASF41:
+ 1332 030e 536C6565 		.ascii	"Sleep_Timer_initVar\000"
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccxIQnsa.s 			page 40
+
+
+ 1332      705F5469 
+ 1332      6D65725F 
+ 1332      696E6974 
+ 1332      56617200 
+ 1333              	.LASF4:
+ 1334 0322 6C6F6E67 		.ascii	"long int\000"
+ 1334      20696E74 
+ 1334      00
+ 1335              	.LASF13:
+ 1336 032b 63686172 		.ascii	"char\000"
+ 1336      00
+ 1337              	.LASF16:
+ 1338 0330 6C6F6E67 		.ascii	"long double\000"
+ 1338      20646F75 
+ 1338      626C6500 
+ 1339              	.LASF26:
+ 1340 033c 536C6565 		.ascii	"Sleep_Timer_WriteControlRegister\000"
+ 1340      705F5469 
+ 1340      6D65725F 
+ 1340      57726974 
+ 1340      65436F6E 
+ 1341              	.LASF0:
+ 1342 035d 7369676E 		.ascii	"signed char\000"
+ 1342      65642063 
+ 1342      68617200 
+ 1343              	.LASF32:
+ 1344 0369 536C6565 		.ascii	"Sleep_Timer_ReadCapture\000"
+ 1344      705F5469 
+ 1344      6D65725F 
+ 1344      52656164 
+ 1344      43617074 
+ 1345              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

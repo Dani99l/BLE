@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="BLE_Peripheral\BLE_Peripheral">
 <ExpandedNodeIds>
 <v>BLE_Peripheral</v>
 <v>BLE_Peripheral\BLE_Peripheral</v>
@@ -47,8 +47,34 @@
 <v>BLE_Peripheral\BLE_Peripheral\Source Files\teste.c</v>
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source</v>
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4</v>
+<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\Sleep_Timer</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>BLE_Peripheral</v>
+<v>BLE_Peripheral\BLE_Peripheral</v>
+<v>BLE_Peripheral\BLE_Peripheral\TopDesign</v>
+<v>BLE_Peripheral\BLE_Peripheral\BLE_Peripheral.cydwr</v>
+<v>BLE_Peripheral\BLE_Peripheral\BLE_Peripheral.cydwr\Pins</v>
+<v>BLE_Peripheral\BLE_Peripheral\BLE_Peripheral.cydwr\Analog</v>
+<v>BLE_Peripheral\BLE_Peripheral\BLE_Peripheral.cydwr\Clocks</v>
+<v>BLE_Peripheral\BLE_Peripheral\BLE_Peripheral.cydwr\Interrupts</v>
+<v>BLE_Peripheral\BLE_Peripheral\BLE_Peripheral.cydwr\System</v>
+<v>BLE_Peripheral\BLE_Peripheral\BLE_Peripheral.cydwr\Directives</v>
+<v>BLE_Peripheral\BLE_Peripheral\BLE_Peripheral.cydwr\Flash Security</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files\app_Ble.h</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files\app_LED.h</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files\app_UART.h</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files\bme280.h</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files\cyapicallbacks.h</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files\htu21d.h</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files\main.h</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files\Sleep.h</v>
+<v>BLE_Peripheral\BLE_Peripheral\Header Files\teste.h</v>
+<v>BLE_Peripheral\BLE_Peripheral\Source Files</v>
+<v>BLE_Peripheral\BLE_Peripheral\Source Files\app_Ble.c</v>
+<v>BLE_Peripheral\BLE_Peripheral\Source Files\app_LED.c</v>
+<v>BLE_Peripheral\BLE_Peripheral\Source Files\app_UART.c</v>
 <v>BLE_Peripheral\BLE_Peripheral\Source Files\bme280.c</v>
 <v>BLE_Peripheral\BLE_Peripheral\Source Files\HTU21D.c</v>
 <v>BLE_Peripheral\BLE_Peripheral\Source Files\main.c</v>
@@ -60,31 +86,6 @@
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\BLE_bless_isr</v>
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\Conn_LED</v>
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cy_boot</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cy_lfclk</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\I2C_1</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\I2C_1_SCB_IRQ</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\I2C_1_SCBCLK</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\I2C_1_scl</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\I2C_1_sda</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\UART</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\UART_rx</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\UART_SCB_IRQ</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\UART_SCBCLK</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\UART_tx</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cycodeshareexport.ld</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cycodeshareimport.ld</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cycodeshareimport.scat</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cydevice_trm.h</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cydevicegnu_trm.inc</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cydeviceiar_trm.inc</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cydevicerv_trm.inc</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cydisabledsheets.h</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cyfitter.h</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cyfitter_cfg.c</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cyfitter_cfg.h</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cyfittergnu.inc</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cyfitteriar.inc</v>
-<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\cyfitterrv.inc</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -147,6 +148,8 @@
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_sda_PM.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\main.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\sleep.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\Sleep_Timer.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\Sleep_Timer_PM.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\teste.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\UART.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_BOOT.lst</v>
@@ -223,6 +226,7 @@
 <v>BLE_Peripheral\BLE_Peripheral\System Reference Guides\cy_lfclk_v1_20</v>
 <v>BLE_Peripheral\BLE_Peripheral\BLE_v3_40.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Capacitor_v1_0.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_clock_v2_20.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\cy_pins_v2_20.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Gnd_v1_0.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Inductor_v1_0.pdf</v>
@@ -234,6 +238,8 @@
 <v>BLE_Peripheral\BLE_Peripheral\Resistor_v1_0\Resistor_v1_0.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\SCB_P4_v4_0</v>
 <v>BLE_Peripheral\BLE_Peripheral\SCB_P4_v4_0\SCB_P4_v4_0.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\Timer_v2_70.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\ZeroTerminal.pdf</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>BLE_Peripheral</v>
@@ -245,6 +251,7 @@
 <v>BLE_Peripheral\BLE_Peripheral\System Reference Guides\cy_lfclk_v1_20</v>
 <v>BLE_Peripheral\BLE_Peripheral\BLE_v3_40.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Capacitor_v1_0.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_clock_v2_20.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\cy_pins_v2_20.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Gnd_v1_0.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Inductor_v1_0.pdf</v>
@@ -256,6 +263,8 @@
 <v>BLE_Peripheral\BLE_Peripheral\Resistor_v1_0\Resistor_v1_0.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\SCB_P4_v4_0</v>
 <v>BLE_Peripheral\BLE_Peripheral\SCB_P4_v4_0\SCB_P4_v4_0.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\Timer_v2_70.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\ZeroTerminal.pdf</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>

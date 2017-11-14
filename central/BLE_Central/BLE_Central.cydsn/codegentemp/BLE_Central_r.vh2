@@ -1,5 +1,5 @@
 -- Project:   BLE_Central
--- Generated: 11/10/2017 15:18:51
+-- Generated: 11/14/2017 18:09:05
 -- PSoC Creator  4.1 Update 1
 
 ENTITY BLE_Central IS

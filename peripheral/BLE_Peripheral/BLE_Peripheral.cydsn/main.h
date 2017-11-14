@@ -31,7 +31,7 @@
      #define     PRINT_MESSAGE_LOG
      #define     DEBUG_ble
      #define     LOW_POWER_MODE
-
+     
     /***************************************
     *       DEFINES Parameters
     ***************************************/
@@ -50,13 +50,16 @@
     void init_globalVariables();
     void tx();
     void stopBLE();
+    void sleep_ble();
     /***************************************
     *       Variables declaration
     ***************************************/
     CYBLE_API_RESULT_T      bleApiResult;
     uint8 count;
     uint8 buffer[PACKET_LENGHT];
-      int api;
+    int api;
+    int flag;
+    
     int lasTemp, lastHum;
     int sameTemp, sameHum;
     

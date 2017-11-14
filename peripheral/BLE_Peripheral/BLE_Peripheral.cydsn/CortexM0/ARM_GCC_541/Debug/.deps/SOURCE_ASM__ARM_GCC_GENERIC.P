@@ -1,8 +1,0 @@
-C:/Users/7709/Desktop/BLE/peripheral/BLE_Peripheral/BLE_Peripheral.cydsn/CortexM0/ARM_GCC_541/Debug/CyBootAsmGnu.o : C:/Users/7709/Desktop/BLE/peripheral/BLE_Peripheral/BLE_Peripheral.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s C:/Users/7709/Desktop/BLE/peripheral/BLE_Peripheral/BLE_Peripheral.cydsn/Generated_Source/PSoC4/cydevicegnu_trm.inc C:/Users/7709/Desktop/BLE/peripheral/BLE_Peripheral/BLE_Peripheral.cydsn/Generated_Source/PSoC4/cyfittergnu.inc 
-
-C:/Users/7709/Desktop/BLE/peripheral/BLE_Peripheral/BLE_Peripheral.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s : 
-
-C:/Users/7709/Desktop/BLE/peripheral/BLE_Peripheral/BLE_Peripheral.cydsn/Generated_Source/PSoC4/cydevicegnu_trm.inc : 
-
-C:/Users/7709/Desktop/BLE/peripheral/BLE_Peripheral/BLE_Peripheral.cydsn/Generated_Source/PSoC4/cyfittergnu.inc : 
-

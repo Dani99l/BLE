@@ -28,6 +28,8 @@
     <Group key="Pin">
       <Data key="3dbba19d-7851-4a83-b204-a0a386fe8d68/5382e105-1382-4a2e-b9f4-3bb2feba71e0" value="I2C_1_sda" />
       <Data key="3dbba19d-7851-4a83-b204-a0a386fe8d68/22863ebe-a37b-476f-b252-6e49a8c00b12" value="I2C_1_scl" />
+      <Data key="7c22e3c5-da93-4267-9ea2-622856a53add/5382e105-1382-4a2e-b9f4-3bb2feba71e0" value="EZI2C_1_sda" />
+      <Data key="7c22e3c5-da93-4267-9ea2-622856a53add/22863ebe-a37b-476f-b252-6e49a8c00b12" value="EZI2C_1_scl" />
       <Data key="7ca9760e-6931-4b43-a74b-782f631c6518/546f1f28-3a33-4888-bf93-14a95800f230" value="SCB_2_spi_mosi_i2c_scl_uart_rx" />
       <Data key="7ca9760e-6931-4b43-a74b-782f631c6518/e4eef7cc-20a7-45a2-a6af-d619f5982693" value="SCB_2_spi_miso_i2c_sda_uart_tx" />
       <Data key="8af192ab-4b9a-4fb3-b8ab-550f42242b6c" value="Conn_LED" />
@@ -3783,6 +3785,16 @@
     <Group key="3dbba19d-7851-4a83-b204-a0a386fe8d68/22863ebe-a37b-476f-b252-6e49a8c00b12">
       <Group key="0">
         <Data key="Port Format" value="3,5" />
+      </Group>
+    </Group>
+    <Group key="7c22e3c5-da93-4267-9ea2-622856a53add/5382e105-1382-4a2e-b9f4-3bb2feba71e0">
+      <Group key="0">
+        <Data key="Port Format" value="3,1" />
+      </Group>
+    </Group>
+    <Group key="7c22e3c5-da93-4267-9ea2-622856a53add/22863ebe-a37b-476f-b252-6e49a8c00b12">
+      <Group key="0">
+        <Data key="Port Format" value="3,0" />
       </Group>
     </Group>
     <Group key="8af192ab-4b9a-4fb3-b8ab-550f42242b6c">

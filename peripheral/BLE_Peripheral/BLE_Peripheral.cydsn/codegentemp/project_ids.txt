@@ -1,6 +1,6 @@
-C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\BLE_Peripheral.cyprj|2c125dd5-59c1-40eb-b13e-66e33f710584
-C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|95d29eae-ebbc-4ef5-884a-f607661c94d2
-C:\Users\7709\Documents\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj|8e6e4232-ad23-48f9-b2f8-29b927628457
-C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|59659c20-4a7e-4430-82e1-0e925eb31293
-C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|64f6ea0b-4b8f-4b96-bc4b-7e00fe97ed86
-C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|a70777e6-9c32-46ee-b64d-2e24cca31960
+C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\BLE_Peripheral.cyprj|802aac7a-a0fb-4d6a-a657-a36825067fd9
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|363b8bbf-71e5-418f-ab4f-affa0195614c
+C:\Users\7709\Documents\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj|f681b96d-09a6-48b8-ab7d-de1a7e011858
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|8ece5550-642e-44f1-a6d7-8ebbc766985a
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|66d1b609-02d2-4bdb-a933-97ab9c1cd6b2
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|1750c899-c4a2-4328-88a9-6d47414a74e0
