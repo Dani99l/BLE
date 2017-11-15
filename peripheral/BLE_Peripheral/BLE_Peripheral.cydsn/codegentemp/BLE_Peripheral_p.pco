@@ -2,26 +2,16 @@ dont_use_io iocell 0 6
 dont_use_io iocell 0 7
 dont_use_io iocell 6 0
 dont_use_io iocell 6 1
-set_location "\Sleep_Timer:TimerUDB:sT32:timerdp:u2\" datapathcell 1 0 2 
-set_location "\Sleep_Timer:TimerUDB:run_mode\" macrocell 0 0 0 2
-set_location "\Sleep_Timer:TimerUDB:status_tc\" macrocell 0 0 0 3
-set_location "\Sleep_Timer:TimerUDB:sT32:timerdp:u3\" datapathcell 0 0 2 
-set_location "\Sleep_Timer:TimerUDB:trig_disable\" macrocell 0 0 0 1
-set_location "\Sleep_Timer:TimerUDB:sT32:timerdp:u0\" datapathcell 0 1 2 
-set_location "\Sleep_Timer:TimerUDB:timer_enable\" macrocell 0 0 0 0
-set_location "\Sleep_Timer:TimerUDB:rstSts:stsreg\" statusicell 0 0 4 
-set_location "\Sleep_Timer:TimerUDB:sT32:timerdp:u1\" datapathcell 1 1 2 
 set_location "\UART:SCB\" m0s8scbcell -1 -1 0
 set_io "\UART:rx(0)\" iocell 1 4
-set_location "ClockBlock" m0s8clockblockcell -1 -1 0
 set_location "\BLE:cy_m0s8_ble\" p4blecell -1 -1 0
 set_location "ClockGenBlock" m0s8clockgenblockcell -1 -1 0
 set_io "\UART:tx(0)\" iocell 1 5
 set_location "\I2C_1:SCB\" m0s8scbcell -1 -1 1
 set_location "\UART:SCB_IRQ\" interrupt -1 -1 9
-set_location "\BLE:bless_isr\" interrupt -1 -1 12
 set_location "\I2C_1:SCB_IRQ\" interrupt -1 -1 10
+set_location "\BLE:bless_isr\" interrupt -1 -1 12
 set_io "\I2C_1:sda(0)\" iocell 3 4
-set_location "\Sleep_Timer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\" controlcell 0 0 6 
+set_location "ClockBlock" m0s8clockblockcell -1 -1 0
 set_io "Conn_LED(0)" iocell 3 3
 set_io "\I2C_1:scl(0)\" iocell 3 5

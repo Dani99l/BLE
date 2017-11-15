@@ -63,9 +63,6 @@
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\I2C_1_I2C_PVT.h" value="HEADER;;;;;I2C_1" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\I2C_1_PVT.h" value="HEADER;;;;;I2C_1" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\I2C_1_BOOT.h" value="HEADER;;;;;I2C_1" />
-  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\Sleep_Timer.c" value="SOURCE_C;CortexM0;;;;Sleep_Timer" />
-  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\Sleep_Timer.h" value="HEADER;;;;;Sleep_Timer" />
-  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\Sleep_Timer_PM.c" value="SOURCE_C;CortexM0;;;;Sleep_Timer" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\BLE_bless_isr.c" value="SOURCE_C;CortexM0;;;;BLE_bless_isr" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\BLE_bless_isr.h" value="HEADER;;;;;BLE_bless_isr" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\UART_SCBCLK.c" value="SOURCE_C;CortexM0;;;;UART_SCBCLK" />

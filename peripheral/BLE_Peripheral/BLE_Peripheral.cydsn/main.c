@@ -182,7 +182,23 @@ void stopBLE(){
 }
 
 void sleep_ble(){
-    CyBle_EnterLPM(CYBLE_BLESS_SLEEP);
+   
+   CyBle_EnterLPM(CYBLE_BLESS_SLEEP);
+   int ciclo=0;
+   CyDelay(5);
+   CySysPmSleep();
+   while(CyBle_GetBleSsState()!=CYBLE_BLESS_SLEEP && ciclo<=10){
+        CyDelay(500);
+        CyDelay(500);
+        CyDelay(500);
+        UART_UartPutString("\n\r sleeping ble  \n\r ");
+        CyDelay(500);
+        ciclo++;
+    }
+   
+    while(CyBle_ExitLPM() != CYBLE_BLESS_ACTIVE){};
+ 
+    CyBle_ProcessEvents();
 }
 
 void start(){

@@ -148,6 +148,42 @@
 <VisibleNodeIds>
 <v>BLE_Central</v>
 <v>BLE_Central\BLE_Central</v>
+<v>BLE_Central\BLE_Central\CortexM0</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\app_Ble.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\app_LED.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\app_UART.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_bless_isr.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_custom.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_eventHandler.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_gatt.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_HAL_INT.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_HAL_PVT.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\Cm0Start.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\Conn_LED.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\Conn_LED_PM.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLFClk.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\Scan_LED.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\Scan_LED_PM.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\teste.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\UART.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_BOOT.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_PM.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_rx.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_rx_PM.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_SCB_IRQ.lst</v>
+<v>BLE_Central\BLE_Central\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_SCBCLK.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -223,7 +259,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1058, 560" SelectedTabbedMdiWindow="98a0a555-abb0-45c1-9278-20c1da1a2985"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="d47537c9-1178-489f-9cfe-392f30e8014d" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\TopDesign\TopDesign.cysch" Guid="bc0ac0a8-6e20-4bcd-b1dd-5383a6e3c967" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\BLE_Central.cydwr" Guid="b2fe9747-bbbe-4126-b10b-d62ca7215e7d" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\main.c" Guid="98a0a555-abb0-45c1-9278-20c1da1a2985" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\UART_SPI_UART.c" Guid="d049e413-d128-4b08-a423-93b24cba2cea" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\UART_SPI_UART.h" Guid="f7e76354-50bf-4ae5-b018-f883d52ef6e1" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\app_UART.c" Guid="2fb0e648-1cc2-44c6-9382-655898ab68a0" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\BLE_StackGattClient.h" Guid="6554b3ec-5776-4756-a47e-57bbc0b5137f" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\BLE.h" Guid="5432615b-d63e-4efb-acde-7492d267dacf" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="995, 572" SelectedTabbedMdiWindow="98a0a555-abb0-45c1-9278-20c1da1a2985"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="d47537c9-1178-489f-9cfe-392f30e8014d" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\TopDesign\TopDesign.cysch" Guid="bc0ac0a8-6e20-4bcd-b1dd-5383a6e3c967" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\BLE_Central.cydwr" Guid="b2fe9747-bbbe-4126-b10b-d62ca7215e7d" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\main.c" Guid="98a0a555-abb0-45c1-9278-20c1da1a2985" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\UART_SPI_UART.c" Guid="d049e413-d128-4b08-a423-93b24cba2cea" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\UART_SPI_UART.h" Guid="f7e76354-50bf-4ae5-b018-f883d52ef6e1" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\app_UART.c" Guid="2fb0e648-1cc2-44c6-9382-655898ab68a0" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\BLE_StackGattClient.h" Guid="6554b3ec-5776-4756-a47e-57bbc0b5137f" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\BLE.h" Guid="5432615b-d63e-4efb-acde-7492d267dacf" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
