@@ -21,10 +21,10 @@ int main()
     init_globalVariables();
     start();
 
-//    while(1){
-//       state_machine();
-//    
-//    }
+    while(1){
+       state_machine();
+    
+    }
 
 }
     
@@ -186,17 +186,17 @@ void stopBLE(){
 
 void sleep_ble(){
    
-   CyBle_EnterLPM(CYBLE_BLESS_SLEEP);
+   CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
     isr_1_StartEx(WAKE_UP);
     
     CyDelay(5);
-    CySysPmSleep();
+    
   // while(CyBle_GetBleSsState()!=CYBLE_BLESS_SLEEP ){
      for(;;){
         output_pin_1_Write(0);
         CyDelay(1000);
-        
-        output_pin_1_Write(0);
+        output_pin_1_Write(1);
+        CySysPmDeepSleep();
     }
         // }
    
