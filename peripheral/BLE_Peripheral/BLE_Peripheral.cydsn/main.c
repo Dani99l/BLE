@@ -187,7 +187,7 @@ void sleep_ble(){
    int ciclo=0;
    CyDelay(5);
    CySysPmSleep();
-   while(CyBle_GetBleSsState()!=CYBLE_BLESS_SLEEP && ciclo<=10){
+   while(CyBle_GetBleSsState()!=CYBLE_BLESS_SLEEP ){
         CyDelay(500);
         CyDelay(500);
         CyDelay(500);
