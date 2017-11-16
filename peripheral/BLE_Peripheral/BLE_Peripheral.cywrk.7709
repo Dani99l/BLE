@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="BLE_Peripheral\BLE_Peripheral">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
 <v>BLE_Peripheral</v>
 <v>BLE_Peripheral\BLE_Peripheral</v>
@@ -47,6 +47,10 @@
 <v>BLE_Peripheral\BLE_Peripheral\Source Files\teste.c</v>
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source</v>
 <v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4</v>
+<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\isr_1</v>
+<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\output_pin_1</v>
+<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\UART</v>
+<v>BLE_Peripheral\BLE_Peripheral\Generated_Source\PSoC4\UART_rx</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>BLE_Peripheral</v>
@@ -145,7 +149,10 @@
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_scl_PM.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_sda.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_sda_PM.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_1.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\output_pin_1.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\output_pin_1_PM.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\sleep.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\teste.lst</v>
 <v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\UART.lst</v>
@@ -171,6 +178,40 @@
 <VisibleNodeIds>
 <v>BLE_Peripheral</v>
 <v>BLE_Peripheral\BLE_Peripheral</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\app_Ble.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\app_LED.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\app_UART.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_bless_isr.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_custom.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_eventHandler.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_gatt.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_HAL_INT.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\BLE_HAL_PVT.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\bme280.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\Cm0Start.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\Conn_LED.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\Conn_LED_PM.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLFClk.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\HTU21D.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_BOOT.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_I2C.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_I2C_BOOT.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_I2C_INT.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_I2C_MASTER.lst</v>
+<v>BLE_Peripheral\BLE_Peripheral\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_1_PM.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -189,8 +230,10 @@
 <v>BLE_Peripheral\BLE_Peripheral\System Reference Guides\cy_lfclk_v1_20</v>
 <v>BLE_Peripheral\BLE_Peripheral\BLE_v3_40.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Capacitor_v1_0.pdf</v>
-<v>BLE_Peripheral\BLE_Peripheral\cy_clock_v2_20.pdf</v>
-<v>BLE_Peripheral\BLE_Peripheral\cy_pins_v2_20.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_gsref_v2_10.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_isr_v1_70.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_pins_v2_20</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Gnd_v1_0.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Inductor_v1_0.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\LED_v1_0</v>
@@ -213,8 +256,10 @@
 <v>BLE_Peripheral\BLE_Peripheral\System Reference Guides\cy_lfclk_v1_20</v>
 <v>BLE_Peripheral\BLE_Peripheral\BLE_v3_40.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Capacitor_v1_0.pdf</v>
-<v>BLE_Peripheral\BLE_Peripheral\cy_clock_v2_20.pdf</v>
-<v>BLE_Peripheral\BLE_Peripheral\cy_pins_v2_20.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_gsref_v2_10.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_isr_v1_70.pdf</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_pins_v2_20</v>
+<v>BLE_Peripheral\BLE_Peripheral\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Gnd_v1_0.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\Inductor_v1_0.pdf</v>
 <v>BLE_Peripheral\BLE_Peripheral\LED_v1_0</v>
@@ -231,6 +276,11 @@
 </TreeStatesV2>
 </CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
 </dataGuid>
+<dataGuid v="5f2be1a5-0687-4501-bb8c-cf21cb8211bf">
+<CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf type_name="CyDesigner.Common.ProjMgmt.GUI.CyBookmarkData" version="1">
+<indicators />
+</CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf>
+</dataGuid>
 </userData>
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
@@ -240,13 +290,15 @@
 <name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_custom.h" />
 <name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_Stack.h" />
 <name v=".\BLE_Peripheral.cydsn\sleep.c" />
-<name v=".\BLE_Peripheral.cydsn\Sleep.h" />
-<name v=".\BLE_Peripheral.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\Sleep_Timer.c" />
-<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\Sleep_Timer.h" />
-<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\Sleep_Timer_PM.c" />
 <name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE.c" />
 <name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\I2C_1.c" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\CyLib.c" />
+<name v=".\BLE_Peripheral.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\cyPm.c" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\cyPm.h" />
+<name v=".\BLE_Peripheral.cydsn\BLE_Peripheral.cydwr" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\isr_1.c" />
+<name v=".\BLE_Peripheral.cydsn\Generated_Source\PSoC4\cytypes.h" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -254,7 +306,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1014, 536" SelectedTabbedMdiWindow="97b97350-c3ca-4e40-a2fd-3dfb3732cf8e"><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\main.c" Guid="3dcdc696-4bd7-4cb1-ae4d-b84b2ce2da68" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\main.h" Guid="26cce4ee-8fea-4381-b5af-df56c30061d6" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_custom.h" Guid="ab8cd99a-cd33-43f0-9262-018db9197086" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_Stack.h" Guid="97b97350-c3ca-4e40-a2fd-3dfb3732cf8e" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\sleep.c" Guid="eebb20e1-b6e3-461a-9baa-33269e6390c6" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Sleep.h" Guid="ec6dd0f7-1fc2-4fe9-8119-5c54489a46ba" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\TopDesign\TopDesign.cysch" Guid="6c0af0fd-a909-48c9-a823-f714127bbb41" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\Sleep_Timer.c" Guid="7f9c55ca-5a7e-4eea-a536-1d0c5187cc26" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\Sleep_Timer.h" Guid="a44f6ac0-77f5-4bbb-a418-462c68092258" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\Sleep_Timer_PM.c" Guid="14b0ac85-c60d-4cde-b8f4-e6a3ae7b263b" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE.c" Guid="f6e2017b-5811-41d2-9810-b2d48769b2ae" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\I2C_1.c" Guid="73124406-48d5-4e8d-a886-6c85e882ce43" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1014, 507" SelectedTabbedMdiWindow="3dcdc696-4bd7-4cb1-ae4d-b84b2ce2da68"><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\main.c" Guid="3dcdc696-4bd7-4cb1-ae4d-b84b2ce2da68" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\main.h" Guid="26cce4ee-8fea-4381-b5af-df56c30061d6" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_custom.h" Guid="ab8cd99a-cd33-43f0-9262-018db9197086" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE_Stack.h" Guid="97b97350-c3ca-4e40-a2fd-3dfb3732cf8e" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\sleep.c" Guid="eebb20e1-b6e3-461a-9baa-33269e6390c6" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\BLE.c" Guid="f6e2017b-5811-41d2-9810-b2d48769b2ae" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\I2C_1.c" Guid="73124406-48d5-4e8d-a886-6c85e882ce43" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\CyLib.c" Guid="fe755382-be06-4c62-870d-e8a34d30686d" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\TopDesign\TopDesign.cysch" Guid="c4e8a894-efe4-4c8b-bca9-ae833e4254b2" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\cyPm.c" Guid="6ba6b68e-6d00-4c8f-a780-1ef1a948c448" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\cyPm.h" Guid="e8d92662-5eaa-47b3-a782-c31967b7881c" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\BLE_Peripheral.cydwr" Guid="fe06ae1b-7dc7-47ac-8980-40a5e3134f3f" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\isr_1.c" Guid="d19f4811-2b09-4cfa-acba-05f69a7b6c88" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Generated_Source\PSoC4\cytypes.h" Guid="b6f47eb8-7bae-43c6-83e7-11490b20cc60" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

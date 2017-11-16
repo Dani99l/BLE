@@ -25,7 +25,6 @@ int main()
        state_machine();
     
     }
-
 }
     
 
@@ -51,8 +50,9 @@ void state_machine(){
         #endif
         I2C_1_Start(); 
         createPacket();
-        //I2C_1_Stop();
-
+        
+        I2C_1_Stop();
+        CyDelay(5);
         mode=TX;
         break;
         
@@ -185,22 +185,37 @@ void stopBLE(){
 }
 
 void sleep_ble(){
-   
+    
+     /* Variable declarations */
+    CYBLE_BLESS_STATE_T blePower;
+    uint8 interruptStatus ;
+    
+   CyBle_EnterLPM(CYBLE_BLESS_SLEEP);
    CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
     isr_1_StartEx(WAKE_UP);
     
     CyDelay(5);
-    
-  // while(CyBle_GetBleSsState()!=CYBLE_BLESS_SLEEP ){
-     for(;;){
+    interruptStatus=CyEnterCriticalSection();
+    blePower=CyBle_GetBleSsState();
+    // while(CyBle_GetBleSsState()!=CYBLE_BLESS_SLEEP){
+  if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON)){
         output_pin_1_Write(0);
-        CyDelay(1000);
-        output_pin_1_Write(1);
+       // CyDelay(1000);
         CySysPmDeepSleep();
+        output_pin_1_Write(1);
+        
+        
+        
     }
         // }
    
-    while(CyBle_ExitLPM() != CYBLE_BLESS_ACTIVE){};
+    while(CyBle_ExitLPM() != CYBLE_BLESS_ACTIVE){
+    UART_UartPutString("\n\r exit lpmode \n\r ");
+    };
+    
+    
+    /* Enable interrupts */
+    CyExitCriticalSection(interruptStatus );
  
     CyBle_ProcessEvents();
 }
@@ -210,7 +225,6 @@ void start(){
     CyGlobalIntEnable;
     
     UART_Start();
-    
     
     UART_UartPutString("\n\r --------------------- \n\r ");
     UART_UartPutString("\n\r Start peripheral role \n\r ");
