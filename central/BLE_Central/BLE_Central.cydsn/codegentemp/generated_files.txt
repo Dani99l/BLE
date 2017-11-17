@@ -54,6 +54,8 @@
   <file name="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\codegentemp\UART_SPI_UART_PVT.h" value="HEADER;;;;;UART" />
   <file name="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\codegentemp\UART_PVT.h" value="HEADER;;;;;UART" />
   <file name="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\codegentemp\UART_BOOT.h" value="HEADER;;;;;UART" />
+  <file name="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\codegentemp\RTC_1.c" value="SOURCE_C;CortexM0;;;;RTC_1" />
+  <file name="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\codegentemp\RTC_1.h" value="HEADER;;;;;RTC_1" />
   <file name="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\codegentemp\BLE_bless_isr.c" value="SOURCE_C;CortexM0;;;;BLE_bless_isr" />
   <file name="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\codegentemp\BLE_bless_isr.h" value="HEADER;;;;;BLE_bless_isr" />
   <file name="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\codegentemp\UART_SCBCLK.c" value="SOURCE_C;CortexM0;;;;UART_SCBCLK" />

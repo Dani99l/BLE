@@ -42,7 +42,12 @@
     ***************************************/
     int packetSum;
     
-    
+    enum states{
+        START,
+        GET_DATA,
+        PRINT_DATA,
+        PROCESS_DATA,
+    }modes;
     /***************************************
     *       Function Prototypes
     ***************************************/
@@ -50,6 +55,7 @@
     void stopBLE();
     void startBLE();
     void start();
+    void init_variables();
     //void HandleBleProcessing(void);
    // void enableNotifications();
     void AppCallBack(uint32 event, void *eventParam);

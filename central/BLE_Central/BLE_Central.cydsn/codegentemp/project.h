@@ -42,6 +42,7 @@
 #include "UART_SPI_UART_PVT.h"
 #include "UART_PVT.h"
 #include "UART_BOOT.h"
+#include "RTC_1.h"
 #include "BLE_bless_isr.h"
 #include "UART_SCBCLK.h"
 #include "UART_tx.h"

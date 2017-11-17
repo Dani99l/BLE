@@ -56,17 +56,51 @@
     
 int main()
 {
-    #ifdef LOW_POWER_MODE    
-        CYBLE_LP_MODE_T         lpMode;
-        CYBLE_BLESS_STATE_T     blessState;
-    #endif
-    packetSum=0;
+    
+    init_variables();
     start();
     startBLE();
+    RTC_1_Start();
+    
     while(1){   //if server is connected
         HandleBleProcessing();
         CyBle_ProcessEvents();
     }   
+}
+
+void init_variables(){
+    
+    packetSum=0;
+    
+}
+
+void state_machine(){
+    
+    switch(modes){
+    
+        case START:
+            modes=GET_DATA;
+        break;
+        
+        case GET_DATA:
+        modes=PRINT_DATA;
+        break;
+        
+        
+        case PRINT_DATA:
+        modes=PROCESS_DATA;
+        break;
+        
+        case PROCESS_DATA:
+        modes=START;
+        break;
+        
+        default:
+        UART_UartPutString("\n\r DEFAULT mode \n\r ");
+        modes=START;
+        break;
+    }
+    
 }
 //static void StartScan(void)
 //{   //* Starts a scan on the Central device.
@@ -305,7 +339,6 @@ void AppCallBack(uint32 event, void *eventParam)
             {
                 txCharDescHandle = findInfoResponse->handleValueList.list[0];
                 txCharDescHandle |= findInfoResponse->handleValueList.list[1] << 8;
-            
                 infoExchangeState |= TX_CCCD_HANDLE_FOUND;
             }
            
@@ -452,6 +485,8 @@ void enableNotifications()
 void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotification)
 {
     int i;
+    int clock;
+    clock=RTC_1_GetTime();
     if(uartRxDataNotification->handleValPair.attrHandle == txCharHandle)
     {
         packetSum++;
@@ -462,8 +497,9 @@ void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotif
             (uint32) uartRxDataNotification->handleValPair.value.len);*/
         for (i=0;i<uartRxDataNotification->handleValPair.value.len;i++) {
             UART_UartPutString(ultoa(uartRxDataNotification->handleValPair.value.val[i]));
-            UART_UartPutString(";");
+            UART_UartPutString(" ");
         }
+        UART_UartPutString(ultoa(clock));
         UART_UartPutString("\n\r");
     }
     
