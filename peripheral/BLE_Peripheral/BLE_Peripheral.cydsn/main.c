@@ -39,16 +39,14 @@ void state_machine(){
         UART_UartPutString("\n\r START  \n\r ");
         mode=SENSOR_PACKET;
         CyDelay(500);
-        CyDelay(500);
-        CyDelay(500);
-        CyDelay(500);
         break;
         
      case SENSOR_PACKET:
         #ifdef PRINT_MESSAGE_LOG   
             UART_UartPutString("\n\r SENSOR \n\r ");     
         #endif
-        I2C_1_Start(); 
+        
+       
         createPacket();
         
         I2C_1_Stop();
@@ -92,7 +90,7 @@ void tx(){
        CyDelay(5);
        int check=0;
        flag=1;
-        while(flag){
+        while(flag && check<1){
 
             if(CyBle_GattGetBusStatus() != CYBLE_STACK_STATE_BUSY){
                 sendtoble();
@@ -147,10 +145,11 @@ void createPacket(){
     // It depends on MTU(maximum bytes allowed )
     
     CyDelay(500);
+    sensor.last_sequence=sensor.sequence;
     CyDelay(500);
-    sensor.humidity= getHum();
+    sensor.temperature = (uint8)getTemp();
     CyDelay(500);
-    sensor.temperature = getTemp();
+    sensor.humidity= (uint8)getHum();
     sensor.pressure=3;
     sensor.ID=2;
     sensor.sequence=count;
@@ -165,8 +164,8 @@ void createPacket(){
     buffer[PACKET_LENGHT-2]=(uint8)sensor.temperature;
     buffer[PACKET_LENGHT-3]=(uint8)sensor.pressure;
     buffer[PACKET_LENGHT-4]=(uint8)sensor.ID;
-    buffer[PACKET_LENGHT-5]=(uint8)sensor.sequence;    
-
+    buffer[PACKET_LENGHT-5]=(uint8)sensor.last_sequence;    
+    buffer[PACKET_LENGHT-6]=(uint8)sensor.sequence;    
 }
 
 
@@ -197,20 +196,18 @@ void sleep_ble(){
     CyDelay(5);
     interruptStatus=CyEnterCriticalSection();
     blePower=CyBle_GetBleSsState();
-    // while(CyBle_GetBleSsState()!=CYBLE_BLESS_SLEEP){
-  if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON)){
-        output_pin_1_Write(0);
-       // CyDelay(1000);
-        CySysPmDeepSleep();
-        output_pin_1_Write(1);
-        
-        
-        
-    }
-        // }
+    
+      if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON)){
+            output_pin_1_Write(0);
+           // CyDelay(1000);
+            CySysPmDeepSleep();
+            output_pin_1_Write(1);
+            
+            
+        }
    
     while(CyBle_ExitLPM() != CYBLE_BLESS_ACTIVE){
-    UART_UartPutString("\n\r exit lpmode \n\r ");
+        UART_UartPutString("\n\r exit lpmode \n\r ");
     };
     
     
