@@ -10809,11 +10809,11 @@ ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 1
  788              	/* isr_1 */
  789              	.set isr_1__INTC_CLR_EN_REG, CYREG_CM0_ICER
  790              	.set isr_1__INTC_CLR_PD_REG, CYREG_CM0_ICPR
- 791              	.set isr_1__INTC_MASK, 0x100
- 792              	.set isr_1__INTC_NUMBER, 8
- 793              	.set isr_1__INTC_PRIOR_MASK, 0xC0
+ 791              	.set isr_1__INTC_MASK, 0x80
+ 792              	.set isr_1__INTC_NUMBER, 7
+ 793              	.set isr_1__INTC_PRIOR_MASK, 0xC0000000
  794              	.set isr_1__INTC_PRIOR_NUM, 3
- 795              	.set isr_1__INTC_PRIOR_REG, CYREG_CM0_IPR2
+ 795              	.set isr_1__INTC_PRIOR_REG, CYREG_CM0_IPR1
  796              	.set isr_1__INTC_SET_EN_REG, CYREG_CM0_ISER
  797              	.set isr_1__INTC_SET_PD_REG, CYREG_CM0_ISPR
  798              	

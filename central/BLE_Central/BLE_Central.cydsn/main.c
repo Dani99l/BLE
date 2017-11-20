@@ -499,11 +499,26 @@ void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotif
             UART_UartPutString(ultoa(uartRxDataNotification->handleValPair.value.val[i]));
             UART_UartPutString(" ");
         }
-        UART_UartPutString(ultoa(clock));
+        
         UART_UartPutString("\n\r");
     }
     
     if(packetSum==250){
         packetSum=0;
     }
+}
+
+void print_clock(){
+    
+    
+    
+}
+
+void set_init_clock(){
+    UART_UartPutString("\n\r Set actual hour and minutes \n\r");
+    UART_UartPutString("\n\r Hour");
+    clock.hour=UART_UartGetChar();
+    UART_UartPutString("\n\r Minutes");
+    clock.minute=UART_UartGetChar();
+    
 }

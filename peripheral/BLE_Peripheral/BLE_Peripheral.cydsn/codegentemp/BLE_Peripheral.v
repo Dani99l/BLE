@@ -1,6 +1,6 @@
 // ======================================================================
 // BLE_Peripheral.v generated from TopDesign.cysch
-// 11/16/2017 at 17:40
+// 11/17/2017 at 18:32
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -864,6 +864,28 @@ endmodule
 // top
 module top ;
 
+          wire  Net_3693;
+          wire  Net_3692;
+          wire  Net_3691;
+          wire  Net_3690;
+          wire  Net_3689;
+          wire  Net_3688;
+          wire  Net_3687;
+          wire  Net_3686;
+          wire  Net_3685;
+          wire  Net_3684;
+          wire  Net_3683;
+          wire  Net_3682;
+          wire  Net_3681;
+          wire  Net_3680;
+          wire  Net_3679;
+          wire  Net_3678;
+          wire  Net_3677;
+          wire  Net_3676;
+          wire  Net_3675;
+          wire  Net_3674;
+          wire  Net_3673;
+          wire  Net_3672;
           wire  Net_3670;
           wire  Net_3669;
     electrical  Net_3668;
@@ -1258,7 +1280,7 @@ module top ;
 
 
 	cy_gsref_v1_0
-		#(.guid("1563FAA8-0748-4a1c-9785-CED309984BE3"))
+		#(.guid("C8E58364-D9E8-4b54-A65E-DECBB1C89736"))
 		GlobalSignal_2
 		 (.sig_out(Net_3671));
 

@@ -788,11 +788,11 @@
 /* isr_1 */
 #define isr_1__INTC_CLR_EN_REG CYREG_CM0_ICER
 #define isr_1__INTC_CLR_PD_REG CYREG_CM0_ICPR
-#define isr_1__INTC_MASK 0x100u
-#define isr_1__INTC_NUMBER 8u
-#define isr_1__INTC_PRIOR_MASK 0xC0u
+#define isr_1__INTC_MASK 0x80u
+#define isr_1__INTC_NUMBER 7u
+#define isr_1__INTC_PRIOR_MASK 0xC0000000u
 #define isr_1__INTC_PRIOR_NUM 3u
-#define isr_1__INTC_PRIOR_REG CYREG_CM0_IPR2
+#define isr_1__INTC_PRIOR_REG CYREG_CM0_IPR1
 #define isr_1__INTC_SET_EN_REG CYREG_CM0_ISER
 #define isr_1__INTC_SET_PD_REG CYREG_CM0_ISPR
 

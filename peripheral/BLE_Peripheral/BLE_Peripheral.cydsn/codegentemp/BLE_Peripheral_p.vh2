@@ -1,5 +1,5 @@
 -- Project:   BLE_Peripheral
--- Generated: 11/16/2017 17:40:13
+-- Generated: 11/17/2017 18:32:30
 -- PSoC Creator  4.1 Update 1
 
 ENTITY BLE_Peripheral IS
@@ -35,6 +35,7 @@ ARCHITECTURE __DEFAULT__ OF BLE_Peripheral IS
     SIGNAL ClockBlock_SYSCLK : bit;
     SIGNAL ClockBlock_WCO : bit;
     SIGNAL Conn_LED(0)__PA : bit;
+    SIGNAL LPCOMP_INT_OUT : bit;
     SIGNAL Net_3503 : bit;
     SIGNAL Net_3507 : bit;
     SIGNAL Net_3509 : bit;
@@ -44,7 +45,6 @@ ARCHITECTURE __DEFAULT__ OF BLE_Peripheral IS
     SIGNAL Net_3533 : bit;
     SIGNAL Net_3547 : bit;
     SIGNAL Net_3548 : bit;
-    SIGNAL WDT_INT_OUT : bit;
     SIGNAL \BLE:Net_15\ : bit;
     SIGNAL \I2C_1:Net_847_ff2\ : bit;
     ATTRIBUTE global_signal OF \I2C_1:Net_847_ff2\ : SIGNAL IS true;
@@ -272,19 +272,6 @@ ARCHITECTURE __DEFAULT__ OF BLE_Peripheral IS
             tr_rx_req : OUT std_ulogic;
             tr_tx_req : OUT std_ulogic);
     END COMPONENT;
-    COMPONENT m0s8srsscell
-        PORT (
-            clock_pump : IN std_ulogic;
-            clock_ss : IN std_ulogic;
-            dsi_ss_code_0 : IN std_ulogic;
-            dsi_ss_code_1 : IN std_ulogic;
-            dsi_ss_code_2 : IN std_ulogic;
-            dsi_ss_code_3 : IN std_ulogic;
-            dsi_ss_code_4 : IN std_ulogic;
-            dsi_ss_updown : OUT std_ulogic;
-            interrupt_wdt : OUT std_ulogic;
-            interrupt_pwr : OUT std_ulogic);
-    END COMPONENT;
     COMPONENT p4blecell
         PORT (
             interrupt : OUT std_ulogic;
@@ -294,6 +281,10 @@ ARCHITECTURE __DEFAULT__ OF BLE_Peripheral IS
             ext_pa_tx_ctl : OUT std_ulogic;
             ext_lna_rx_ctl : OUT std_ulogic;
             ext_pa_lna_chip_en : OUT std_ulogic);
+    END COMPONENT;
+    COMPONENT p4lpcompblockcell
+        PORT (
+            interrupt : OUT std_ulogic);
     END COMPONENT;
 BEGIN
 
@@ -948,11 +939,11 @@ BEGIN
             int_type => "10",
             is_nmi => 0)
         PORT MAP(
-            interrupt => WDT_INT_OUT,
+            interrupt => LPCOMP_INT_OUT,
             clock => ClockBlock_HFCLK);
 
-    SRSS:m0s8srsscell
+    LPCOMP_INT:p4lpcompblockcell
         PORT MAP(
-            interrupt_wdt => WDT_INT_OUT);
+            interrupt => LPCOMP_INT_OUT);
 
 END __DEFAULT__;

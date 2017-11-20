@@ -153,6 +153,7 @@ void createPacket(){
     sensor.pressure=3;
     sensor.ID=2;
     sensor.sequence=count;
+    sensor.packets_lost=sensor.sequence-sensor.last_sequence;
     count++;
     
     if(count>=250){
@@ -162,7 +163,7 @@ void createPacket(){
     
     buffer[PACKET_LENGHT-1]=(uint8)sensor.humidity;
     buffer[PACKET_LENGHT-2]=(uint8)sensor.temperature;
-    buffer[PACKET_LENGHT-3]=(uint8)sensor.pressure;
+    buffer[PACKET_LENGHT-3]=(uint8)sensor.packets_lost;
     buffer[PACKET_LENGHT-4]=(uint8)sensor.ID;
     buffer[PACKET_LENGHT-5]=(uint8)sensor.last_sequence;    
     buffer[PACKET_LENGHT-6]=(uint8)sensor.sequence;    
@@ -174,7 +175,7 @@ void startBLE(){
    // AppCallBack manages the state BLE machine
     
     CyBle_Start(AppCallBack);
-        HandleBleProcessing();
+    HandleBleProcessing();
     CyBle_ProcessEvents();
 }
 
@@ -189,22 +190,23 @@ void sleep_ble(){
     CYBLE_BLESS_STATE_T blePower;
     uint8 interruptStatus ;
     
-   CyBle_EnterLPM(CYBLE_BLESS_SLEEP);
-   CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
+    CyBle_EnterLPM(CYBLE_BLESS_SLEEP);
+    CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
     isr_1_StartEx(WAKE_UP);
     
     CyDelay(5);
     interruptStatus=CyEnterCriticalSection();
     blePower=CyBle_GetBleSsState();
     
-      if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON)){
+     // if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON)){
             output_pin_1_Write(0);
-           // CyDelay(1000);
+            UART_UartPutString("\n\r edeepe \n\r ");
             CySysPmDeepSleep();
+            CyDelay(1000);
+            CyDelay(1000);
             output_pin_1_Write(1);
-            
-            
-        }
+             
+        //}
    
     while(CyBle_ExitLPM() != CYBLE_BLESS_ACTIVE){
         UART_UartPutString("\n\r exit lpmode \n\r ");

@@ -48,6 +48,13 @@
         PRINT_DATA,
         PROCESS_DATA,
     }modes;
+    
+    
+    struct Clock{
+       uint8 hour;
+       uint8 minute;
+       uint8 second;
+    }clock;
     /***************************************
     *       Function Prototypes
     ***************************************/
@@ -60,8 +67,8 @@
    // void enableNotifications();
     void AppCallBack(uint32 event, void *eventParam);
     void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotification);    
-    
-
+    void print_clock();
+    void set_init_clock();
     
     
     

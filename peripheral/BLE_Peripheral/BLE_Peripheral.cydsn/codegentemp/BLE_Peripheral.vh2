@@ -2,7 +2,7 @@
 --	Conversion of BLE_Peripheral.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu Nov 16 17:40:12 2017
+--	Fri Nov 17 18:32:29 2017
 --
 
 USE cypress.cypress.all;
@@ -696,7 +696,7 @@ isr_1:cy_isr_v1_0
 		is_nmi=>'0')
 	PORT MAP(int_signal=>Net_3671);
 GlobalSignal_2:cy_gsref_v1_0
-	GENERIC MAP(guid=>"1563FAA8-0748-4a1c-9785-CED309984BE3")
+	GENERIC MAP(guid=>"C8E58364-D9E8-4b54-A65E-DECBB1C89736")
 	PORT MAP(sig_out=>Net_3671);
 
 END R_T_L;

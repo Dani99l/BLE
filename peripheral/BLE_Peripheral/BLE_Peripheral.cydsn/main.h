@@ -70,6 +70,7 @@
         uint8 pressure;
         uint8 sequence;
         uint8 last_sequence;
+        uint8 packets_lost;
     }sensor;
     
     enum states{
