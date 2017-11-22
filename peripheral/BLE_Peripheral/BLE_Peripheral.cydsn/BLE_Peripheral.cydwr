@@ -30,6 +30,12 @@
       <Data key="ef1e801b-e7d3-452e-b13b-5685301bd3a3/205b185c-03d5-4afb-a0d9-820a4b39a29f" value="TCPWM_2_Clk" />
       <Data key="fe32f0ce-3e1c-4e3b-8a47-546f62a265a3/205b185c-03d5-4afb-a0d9-820a4b39a29f" value="TCPWM_1_Clk" />
     </Group>
+    <Group key="Interrupt">
+      <Data key="3dbba19d-7851-4a83-b204-a0a386fe8d68/696fcfb7-e3b3-4302-9123-1e2c9e4522d2" value="I2C_1_SCB_IRQ" />
+      <Data key="9d85b07b-d0a3-43d5-9c79-a337709a4229" value="isr_1" />
+      <Data key="43b32828-1bc6-4f60-8661-55e8e3c70c20/0bca1fc6-354d-4d61-89fa-de74f0d280d1" value="BLE_bless_isr" />
+      <Data key="43ec2fa1-bf22-4b71-9477-b6ca7b97f0b0/696fcfb7-e3b3-4302-9123-1e2c9e4522d2" value="UART_SCB_IRQ" />
+    </Group>
     <Group key="Pin">
       <Data key="3dbba19d-7851-4a83-b204-a0a386fe8d68/5382e105-1382-4a2e-b9f4-3bb2feba71e0" value="I2C_1_sda" />
       <Data key="3dbba19d-7851-4a83-b204-a0a386fe8d68/22863ebe-a37b-476f-b252-6e49a8c00b12" value="I2C_1_scl" />
@@ -3139,6 +3145,29 @@
       </Group>
     </Group>
   </Group>
+  <Group key="Interrupt">
+    <Group key="3dbba19d-7851-4a83-b204-a0a386fe8d68/696fcfb7-e3b3-4302-9123-1e2c9e4522d2">
+      <Group key="CortexM0">
+        <Data key="Assigned" value="True" />
+        <Data key="Priority" value="2" />
+        <Data key="Vector" value="-1" />
+      </Group>
+    </Group>
+    <Group key="43b32828-1bc6-4f60-8661-55e8e3c70c20/0bca1fc6-354d-4d61-89fa-de74f0d280d1">
+      <Group key="CortexM0">
+        <Data key="Assigned" value="True" />
+        <Data key="Priority" value="0" />
+        <Data key="Vector" value="-1" />
+      </Group>
+    </Group>
+    <Group key="43ec2fa1-bf22-4b71-9477-b6ca7b97f0b0/696fcfb7-e3b3-4302-9123-1e2c9e4522d2">
+      <Group key="CortexM0">
+        <Data key="Assigned" value="True" />
+        <Data key="Priority" value="1" />
+        <Data key="Vector" value="-1" />
+      </Group>
+    </Group>
+  </Group>
   <Group key="M0S8Clock">
     <Group key="LocalClks">
       <Group key="3dbba19d-7851-4a83-b204-a0a386fe8d68/2dc2d7a8-ce2b-43c7-af4a-821c8cd73ccf">
@@ -4124,7 +4153,7 @@
     </Group>
     <Group key="606ea005-d487-41fa-98d1-fcfb195f050d">
       <Group key="0">
-        <Data key="Port Format" value="3,6" />
+        <Data key="Port Format" value="2,6" />
       </Group>
     </Group>
     <Group key="3899b5dc-effb-43d8-8853-66d82e684bc9">
@@ -4139,7 +4168,7 @@
     </Group>
     <Group key="e851a3b9-efb8-48be-bbb8-b303b216c393">
       <Group key="0">
-        <Data key="Port Format" value="2,6" />
+        <Data key="Port Format" value="3,6" />
       </Group>
     </Group>
     <Group key="UnAssigned Pins" />

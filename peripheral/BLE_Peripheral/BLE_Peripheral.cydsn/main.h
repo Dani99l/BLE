@@ -27,7 +27,7 @@
     /***************************************
     *   Conditional compilation parameters
     ***************************************/      
-  //  #define     FLOW_CONTROL
+  
      #define     PRINT_MESSAGE_LOG
      #define     DEBUG_ble
      #define     LOW_POWER_MODE
@@ -50,7 +50,7 @@
     void init_globalVariables();
     void tx();
     void stopBLE();
-    void sleep_ble();
+    
     /***************************************
     *       Variables declaration
     ***************************************/

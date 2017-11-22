@@ -30,7 +30,7 @@ int gettemp280(void)
     I2C_1_sda_SetDriveMode(I2C_1_sda_DM_OD_LO);
     static uint8 I2CReadBufferT[0x02]; //The uncompensated temperature read from the sensor is stored here
     static uint8 I2CWriteBufferT[0x01] = {0xF4}; //Command for temperature conversion - Register address and value
-    static uint8 SetReadAddressBufferT[0x01] = {0xF6}; //Register address from which the data is read
+  //  static uint8 SetReadAddressBufferT[0x01] = {0xF6}; //Register address from which the data is read
     
     /* Do a write operation with the memory address bytes to get temperature data */
 	I2C_1_I2CMasterWriteBuf(I2CSlaveAddress, (uint8 *) I2CWriteBufferT, sizeof(I2CWriteBufferT), I2C_I2C_MODE_COMPLETE_XFER);

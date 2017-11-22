@@ -82,10 +82,10 @@ void HandleBleProcessing(void)
             
             CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
             
-            UART_Stop();
-            UART_SpiUartClearTxBuffer();
-            UART_SpiUartClearRxBuffer();
-            UART_Start();
+//            UART_Stop();
+//            UART_SpiUartClearTxBuffer();
+//            UART_SpiUartClearRxBuffer();
+//            UART_Start();
             
             break;
        
@@ -134,26 +134,26 @@ void AppCallBack(uint32 event, void *eventParam)
     {
         case CYBLE_EVT_STACK_ON:
                 #ifdef PRINT_MESSAGE_LOG   
-                 UART_UartPutString("\n\r CYBLE_EVT_STACK_ON \n\r ");
+                // UART_UartPutString("\n\r CYBLE_EVT_STACK_ON \n\r ");
                 #endif            
             break;
             
         case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
                 #ifdef PRINT_MESSAGE_LOG   
-                 UART_UartPutString("\n\r CYBLE_EVT_GAP_DEVICE_DISCONNECTED \n\r ");
+                // UART_UartPutString("\n\r CYBLE_EVT_GAP_DEVICE_DISCONNECTED \n\r ");
                 #endif
             break;
             
         case CYBLE_EVT_GATT_CONNECT_IND:
                 #ifdef PRINT_MESSAGE_LOG   
-                 UART_UartPutString("\n\r CYBLE_EVT_GATT_CONNECT_IND \n\r ");
+                // UART_UartPutString("\n\r CYBLE_EVT_GATT_CONNECT_IND \n\r ");
                 #endif                
             break;
         
         case CYBLE_EVT_GATTS_WRITE_CMD_REQ:
         /** 'Write Command' Request from client device.*/
                 #ifdef PRINT_MESSAGE_LOG   
-                 UART_UartPutString("\n\r CYBLE_EVT_GATTS_WRITE_CMD_REQ \n\r ");
+                // UART_UartPutString("\n\r CYBLE_EVT_GATTS_WRITE_CMD_REQ \n\r ");
                 #endif 
                 HandleUartRxTraffic((CYBLE_GATTS_WRITE_REQ_PARAM_T *) eventParam);
             break;
@@ -162,7 +162,7 @@ void AppCallBack(uint32 event, void *eventParam)
             /** 'GATT MTU Exchange Request'*/
                 
             #ifdef PRINT_MESSAGE_LOG       
-                 UART_UartPutString("\n\r CYBLE_EVT_GATTS_XCNHG_MTU_REQ \n\r ");
+                 //UART_UartPutString("\n\r CYBLE_EVT_GATTS_XCNHG_MTU_REQ \n\r ");
             #endif
                 
             if(CYBLE_GATT_MTU > ((CYBLE_GATT_XCHG_MTU_PARAM_T *)eventParam)->mtu)
@@ -178,7 +178,7 @@ void AppCallBack(uint32 event, void *eventParam)
             
         case CYBLE_EVT_GATTS_WRITE_REQ:
                  #ifdef PRINT_MESSAGE_LOG       
-                 UART_UartPutString("\n\r CYBLE_EVT_GATTS_WRITE_REQ \n\r ");
+                 //UART_UartPutString("\n\r CYBLE_EVT_GATTS_WRITE_REQ \n\r ");
                  #endif
           
             break;

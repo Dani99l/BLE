@@ -182,8 +182,6 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\output_pin_2.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\output_pin_2_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\output_pin_2_PM.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\isr_1.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\isr_1.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\Export\ARM_GCC_Generic\BLE_v3_40">

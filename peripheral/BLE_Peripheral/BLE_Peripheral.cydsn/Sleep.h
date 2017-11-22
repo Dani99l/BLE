@@ -16,7 +16,7 @@
 ***************************************/
 
 void setTimerTosleep();
-void goSleep();
+void sleep_ble();
 
 
 /* [] END OF FILE */

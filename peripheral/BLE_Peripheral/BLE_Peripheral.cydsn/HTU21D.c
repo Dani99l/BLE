@@ -12,10 +12,10 @@
 
 int getTemp(){
     I2C_1_Start(); 
-    static uint8 softreset[0x01]={0xfe}; // Soft reset code
+    //static uint8 softreset[0x01]={0xfe}; // Soft reset code
     static uint8 I2CReadBuffer[0x04]; //The uncompensated temperature read from the sensor is stored here
     static uint8 I2CWriteBuffer[0x01] = {0xE3}; //Command for temperature conversion - Register address and value
-    static uint8 SetReadAddressBuffer[0x01] = {0x40}; //Register address from which the data is read
+   // static uint8 SetReadAddressBuffer[0x01] = {0x40}; //Register address from which the data is read
     //CyDelay(15);
     /* Do a write operation with the memory address bytes to get temperature data */
 	I2C_1_I2CMasterWriteBuf(DEVICEADDRESS, (uint8 *) I2CWriteBuffer, sizeof(I2CWriteBuffer), I2C_I2C_MODE_COMPLETE_XFER);
@@ -43,7 +43,7 @@ int getHum(){
     I2C_1_Start(); 
     static uint8 I2CReadBuffer[0x04]; //The uncompensated humidity read from the sensor is stored here
     static uint8 I2CWriteBuffer[0x01] = {0xE5}; //Command for hui conversion - Register address and value1
-    static uint8 SetReadAddressBuffer[0x01] = {0x40}; //Register address from which the data is read
+   // static uint8 SetReadAddressBuffer[0x01] = {0x40}; //Register address from which the data is read
     
     /* Do a write operation with the memory address bytes to get humidity data */
 	I2C_1_I2CMasterWriteBuf(DEVICEADDRESS, (uint8 *) I2CWriteBuffer, sizeof(I2CWriteBuffer), I2C_I2C_MODE_COMPLETE_XFER);
