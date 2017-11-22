@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 1
 
 
    1              		.syntax unified
@@ -38,7 +38,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
   35              		.thumb_func
   36              		.type	HandleUartRxTraffic, %function
   37              	HandleUartRxTraffic:
-  38              	.LFB61:
+  38              	.LFB63:
   39              		.file 1 "app_UART.c"
    1:app_UART.c    **** /*******************************************************************************
    2:app_UART.c    **** * File Name: app_UART.c
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
   16:app_UART.c    **** /*******************************************************************************
   17:app_UART.c    **** *                        Function Name: HandleUartRxTraffic
   18:app_UART.c    **** ********************************************************************************
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 2
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 2
 
 
   19:app_UART.c    **** *
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
   72 0024 C046     		nop
   73 0026 BD46     		mov	sp, r7
   74 0028 02B0     		add	sp, sp, #8
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 3
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 3
 
 
   75              		@ sp needed
@@ -128,7 +128,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
   79              	.L4:
   80 002c 00000000 		.word	txCharHandle
   81              		.cfi_endproc
-  82              	.LFE61:
+  82              	.LFE63:
   83              		.size	HandleUartRxTraffic, .-HandleUartRxTraffic
   84              		.section	.text.HandleUartTxTraffic,"ax",%progbits
   85              		.align	2
@@ -137,7 +137,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
   88              		.thumb_func
   89              		.type	HandleUartTxTraffic, %function
   90              	HandleUartTxTraffic:
-  91              	.LFB62:
+  91              	.LFB64:
   40:app_UART.c    **** 
   41:app_UART.c    **** /*******************************************************************************
   42:app_UART.c    **** * Function Name: HandleUartTxTraffic
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
   59:app_UART.c    ****     uint8   uartTxData[mtuSize - 3];
  110              		.loc 1 59 0
  111 000a 6F48     		ldr	r0, .L13
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 4
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 4
 
 
  112 000c 0088     		ldrh	r0, [r0]
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  158 0068 8C46     		mov	ip, r1
  159 006a BC44     		add	ip, ip, r7
  160 006c 6344     		add	r3, r3, ip
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 5
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 5
 
 
  161 006e 1A80     		strh	r2, [r3]
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  197 00ac 6344     		add	r3, r3, ip
  198 00ae 033A     		subs	r2, r2, #3
  199 00b0 1A80     		strh	r2, [r3]
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 6
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 6
 
 
  200 00b2 10E0     		b	.L9
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  236              		.loc 1 103 0
  237 00ee 1F23     		movs	r3, #31
  238 00f0 1822     		movs	r2, #24
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 7
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 7
 
 
  239 00f2 9446     		mov	ip, r2
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  106:app_UART.c    ****             }
  107:app_UART.c    ****             
  108:app_UART.c    ****             uartTxDataWriteCmd.attrHandle = rxCharHandle;
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 8
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 8
 
 
  289              		.loc 1 108 0 is_stmt 1
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  119:app_UART.c    ****                 CyBle_ProcessEvents();
  333              		.loc 1 119 0 discriminator 2
  334 019e FFF7FEFF 		bl	CyBle_ProcessEvents
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 9
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 9
 
 
  120:app_UART.c    ****             }
@@ -514,12 +514,12 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  359 01c6 C046     		.align	2
  360              	.L13:
  361 01c8 00000000 		.word	mtuSize
- 362 01cc 00000000 		.word	uartIdleCount.7635
+ 362 01cc 00000000 		.word	uartIdleCount.7646
  363 01d0 00000000 		.word	rxCharHandle
  364 01d4 00000000 		.word	cyBle_connHandle
  365 01d8 00000000 		.word	cyBle_state
  366              		.cfi_endproc
- 367              	.LFE62:
+ 367              	.LFE64:
  368              		.size	HandleUartTxTraffic, .-HandleUartTxTraffic
  369              		.section	.text.DisableUartRxInt,"ax",%progbits
  370              		.align	2
@@ -528,7 +528,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  373              		.thumb_func
  374              		.type	DisableUartRxInt, %function
  375              	DisableUartRxInt:
- 376              	.LFB63:
+ 376              	.LFB65:
  126:app_UART.c    **** 
  127:app_UART.c    **** /*****************************************************************************************
  128:app_UART.c    **** * Function Name: DisableUartRxInt
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  132:app_UART.c    **** *  This function disables the UART RX interrupt.
  133:app_UART.c    **** *
  134:app_UART.c    **** * Parameters:
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 10
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 10
 
 
  135:app_UART.c    **** *   None.
@@ -578,7 +578,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  401              	.L16:
  402 0018 C80F2440 		.word	1076105160
  403              		.cfi_endproc
- 404              	.LFE63:
+ 404              	.LFE65:
  405              		.size	DisableUartRxInt, .-DisableUartRxInt
  406              		.section	.text.EnableUartRxInt,"ax",%progbits
  407              		.align	2
@@ -587,7 +587,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  410              		.thumb_func
  411              		.type	EnableUartRxInt, %function
  412              	EnableUartRxInt:
- 413              	.LFB64:
+ 413              	.LFB66:
  145:app_UART.c    **** 
  146:app_UART.c    **** /*****************************************************************************************
  147:app_UART.c    **** * Function Name: EnableUartRxInt
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  152:app_UART.c    **** *
  153:app_UART.c    **** * Parameters:
  154:app_UART.c    **** *   None.
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 11
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 11
 
 
  155:app_UART.c    **** *
@@ -637,13 +637,13 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  438              	.L19:
  439 0018 C80F2440 		.word	1076105160
  440              		.cfi_endproc
- 441              	.LFE64:
+ 441              	.LFE66:
  442              		.size	EnableUartRxInt, .-EnableUartRxInt
  443              		.data
  444              		.align	1
- 445              		.type	uartIdleCount.7635, %object
- 446              		.size	uartIdleCount.7635, 2
- 447              	uartIdleCount.7635:
+ 445              		.type	uartIdleCount.7646, %object
+ 446              		.size	uartIdleCount.7646, 2
+ 447              	uartIdleCount.7646:
  448 0000 E803     		.short	1000
  449              		.text
  450              	.Letext0:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  459              	.Ldebug_info0:
  460 0000 FF060000 		.4byte	0x6ff
  461 0004 0400     		.2byte	0x4
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 12
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 12
 
 
  462 0006 00000000 		.4byte	.Ldebug_abbrev0
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  516 0073 2C000000 		.4byte	0x2c
  517 0077 04       		.uleb128 0x4
  518 0078 290C0000 		.4byte	.LASF10
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 13
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 13
 
 
  519 007c 02       		.byte	0x2
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  573 00e9 49020000 		.4byte	.LASF22
  574 00ed 04       		.byte	0x4
  575 00ee 07       		.uleb128 0x7
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 14
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 14
 
 
  576 00ef 23000000 		.4byte	.LASF23
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  630 015b 8D0A0000 		.4byte	.LASF41
  631 015f 30       		.byte	0x30
  632 0160 07       		.uleb128 0x7
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 15
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 15
 
 
  633 0161 E7110000 		.4byte	.LASF42
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  687 01cd 94010000 		.4byte	.LASF60
  688 01d1 4B       		.byte	0x4b
  689 01d2 07       		.uleb128 0x7
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 16
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 16
 
 
  690 01d3 92060000 		.4byte	.LASF61
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  744 023f D4040000 		.4byte	.LASF79
  745 0243 75       		.byte	0x75
  746 0244 07       		.uleb128 0x7
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 17
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 17
 
 
  747 0245 F8000000 		.4byte	.LASF80
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  801 02b2 07       		.uleb128 0x7
  802 02b3 A80C0000 		.4byte	.LASF96
  803 02b7 06       		.byte	0x6
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 18
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 18
 
 
  804 02b8 07       		.uleb128 0x7
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  858 0324 07       		.uleb128 0x7
  859 0325 AB090000 		.4byte	.LASF115
  860 0329 2C       		.byte	0x2c
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 19
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 19
 
 
  861 032a 07       		.uleb128 0x7
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  915 03a0 01       		.byte	0x1
  916 03a1 00       		.byte	0
  917 03a2 04       		.uleb128 0x4
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 20
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 20
 
 
  918 03a3 8B000000 		.4byte	.LASF128
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  972 0415 D801     		.2byte	0x1d8
  973 0417 EB030000 		.4byte	0x3eb
  974 041b 0A       		.uleb128 0xa
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 21
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 21
 
 
  975 041c 04       		.byte	0x4
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1029 0489 61040000 		.4byte	0x461
  1030 048d 06       		.uleb128 0x6
  1031 048e 01       		.byte	0x1
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 22
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 22
 
 
  1032 048f 2C000000 		.4byte	0x2c
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1086 04fe 30110000 		.4byte	.LASF189
  1087 0502 01       		.byte	0x1
  1088 0503 2C000000 		.4byte	0x2c
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 23
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 23
 
 
  1089 0507 07       		.byte	0x7
@@ -1366,8 +1366,8 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1131 0558 12040000 		.4byte	.LASF162
  1132 055c 01       		.byte	0x1
  1133 055d 20       		.byte	0x20
- 1134 055e 00000000 		.4byte	.LFB61
- 1135 0562 30000000 		.4byte	.LFE61-.LFB61
+ 1134 055e 00000000 		.4byte	.LFB63
+ 1135 0562 30000000 		.4byte	.LFE63-.LFB63
  1136 0566 01       		.uleb128 0x1
  1137 0567 9C       		.byte	0x9c
  1138 0568 7B050000 		.4byte	0x57b
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1143 0573 7B050000 		.4byte	0x57b
  1144 0577 02       		.uleb128 0x2
  1145 0578 91       		.byte	0x91
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 24
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 24
 
 
  1146 0579 74       		.sleb128 -12
@@ -1390,8 +1390,8 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1152 0582 E4090000 		.4byte	.LASF163
  1153 0586 01       		.byte	0x1
  1154 0587 38       		.byte	0x38
- 1155 0588 00000000 		.4byte	.LFB62
- 1156 058c DC010000 		.4byte	.LFE62-.LFB62
+ 1155 0588 00000000 		.4byte	.LFB64
+ 1156 058c DC010000 		.4byte	.LFE64-.LFB64
  1157 0590 01       		.uleb128 0x1
  1158 0591 9C       		.byte	0x9c
  1159 0592 EF050000 		.4byte	0x5ef
@@ -1427,7 +1427,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1189 05c8 77000000 		.4byte	0x77
  1190 05cc 05       		.uleb128 0x5
  1191 05cd 03       		.byte	0x3
- 1192 05ce 00000000 		.4byte	uartIdleCount.7635
+ 1192 05ce 00000000 		.4byte	uartIdleCount.7646
  1193 05d2 14       		.uleb128 0x14
  1194 05d3 C1100000 		.4byte	.LASF168
  1195 05d7 01       		.byte	0x1
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1200 05df 5A       		.sleb128 -38
  1201 05e0 14       		.uleb128 0x14
  1202 05e1 53090000 		.4byte	.LASF169
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 25
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 25
 
 
  1203 05e5 01       		.byte	0x1
@@ -1462,16 +1462,16 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1221 0603 8A020000 		.4byte	.LASF170
  1222 0607 01       		.byte	0x1
  1223 0608 8D       		.byte	0x8d
- 1224 0609 00000000 		.4byte	.LFB63
- 1225 060d 1C000000 		.4byte	.LFE63-.LFB63
+ 1224 0609 00000000 		.4byte	.LFB65
+ 1225 060d 1C000000 		.4byte	.LFE65-.LFB65
  1226 0611 01       		.uleb128 0x1
  1227 0612 9C       		.byte	0x9c
  1228 0613 17       		.uleb128 0x17
  1229 0614 10060000 		.4byte	.LASF171
  1230 0618 01       		.byte	0x1
  1231 0619 A0       		.byte	0xa0
- 1232 061a 00000000 		.4byte	.LFB64
- 1233 061e 1C000000 		.4byte	.LFE64-.LFB64
+ 1232 061a 00000000 		.4byte	.LFB66
+ 1233 061e 1C000000 		.4byte	.LFE66-.LFB66
  1234 0622 01       		.uleb128 0x1
  1235 0623 9C       		.byte	0x9c
  1236 0624 14       		.uleb128 0x14
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1257 064e 01000000 		.4byte	notificationEnabled
  1258 0652 18       		.uleb128 0x18
  1259 0653 3B080000 		.4byte	.LASF175
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 26
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 26
 
 
  1260 0657 06       		.byte	0x6
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1314 06cb 03       		.byte	0x3
  1315 06cc 00000000 		.4byte	modes
  1316 06d0 19       		.uleb128 0x19
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 27
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 27
 
 
  1317 06d1 B0110000 		.4byte	.LASF182
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1371 001d 00       		.byte	0
  1372 001e 03       		.uleb128 0x3
  1373 001f 24       		.uleb128 0x24
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 28
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 28
 
 
  1374 0020 00       		.byte	0
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1428 0056 28       		.uleb128 0x28
  1429 0057 00       		.byte	0
  1430 0058 03       		.uleb128 0x3
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 29
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 29
 
 
  1431 0059 0E       		.uleb128 0xe
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1485 008f 0B       		.uleb128 0xb
  1486 0090 00       		.byte	0
  1487 0091 00       		.byte	0
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 30
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 30
 
 
  1488 0092 0D       		.uleb128 0xd
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1542 00c8 01       		.uleb128 0x1
  1543 00c9 13       		.uleb128 0x13
  1544 00ca 00       		.byte	0
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 31
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 31
 
 
  1545 00cb 00       		.byte	0
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1599 0102 00       		.byte	0
  1600 0103 00       		.byte	0
  1601 0104 14       		.uleb128 0x14
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 32
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 32
 
 
  1602 0105 34       		.uleb128 0x34
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1656 013c 00       		.byte	0
  1657 013d 18       		.uleb128 0x18
  1658 013e 34       		.uleb128 0x34
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 33
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 33
 
 
  1659 013f 00       		.byte	0
@@ -1978,30 +1978,30 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1713 000a 04       		.byte	0x4
  1714 000b 00       		.byte	0
  1715 000c 0000     		.2byte	0
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 34
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 34
 
 
  1716 000e 0000     		.2byte	0
- 1717 0010 00000000 		.4byte	.LFB61
- 1718 0014 30000000 		.4byte	.LFE61-.LFB61
- 1719 0018 00000000 		.4byte	.LFB62
- 1720 001c DC010000 		.4byte	.LFE62-.LFB62
- 1721 0020 00000000 		.4byte	.LFB63
- 1722 0024 1C000000 		.4byte	.LFE63-.LFB63
- 1723 0028 00000000 		.4byte	.LFB64
- 1724 002c 1C000000 		.4byte	.LFE64-.LFB64
+ 1717 0010 00000000 		.4byte	.LFB63
+ 1718 0014 30000000 		.4byte	.LFE63-.LFB63
+ 1719 0018 00000000 		.4byte	.LFB64
+ 1720 001c DC010000 		.4byte	.LFE64-.LFB64
+ 1721 0020 00000000 		.4byte	.LFB65
+ 1722 0024 1C000000 		.4byte	.LFE65-.LFB65
+ 1723 0028 00000000 		.4byte	.LFB66
+ 1724 002c 1C000000 		.4byte	.LFE66-.LFB66
  1725 0030 00000000 		.4byte	0
  1726 0034 00000000 		.4byte	0
  1727              		.section	.debug_ranges,"",%progbits
  1728              	.Ldebug_ranges0:
- 1729 0000 00000000 		.4byte	.LFB61
- 1730 0004 30000000 		.4byte	.LFE61
- 1731 0008 00000000 		.4byte	.LFB62
- 1732 000c DC010000 		.4byte	.LFE62
- 1733 0010 00000000 		.4byte	.LFB63
- 1734 0014 1C000000 		.4byte	.LFE63
- 1735 0018 00000000 		.4byte	.LFB64
- 1736 001c 1C000000 		.4byte	.LFE64
+ 1729 0000 00000000 		.4byte	.LFB63
+ 1730 0004 30000000 		.4byte	.LFE63
+ 1731 0008 00000000 		.4byte	.LFB64
+ 1732 000c DC010000 		.4byte	.LFE64
+ 1733 0010 00000000 		.4byte	.LFB65
+ 1734 0014 1C000000 		.4byte	.LFE65
+ 1735 0018 00000000 		.4byte	.LFB66
+ 1736 001c 1C000000 		.4byte	.LFE66
  1737 0020 00000000 		.4byte	0
  1738 0024 00000000 		.4byte	0
  1739              		.section	.debug_line,"",%progbits
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1750              	.LASF81:
  1751 006c 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
  1751      455F4556 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 35
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 35
 
 
  1751      545F4C32 
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1769      52454144 
  1770              	.LASF65:
  1771 01b3 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 36
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 36
 
 
  1771      455F4556 
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1791      626C6555 
  1791      61727452 
  1791      78496E74 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 37
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 37
 
 
  1791      00
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1811      455F4552 
  1811      524F525F 
  1811      4E4F5F44 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 38
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 38
 
 
  1811      45564943 
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1833      655F6C61 
  1833      73745F73 
  1833      74617465 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 39
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 39
 
 
  1833      00
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1855      524F525F 
  1855      4F4B00
  1856              	.LASF49:
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 40
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 40
 
 
  1857 054e 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1879      455F4556 
  1879      545F4C45 
  1879      5F50494E 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 41
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 41
 
 
  1879      475F4155 
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1897      505F4348 
  1898              	.LASF119:
  1899 0749 4359424C 		.ascii	"CYBLE_ERROR_NTF_DISABLED\000"
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 42
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 42
 
 
  1899      455F4552 
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1917      61746500 
  1918              	.LASF186:
  1919 0847 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 43
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 43
 
 
  1919      43313120 
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1937      505F534D 
  1937      505F4C4F 
  1938 0999 4500     		.ascii	"E\000"
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 44
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 44
 
 
  1939              	.LASF118:
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1958      44415441 
  1958      00
  1959              	.LASF43:
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 45
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 45
 
 
  1960 0a6c 4359424C 		.ascii	"CYBLE_EVT_GAPC_DIRECT_ADV_REPORT\000"
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  1978      455F5641 
  1979              	.LASF95:
  1980 0b67 4359424C 		.ascii	"CYBLE_ERROR_OOB_NOT_AVAILABLE\000"
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 46
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 46
 
 
  1980      455F4552 
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  2002      4154455F 
  2002      434F4E4E 
  2002      45435449 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 47
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 47
 
 
  2003              	.LASF2:
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  2022      455F4556 
  2022      545F4741 
  2022      505F534D 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 48
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 48
 
 
  2022      505F4E45 
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  2042      395C4465 
  2042      736B746F 
  2043 0e83 5C424C45 		.ascii	"\\BLE_Central.cydsn\000"
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 49
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 49
 
 
  2043      5F43656E 
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  2063      524F525F 
  2063      4C324341 
  2063      505F434F 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 50
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 50
 
 
  2064              	.LASF28:
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  2085      455F5354 
  2085      4154455F 
  2085      5400
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 51
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 51
 
 
  2086              	.LASF59:
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  2107 116e 4359424C 		.ascii	"CYBLE_ERROR_GAP_ROLE\000"
  2107      455F4552 
  2107      524F525F 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 52
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 52
 
 
  2107      4741505F 
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 1
  2128              	.LASF88:
  2129 127a 4359424C 		.ascii	"CYBLE_EVT_FLASH_CORRUPT\000"
  2129      455F4556 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\ccXhW3xv.s 			page 53
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccA7qIxq.s 			page 53
 
 
  2129      545F464C 

@@ -10777,30 +10777,33 @@ ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 1
  759              	.set CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER, 4
  760              	.set CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER, 3
  761              	.set CYDEV_PROJ_TYPE_STANDARD, 0
- 762              	.set CYDEV_STACK_SIZE, 0x0800
- 763              	.set CYDEV_USE_BUNDLED_CMSIS, 1
- 764              	.set CYDEV_VARIABLE_VDDA, 1
- 765              	.set CYDEV_VDD_MV, 3300
- 766              	.set CYDEV_VDDR_MV, 3300
- 767              	.set CYDEV_WDT_GENERATE_ISR, 0
- 768              	.set CYIPBLOCK_m0s8bless_VERSION, 1
- 769              	.set CYIPBLOCK_m0s8cpussv2_VERSION, 1
- 770              	.set CYIPBLOCK_m0s8csd_VERSION, 1
- 771              	.set CYIPBLOCK_m0s8ioss_VERSION, 1
- 772              	.set CYIPBLOCK_m0s8lcd_VERSION, 2
- 773              	.set CYIPBLOCK_m0s8peri_VERSION, 1
- 774              	.set CYIPBLOCK_m0s8scb_VERSION, 2
- 775              	.set CYIPBLOCK_m0s8srssv2_VERSION, 1
- 776              	.set CYIPBLOCK_m0s8tcpwm_VERSION, 2
- 777              	.set CYIPBLOCK_m0s8udbif_VERSION, 1
- 778              	.set CYIPBLOCK_s8pass4al_VERSION, 1
- 779              	.set CYDEV_BOOTLOADER_ENABLE, 0
- 780              	.endif
-  19              	
-  20              	
+ 762              	.set CYDEV_RTC_SOURCE_DIV, 65536
+ 763              	.set CYDEV_RTC_SOURCE_WDT, 0
+ 764              	.set CYDEV_STACK_SIZE, 0x0800
+ 765              	.set CYDEV_USE_BUNDLED_CMSIS, 1
+ 766              	.set CYDEV_VARIABLE_VDDA, 1
+ 767              	.set CYDEV_VDD_MV, 3300
+ 768              	.set CYDEV_VDDR_MV, 3300
+ 769              	.set CYDEV_WDT_GENERATE_ISR, 1
+ 770              	.set CYDEV_WDT0_DIV, 65536
+ 771              	.set CYIPBLOCK_m0s8bless_VERSION, 1
+ 772              	.set CYIPBLOCK_m0s8cpussv2_VERSION, 1
+ 773              	.set CYIPBLOCK_m0s8csd_VERSION, 1
+ 774              	.set CYIPBLOCK_m0s8ioss_VERSION, 1
+ 775              	.set CYIPBLOCK_m0s8lcd_VERSION, 2
+ 776              	.set CYIPBLOCK_m0s8peri_VERSION, 1
+ 777              	.set CYIPBLOCK_m0s8scb_VERSION, 2
+ 778              	.set CYIPBLOCK_m0s8srssv2_VERSION, 1
+ 779              	.set CYIPBLOCK_m0s8tcpwm_VERSION, 2
+ 780              	.set CYIPBLOCK_m0s8udbif_VERSION, 1
+ 781              	.set CYIPBLOCK_s8pass4al_VERSION, 1
+ 782              	.set CYDEV_BOOTLOADER_ENABLE, 0
 ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 181
 
 
+ 783              	.endif
+  19              	
+  20              	
   21              	/*******************************************************************************
   22              	* Function Name: CyDelayCycles
   23              	****************************************************************************//**
@@ -10855,12 +10858,12 @@ ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 1
   72              	/*******************************************************************************
   73              	* Function Name: CyEnterCriticalSection
   74              	****************************************************************************//**
-  75              	*
-  76              	*  CyEnterCriticalSection disables interrupts and returns a value indicating
-  77              	*  whether interrupts were previously enabled (the actual value depends on
 ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 182
 
 
+  75              	*
+  76              	*  CyEnterCriticalSection disables interrupts and returns a value indicating
+  77              	*  whether interrupts were previously enabled (the actual value depends on
   78              	*  whether the device is PSoC 3 or PSoC 5).
   79              	*
   80              	*  Note Implementation of CyEnterCriticalSection manipulates the IRQ enable bit

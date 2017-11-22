@@ -69,7 +69,7 @@
     void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotification);    
     void print_clock();
     void set_init_clock();
-    
+    void process_packets();
     
     
 #endif

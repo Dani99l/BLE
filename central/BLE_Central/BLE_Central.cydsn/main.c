@@ -69,9 +69,7 @@ int main()
 }
 
 void init_variables(){
-    
     packetSum=0;
-    
 }
 
 void state_machine(){
@@ -486,7 +484,16 @@ void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotif
 {
     int i;
     int clock;
+    int min;
+    int sec;
+    int hour;
+    RTC_1_Update();
+    
     clock=RTC_1_GetTime();
+    clock=RTC_1_ConvertBCDToDec(clock);
+    min=RTC_1_GetMinutes(clock);
+    sec=RTC_1_GetSecond(clock);
+    hour=RTC_1_GetHours(clock);
     if(uartRxDataNotification->handleValPair.attrHandle == txCharHandle)
     {
         packetSum++;
@@ -499,6 +506,14 @@ void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotif
             UART_UartPutString(ultoa(uartRxDataNotification->handleValPair.value.val[i]));
             UART_UartPutString(" ");
         }
+        UART_UartPutString(ultoa(clock));
+        UART_UartPutString(" ");
+        UART_UartPutString(ultoa(hour));
+        UART_UartPutString(":");
+        UART_UartPutString(ultoa(min));
+        UART_UartPutString(":");
+        UART_UartPutString(ultoa(sec));
+        UART_UartPutString(" ");
         
         UART_UartPutString("\n\r");
     }
@@ -509,6 +524,12 @@ void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotif
 }
 
 void print_clock(){
+    
+    
+    
+}
+
+void process_packets(){
     
     
     

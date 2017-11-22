@@ -1,24 +1,21 @@
---------------- Build Started: 11/17/2017 11:32:59 Project: BLE_Central, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+--------------- Build Started: 11/22/2017 17:28:18 Project: BLE_Central, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
 The code generation step is up to date.
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0 -c main.c -o .\CortexM0\ARM_GCC_541\Debug\main.o
 main.c: In function 'HandleBleProcessing':
-main.c:157:30: warning: comparison between 'CYBLE_API_RESULT_T {aka enum <anonymous>}' and 'CYBLE_STATE_T {aka enum <anonymous>}' [-Wenum-compare]
+main.c:155:30: warning: comparison between 'CYBLE_API_RESULT_T {aka enum <anonymous>}' and 'CYBLE_STATE_T {aka enum <anonymous>}' [-Wenum-compare]
          if (cyBle_last_state != cyBle_state) {
                               ^
-main.c:170:34: warning: comparison between 'CYBLE_API_RESULT_T {aka enum <anonymous>}' and 'CYBLE_STATE_T {aka enum <anonymous>}' [-Wenum-compare]
+main.c:168:34: warning: comparison between 'CYBLE_API_RESULT_T {aka enum <anonymous>}' and 'CYBLE_STATE_T {aka enum <anonymous>}' [-Wenum-compare]
              if (cyBle_last_state != cyBle_state) {
                                   ^
-main.c:199:31: warning: comparison between 'CYBLE_API_RESULT_T {aka enum <anonymous>}' and 'CYBLE_STATE_T {aka enum <anonymous>}' [-Wenum-compare]
+main.c:197:31: warning: comparison between 'CYBLE_API_RESULT_T {aka enum <anonymous>}' and 'CYBLE_STATE_T {aka enum <anonymous>}' [-Wenum-compare]
           if (cyBle_last_state != cyBle_state) {
                                ^
-arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/app_Ble.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0 -c app_Ble.c -o .\CortexM0\ARM_GCC_541\Debug\app_Ble.o
-arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/app_UART.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0 -c app_UART.c -o .\CortexM0\ARM_GCC_541\Debug\app_UART.o
-arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/app_LED.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0 -c app_LED.c -o .\CortexM0\ARM_GCC_541\Debug\app_LED.o
 arm-none-eabi-ar.exe -rs .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a .\CortexM0\ARM_GCC_541\Debug\BLE.o .\CortexM0\ARM_GCC_541\Debug\BLE_gatt.o .\CortexM0\ARM_GCC_541\Debug\BLE_eventHandler.o .\CortexM0\ARM_GCC_541\Debug\BLE_HAL_INT.o .\CortexM0\ARM_GCC_541\Debug\BLE_HAL_PVT.o .\CortexM0\ARM_GCC_541\Debug\BLE_custom.o .\CortexM0\ARM_GCC_541\Debug\Scan_LED.o .\CortexM0\ARM_GCC_541\Debug\Scan_LED_PM.o .\CortexM0\ARM_GCC_541\Debug\Conn_LED.o .\CortexM0\ARM_GCC_541\Debug\Conn_LED_PM.o .\CortexM0\ARM_GCC_541\Debug\UART.o .\CortexM0\ARM_GCC_541\Debug\UART_SPI_UART.o .\CortexM0\ARM_GCC_541\Debug\UART_SPI_UART_INT.o .\CortexM0\ARM_GCC_541\Debug\UART_PM.o .\CortexM0\ARM_GCC_541\Debug\UART_UART.o .\CortexM0\ARM_GCC_541\Debug\UART_BOOT.o .\CortexM0\ARM_GCC_541\Debug\UART_UART_BOOT.o .\CortexM0\ARM_GCC_541\Debug\BLE_bless_isr.o .\CortexM0\ARM_GCC_541\Debug\UART_SCBCLK.o .\CortexM0\ARM_GCC_541\Debug\UART_tx.o .\CortexM0\ARM_GCC_541\Debug\UART_tx_PM.o .\CortexM0\ARM_GCC_541\Debug\UART_SCB_IRQ.o .\CortexM0\ARM_GCC_541\Debug\UART_rx.o .\CortexM0\ARM_GCC_541\Debug\UART_rx_PM.o .\CortexM0\ARM_GCC_541\Debug\CyFlash.o .\CortexM0\ARM_GCC_541\Debug\CyLib.o .\CortexM0\ARM_GCC_541\Debug\cyPm.o .\CortexM0\ARM_GCC_541\Debug\cyutils.o .\CortexM0\ARM_GCC_541\Debug\CyLFClk.o .\CortexM0\ARM_GCC_541\Debug\RTC_1.o .\CortexM0\ARM_GCC_541\Debug\CyBootAsmGnu.o
 arm-none-eabi-ar.exe: creating .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a
 arm-none-eabi-gcc.exe -Wl,--start-group -o C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\CortexM0\ARM_GCC_541\Debug\BLE_Central.elf .\CortexM0\ARM_GCC_541\Debug\main.o .\CortexM0\ARM_GCC_541\Debug\app_Ble.o .\CortexM0\ARM_GCC_541\Debug\app_UART.o .\CortexM0\ARM_GCC_541\Debug\app_LED.o .\CortexM0\ARM_GCC_541\Debug\teste.o .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o .\CortexM0\ARM_GCC_541\Debug\cymetadata.o .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o .\CortexM0\ARM_GCC_541\Debug\BLE_Central.a "..\..\..\..\..\Documents\PSoC Creator\4.1\Downloads ( 4.1).cylib\BLE_v3_40\Library\gccCyBLEStack_BLE_SOC_CENTRAL_PERIPHERAL.a" "C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM0\ARM_GCC_541\Debug\CyComponentLibrary.a" -mcpu=cortex-m0 -mthumb -L Generated_Source\PSoC4 -Wl,-Map,.\CortexM0\ARM_GCC_541\Debug/BLE_Central.map -T Generated_Source\PSoC4\cm0gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -O0 -ffat-lto-objects -Wl,--end-group
 cyelftool.exe -C C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\CortexM0\ARM_GCC_541\Debug\BLE_Central.elf --flash_row_size 128 --flash_size 131072 --flash_offset 0x00000000
 cyelftool.exe -S C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\CortexM0\ARM_GCC_541\Debug\BLE_Central.elf
-Flash used: 103609 of 131072 bytes (79,0%).
-SRAM used: 15320 of 16384 bytes (93,5%). Stack: 2048 bytes. Heap: 128 bytes.
---------------- Build Succeeded: 11/17/2017 11:33:02 ---------------
+Flash used: 104529 of 131072 bytes (79,7%).
+SRAM used: 15376 of 16384 bytes (93,8%). Stack: 2048 bytes. Heap: 128 bytes.
+--------------- Build Succeeded: 11/22/2017 17:28:20 ---------------
