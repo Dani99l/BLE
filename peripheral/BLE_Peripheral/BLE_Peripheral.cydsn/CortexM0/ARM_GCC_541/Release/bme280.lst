@@ -1,0 +1,3443 @@
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"bme280.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.gettemp280,"ax",%progbits
+  20              		.align	1
+  21              		.global	gettemp280
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	gettemp280, %function
+  25              	gettemp280:
+  26              	.LFB35:
+  27              		.file 1 "bme280.c"
+   1:bme280.c      **** /* ========================================
+   2:bme280.c      ****  *
+   3:bme280.c      ****  *  Device driver to read temperature, humidity and pressure from BME280 Sensor using I2C interface
+   4:bme280.c      ****  *
+   5:bme280.c      ****  * ========================================
+   6:bme280.c      **** */
+   7:bme280.c      **** 
+   8:bme280.c      **** #include "bme280.h"
+   9:bme280.c      **** #include "I2C_1.h"
+  10:bme280.c      **** #include "project.h"
+  11:bme280.c      **** #include "teste.h"
+  12:bme280.c      **** #include "math.h"  
+  13:bme280.c      **** 
+  14:bme280.c      **** /*************************Variables Declaration****************************************************
+  15:bme280.c      **** uint8 SensorCalibrationData[0x16]; //Calibration data is stored in this array
+  16:bme280.c      **** long X1, X2, X3, B3, B5, B6, UT, UP; //Variables to store calibration coefficients
+  17:bme280.c      **** unsigned long B4, B7; //Variables to store calibration coefficients
+  18:bme280.c      **** short AC1, AC2, AC3, B1, B2, MC, MD; //Variables to store calibration coefficients
+  19:bme280.c      **** unsigned short AC4, AC5, AC6; //Variables to store calibration coefficients
+  20:bme280.c      **** long UT, UP; //Variables to store uncompensated temperature and pressure data
+  21:bme280.c      **** long Temperature, Pressure, Altitude; //Variables to store the true temperature, pressure and altit
+  22:bme280.c      **** double PressureAtSeaLevel = 101325.0; //Pressure at sea level in Pascal
+  23:bme280.c      **** uint8 CalibrationDataAvailable = FALSE; //This flag is to whether the calibration data is available
+  24:bme280.c      **** 
+  25:bme280.c      **** 
+  26:bme280.c      **** int gettemp280(void)
+  27:bme280.c      **** {
+  28              		.loc 1 27 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 2
+
+
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 70B5     		push	{r4, r5, r6, lr}
+  33              		.cfi_def_cfa_offset 16
+  34              		.cfi_offset 4, -16
+  35              		.cfi_offset 5, -12
+  36              		.cfi_offset 6, -8
+  37              		.cfi_offset 14, -4
+  28:bme280.c      ****     //I2C_1_Start(); 
+  29:bme280.c      ****     I2C_1_scl_SetDriveMode(I2C_1_scl_DM_OD_LO);
+  38              		.loc 1 29 0
+  39 0002 0420     		movs	r0, #4
+  40 0004 FFF7FEFF 		bl	I2C_1_scl_SetDriveMode
+  41              	.LVL0:
+  30:bme280.c      ****     I2C_1_sda_SetDriveMode(I2C_1_sda_DM_OD_LO);
+  42              		.loc 1 30 0
+  43 0008 0420     		movs	r0, #4
+  44 000a FFF7FEFF 		bl	I2C_1_sda_SetDriveMode
+  45              	.LVL1:
+  31:bme280.c      ****     static uint8 I2CReadBufferT[0x02]; //The uncompensated temperature read from the sensor is stor
+  32:bme280.c      ****     static uint8 I2CWriteBufferT[0x01] = {0xF4}; //Command for temperature conversion - Register ad
+  33:bme280.c      ****     static uint8 SetReadAddressBufferT[0x01] = {0xF6}; //Register address from which the data is re
+  34:bme280.c      ****     
+  35:bme280.c      ****     /* Do a write operation with the memory address bytes to get temperature data */
+  36:bme280.c      **** 	I2C_1_I2CMasterWriteBuf(I2CSlaveAddress, (uint8 *) I2CWriteBufferT, sizeof(I2CWriteBufferT), I2C_I
+  46              		.loc 1 36 0
+  47 000e 0023     		movs	r3, #0
+  48 0010 0122     		movs	r2, #1
+  49 0012 1049     		ldr	r1, .L9
+  50 0014 7620     		movs	r0, #118
+  51 0016 FFF7FEFF 		bl	I2C_1_I2CMasterWriteBuf
+  52              	.LVL2:
+  37:bme280.c      ****     while(!(I2C_1_I2CMasterStatus() & I2C_I2C_MSTAT_WR_CMPLT)); //Wait till the master completes wr
+  53              		.loc 1 37 0
+  54 001a 0224     		movs	r4, #2
+  55              	.L2:
+  56              		.loc 1 37 0 is_stmt 0 discriminator 1
+  57 001c FFF7FEFF 		bl	I2C_1_I2CMasterStatus
+  58              	.LVL3:
+  59 0020 2042     		tst	r0, r4
+  60 0022 FBD0     		beq	.L2
+  38:bme280.c      ****     I2C_1_I2CMasterClearStatus(); //Clear I2C master status
+  61              		.loc 1 38 0 is_stmt 1
+  62 0024 FFF7FEFF 		bl	I2C_1_I2CMasterClearStatus
+  63              	.LVL4:
+  39:bme280.c      ****     
+  40:bme280.c      ****     //CyDelay(5); //Wait for 5ms temperature conversion
+  41:bme280.c      ****     
+  42:bme280.c      **** //    /* In order to do a read from a specific address, do a write operation with the memory addres
+  43:bme280.c      **** //	I2C_1_I2CMasterWriteBuf(I2CSlaveAddress, (uint8 *) SetReadAddressBufferT, sizeof(SetReadAddressB
+  44:bme280.c      **** //    while(!(I2C_1_I2CMasterStatus() & I2C_I2C_MSTAT_WR_CMPLT)); //Wait till the master completes 
+  45:bme280.c      **** //    I2C_1_I2CMasterClearStatus(); //Clear I2C master status
+  46:bme280.c      ****     
+  47:bme280.c      ****     /* Read temperature from the sensor and store it in a buffer */
+  48:bme280.c      **** 	I2C_1_I2CMasterReadBuf(I2CSlaveAddress, (uint8 *) I2CReadBufferT, sizeof(I2CReadBufferT), I2C_I2C_
+  64              		.loc 1 48 0
+  65 0028 0B4C     		ldr	r4, .L9+4
+  66 002a 0023     		movs	r3, #0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 3
+
+
+  67 002c 0222     		movs	r2, #2
+  68 002e 2100     		movs	r1, r4
+  69 0030 7620     		movs	r0, #118
+  70 0032 FFF7FEFF 		bl	I2C_1_I2CMasterReadBuf
+  71              	.LVL5:
+  49:bme280.c      ****     while(!(I2C_1_I2CMasterStatus() & I2C_I2C_MSTAT_RD_CMPLT)); //Wait till the master completes re
+  72              		.loc 1 49 0
+  73 0036 0125     		movs	r5, #1
+  74              	.L3:
+  75              		.loc 1 49 0 is_stmt 0 discriminator 1
+  76 0038 FFF7FEFF 		bl	I2C_1_I2CMasterStatus
+  77              	.LVL6:
+  78 003c 2842     		tst	r0, r5
+  79 003e FBD0     		beq	.L3
+  50:bme280.c      ****     I2C_1_I2CMasterClearStatus(); //Clear I2C master status
+  80              		.loc 1 50 0 is_stmt 1
+  81 0040 FFF7FEFF 		bl	I2C_1_I2CMasterClearStatus
+  82              	.LVL7:
+  51:bme280.c      ****     
+  52:bme280.c      **** 	UT280 = (I2CReadBufferT[0x00] << 0x08) | I2CReadBufferT[0x01]; //Return uncompensated temperature 
+  83              		.loc 1 52 0
+  84 0044 2078     		ldrb	r0, [r4]
+  85 0046 6378     		ldrb	r3, [r4, #1]
+  86 0048 0002     		lsls	r0, r0, #8
+  87 004a 1843     		orrs	r0, r3
+  88 004c 034B     		ldr	r3, .L9+8
+  53:bme280.c      **** 
+  54:bme280.c      ****     return UT280;
+  55:bme280.c      **** }
+  89              		.loc 1 55 0
+  90              		@ sp needed
+  52:bme280.c      **** 
+  91              		.loc 1 52 0
+  92 004e 1860     		str	r0, [r3]
+  93              		.loc 1 55 0
+  94 0050 70BD     		pop	{r4, r5, r6, pc}
+  95              	.L10:
+  96 0052 C046     		.align	2
+  97              	.L9:
+  98 0054 00000000 		.word	.LANCHOR0
+  99 0058 00000000 		.word	.LANCHOR1
+ 100 005c 00000000 		.word	UT280
+ 101              		.cfi_endproc
+ 102              	.LFE35:
+ 103              		.size	gettemp280, .-gettemp280
+ 104              		.section	.text.getpress280,"ax",%progbits
+ 105              		.align	1
+ 106              		.global	getpress280
+ 107              		.code	16
+ 108              		.thumb_func
+ 109              		.type	getpress280, %function
+ 110              	getpress280:
+ 111              	.LFB36:
+  56:bme280.c      **** /**************************************************************************************************
+  57:bme280.c      **** 
+  58:bme280.c      **** /**************************************************************************************************
+  59:bme280.c      **** * Function Name: ReadUncompensatedPressure
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 4
+
+
+  60:bme280.c      **** ***************************************************************************************************
+  61:bme280.c      **** * Summary: This function writes the pressure conversion command to the sensor and
+  62:bme280.c      **** * waits for conversion to complete, and then reads the converted data (uncompensated pressure) and 
+  63:bme280.c      **** *
+  64:bme280.c      **** * Parameters:
+  65:bme280.c      **** *  void
+  66:bme280.c      **** *
+  67:bme280.c      **** * Return:
+  68:bme280.c      **** *  void
+  69:bme280.c      **** *
+  70:bme280.c      **** ***************************************************************************************************
+  71:bme280.c      **** int getpress280(void)
+  72:bme280.c      **** {   I2C_1_scl_SetDriveMode(I2C_1_sda_DM_OD_LO);
+ 112              		.loc 1 72 0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 0
+ 115              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116 0000 70B5     		push	{r4, r5, r6, lr}
+ 117              		.cfi_def_cfa_offset 16
+ 118              		.cfi_offset 4, -16
+ 119              		.cfi_offset 5, -12
+ 120              		.cfi_offset 6, -8
+ 121              		.cfi_offset 14, -4
+ 122              		.loc 1 72 0
+ 123 0002 0420     		movs	r0, #4
+ 124 0004 FFF7FEFF 		bl	I2C_1_scl_SetDriveMode
+ 125              	.LVL8:
+  73:bme280.c      ****     I2C_1_sda_SetDriveMode(I2C_1_sda_DM_OD_LO);
+ 126              		.loc 1 73 0
+ 127 0008 0420     		movs	r0, #4
+ 128 000a FFF7FEFF 		bl	I2C_1_sda_SetDriveMode
+ 129              	.LVL9:
+  74:bme280.c      ****     I2C_1_Start(); 
+ 130              		.loc 1 74 0
+ 131 000e FFF7FEFF 		bl	I2C_1_Start
+ 132              	.LVL10:
+  75:bme280.c      ****     static uint8 I2CReadBufferP[0x03]; //The uncompensated pressure read from the sensor is stored 
+  76:bme280.c      ****     static uint8 I2CWriteBufferP[0x01] = {0xF7}; //0x34 + (OSS << 0x06)}; //Command for pressure co
+  77:bme280.c      ****     static uint8 SetReadAddressBufferP[0x01] = {0xF6}; //Register address from which the data is re
+  78:bme280.c      ****     
+  79:bme280.c      ****     /* Do a write operation with the memory address bytes to get pressure data */
+  80:bme280.c      **** 	I2C_1_I2CMasterWriteBuf(I2CSlaveAddress, (uint8 *) I2CWriteBufferP, sizeof(I2CWriteBufferP), I2C_I
+ 133              		.loc 1 80 0
+ 134 0012 1B4C     		ldr	r4, .L21
+ 135 0014 0023     		movs	r3, #0
+ 136 0016 611C     		adds	r1, r4, #1
+ 137 0018 0122     		movs	r2, #1
+ 138 001a 7620     		movs	r0, #118
+ 139 001c FFF7FEFF 		bl	I2C_1_I2CMasterWriteBuf
+ 140              	.LVL11:
+  81:bme280.c      ****     while(!(I2C_1_I2CMasterStatus() & I2C_I2C_MSTAT_WR_CMPLT)); //Wait till the master completes wr
+ 141              		.loc 1 81 0
+ 142 0020 0225     		movs	r5, #2
+ 143              	.L12:
+ 144              		.loc 1 81 0 is_stmt 0 discriminator 1
+ 145 0022 FFF7FEFF 		bl	I2C_1_I2CMasterStatus
+ 146              	.LVL12:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 5
+
+
+ 147 0026 2842     		tst	r0, r5
+ 148 0028 FBD0     		beq	.L12
+  82:bme280.c      ****     I2C_1_I2CMasterClearStatus(); //Clear I2C master status
+ 149              		.loc 1 82 0 is_stmt 1
+ 150 002a FFF7FEFF 		bl	I2C_1_I2CMasterClearStatus
+ 151              	.LVL13:
+  83:bme280.c      ****     
+  84:bme280.c      ****     CyDelay(26); //Wait for 26ms pressure conversion
+ 152              		.loc 1 84 0
+ 153 002e 1A20     		movs	r0, #26
+ 154 0030 FFF7FEFF 		bl	CyDelay
+ 155              	.LVL14:
+  85:bme280.c      ****     
+  86:bme280.c      ****     /* In order to do a read from a specific address, do a write operation with the memory address 
+  87:bme280.c      **** 	I2C_1_I2CMasterWriteBuf(I2CSlaveAddress, (uint8 *) SetReadAddressBufferP, sizeof(SetReadAddressBuf
+ 156              		.loc 1 87 0
+ 157 0034 A11C     		adds	r1, r4, #2
+ 158 0036 0023     		movs	r3, #0
+ 159 0038 0122     		movs	r2, #1
+ 160 003a 7620     		movs	r0, #118
+ 161 003c FFF7FEFF 		bl	I2C_1_I2CMasterWriteBuf
+ 162              	.LVL15:
+  88:bme280.c      ****     while(!(I2C_1_I2CMasterStatus() & I2C_I2C_MSTAT_WR_CMPLT)); //Wait till the master completes wr
+ 163              		.loc 1 88 0
+ 164 0040 0224     		movs	r4, #2
+ 165              	.L13:
+ 166              		.loc 1 88 0 is_stmt 0 discriminator 1
+ 167 0042 FFF7FEFF 		bl	I2C_1_I2CMasterStatus
+ 168              	.LVL16:
+ 169 0046 2042     		tst	r0, r4
+ 170 0048 FBD0     		beq	.L13
+  89:bme280.c      ****     I2C_1_I2CMasterClearStatus(); //Clear I2C master status
+ 171              		.loc 1 89 0 is_stmt 1
+ 172 004a FFF7FEFF 		bl	I2C_1_I2CMasterClearStatus
+ 173              	.LVL17:
+  90:bme280.c      ****     
+  91:bme280.c      ****     /* Read pressure from the sensor and store it in a buffer */
+  92:bme280.c      **** 	I2C_1_I2CMasterReadBuf(I2CSlaveAddress, (uint8 *) I2CReadBufferP, sizeof(I2CReadBufferP), I2C_I2C_
+ 174              		.loc 1 92 0
+ 175 004e 0D4C     		ldr	r4, .L21+4
+ 176 0050 0023     		movs	r3, #0
+ 177 0052 A11C     		adds	r1, r4, #2
+ 178 0054 0322     		movs	r2, #3
+ 179 0056 7620     		movs	r0, #118
+ 180 0058 FFF7FEFF 		bl	I2C_1_I2CMasterReadBuf
+ 181              	.LVL18:
+  93:bme280.c      ****     while(!(I2C_1_I2CMasterStatus() & I2C_I2C_MSTAT_RD_CMPLT)); //Wait till the master completes re
+ 182              		.loc 1 93 0
+ 183 005c 0125     		movs	r5, #1
+ 184              	.L14:
+ 185              		.loc 1 93 0 is_stmt 0 discriminator 1
+ 186 005e FFF7FEFF 		bl	I2C_1_I2CMasterStatus
+ 187              	.LVL19:
+ 188 0062 2842     		tst	r0, r5
+ 189 0064 FBD0     		beq	.L14
+  94:bme280.c      ****     I2C_1_I2CMasterClearStatus(); //Clear I2C master status
+ 190              		.loc 1 94 0 is_stmt 1
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 6
+
+
+ 191 0066 FFF7FEFF 		bl	I2C_1_I2CMasterClearStatus
+ 192              	.LVL20:
+  95:bme280.c      ****     
+  96:bme280.c      **** 	UP280 = ((I2CReadBufferP[0x00] << 0x10) | (I2CReadBufferP[0x01] << 0x08) | I2CReadBufferP[0x02]) >
+ 193              		.loc 1 96 0
+ 194 006a E378     		ldrb	r3, [r4, #3]
+ 195 006c A078     		ldrb	r0, [r4, #2]
+ 196 006e 1B02     		lsls	r3, r3, #8
+ 197 0070 0004     		lsls	r0, r0, #16
+ 198 0072 1843     		orrs	r0, r3
+ 199 0074 2379     		ldrb	r3, [r4, #4]
+  97:bme280.c      ****     
+  98:bme280.c      ****     return UP280;
+  99:bme280.c      **** }
+ 200              		.loc 1 99 0
+ 201              		@ sp needed
+  96:bme280.c      ****     
+ 202              		.loc 1 96 0
+ 203 0076 1843     		orrs	r0, r3
+ 204 0078 034B     		ldr	r3, .L21+8
+ 205 007a 4011     		asrs	r0, r0, #5
+ 206 007c 1860     		str	r0, [r3]
+ 207              		.loc 1 99 0
+ 208 007e 70BD     		pop	{r4, r5, r6, pc}
+ 209              	.L22:
+ 210              		.align	2
+ 211              	.L21:
+ 212 0080 00000000 		.word	.LANCHOR0
+ 213 0084 00000000 		.word	.LANCHOR1
+ 214 0088 00000000 		.word	UP280
+ 215              		.cfi_endproc
+ 216              	.LFE36:
+ 217              		.size	getpress280, .-getpress280
+ 218              		.section	.text.readPressure,"ax",%progbits
+ 219              		.align	1
+ 220              		.global	readPressure
+ 221              		.code	16
+ 222              		.thumb_func
+ 223              		.type	readPressure, %function
+ 224              	readPressure:
+ 225              	.LFB37:
+ 100:bme280.c      **** 
+ 101:bme280.c      **** int readPressure(){
+ 226              		.loc 1 101 0
+ 227              		.cfi_startproc
+ 228              		@ args = 0, pretend = 0, frame = 0
+ 229              		@ frame_needed = 0, uses_anonymous_args = 0
+ 230              		@ link register save eliminated.
+ 102:bme280.c      ****     
+ 103:bme280.c      ****     return Pressure;
+ 231              		.loc 1 103 0
+ 232 0000 014B     		ldr	r3, .L24
+ 104:bme280.c      **** }
+ 233              		.loc 1 104 0
+ 234              		@ sp needed
+ 103:bme280.c      **** }
+ 235              		.loc 1 103 0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 7
+
+
+ 236 0002 1868     		ldr	r0, [r3]
+ 237              		.loc 1 104 0
+ 238 0004 7047     		bx	lr
+ 239              	.L25:
+ 240 0006 C046     		.align	2
+ 241              	.L24:
+ 242 0008 00000000 		.word	Pressure
+ 243              		.cfi_endproc
+ 244              	.LFE37:
+ 245              		.size	readPressure, .-readPressure
+ 246              		.section	.text.readTemp,"ax",%progbits
+ 247              		.align	1
+ 248              		.global	readTemp
+ 249              		.code	16
+ 250              		.thumb_func
+ 251              		.type	readTemp, %function
+ 252              	readTemp:
+ 253              	.LFB38:
+ 105:bme280.c      **** int readTemp(){
+ 254              		.loc 1 105 0
+ 255              		.cfi_startproc
+ 256              		@ args = 0, pretend = 0, frame = 0
+ 257              		@ frame_needed = 0, uses_anonymous_args = 0
+ 258              		@ link register save eliminated.
+ 106:bme280.c      ****     
+ 107:bme280.c      ****     return Temperature;
+ 259              		.loc 1 107 0
+ 260 0000 014B     		ldr	r3, .L27
+ 108:bme280.c      **** }
+ 261              		.loc 1 108 0
+ 262              		@ sp needed
+ 107:bme280.c      **** }
+ 263              		.loc 1 107 0
+ 264 0002 1868     		ldr	r0, [r3]
+ 265              		.loc 1 108 0
+ 266 0004 7047     		bx	lr
+ 267              	.L28:
+ 268 0006 C046     		.align	2
+ 269              	.L27:
+ 270 0008 00000000 		.word	Temperature
+ 271              		.cfi_endproc
+ 272              	.LFE38:
+ 273              		.size	readTemp, .-readTemp
+ 274              		.section	.text.ReadSensorCalibrationData,"ax",%progbits
+ 275              		.align	1
+ 276              		.global	ReadSensorCalibrationData
+ 277              		.code	16
+ 278              		.thumb_func
+ 279              		.type	ReadSensorCalibrationData, %function
+ 280              	ReadSensorCalibrationData:
+ 281              	.LFB39:
+ 109:bme280.c      **** void ReadSensorCalibrationData(void)
+ 110:bme280.c      **** {
+ 282              		.loc 1 110 0
+ 283              		.cfi_startproc
+ 284              		@ args = 0, pretend = 0, frame = 0
+ 285              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 8
+
+
+ 111:bme280.c      ****     
+ 112:bme280.c      ****     static uint8 I2CWriteBuffer[0x01] = {0xAA}; //Location from which the calibration data is to be
+ 113:bme280.c      ****     //I2C_1_Start(); 
+ 114:bme280.c      ****     /* Do a write operation with the memory address bytes to get calibration data */
+ 115:bme280.c      **** 	I2C_1_I2CMasterWriteBuf(I2CSlaveAddress, (uint8 *) I2CWriteBuffer, sizeof(I2CWriteBuffer), I2C_I2C
+ 286              		.loc 1 115 0
+ 287 0000 2E49     		ldr	r1, .L36
+ 110:bme280.c      ****     
+ 288              		.loc 1 110 0
+ 289 0002 70B5     		push	{r4, r5, r6, lr}
+ 290              		.cfi_def_cfa_offset 16
+ 291              		.cfi_offset 4, -16
+ 292              		.cfi_offset 5, -12
+ 293              		.cfi_offset 6, -8
+ 294              		.cfi_offset 14, -4
+ 295              		.loc 1 115 0
+ 296 0004 0023     		movs	r3, #0
+ 297 0006 0122     		movs	r2, #1
+ 298 0008 0331     		adds	r1, r1, #3
+ 299 000a 7620     		movs	r0, #118
+ 300 000c FFF7FEFF 		bl	I2C_1_I2CMasterWriteBuf
+ 301              	.LVL21:
+ 116:bme280.c      ****     while(!(I2C_1_I2CMasterStatus() & I2C_I2C_MSTAT_WR_CMPLT)); //Wait till the master completes wr
+ 302              		.loc 1 116 0
+ 303 0010 0224     		movs	r4, #2
+ 304              	.L30:
+ 305              		.loc 1 116 0 is_stmt 0 discriminator 1
+ 306 0012 FFF7FEFF 		bl	I2C_1_I2CMasterStatus
+ 307              	.LVL22:
+ 308 0016 2042     		tst	r0, r4
+ 309 0018 FBD0     		beq	.L30
+ 117:bme280.c      ****     I2C_1_I2CMasterClearStatus(); //Clear I2C master status
+ 310              		.loc 1 117 0 is_stmt 1
+ 311 001a FFF7FEFF 		bl	I2C_1_I2CMasterClearStatus
+ 312              	.LVL23:
+ 118:bme280.c      ****     
+ 119:bme280.c      ****     /* Read calibration from the sensor EEPROM and store it in a buffer */
+ 120:bme280.c      **** 	I2C_1_I2CMasterReadBuf(I2CSlaveAddress, (uint8 *) SensorCalibrationData, sizeof(SensorCalibrationD
+ 313              		.loc 1 120 0
+ 314 001e 284C     		ldr	r4, .L36+4
+ 315 0020 0023     		movs	r3, #0
+ 316 0022 1622     		movs	r2, #22
+ 317 0024 2100     		movs	r1, r4
+ 318 0026 7620     		movs	r0, #118
+ 319 0028 FFF7FEFF 		bl	I2C_1_I2CMasterReadBuf
+ 320              	.LVL24:
+ 121:bme280.c      ****     while(!(I2C_1_I2CMasterStatus() & I2C_I2C_MSTAT_RD_CMPLT)); //Wait till the master completes re
+ 321              		.loc 1 121 0
+ 322 002c 0125     		movs	r5, #1
+ 323              	.L31:
+ 324              		.loc 1 121 0 is_stmt 0 discriminator 1
+ 325 002e FFF7FEFF 		bl	I2C_1_I2CMasterStatus
+ 326              	.LVL25:
+ 327 0032 2842     		tst	r0, r5
+ 328 0034 FBD0     		beq	.L31
+ 122:bme280.c      ****     I2C_1_I2CMasterClearStatus(); //Clear I2C master status
+ 329              		.loc 1 122 0 is_stmt 1
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 9
+
+
+ 330 0036 FFF7FEFF 		bl	I2C_1_I2CMasterClearStatus
+ 331              	.LVL26:
+ 123:bme280.c      ****     
+ 124:bme280.c      ****     CalibrationDataAvailable = TRUE; //Set sensor calibration data available flag
+ 332              		.loc 1 124 0
+ 333 003a 0122     		movs	r2, #1
+ 334 003c 214B     		ldr	r3, .L36+8
+ 125:bme280.c      ****     
+ 126:bme280.c      ****     /* Assign calibration data to coefficient variables as described in sensor datasheet */
+ 127:bme280.c      ****     AC1 = (SensorCalibrationData[0x00] << 0x08) | SensorCalibrationData[0x01];
+ 128:bme280.c      ****     AC2 = (SensorCalibrationData[0x02] << 0x08) | SensorCalibrationData[0x03];
+ 129:bme280.c      ****     AC3 = (SensorCalibrationData[0x04] << 0x08) | SensorCalibrationData[0x05];
+ 130:bme280.c      ****     AC4 = (SensorCalibrationData[0x06] << 0x08) | SensorCalibrationData[0x07];
+ 131:bme280.c      ****     AC5 = (SensorCalibrationData[0x08] << 0x08) | SensorCalibrationData[0x09];
+ 132:bme280.c      ****     AC6 = (SensorCalibrationData[0x0A] << 0x08) | SensorCalibrationData[0x0B];
+ 133:bme280.c      ****     B1 = (SensorCalibrationData[0x0C] << 0x08) | SensorCalibrationData[0x0D];
+ 134:bme280.c      ****     B2 = (SensorCalibrationData[0x0E] << 0x08) | SensorCalibrationData[0x0F];
+ 135:bme280.c      ****     MC = (SensorCalibrationData[0x012] << 0x08) | SensorCalibrationData[0x013];
+ 136:bme280.c      ****     MD = (SensorCalibrationData[0x014] << 0x08) | SensorCalibrationData[0x015];
+ 137:bme280.c      ****   //  I2C_1_Stop();
+ 138:bme280.c      **** }
+ 335              		.loc 1 138 0
+ 336              		@ sp needed
+ 124:bme280.c      ****     
+ 337              		.loc 1 124 0
+ 338 003e 5A71     		strb	r2, [r3, #5]
+ 127:bme280.c      ****     AC2 = (SensorCalibrationData[0x02] << 0x08) | SensorCalibrationData[0x03];
+ 339              		.loc 1 127 0
+ 340 0040 2378     		ldrb	r3, [r4]
+ 341 0042 6278     		ldrb	r2, [r4, #1]
+ 342 0044 1B02     		lsls	r3, r3, #8
+ 343 0046 1343     		orrs	r3, r2
+ 344 0048 1F4A     		ldr	r2, .L36+12
+ 345 004a 1380     		strh	r3, [r2]
+ 128:bme280.c      ****     AC3 = (SensorCalibrationData[0x04] << 0x08) | SensorCalibrationData[0x05];
+ 346              		.loc 1 128 0
+ 347 004c A378     		ldrb	r3, [r4, #2]
+ 348 004e E278     		ldrb	r2, [r4, #3]
+ 349 0050 1B02     		lsls	r3, r3, #8
+ 350 0052 1343     		orrs	r3, r2
+ 351 0054 1D4A     		ldr	r2, .L36+16
+ 352 0056 1380     		strh	r3, [r2]
+ 129:bme280.c      ****     AC4 = (SensorCalibrationData[0x06] << 0x08) | SensorCalibrationData[0x07];
+ 353              		.loc 1 129 0
+ 354 0058 2379     		ldrb	r3, [r4, #4]
+ 355 005a 6279     		ldrb	r2, [r4, #5]
+ 356 005c 1B02     		lsls	r3, r3, #8
+ 357 005e 1343     		orrs	r3, r2
+ 358 0060 1B4A     		ldr	r2, .L36+20
+ 359 0062 1380     		strh	r3, [r2]
+ 130:bme280.c      ****     AC5 = (SensorCalibrationData[0x08] << 0x08) | SensorCalibrationData[0x09];
+ 360              		.loc 1 130 0
+ 361 0064 A379     		ldrb	r3, [r4, #6]
+ 362 0066 E279     		ldrb	r2, [r4, #7]
+ 363 0068 1B02     		lsls	r3, r3, #8
+ 364 006a 1343     		orrs	r3, r2
+ 365 006c 194A     		ldr	r2, .L36+24
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 10
+
+
+ 366 006e 1380     		strh	r3, [r2]
+ 131:bme280.c      ****     AC6 = (SensorCalibrationData[0x0A] << 0x08) | SensorCalibrationData[0x0B];
+ 367              		.loc 1 131 0
+ 368 0070 237A     		ldrb	r3, [r4, #8]
+ 369 0072 627A     		ldrb	r2, [r4, #9]
+ 370 0074 1B02     		lsls	r3, r3, #8
+ 371 0076 1343     		orrs	r3, r2
+ 372 0078 174A     		ldr	r2, .L36+28
+ 373 007a 1380     		strh	r3, [r2]
+ 132:bme280.c      ****     B1 = (SensorCalibrationData[0x0C] << 0x08) | SensorCalibrationData[0x0D];
+ 374              		.loc 1 132 0
+ 375 007c A37A     		ldrb	r3, [r4, #10]
+ 376 007e E27A     		ldrb	r2, [r4, #11]
+ 377 0080 1B02     		lsls	r3, r3, #8
+ 378 0082 1343     		orrs	r3, r2
+ 379 0084 154A     		ldr	r2, .L36+32
+ 380 0086 1380     		strh	r3, [r2]
+ 133:bme280.c      ****     B2 = (SensorCalibrationData[0x0E] << 0x08) | SensorCalibrationData[0x0F];
+ 381              		.loc 1 133 0
+ 382 0088 237B     		ldrb	r3, [r4, #12]
+ 383 008a 627B     		ldrb	r2, [r4, #13]
+ 384 008c 1B02     		lsls	r3, r3, #8
+ 385 008e 1343     		orrs	r3, r2
+ 386 0090 134A     		ldr	r2, .L36+36
+ 387 0092 1380     		strh	r3, [r2]
+ 134:bme280.c      ****     MC = (SensorCalibrationData[0x012] << 0x08) | SensorCalibrationData[0x013];
+ 388              		.loc 1 134 0
+ 389 0094 A37B     		ldrb	r3, [r4, #14]
+ 390 0096 E27B     		ldrb	r2, [r4, #15]
+ 391 0098 1B02     		lsls	r3, r3, #8
+ 392 009a 1343     		orrs	r3, r2
+ 393 009c 114A     		ldr	r2, .L36+40
+ 394 009e 1380     		strh	r3, [r2]
+ 135:bme280.c      ****     MD = (SensorCalibrationData[0x014] << 0x08) | SensorCalibrationData[0x015];
+ 395              		.loc 1 135 0
+ 396 00a0 A37C     		ldrb	r3, [r4, #18]
+ 397 00a2 E27C     		ldrb	r2, [r4, #19]
+ 398 00a4 1B02     		lsls	r3, r3, #8
+ 399 00a6 1343     		orrs	r3, r2
+ 400 00a8 0F4A     		ldr	r2, .L36+44
+ 401 00aa 1380     		strh	r3, [r2]
+ 136:bme280.c      ****   //  I2C_1_Stop();
+ 402              		.loc 1 136 0
+ 403 00ac 237D     		ldrb	r3, [r4, #20]
+ 404 00ae 627D     		ldrb	r2, [r4, #21]
+ 405 00b0 1B02     		lsls	r3, r3, #8
+ 406 00b2 1343     		orrs	r3, r2
+ 407 00b4 0D4A     		ldr	r2, .L36+48
+ 408 00b6 1380     		strh	r3, [r2]
+ 409              		.loc 1 138 0
+ 410 00b8 70BD     		pop	{r4, r5, r6, pc}
+ 411              	.L37:
+ 412 00ba C046     		.align	2
+ 413              	.L36:
+ 414 00bc 00000000 		.word	.LANCHOR0
+ 415 00c0 00000000 		.word	SensorCalibrationData
+ 416 00c4 00000000 		.word	.LANCHOR1
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 11
+
+
+ 417 00c8 00000000 		.word	AC1
+ 418 00cc 00000000 		.word	AC2
+ 419 00d0 00000000 		.word	AC3
+ 420 00d4 00000000 		.word	AC4
+ 421 00d8 00000000 		.word	AC5
+ 422 00dc 00000000 		.word	AC6
+ 423 00e0 00000000 		.word	B1
+ 424 00e4 00000000 		.word	B2
+ 425 00e8 00000000 		.word	MC
+ 426 00ec 00000000 		.word	MD
+ 427              		.cfi_endproc
+ 428              	.LFE39:
+ 429              		.size	ReadSensorCalibrationData, .-ReadSensorCalibrationData
+ 430              		.global	__aeabi_i2d
+ 431              		.global	__aeabi_dmul
+ 432              		.global	__aeabi_d2iz
+ 433              		.global	__aeabi_ddiv
+ 434              		.global	__aeabi_ui2d
+ 435              		.global	__aeabi_d2uiz
+ 436              		.global	__aeabi_uidiv
+ 437              		.section	.text.ReadAndCalculateSensorData,"ax",%progbits
+ 438              		.align	1
+ 439              		.global	ReadAndCalculateSensorData
+ 440              		.code	16
+ 441              		.thumb_func
+ 442              		.type	ReadAndCalculateSensorData, %function
+ 443              	ReadAndCalculateSensorData:
+ 444              	.LFB40:
+ 139:bme280.c      **** 
+ 140:bme280.c      **** void ReadAndCalculateSensorData(void)
+ 141:bme280.c      **** {
+ 445              		.loc 1 141 0
+ 446              		.cfi_startproc
+ 447              		@ args = 0, pretend = 0, frame = 8
+ 448              		@ frame_needed = 0, uses_anonymous_args = 0
+ 449 0000 F7B5     		push	{r0, r1, r2, r4, r5, r6, r7, lr}
+ 450              		.cfi_def_cfa_offset 32
+ 451              		.cfi_offset 0, -32
+ 452              		.cfi_offset 1, -28
+ 453              		.cfi_offset 2, -24
+ 454              		.cfi_offset 4, -20
+ 455              		.cfi_offset 5, -16
+ 456              		.cfi_offset 6, -12
+ 457              		.cfi_offset 7, -8
+ 458              		.cfi_offset 14, -4
+ 142:bme280.c      ****     
+ 143:bme280.c      **** //    /* Read the sensor calibration data if not already available */
+ 144:bme280.c      **** //	if(!CalibrationDataAvailable)
+ 145:bme280.c      **** //    {
+ 146:bme280.c      **** //        ReadSensorCalibrationData(); //Read sensor calibration data
+ 147:bme280.c      **** //        
+ 148:bme280.c      **** //    }
+ 149:bme280.c      ****     
+ 150:bme280.c      ****     gettemp280(); //Read the uncompensated temperature value
+ 459              		.loc 1 150 0
+ 460 0002 FFF7FEFF 		bl	gettemp280
+ 461              	.LVL27:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 12
+
+
+ 151:bme280.c      ****     getpress280(); //Read the uncompensated pressure value
+ 462              		.loc 1 151 0
+ 463 0006 FFF7FEFF 		bl	getpress280
+ 464              	.LVL28:
+ 152:bme280.c      ****     
+ 153:bme280.c      ****     /* Calculate the true temperature as described in sensor datasheet */
+ 154:bme280.c      ****     X1 = (UT280 - AC6) * AC5 / pow(2, 15);
+ 465              		.loc 1 154 0
+ 466 000a 7B4B     		ldr	r3, .L42
+ 467 000c 1888     		ldrh	r0, [r3]
+ 468 000e 7B4B     		ldr	r3, .L42+4
+ 469 0010 1B68     		ldr	r3, [r3]
+ 470 0012 181A     		subs	r0, r3, r0
+ 471 0014 7A4B     		ldr	r3, .L42+8
+ 472 0016 1B88     		ldrh	r3, [r3]
+ 473 0018 5843     		muls	r0, r3
+ 474 001a FFF7FEFF 		bl	__aeabi_i2d
+ 475              	.LVL29:
+ 476 001e FC23     		movs	r3, #252
+ 477 0020 0022     		movs	r2, #0
+ 478 0022 9B05     		lsls	r3, r3, #22
+ 479 0024 FFF7FEFF 		bl	__aeabi_dmul
+ 480              	.LVL30:
+ 481 0028 FFF7FEFF 		bl	__aeabi_d2iz
+ 482              	.LVL31:
+ 155:bme280.c      ****     X2 = MC * pow(2, 11) / (X1 + MD);
+ 483              		.loc 1 155 0
+ 484 002c 754B     		ldr	r3, .L42+12
+ 154:bme280.c      ****     X2 = MC * pow(2, 11) / (X1 + MD);
+ 485              		.loc 1 154 0
+ 486 002e 764D     		ldr	r5, .L42+16
+ 487 0030 0400     		movs	r4, r0
+ 488 0032 2860     		str	r0, [r5]
+ 489              		.loc 1 155 0
+ 490 0034 0020     		movs	r0, #0
+ 491 0036 185E     		ldrsh	r0, [r3, r0]
+ 492 0038 FFF7FEFF 		bl	__aeabi_i2d
+ 493              	.LVL32:
+ 494 003c 0022     		movs	r2, #0
+ 495 003e 734B     		ldr	r3, .L42+20
+ 496 0040 FFF7FEFF 		bl	__aeabi_dmul
+ 497              	.LVL33:
+ 498 0044 724B     		ldr	r3, .L42+24
+ 499 0046 0600     		movs	r6, r0
+ 500 0048 0020     		movs	r0, #0
+ 501 004a 185E     		ldrsh	r0, [r3, r0]
+ 502 004c 0F00     		movs	r7, r1
+ 503 004e 0019     		adds	r0, r0, r4
+ 504 0050 FFF7FEFF 		bl	__aeabi_i2d
+ 505              	.LVL34:
+ 506 0054 0200     		movs	r2, r0
+ 507 0056 0B00     		movs	r3, r1
+ 508 0058 3000     		movs	r0, r6
+ 509 005a 3900     		movs	r1, r7
+ 510 005c FFF7FEFF 		bl	__aeabi_ddiv
+ 511              	.LVL35:
+ 512 0060 FFF7FEFF 		bl	__aeabi_d2iz
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 13
+
+
+ 513              	.LVL36:
+ 514 0064 6B4E     		ldr	r6, .L42+28
+ 156:bme280.c      ****     B5 = X1 + X2;
+ 515              		.loc 1 156 0
+ 516 0066 6C4F     		ldr	r7, .L42+32
+ 155:bme280.c      ****     X2 = MC * pow(2, 11) / (X1 + MD);
+ 517              		.loc 1 155 0
+ 518 0068 3060     		str	r0, [r6]
+ 519              		.loc 1 156 0
+ 520 006a 2018     		adds	r0, r4, r0
+ 521 006c 3860     		str	r0, [r7]
+ 157:bme280.c      ****   //  Temperature = (B5 + 8) / pow(2, 4);
+ 158:bme280.c      ****    
+ 159:bme280.c      ****     Temperature= gettemp280();
+ 522              		.loc 1 159 0
+ 523 006e FFF7FEFF 		bl	gettemp280
+ 524              	.LVL37:
+ 525 0072 6A4C     		ldr	r4, .L42+36
+ 526 0074 2060     		str	r0, [r4]
+ 160:bme280.c      ****     UART_UartPutString("\n\r TEMP \n\r ");
+ 527              		.loc 1 160 0
+ 528 0076 6A48     		ldr	r0, .L42+40
+ 529 0078 FFF7FEFF 		bl	UART_UartPutString
+ 530              	.LVL38:
+ 161:bme280.c      **** 
+ 162:bme280.c      ****     UART_UartPutString(ltoa(Temperature));
+ 531              		.loc 1 162 0
+ 532 007c 2068     		ldr	r0, [r4]
+ 533 007e FFF7FEFF 		bl	ltoa
+ 534              	.LVL39:
+ 535 0082 FFF7FEFF 		bl	UART_UartPutString
+ 536              	.LVL40:
+ 163:bme280.c      ****     
+ 164:bme280.c      ****     
+ 165:bme280.c      ****     /* Calculate the true barometric pressure as described in sensor datasheet */
+ 166:bme280.c      ****     B6 = B5 - 4000;
+ 537              		.loc 1 166 0
+ 538 0086 3F68     		ldr	r7, [r7]
+ 539 0088 664B     		ldr	r3, .L42+44
+ 540 008a FF18     		adds	r7, r7, r3
+ 167:bme280.c      ****     X1 = (B2 * (B6 * B6 / pow(2, 12))) / pow(2, 11);
+ 541              		.loc 1 167 0
+ 542 008c 3800     		movs	r0, r7
+ 166:bme280.c      ****     X1 = (B2 * (B6 * B6 / pow(2, 12))) / pow(2, 11);
+ 543              		.loc 1 166 0
+ 544 008e 664B     		ldr	r3, .L42+48
+ 545              		.loc 1 167 0
+ 546 0090 7843     		muls	r0, r7
+ 166:bme280.c      ****     X1 = (B2 * (B6 * B6 / pow(2, 12))) / pow(2, 11);
+ 547              		.loc 1 166 0
+ 548 0092 1F60     		str	r7, [r3]
+ 549              		.loc 1 167 0
+ 550 0094 FFF7FEFF 		bl	__aeabi_i2d
+ 551              	.LVL41:
+ 552 0098 0022     		movs	r2, #0
+ 553 009a 644B     		ldr	r3, .L42+52
+ 554 009c FFF7FEFF 		bl	__aeabi_dmul
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 14
+
+
+ 555              	.LVL42:
+ 556 00a0 634B     		ldr	r3, .L42+56
+ 557 00a2 0090     		str	r0, [sp]
+ 558 00a4 0191     		str	r1, [sp, #4]
+ 168:bme280.c      ****     X2 = AC2 * B6 / pow(2, 11);
+ 169:bme280.c      ****     X3 = X1 + X2;
+ 170:bme280.c      ****     B3 = (((AC1 * 4 + X3) << OSS) + 2) / 4;
+ 559              		.loc 1 170 0
+ 560 00a6 0020     		movs	r0, #0
+ 561 00a8 185E     		ldrsh	r0, [r3, r0]
+ 562 00aa FFF7FEFF 		bl	__aeabi_i2d
+ 563              	.LVL43:
+ 564 00ae 009A     		ldr	r2, [sp]
+ 565 00b0 019B     		ldr	r3, [sp, #4]
+ 566 00b2 FFF7FEFF 		bl	__aeabi_dmul
+ 567              	.LVL44:
+ 568 00b6 FD23     		movs	r3, #253
+ 569 00b8 0022     		movs	r2, #0
+ 570 00ba 9B05     		lsls	r3, r3, #22
+ 571 00bc FFF7FEFF 		bl	__aeabi_dmul
+ 572              	.LVL45:
+ 573 00c0 FFF7FEFF 		bl	__aeabi_d2iz
+ 574              	.LVL46:
+ 168:bme280.c      ****     X2 = AC2 * B6 / pow(2, 11);
+ 575              		.loc 1 168 0
+ 576 00c4 5B4B     		ldr	r3, .L42+60
+ 577              		.loc 1 170 0
+ 578 00c6 0400     		movs	r4, r0
+ 579 00c8 0020     		movs	r0, #0
+ 580 00ca 185E     		ldrsh	r0, [r3, r0]
+ 581 00cc 7843     		muls	r0, r7
+ 582 00ce FFF7FEFF 		bl	__aeabi_i2d
+ 583              	.LVL47:
+ 584 00d2 FD23     		movs	r3, #253
+ 585 00d4 0022     		movs	r2, #0
+ 586 00d6 9B05     		lsls	r3, r3, #22
+ 587 00d8 FFF7FEFF 		bl	__aeabi_dmul
+ 588              	.LVL48:
+ 589 00dc FFF7FEFF 		bl	__aeabi_d2iz
+ 590              	.LVL49:
+ 591 00e0 554B     		ldr	r3, .L42+64
+ 592 00e2 2018     		adds	r0, r4, r0
+ 593 00e4 0022     		movs	r2, #0
+ 594 00e6 9B5E     		ldrsh	r3, [r3, r2]
+ 595 00e8 9B00     		lsls	r3, r3, #2
+ 596 00ea C018     		adds	r0, r0, r3
+ 597 00ec 0323     		movs	r3, #3
+ 598 00ee C000     		lsls	r0, r0, #3
+ 599 00f0 0230     		adds	r0, r0, #2
+ 600 00f2 C417     		asrs	r4, r0, #31
+ 601 00f4 1C40     		ands	r4, r3
+ 602 00f6 2418     		adds	r4, r4, r0
+ 603 00f8 504B     		ldr	r3, .L42+68
+ 604 00fa A410     		asrs	r4, r4, #2
+ 605 00fc 1C60     		str	r4, [r3]
+ 171:bme280.c      ****     X1 = AC3 * B6 / pow(2, 13);
+ 606              		.loc 1 171 0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 15
+
+
+ 607 00fe 504B     		ldr	r3, .L42+72
+ 608 0100 0020     		movs	r0, #0
+ 609 0102 185E     		ldrsh	r0, [r3, r0]
+ 610 0104 7843     		muls	r0, r7
+ 611 0106 FFF7FEFF 		bl	__aeabi_i2d
+ 612              	.LVL50:
+ 613 010a 0022     		movs	r2, #0
+ 614 010c 4D4B     		ldr	r3, .L42+76
+ 615 010e FFF7FEFF 		bl	__aeabi_dmul
+ 616              	.LVL51:
+ 617 0112 FFF7FEFF 		bl	__aeabi_d2iz
+ 618              	.LVL52:
+ 172:bme280.c      ****     X2 = (B1 * (B6 * B6 / pow(2, 12))) / pow(2, 16);
+ 619              		.loc 1 172 0
+ 620 0116 4C4B     		ldr	r3, .L42+80
+ 171:bme280.c      ****     X1 = AC3 * B6 / pow(2, 13);
+ 621              		.loc 1 171 0
+ 622 0118 0700     		movs	r7, r0
+ 623              		.loc 1 172 0
+ 624 011a 0020     		movs	r0, #0
+ 625 011c 185E     		ldrsh	r0, [r3, r0]
+ 626 011e FFF7FEFF 		bl	__aeabi_i2d
+ 627              	.LVL53:
+ 628 0122 009A     		ldr	r2, [sp]
+ 629 0124 019B     		ldr	r3, [sp, #4]
+ 630 0126 FFF7FEFF 		bl	__aeabi_dmul
+ 631              	.LVL54:
+ 632 012a 0022     		movs	r2, #0
+ 633 012c 474B     		ldr	r3, .L42+84
+ 634 012e FFF7FEFF 		bl	__aeabi_dmul
+ 635              	.LVL55:
+ 636 0132 FFF7FEFF 		bl	__aeabi_d2iz
+ 637              	.LVL56:
+ 173:bme280.c      ****     X3 = ((X1 + X2) + 2) / pow(2, 2);
+ 638              		.loc 1 173 0
+ 639 0136 3818     		adds	r0, r7, r0
+ 640 0138 0230     		adds	r0, r0, #2
+ 641 013a FFF7FEFF 		bl	__aeabi_i2d
+ 642              	.LVL57:
+ 643 013e 0022     		movs	r2, #0
+ 644 0140 434B     		ldr	r3, .L42+88
+ 645 0142 FFF7FEFF 		bl	__aeabi_dmul
+ 646              	.LVL58:
+ 647 0146 FFF7FEFF 		bl	__aeabi_d2iz
+ 648              	.LVL59:
+ 174:bme280.c      ****     B4 = (AC4 * (unsigned long)(X3 + 32768)) / pow(2, 15);
+ 649              		.loc 1 174 0
+ 650 014a 8022     		movs	r2, #128
+ 173:bme280.c      ****     X3 = ((X1 + X2) + 2) / pow(2, 2);
+ 651              		.loc 1 173 0
+ 652 014c 414B     		ldr	r3, .L42+92
+ 653              		.loc 1 174 0
+ 654 014e 1202     		lsls	r2, r2, #8
+ 173:bme280.c      ****     X3 = ((X1 + X2) + 2) / pow(2, 2);
+ 655              		.loc 1 173 0
+ 656 0150 1860     		str	r0, [r3]
+ 657              		.loc 1 174 0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 16
+
+
+ 658 0152 414B     		ldr	r3, .L42+96
+ 659 0154 8018     		adds	r0, r0, r2
+ 660 0156 1B88     		ldrh	r3, [r3]
+ 661 0158 5843     		muls	r0, r3
+ 662 015a FFF7FEFF 		bl	__aeabi_ui2d
+ 663              	.LVL60:
+ 664 015e FC23     		movs	r3, #252
+ 665 0160 0022     		movs	r2, #0
+ 666 0162 9B05     		lsls	r3, r3, #22
+ 667 0164 FFF7FEFF 		bl	__aeabi_dmul
+ 668              	.LVL61:
+ 669 0168 FFF7FEFF 		bl	__aeabi_d2uiz
+ 670              	.LVL62:
+ 671 016c 3B4B     		ldr	r3, .L42+100
+ 672 016e 0100     		movs	r1, r0
+ 673 0170 1860     		str	r0, [r3]
+ 175:bme280.c      ****     B7 = ((unsigned long)UP280 - B3) * (50000 >> OSS);
+ 674              		.loc 1 175 0
+ 675 0172 3B4B     		ldr	r3, .L42+104
+ 676 0174 3B4F     		ldr	r7, .L42+108
+ 677 0176 1868     		ldr	r0, [r3]
+ 678 0178 3B4B     		ldr	r3, .L42+112
+ 679 017a 001B     		subs	r0, r0, r4
+ 680 017c 5843     		muls	r0, r3
+ 681 017e 3B4B     		ldr	r3, .L42+116
+ 682 0180 1860     		str	r0, [r3]
+ 176:bme280.c      ****     if(B7 < 0x80000000)
+ 683              		.loc 1 176 0
+ 684 0182 0028     		cmp	r0, #0
+ 685 0184 03DB     		blt	.L39
+ 177:bme280.c      ****     {
+ 178:bme280.c      ****         Pressure = (B7 *2) / B4;
+ 686              		.loc 1 178 0
+ 687 0186 4000     		lsls	r0, r0, #1
+ 688 0188 FFF7FEFF 		bl	__aeabi_uidiv
+ 689              	.LVL63:
+ 690 018c 02E0     		b	.L41
+ 691              	.L39:
+ 179:bme280.c      ****     }
+ 180:bme280.c      ****     else 
+ 181:bme280.c      ****     {
+ 182:bme280.c      ****         Pressure = (B7 / B4) *2;
+ 692              		.loc 1 182 0
+ 693 018e FFF7FEFF 		bl	__aeabi_uidiv
+ 694              	.LVL64:
+ 695 0192 4000     		lsls	r0, r0, #1
+ 696              	.L41:
+ 697 0194 3860     		str	r0, [r7]
+ 183:bme280.c      ****     }
+ 184:bme280.c      ****     X1 = (Pressure / pow(2, 8)) * (Pressure / pow(2, 8));
+ 698              		.loc 1 184 0
+ 699 0196 3C68     		ldr	r4, [r7]
+ 185:bme280.c      ****     X1 = (X1 * 3038) / pow(2, 16);
+ 186:bme280.c      ****     X2 = (-7357 * Pressure) / pow(2, 16);
+ 187:bme280.c      ****     //Pressure = Pressure + (X1 + X2 + 3791) / pow(2, 4);
+ 188:bme280.c      ****     Pressure= getpress280(); 
+ 189:bme280.c      ****     
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 17
+
+
+ 190:bme280.c      ****     UART_UartPutString("\n\r PRESS \n\r ");
+ 191:bme280.c      ****     UART_UartPutString(ltoa(Pressure));
+ 192:bme280.c      ****     /* Calculate the true altitude based on pressure at sea level as described in sensor datasheet 
+ 193:bme280.c      ****     //Altitude = 44330 * (1 - ( pow(Pressure/PressureAtSeaLevel, 1/5.255)));
+ 194:bme280.c      **** }
+ 700              		.loc 1 194 0
+ 701              		@ sp needed
+ 184:bme280.c      ****     X1 = (X1 * 3038) / pow(2, 16);
+ 702              		.loc 1 184 0
+ 703 0198 2000     		movs	r0, r4
+ 704 019a FFF7FEFF 		bl	__aeabi_i2d
+ 705              	.LVL65:
+ 706 019e 0022     		movs	r2, #0
+ 707 01a0 334B     		ldr	r3, .L42+120
+ 708 01a2 FFF7FEFF 		bl	__aeabi_dmul
+ 709              	.LVL66:
+ 185:bme280.c      ****     X1 = (X1 * 3038) / pow(2, 16);
+ 710              		.loc 1 185 0
+ 711 01a6 0200     		movs	r2, r0
+ 712 01a8 0B00     		movs	r3, r1
+ 713 01aa FFF7FEFF 		bl	__aeabi_dmul
+ 714              	.LVL67:
+ 715 01ae FFF7FEFF 		bl	__aeabi_d2iz
+ 716              	.LVL68:
+ 717 01b2 304B     		ldr	r3, .L42+124
+ 718 01b4 5843     		muls	r0, r3
+ 719 01b6 FFF7FEFF 		bl	__aeabi_i2d
+ 720              	.LVL69:
+ 721 01ba 0022     		movs	r2, #0
+ 722 01bc 234B     		ldr	r3, .L42+84
+ 723 01be FFF7FEFF 		bl	__aeabi_dmul
+ 724              	.LVL70:
+ 725 01c2 FFF7FEFF 		bl	__aeabi_d2iz
+ 726              	.LVL71:
+ 727 01c6 2860     		str	r0, [r5]
+ 186:bme280.c      ****     //Pressure = Pressure + (X1 + X2 + 3791) / pow(2, 4);
+ 728              		.loc 1 186 0
+ 729 01c8 2B48     		ldr	r0, .L42+128
+ 730 01ca 6043     		muls	r0, r4
+ 731 01cc FFF7FEFF 		bl	__aeabi_i2d
+ 732              	.LVL72:
+ 733 01d0 0022     		movs	r2, #0
+ 734 01d2 1E4B     		ldr	r3, .L42+84
+ 735 01d4 FFF7FEFF 		bl	__aeabi_dmul
+ 736              	.LVL73:
+ 737 01d8 FFF7FEFF 		bl	__aeabi_d2iz
+ 738              	.LVL74:
+ 739 01dc 3060     		str	r0, [r6]
+ 188:bme280.c      ****     
+ 740              		.loc 1 188 0
+ 741 01de FFF7FEFF 		bl	getpress280
+ 742              	.LVL75:
+ 743 01e2 3860     		str	r0, [r7]
+ 190:bme280.c      ****     UART_UartPutString(ltoa(Pressure));
+ 744              		.loc 1 190 0
+ 745 01e4 2548     		ldr	r0, .L42+132
+ 746 01e6 FFF7FEFF 		bl	UART_UartPutString
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 18
+
+
+ 747              	.LVL76:
+ 191:bme280.c      ****     /* Calculate the true altitude based on pressure at sea level as described in sensor datasheet 
+ 748              		.loc 1 191 0
+ 749 01ea 3868     		ldr	r0, [r7]
+ 750 01ec FFF7FEFF 		bl	ltoa
+ 751              	.LVL77:
+ 752 01f0 FFF7FEFF 		bl	UART_UartPutString
+ 753              	.LVL78:
+ 754              		.loc 1 194 0
+ 755 01f4 F7BD     		pop	{r0, r1, r2, r4, r5, r6, r7, pc}
+ 756              	.L43:
+ 757 01f6 C046     		.align	2
+ 758              	.L42:
+ 759 01f8 00000000 		.word	AC6
+ 760 01fc 00000000 		.word	UT280
+ 761 0200 00000000 		.word	AC5
+ 762 0204 00000000 		.word	MC
+ 763 0208 00000000 		.word	X1
+ 764 020c 0000A040 		.word	1084227584
+ 765 0210 00000000 		.word	MD
+ 766 0214 00000000 		.word	X2
+ 767 0218 00000000 		.word	B5
+ 768 021c 00000000 		.word	Temperature
+ 769 0220 00000000 		.word	.LC53
+ 770 0224 60F0FFFF 		.word	-4000
+ 771 0228 00000000 		.word	B6
+ 772 022c 0000303F 		.word	1060110336
+ 773 0230 00000000 		.word	B2
+ 774 0234 00000000 		.word	AC2
+ 775 0238 00000000 		.word	AC1
+ 776 023c 00000000 		.word	B3
+ 777 0240 00000000 		.word	AC3
+ 778 0244 0000203F 		.word	1059061760
+ 779 0248 00000000 		.word	B1
+ 780 024c 0000F03E 		.word	1055916032
+ 781 0250 0000D03F 		.word	1070596096
+ 782 0254 00000000 		.word	X3
+ 783 0258 00000000 		.word	AC4
+ 784 025c 00000000 		.word	B4
+ 785 0260 00000000 		.word	UP280
+ 786 0264 00000000 		.word	Pressure
+ 787 0268 6A180000 		.word	6250
+ 788 026c 00000000 		.word	B7
+ 789 0270 0000703F 		.word	1064304640
+ 790 0274 DE0B0000 		.word	3038
+ 791 0278 43E3FFFF 		.word	-7357
+ 792 027c 0C000000 		.word	.LC68
+ 793              		.cfi_endproc
+ 794              	.LFE40:
+ 795              		.size	ReadAndCalculateSensorData, .-ReadAndCalculateSensorData
+ 796              		.global	CalibrationDataAvailable
+ 797              		.global	PressureAtSeaLevel
+ 798              		.comm	Altitude,4,4
+ 799              		.comm	Pressure,4,4
+ 800              		.comm	Temperature,4,4
+ 801              		.comm	AC6,2,2
+ 802              		.comm	AC5,2,2
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 19
+
+
+ 803              		.comm	AC4,2,2
+ 804              		.comm	MD,2,2
+ 805              		.comm	MC,2,2
+ 806              		.comm	B2,2,2
+ 807              		.comm	B1,2,2
+ 808              		.comm	AC3,2,2
+ 809              		.comm	AC2,2,2
+ 810              		.comm	AC1,2,2
+ 811              		.comm	B7,4,4
+ 812              		.comm	B4,4,4
+ 813              		.comm	UP,4,4
+ 814              		.comm	UT,4,4
+ 815              		.comm	B6,4,4
+ 816              		.comm	B5,4,4
+ 817              		.comm	B3,4,4
+ 818              		.comm	X3,4,4
+ 819              		.comm	X2,4,4
+ 820              		.comm	X1,4,4
+ 821              		.comm	SensorCalibrationData,22,1
+ 822              		.comm	press280,4,4
+ 823              		.comm	hum280,4,4
+ 824              		.comm	temp280,4,4
+ 825              		.comm	UP280,4,4
+ 826              		.comm	UH280,4,4
+ 827              		.comm	UT280,4,4
+ 828              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 829              	.LC53:
+ 830 0000 0A0D2054 		.ascii	"\012\015 TEMP \012\015 \000"
+ 830      454D5020 
+ 830      0A0D2000 
+ 831              	.LC68:
+ 832 000c 0A0D2050 		.ascii	"\012\015 PRESS \012\015 \000"
+ 832      52455353 
+ 832      200A0D20 
+ 832      00
+ 833              		.data
+ 834              		.align	3
+ 835              		.set	.LANCHOR0,. + 0
+ 836              		.type	I2CWriteBufferT.8021, %object
+ 837              		.size	I2CWriteBufferT.8021, 1
+ 838              	I2CWriteBufferT.8021:
+ 839 0000 F4       		.byte	-12
+ 840              		.type	I2CWriteBufferP.8033, %object
+ 841              		.size	I2CWriteBufferP.8033, 1
+ 842              	I2CWriteBufferP.8033:
+ 843 0001 F7       		.byte	-9
+ 844              		.type	SetReadAddressBufferP.8034, %object
+ 845              		.size	SetReadAddressBufferP.8034, 1
+ 846              	SetReadAddressBufferP.8034:
+ 847 0002 F6       		.byte	-10
+ 848              		.type	I2CWriteBuffer.8051, %object
+ 849              		.size	I2CWriteBuffer.8051, 1
+ 850              	I2CWriteBuffer.8051:
+ 851 0003 AA       		.byte	-86
+ 852 0004 00000000 		.space	4
+ 853              		.type	PressureAtSeaLevel, %object
+ 854              		.size	PressureAtSeaLevel, 8
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 20
+
+
+ 855              	PressureAtSeaLevel:
+ 856 0008 00000000 		.word	0
+ 857 000c D0BCF840 		.word	1090043088
+ 858              		.bss
+ 859              		.set	.LANCHOR1,. + 0
+ 860              		.type	I2CReadBufferT.8020, %object
+ 861              		.size	I2CReadBufferT.8020, 2
+ 862              	I2CReadBufferT.8020:
+ 863 0000 0000     		.space	2
+ 864              		.type	I2CReadBufferP.8032, %object
+ 865              		.size	I2CReadBufferP.8032, 3
+ 866              	I2CReadBufferP.8032:
+ 867 0002 000000   		.space	3
+ 868              		.type	CalibrationDataAvailable, %object
+ 869              		.size	CalibrationDataAvailable, 1
+ 870              	CalibrationDataAvailable:
+ 871 0005 00       		.space	1
+ 872              		.text
+ 873              	.Letext0:
+ 874              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 875              		.file 3 "bme280.h"
+ 876              		.file 4 "Generated_Source\\PSoC4/I2C_1_scl.h"
+ 877              		.file 5 "Generated_Source\\PSoC4/I2C_1_sda.h"
+ 878              		.file 6 "Generated_Source\\PSoC4/I2C_1_I2C.h"
+ 879              		.file 7 "Generated_Source\\PSoC4/I2C_1.h"
+ 880              		.file 8 "Generated_Source\\PSoC4/CyLib.h"
+ 881              		.file 9 "Generated_Source\\PSoC4/UART_SPI_UART.h"
+ 882              		.file 10 "teste.h"
+ 883              		.file 11 "Generated_Source\\PSoC4/BLE_Stack.h"
+ 884              		.section	.debug_info,"",%progbits
+ 885              	.Ldebug_info0:
+ 886 0000 81080000 		.4byte	0x881
+ 887 0004 0400     		.2byte	0x4
+ 888 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 889 000a 04       		.byte	0x4
+ 890 000b 01       		.uleb128 0x1
+ 891 000c 2A070000 		.4byte	.LASF123
+ 892 0010 0C       		.byte	0xc
+ 893 0011 2A060000 		.4byte	.LASF124
+ 894 0015 21090000 		.4byte	.LASF125
+ 895 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 896 001d 00000000 		.4byte	0
+ 897 0021 00000000 		.4byte	.Ldebug_line0
+ 898 0025 02       		.uleb128 0x2
+ 899 0026 01       		.byte	0x1
+ 900 0027 06       		.byte	0x6
+ 901 0028 8D020000 		.4byte	.LASF0
+ 902 002c 02       		.uleb128 0x2
+ 903 002d 01       		.byte	0x1
+ 904 002e 08       		.byte	0x8
+ 905 002f A9080000 		.4byte	.LASF1
+ 906 0033 02       		.uleb128 0x2
+ 907 0034 02       		.byte	0x2
+ 908 0035 05       		.byte	0x5
+ 909 0036 DB080000 		.4byte	.LASF2
+ 910 003a 02       		.uleb128 0x2
+ 911 003b 02       		.byte	0x2
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 21
+
+
+ 912 003c 07       		.byte	0x7
+ 913 003d 110B0000 		.4byte	.LASF3
+ 914 0041 02       		.uleb128 0x2
+ 915 0042 04       		.byte	0x4
+ 916 0043 05       		.byte	0x5
+ 917 0044 8A010000 		.4byte	.LASF4
+ 918 0048 02       		.uleb128 0x2
+ 919 0049 04       		.byte	0x4
+ 920 004a 07       		.byte	0x7
+ 921 004b E2040000 		.4byte	.LASF5
+ 922 004f 02       		.uleb128 0x2
+ 923 0050 08       		.byte	0x8
+ 924 0051 05       		.byte	0x5
+ 925 0052 7F020000 		.4byte	.LASF6
+ 926 0056 02       		.uleb128 0x2
+ 927 0057 08       		.byte	0x8
+ 928 0058 07       		.byte	0x7
+ 929 0059 93010000 		.4byte	.LASF7
+ 930 005d 03       		.uleb128 0x3
+ 931 005e 04       		.byte	0x4
+ 932 005f 05       		.byte	0x5
+ 933 0060 696E7400 		.ascii	"int\000"
+ 934 0064 02       		.uleb128 0x2
+ 935 0065 04       		.byte	0x4
+ 936 0066 07       		.byte	0x7
+ 937 0067 9F040000 		.4byte	.LASF8
+ 938 006b 04       		.uleb128 0x4
+ 939 006c 7A030000 		.4byte	.LASF9
+ 940 0070 02       		.byte	0x2
+ 941 0071 D201     		.2byte	0x1d2
+ 942 0073 2C000000 		.4byte	0x2c
+ 943 0077 04       		.uleb128 0x4
+ 944 0078 3F000000 		.4byte	.LASF10
+ 945 007c 02       		.byte	0x2
+ 946 007d D301     		.2byte	0x1d3
+ 947 007f 3A000000 		.4byte	0x3a
+ 948 0083 02       		.uleb128 0x2
+ 949 0084 04       		.byte	0x4
+ 950 0085 04       		.byte	0x4
+ 951 0086 71080000 		.4byte	.LASF11
+ 952 008a 02       		.uleb128 0x2
+ 953 008b 08       		.byte	0x8
+ 954 008c 04       		.byte	0x4
+ 955 008d A7030000 		.4byte	.LASF12
+ 956 0091 02       		.uleb128 0x2
+ 957 0092 01       		.byte	0x1
+ 958 0093 08       		.byte	0x8
+ 959 0094 7A0A0000 		.4byte	.LASF13
+ 960 0098 02       		.uleb128 0x2
+ 961 0099 08       		.byte	0x8
+ 962 009a 04       		.byte	0x4
+ 963 009b 560A0000 		.4byte	.LASF14
+ 964 009f 02       		.uleb128 0x2
+ 965 00a0 04       		.byte	0x4
+ 966 00a1 07       		.byte	0x7
+ 967 00a2 ED060000 		.4byte	.LASF15
+ 968 00a6 05       		.uleb128 0x5
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 22
+
+
+ 969 00a7 01       		.byte	0x1
+ 970 00a8 2C000000 		.4byte	0x2c
+ 971 00ac 0B       		.byte	0xb
+ 972 00ad 3501     		.2byte	0x135
+ 973 00af 64020000 		.4byte	0x264
+ 974 00b3 06       		.uleb128 0x6
+ 975 00b4 1D030000 		.4byte	.LASF16
+ 976 00b8 00       		.byte	0
+ 977 00b9 06       		.uleb128 0x6
+ 978 00ba 99020000 		.4byte	.LASF17
+ 979 00be 01       		.byte	0x1
+ 980 00bf 06       		.uleb128 0x6
+ 981 00c0 78010000 		.4byte	.LASF18
+ 982 00c4 02       		.byte	0x2
+ 983 00c5 06       		.uleb128 0x6
+ 984 00c6 F80A0000 		.4byte	.LASF19
+ 985 00ca 03       		.byte	0x3
+ 986 00cb 06       		.uleb128 0x6
+ 987 00cc AA010000 		.4byte	.LASF20
+ 988 00d0 04       		.byte	0x4
+ 989 00d1 06       		.uleb128 0x6
+ 990 00d2 23000000 		.4byte	.LASF21
+ 991 00d6 05       		.byte	0x5
+ 992 00d7 06       		.uleb128 0x6
+ 993 00d8 AC020000 		.4byte	.LASF22
+ 994 00dc 06       		.byte	0x6
+ 995 00dd 06       		.uleb128 0x6
+ 996 00de 4F060000 		.4byte	.LASF23
+ 997 00e2 20       		.byte	0x20
+ 998 00e3 06       		.uleb128 0x6
+ 999 00e4 E4020000 		.4byte	.LASF24
+ 1000 00e8 21       		.byte	0x21
+ 1001 00e9 06       		.uleb128 0x6
+ 1002 00ea 560B0000 		.4byte	.LASF25
+ 1003 00ee 22       		.byte	0x22
+ 1004 00ef 06       		.uleb128 0x6
+ 1005 00f0 E9050000 		.4byte	.LASF26
+ 1006 00f4 23       		.byte	0x23
+ 1007 00f5 06       		.uleb128 0x6
+ 1008 00f6 FA070000 		.4byte	.LASF27
+ 1009 00fa 24       		.byte	0x24
+ 1010 00fb 06       		.uleb128 0x6
+ 1011 00fc F6060000 		.4byte	.LASF28
+ 1012 0100 25       		.byte	0x25
+ 1013 0101 06       		.uleb128 0x6
+ 1014 0102 52030000 		.4byte	.LASF29
+ 1015 0106 26       		.byte	0x26
+ 1016 0107 06       		.uleb128 0x6
+ 1017 0108 9A050000 		.4byte	.LASF30
+ 1018 010c 27       		.byte	0x27
+ 1019 010d 06       		.uleb128 0x6
+ 1020 010e 7F0A0000 		.4byte	.LASF31
+ 1021 0112 28       		.byte	0x28
+ 1022 0113 06       		.uleb128 0x6
+ 1023 0114 39020000 		.4byte	.LASF32
+ 1024 0118 29       		.byte	0x29
+ 1025 0119 06       		.uleb128 0x6
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 23
+
+
+ 1026 011a A1000000 		.4byte	.LASF33
+ 1027 011e 2A       		.byte	0x2a
+ 1028 011f 06       		.uleb128 0x6
+ 1029 0120 C5020000 		.4byte	.LASF34
+ 1030 0124 2B       		.byte	0x2b
+ 1031 0125 06       		.uleb128 0x6
+ 1032 0126 C80B0000 		.4byte	.LASF35
+ 1033 012a 2C       		.byte	0x2c
+ 1034 012b 06       		.uleb128 0x6
+ 1035 012c 56020000 		.4byte	.LASF36
+ 1036 0130 2D       		.byte	0x2d
+ 1037 0131 06       		.uleb128 0x6
+ 1038 0132 B7080000 		.4byte	.LASF37
+ 1039 0136 2E       		.byte	0x2e
+ 1040 0137 06       		.uleb128 0x6
+ 1041 0138 F1000000 		.4byte	.LASF38
+ 1042 013c 2F       		.byte	0x2f
+ 1043 013d 06       		.uleb128 0x6
+ 1044 013e D9070000 		.4byte	.LASF39
+ 1045 0142 30       		.byte	0x30
+ 1046 0143 06       		.uleb128 0x6
+ 1047 0144 490C0000 		.4byte	.LASF40
+ 1048 0148 31       		.byte	0x31
+ 1049 0149 06       		.uleb128 0x6
+ 1050 014a B8070000 		.4byte	.LASF41
+ 1051 014e 32       		.byte	0x32
+ 1052 014f 06       		.uleb128 0x6
+ 1053 0150 110A0000 		.4byte	.LASF42
+ 1054 0154 33       		.byte	0x33
+ 1055 0155 06       		.uleb128 0x6
+ 1056 0156 F4040000 		.4byte	.LASF43
+ 1057 015a 34       		.byte	0x34
+ 1058 015b 06       		.uleb128 0x6
+ 1059 015c 3D040000 		.4byte	.LASF44
+ 1060 0160 35       		.byte	0x35
+ 1061 0161 06       		.uleb128 0x6
+ 1062 0162 B9050000 		.4byte	.LASF45
+ 1063 0166 36       		.byte	0x36
+ 1064 0167 06       		.uleb128 0x6
+ 1065 0168 79060000 		.4byte	.LASF46
+ 1066 016c 37       		.byte	0x37
+ 1067 016d 06       		.uleb128 0x6
+ 1068 016e F7090000 		.4byte	.LASF47
+ 1069 0172 40       		.byte	0x40
+ 1070 0173 06       		.uleb128 0x6
+ 1071 0174 0F060000 		.4byte	.LASF48
+ 1072 0178 41       		.byte	0x41
+ 1073 0179 06       		.uleb128 0x6
+ 1074 017a 6D0C0000 		.4byte	.LASF49
+ 1075 017e 42       		.byte	0x42
+ 1076 017f 06       		.uleb128 0x6
+ 1077 0180 2C0B0000 		.4byte	.LASF50
+ 1078 0184 43       		.byte	0x43
+ 1079 0185 06       		.uleb128 0x6
+ 1080 0186 26050000 		.4byte	.LASF51
+ 1081 018a 44       		.byte	0x44
+ 1082 018b 06       		.uleb128 0x6
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 24
+
+
+ 1083 018c 37080000 		.4byte	.LASF52
+ 1084 0190 45       		.byte	0x45
+ 1085 0191 06       		.uleb128 0x6
+ 1086 0192 CC060000 		.4byte	.LASF53
+ 1087 0196 46       		.byte	0x46
+ 1088 0197 06       		.uleb128 0x6
+ 1089 0198 380A0000 		.4byte	.LASF54
+ 1090 019c 47       		.byte	0x47
+ 1091 019d 06       		.uleb128 0x6
+ 1092 019e 980B0000 		.4byte	.LASF55
+ 1093 01a2 48       		.byte	0x48
+ 1094 01a3 06       		.uleb128 0x6
+ 1095 01a4 FB020000 		.4byte	.LASF56
+ 1096 01a8 49       		.byte	0x49
+ 1097 01a9 06       		.uleb128 0x6
+ 1098 01aa 7A0B0000 		.4byte	.LASF57
+ 1099 01ae 4A       		.byte	0x4a
+ 1100 01af 06       		.uleb128 0x6
+ 1101 01b0 1A010000 		.4byte	.LASF58
+ 1102 01b4 4B       		.byte	0x4b
+ 1103 01b5 06       		.uleb128 0x6
+ 1104 01b6 0C050000 		.4byte	.LASF59
+ 1105 01ba 4C       		.byte	0x4c
+ 1106 01bb 06       		.uleb128 0x6
+ 1107 01bc 10070000 		.4byte	.LASF60
+ 1108 01c0 4D       		.byte	0x4d
+ 1109 01c1 06       		.uleb128 0x6
+ 1110 01c2 34030000 		.4byte	.LASF61
+ 1111 01c6 4E       		.byte	0x4e
+ 1112 01c7 06       		.uleb128 0x6
+ 1113 01c8 6A090000 		.4byte	.LASF62
+ 1114 01cc 4F       		.byte	0x4f
+ 1115 01cd 06       		.uleb128 0x6
+ 1116 01ce 39010000 		.4byte	.LASF63
+ 1117 01d2 50       		.byte	0x50
+ 1118 01d3 06       		.uleb128 0x6
+ 1119 01d4 88030000 		.4byte	.LASF64
+ 1120 01d8 51       		.byte	0x51
+ 1121 01d9 06       		.uleb128 0x6
+ 1122 01da 16080000 		.4byte	.LASF65
+ 1123 01de 52       		.byte	0x52
+ 1124 01df 06       		.uleb128 0x6
+ 1125 01e0 E5080000 		.4byte	.LASF66
+ 1126 01e4 53       		.byte	0x53
+ 1127 01e5 06       		.uleb128 0x6
+ 1128 01e6 D6090000 		.4byte	.LASF67
+ 1129 01ea 54       		.byte	0x54
+ 1130 01eb 06       		.uleb128 0x6
+ 1131 01ec 44050000 		.4byte	.LASF68
+ 1132 01f0 55       		.byte	0x55
+ 1133 01f1 06       		.uleb128 0x6
+ 1134 01f2 7D040000 		.4byte	.LASF69
+ 1135 01f6 56       		.byte	0x56
+ 1136 01f7 06       		.uleb128 0x6
+ 1137 01f8 A10A0000 		.4byte	.LASF70
+ 1138 01fc 57       		.byte	0x57
+ 1139 01fd 06       		.uleb128 0x6
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 25
+
+
+ 1140 01fe 5A040000 		.4byte	.LASF71
+ 1141 0202 58       		.byte	0x58
+ 1142 0203 06       		.uleb128 0x6
+ 1143 0204 00020000 		.4byte	.LASF72
+ 1144 0208 70       		.byte	0x70
+ 1145 0209 06       		.uleb128 0x6
+ 1146 020a 230C0000 		.4byte	.LASF73
+ 1147 020e 71       		.byte	0x71
+ 1148 020f 06       		.uleb128 0x6
+ 1149 0210 33060000 		.4byte	.LASF74
+ 1150 0214 72       		.byte	0x72
+ 1151 0215 06       		.uleb128 0x6
+ 1152 0216 AE060000 		.4byte	.LASF75
+ 1153 021a 73       		.byte	0x73
+ 1154 021b 06       		.uleb128 0x6
+ 1155 021c 83000000 		.4byte	.LASF76
+ 1156 0220 74       		.byte	0x74
+ 1157 0221 06       		.uleb128 0x6
+ 1158 0222 020C0000 		.4byte	.LASF77
+ 1159 0226 75       		.byte	0x75
+ 1160 0227 06       		.uleb128 0x6
+ 1161 0228 CA000000 		.4byte	.LASF78
+ 1162 022c 76       		.byte	0x76
+ 1163 022d 06       		.uleb128 0x6
+ 1164 022e 46000000 		.4byte	.LASF79
+ 1165 0232 77       		.byte	0x77
+ 1166 0233 06       		.uleb128 0x6
+ 1167 0234 00000000 		.4byte	.LASF80
+ 1168 0238 78       		.byte	0x78
+ 1169 0239 06       		.uleb128 0x6
+ 1170 023a D50A0000 		.4byte	.LASF81
+ 1171 023e 79       		.byte	0x79
+ 1172 023f 06       		.uleb128 0x6
+ 1173 0240 13040000 		.4byte	.LASF82
+ 1174 0244 7A       		.byte	0x7a
+ 1175 0245 06       		.uleb128 0x6
+ 1176 0246 D5010000 		.4byte	.LASF83
+ 1177 024a FA       		.byte	0xfa
+ 1178 024b 06       		.uleb128 0x6
+ 1179 024c AC040000 		.4byte	.LASF84
+ 1180 0250 FB       		.byte	0xfb
+ 1181 0251 06       		.uleb128 0x6
+ 1182 0252 0F090000 		.4byte	.LASF85
+ 1183 0256 FC       		.byte	0xfc
+ 1184 0257 06       		.uleb128 0x6
+ 1185 0258 620A0000 		.4byte	.LASF86
+ 1186 025c FD       		.byte	0xfd
+ 1187 025d 06       		.uleb128 0x6
+ 1188 025e EC030000 		.4byte	.LASF87
+ 1189 0262 FF       		.byte	0xff
+ 1190 0263 00       		.byte	0
+ 1191 0264 07       		.uleb128 0x7
+ 1192 0265 CA0A0000 		.4byte	.LASF91
+ 1193 0269 01       		.byte	0x1
+ 1194 026a 1A       		.byte	0x1a
+ 1195 026b 5D000000 		.4byte	0x5d
+ 1196 026f 00000000 		.4byte	.LFB35
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 26
+
+
+ 1197 0273 60000000 		.4byte	.LFE35-.LFB35
+ 1198 0277 01       		.uleb128 0x1
+ 1199 0278 9C       		.byte	0x9c
+ 1200 0279 42030000 		.4byte	0x342
+ 1201 027d 08       		.uleb128 0x8
+ 1202 027e 74000000 		.4byte	.LASF88
+ 1203 0282 01       		.byte	0x1
+ 1204 0283 1F       		.byte	0x1f
+ 1205 0284 42030000 		.4byte	0x342
+ 1206 0288 05       		.uleb128 0x5
+ 1207 0289 03       		.byte	0x3
+ 1208 028a 00000000 		.4byte	I2CReadBufferT.8020
+ 1209 028e 08       		.uleb128 0x8
+ 1210 028f 68010000 		.4byte	.LASF89
+ 1211 0293 01       		.byte	0x1
+ 1212 0294 20       		.byte	0x20
+ 1213 0295 52030000 		.4byte	0x352
+ 1214 0299 05       		.uleb128 0x5
+ 1215 029a 03       		.byte	0x3
+ 1216 029b 00000000 		.4byte	I2CWriteBufferT.8021
+ 1217 029f 09       		.uleb128 0x9
+ 1218 02a0 C0090000 		.4byte	.LASF90
+ 1219 02a4 01       		.byte	0x1
+ 1220 02a5 21       		.byte	0x21
+ 1221 02a6 52030000 		.4byte	0x352
+ 1222 02aa 01       		.byte	0x1
+ 1223 02ab F6       		.byte	0xf6
+ 1224 02ac 0A       		.uleb128 0xa
+ 1225 02ad 08000000 		.4byte	.LVL0
+ 1226 02b1 11080000 		.4byte	0x811
+ 1227 02b5 BF020000 		.4byte	0x2bf
+ 1228 02b9 0B       		.uleb128 0xb
+ 1229 02ba 01       		.uleb128 0x1
+ 1230 02bb 50       		.byte	0x50
+ 1231 02bc 01       		.uleb128 0x1
+ 1232 02bd 34       		.byte	0x34
+ 1233 02be 00       		.byte	0
+ 1234 02bf 0A       		.uleb128 0xa
+ 1235 02c0 0E000000 		.4byte	.LVL1
+ 1236 02c4 1C080000 		.4byte	0x81c
+ 1237 02c8 D2020000 		.4byte	0x2d2
+ 1238 02cc 0B       		.uleb128 0xb
+ 1239 02cd 01       		.uleb128 0x1
+ 1240 02ce 50       		.byte	0x50
+ 1241 02cf 01       		.uleb128 0x1
+ 1242 02d0 34       		.byte	0x34
+ 1243 02d1 00       		.byte	0
+ 1244 02d2 0A       		.uleb128 0xa
+ 1245 02d3 1A000000 		.4byte	.LVL2
+ 1246 02d7 27080000 		.4byte	0x827
+ 1247 02db F9020000 		.4byte	0x2f9
+ 1248 02df 0B       		.uleb128 0xb
+ 1249 02e0 01       		.uleb128 0x1
+ 1250 02e1 50       		.byte	0x50
+ 1251 02e2 02       		.uleb128 0x2
+ 1252 02e3 08       		.byte	0x8
+ 1253 02e4 76       		.byte	0x76
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 27
+
+
+ 1254 02e5 0B       		.uleb128 0xb
+ 1255 02e6 01       		.uleb128 0x1
+ 1256 02e7 51       		.byte	0x51
+ 1257 02e8 05       		.uleb128 0x5
+ 1258 02e9 03       		.byte	0x3
+ 1259 02ea 00000000 		.4byte	.LANCHOR0
+ 1260 02ee 0B       		.uleb128 0xb
+ 1261 02ef 01       		.uleb128 0x1
+ 1262 02f0 52       		.byte	0x52
+ 1263 02f1 01       		.uleb128 0x1
+ 1264 02f2 31       		.byte	0x31
+ 1265 02f3 0B       		.uleb128 0xb
+ 1266 02f4 01       		.uleb128 0x1
+ 1267 02f5 53       		.byte	0x53
+ 1268 02f6 01       		.uleb128 0x1
+ 1269 02f7 30       		.byte	0x30
+ 1270 02f8 00       		.byte	0
+ 1271 02f9 0C       		.uleb128 0xc
+ 1272 02fa 20000000 		.4byte	.LVL3
+ 1273 02fe 33080000 		.4byte	0x833
+ 1274 0302 0C       		.uleb128 0xc
+ 1275 0303 28000000 		.4byte	.LVL4
+ 1276 0307 3F080000 		.4byte	0x83f
+ 1277 030b 0A       		.uleb128 0xa
+ 1278 030c 36000000 		.4byte	.LVL5
+ 1279 0310 4B080000 		.4byte	0x84b
+ 1280 0314 2F030000 		.4byte	0x32f
+ 1281 0318 0B       		.uleb128 0xb
+ 1282 0319 01       		.uleb128 0x1
+ 1283 031a 50       		.byte	0x50
+ 1284 031b 02       		.uleb128 0x2
+ 1285 031c 08       		.byte	0x8
+ 1286 031d 76       		.byte	0x76
+ 1287 031e 0B       		.uleb128 0xb
+ 1288 031f 01       		.uleb128 0x1
+ 1289 0320 51       		.byte	0x51
+ 1290 0321 02       		.uleb128 0x2
+ 1291 0322 74       		.byte	0x74
+ 1292 0323 00       		.sleb128 0
+ 1293 0324 0B       		.uleb128 0xb
+ 1294 0325 01       		.uleb128 0x1
+ 1295 0326 52       		.byte	0x52
+ 1296 0327 01       		.uleb128 0x1
+ 1297 0328 32       		.byte	0x32
+ 1298 0329 0B       		.uleb128 0xb
+ 1299 032a 01       		.uleb128 0x1
+ 1300 032b 53       		.byte	0x53
+ 1301 032c 01       		.uleb128 0x1
+ 1302 032d 30       		.byte	0x30
+ 1303 032e 00       		.byte	0
+ 1304 032f 0C       		.uleb128 0xc
+ 1305 0330 3C000000 		.4byte	.LVL6
+ 1306 0334 33080000 		.4byte	0x833
+ 1307 0338 0C       		.uleb128 0xc
+ 1308 0339 44000000 		.4byte	.LVL7
+ 1309 033d 3F080000 		.4byte	0x83f
+ 1310 0341 00       		.byte	0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 28
+
+
+ 1311 0342 0D       		.uleb128 0xd
+ 1312 0343 6B000000 		.4byte	0x6b
+ 1313 0347 52030000 		.4byte	0x352
+ 1314 034b 0E       		.uleb128 0xe
+ 1315 034c 9F000000 		.4byte	0x9f
+ 1316 0350 01       		.byte	0x1
+ 1317 0351 00       		.byte	0
+ 1318 0352 0D       		.uleb128 0xd
+ 1319 0353 6B000000 		.4byte	0x6b
+ 1320 0357 62030000 		.4byte	0x362
+ 1321 035b 0E       		.uleb128 0xe
+ 1322 035c 9F000000 		.4byte	0x9f
+ 1323 0360 00       		.byte	0
+ 1324 0361 00       		.byte	0
+ 1325 0362 07       		.uleb128 0x7
+ 1326 0363 C5030000 		.4byte	.LASF92
+ 1327 0367 01       		.byte	0x1
+ 1328 0368 47       		.byte	0x47
+ 1329 0369 5D000000 		.4byte	0x5d
+ 1330 036d 00000000 		.4byte	.LFB36
+ 1331 0371 8C000000 		.4byte	.LFE36-.LFB36
+ 1332 0375 01       		.uleb128 0x1
+ 1333 0376 9C       		.byte	0x9c
+ 1334 0377 93040000 		.4byte	0x493
+ 1335 037b 08       		.uleb128 0x8
+ 1336 037c 65000000 		.4byte	.LASF93
+ 1337 0380 01       		.byte	0x1
+ 1338 0381 4B       		.byte	0x4b
+ 1339 0382 93040000 		.4byte	0x493
+ 1340 0386 05       		.uleb128 0x5
+ 1341 0387 03       		.byte	0x3
+ 1342 0388 02000000 		.4byte	I2CReadBufferP.8032
+ 1343 038c 08       		.uleb128 0x8
+ 1344 038d 58010000 		.4byte	.LASF94
+ 1345 0391 01       		.byte	0x1
+ 1346 0392 4C       		.byte	0x4c
+ 1347 0393 52030000 		.4byte	0x352
+ 1348 0397 05       		.uleb128 0x5
+ 1349 0398 03       		.byte	0x3
+ 1350 0399 01000000 		.4byte	I2CWriteBufferP.8033
+ 1351 039d 08       		.uleb128 0x8
+ 1352 039e AA090000 		.4byte	.LASF95
+ 1353 03a2 01       		.byte	0x1
+ 1354 03a3 4D       		.byte	0x4d
+ 1355 03a4 52030000 		.4byte	0x352
+ 1356 03a8 05       		.uleb128 0x5
+ 1357 03a9 03       		.byte	0x3
+ 1358 03aa 02000000 		.4byte	SetReadAddressBufferP.8034
+ 1359 03ae 0A       		.uleb128 0xa
+ 1360 03af 08000000 		.4byte	.LVL8
+ 1361 03b3 11080000 		.4byte	0x811
+ 1362 03b7 C1030000 		.4byte	0x3c1
+ 1363 03bb 0B       		.uleb128 0xb
+ 1364 03bc 01       		.uleb128 0x1
+ 1365 03bd 50       		.byte	0x50
+ 1366 03be 01       		.uleb128 0x1
+ 1367 03bf 34       		.byte	0x34
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 29
+
+
+ 1368 03c0 00       		.byte	0
+ 1369 03c1 0A       		.uleb128 0xa
+ 1370 03c2 0E000000 		.4byte	.LVL9
+ 1371 03c6 1C080000 		.4byte	0x81c
+ 1372 03ca D4030000 		.4byte	0x3d4
+ 1373 03ce 0B       		.uleb128 0xb
+ 1374 03cf 01       		.uleb128 0x1
+ 1375 03d0 50       		.byte	0x50
+ 1376 03d1 01       		.uleb128 0x1
+ 1377 03d2 34       		.byte	0x34
+ 1378 03d3 00       		.byte	0
+ 1379 03d4 0C       		.uleb128 0xc
+ 1380 03d5 12000000 		.4byte	.LVL10
+ 1381 03d9 57080000 		.4byte	0x857
+ 1382 03dd 0A       		.uleb128 0xa
+ 1383 03de 20000000 		.4byte	.LVL11
+ 1384 03e2 27080000 		.4byte	0x827
+ 1385 03e6 01040000 		.4byte	0x401
+ 1386 03ea 0B       		.uleb128 0xb
+ 1387 03eb 01       		.uleb128 0x1
+ 1388 03ec 50       		.byte	0x50
+ 1389 03ed 02       		.uleb128 0x2
+ 1390 03ee 08       		.byte	0x8
+ 1391 03ef 76       		.byte	0x76
+ 1392 03f0 0B       		.uleb128 0xb
+ 1393 03f1 01       		.uleb128 0x1
+ 1394 03f2 51       		.byte	0x51
+ 1395 03f3 02       		.uleb128 0x2
+ 1396 03f4 74       		.byte	0x74
+ 1397 03f5 01       		.sleb128 1
+ 1398 03f6 0B       		.uleb128 0xb
+ 1399 03f7 01       		.uleb128 0x1
+ 1400 03f8 52       		.byte	0x52
+ 1401 03f9 01       		.uleb128 0x1
+ 1402 03fa 31       		.byte	0x31
+ 1403 03fb 0B       		.uleb128 0xb
+ 1404 03fc 01       		.uleb128 0x1
+ 1405 03fd 53       		.byte	0x53
+ 1406 03fe 01       		.uleb128 0x1
+ 1407 03ff 30       		.byte	0x30
+ 1408 0400 00       		.byte	0
+ 1409 0401 0C       		.uleb128 0xc
+ 1410 0402 26000000 		.4byte	.LVL12
+ 1411 0406 33080000 		.4byte	0x833
+ 1412 040a 0C       		.uleb128 0xc
+ 1413 040b 2E000000 		.4byte	.LVL13
+ 1414 040f 3F080000 		.4byte	0x83f
+ 1415 0413 0A       		.uleb128 0xa
+ 1416 0414 34000000 		.4byte	.LVL14
+ 1417 0418 62080000 		.4byte	0x862
+ 1418 041c 26040000 		.4byte	0x426
+ 1419 0420 0B       		.uleb128 0xb
+ 1420 0421 01       		.uleb128 0x1
+ 1421 0422 50       		.byte	0x50
+ 1422 0423 01       		.uleb128 0x1
+ 1423 0424 4A       		.byte	0x4a
+ 1424 0425 00       		.byte	0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 30
+
+
+ 1425 0426 0A       		.uleb128 0xa
+ 1426 0427 40000000 		.4byte	.LVL15
+ 1427 042b 27080000 		.4byte	0x827
+ 1428 042f 4A040000 		.4byte	0x44a
+ 1429 0433 0B       		.uleb128 0xb
+ 1430 0434 01       		.uleb128 0x1
+ 1431 0435 50       		.byte	0x50
+ 1432 0436 02       		.uleb128 0x2
+ 1433 0437 08       		.byte	0x8
+ 1434 0438 76       		.byte	0x76
+ 1435 0439 0B       		.uleb128 0xb
+ 1436 043a 01       		.uleb128 0x1
+ 1437 043b 51       		.byte	0x51
+ 1438 043c 02       		.uleb128 0x2
+ 1439 043d 74       		.byte	0x74
+ 1440 043e 02       		.sleb128 2
+ 1441 043f 0B       		.uleb128 0xb
+ 1442 0440 01       		.uleb128 0x1
+ 1443 0441 52       		.byte	0x52
+ 1444 0442 01       		.uleb128 0x1
+ 1445 0443 31       		.byte	0x31
+ 1446 0444 0B       		.uleb128 0xb
+ 1447 0445 01       		.uleb128 0x1
+ 1448 0446 53       		.byte	0x53
+ 1449 0447 01       		.uleb128 0x1
+ 1450 0448 30       		.byte	0x30
+ 1451 0449 00       		.byte	0
+ 1452 044a 0C       		.uleb128 0xc
+ 1453 044b 46000000 		.4byte	.LVL16
+ 1454 044f 33080000 		.4byte	0x833
+ 1455 0453 0C       		.uleb128 0xc
+ 1456 0454 4E000000 		.4byte	.LVL17
+ 1457 0458 3F080000 		.4byte	0x83f
+ 1458 045c 0A       		.uleb128 0xa
+ 1459 045d 5C000000 		.4byte	.LVL18
+ 1460 0461 4B080000 		.4byte	0x84b
+ 1461 0465 80040000 		.4byte	0x480
+ 1462 0469 0B       		.uleb128 0xb
+ 1463 046a 01       		.uleb128 0x1
+ 1464 046b 50       		.byte	0x50
+ 1465 046c 02       		.uleb128 0x2
+ 1466 046d 08       		.byte	0x8
+ 1467 046e 76       		.byte	0x76
+ 1468 046f 0B       		.uleb128 0xb
+ 1469 0470 01       		.uleb128 0x1
+ 1470 0471 51       		.byte	0x51
+ 1471 0472 02       		.uleb128 0x2
+ 1472 0473 74       		.byte	0x74
+ 1473 0474 02       		.sleb128 2
+ 1474 0475 0B       		.uleb128 0xb
+ 1475 0476 01       		.uleb128 0x1
+ 1476 0477 52       		.byte	0x52
+ 1477 0478 01       		.uleb128 0x1
+ 1478 0479 33       		.byte	0x33
+ 1479 047a 0B       		.uleb128 0xb
+ 1480 047b 01       		.uleb128 0x1
+ 1481 047c 53       		.byte	0x53
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 31
+
+
+ 1482 047d 01       		.uleb128 0x1
+ 1483 047e 30       		.byte	0x30
+ 1484 047f 00       		.byte	0
+ 1485 0480 0C       		.uleb128 0xc
+ 1486 0481 62000000 		.4byte	.LVL19
+ 1487 0485 33080000 		.4byte	0x833
+ 1488 0489 0C       		.uleb128 0xc
+ 1489 048a 6A000000 		.4byte	.LVL20
+ 1490 048e 3F080000 		.4byte	0x83f
+ 1491 0492 00       		.byte	0
+ 1492 0493 0D       		.uleb128 0xd
+ 1493 0494 6B000000 		.4byte	0x6b
+ 1494 0498 A3040000 		.4byte	0x4a3
+ 1495 049c 0E       		.uleb128 0xe
+ 1496 049d 9F000000 		.4byte	0x9f
+ 1497 04a1 02       		.byte	0x2
+ 1498 04a2 00       		.byte	0
+ 1499 04a3 0F       		.uleb128 0xf
+ 1500 04a4 F3010000 		.4byte	.LASF96
+ 1501 04a8 01       		.byte	0x1
+ 1502 04a9 65       		.byte	0x65
+ 1503 04aa 5D000000 		.4byte	0x5d
+ 1504 04ae 00000000 		.4byte	.LFB37
+ 1505 04b2 0C000000 		.4byte	.LFE37-.LFB37
+ 1506 04b6 01       		.uleb128 0x1
+ 1507 04b7 9C       		.byte	0x9c
+ 1508 04b8 0F       		.uleb128 0xf
+ 1509 04b9 91050000 		.4byte	.LASF97
+ 1510 04bd 01       		.byte	0x1
+ 1511 04be 69       		.byte	0x69
+ 1512 04bf 5D000000 		.4byte	0x5d
+ 1513 04c3 00000000 		.4byte	.LFB38
+ 1514 04c7 0C000000 		.4byte	.LFE38-.LFB38
+ 1515 04cb 01       		.uleb128 0x1
+ 1516 04cc 9C       		.byte	0x9c
+ 1517 04cd 10       		.uleb128 0x10
+ 1518 04ce 90090000 		.4byte	.LASF99
+ 1519 04d2 01       		.byte	0x1
+ 1520 04d3 6D       		.byte	0x6d
+ 1521 04d4 00000000 		.4byte	.LFB39
+ 1522 04d8 F0000000 		.4byte	.LFE39-.LFB39
+ 1523 04dc 01       		.uleb128 0x1
+ 1524 04dd 9C       		.byte	0x9c
+ 1525 04de 63050000 		.4byte	0x563
+ 1526 04e2 08       		.uleb128 0x8
+ 1527 04e3 DA050000 		.4byte	.LASF98
+ 1528 04e7 01       		.byte	0x1
+ 1529 04e8 70       		.byte	0x70
+ 1530 04e9 52030000 		.4byte	0x352
+ 1531 04ed 05       		.uleb128 0x5
+ 1532 04ee 03       		.byte	0x3
+ 1533 04ef 03000000 		.4byte	I2CWriteBuffer.8051
+ 1534 04f3 0A       		.uleb128 0xa
+ 1535 04f4 10000000 		.4byte	.LVL21
+ 1536 04f8 27080000 		.4byte	0x827
+ 1537 04fc 1A050000 		.4byte	0x51a
+ 1538 0500 0B       		.uleb128 0xb
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 32
+
+
+ 1539 0501 01       		.uleb128 0x1
+ 1540 0502 50       		.byte	0x50
+ 1541 0503 02       		.uleb128 0x2
+ 1542 0504 08       		.byte	0x8
+ 1543 0505 76       		.byte	0x76
+ 1544 0506 0B       		.uleb128 0xb
+ 1545 0507 01       		.uleb128 0x1
+ 1546 0508 51       		.byte	0x51
+ 1547 0509 05       		.uleb128 0x5
+ 1548 050a 03       		.byte	0x3
+ 1549 050b 03000000 		.4byte	.LANCHOR0+3
+ 1550 050f 0B       		.uleb128 0xb
+ 1551 0510 01       		.uleb128 0x1
+ 1552 0511 52       		.byte	0x52
+ 1553 0512 01       		.uleb128 0x1
+ 1554 0513 31       		.byte	0x31
+ 1555 0514 0B       		.uleb128 0xb
+ 1556 0515 01       		.uleb128 0x1
+ 1557 0516 53       		.byte	0x53
+ 1558 0517 01       		.uleb128 0x1
+ 1559 0518 30       		.byte	0x30
+ 1560 0519 00       		.byte	0
+ 1561 051a 0C       		.uleb128 0xc
+ 1562 051b 16000000 		.4byte	.LVL22
+ 1563 051f 33080000 		.4byte	0x833
+ 1564 0523 0C       		.uleb128 0xc
+ 1565 0524 1E000000 		.4byte	.LVL23
+ 1566 0528 3F080000 		.4byte	0x83f
+ 1567 052c 0A       		.uleb128 0xa
+ 1568 052d 2C000000 		.4byte	.LVL24
+ 1569 0531 4B080000 		.4byte	0x84b
+ 1570 0535 50050000 		.4byte	0x550
+ 1571 0539 0B       		.uleb128 0xb
+ 1572 053a 01       		.uleb128 0x1
+ 1573 053b 50       		.byte	0x50
+ 1574 053c 02       		.uleb128 0x2
+ 1575 053d 08       		.byte	0x8
+ 1576 053e 76       		.byte	0x76
+ 1577 053f 0B       		.uleb128 0xb
+ 1578 0540 01       		.uleb128 0x1
+ 1579 0541 51       		.byte	0x51
+ 1580 0542 02       		.uleb128 0x2
+ 1581 0543 74       		.byte	0x74
+ 1582 0544 00       		.sleb128 0
+ 1583 0545 0B       		.uleb128 0xb
+ 1584 0546 01       		.uleb128 0x1
+ 1585 0547 52       		.byte	0x52
+ 1586 0548 01       		.uleb128 0x1
+ 1587 0549 46       		.byte	0x46
+ 1588 054a 0B       		.uleb128 0xb
+ 1589 054b 01       		.uleb128 0x1
+ 1590 054c 53       		.byte	0x53
+ 1591 054d 01       		.uleb128 0x1
+ 1592 054e 30       		.byte	0x30
+ 1593 054f 00       		.byte	0
+ 1594 0550 0C       		.uleb128 0xc
+ 1595 0551 32000000 		.4byte	.LVL25
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 33
+
+
+ 1596 0555 33080000 		.4byte	0x833
+ 1597 0559 0C       		.uleb128 0xc
+ 1598 055a 3A000000 		.4byte	.LVL26
+ 1599 055e 3F080000 		.4byte	0x83f
+ 1600 0562 00       		.byte	0
+ 1601 0563 11       		.uleb128 0x11
+ 1602 0564 77080000 		.4byte	.LASF100
+ 1603 0568 01       		.byte	0x1
+ 1604 0569 8C       		.byte	0x8c
+ 1605 056a 00000000 		.4byte	.LFB40
+ 1606 056e 80020000 		.4byte	.LFE40-.LFB40
+ 1607 0572 01       		.uleb128 0x1
+ 1608 0573 9C       		.byte	0x9c
+ 1609 0574 EF050000 		.4byte	0x5ef
+ 1610 0578 0C       		.uleb128 0xc
+ 1611 0579 06000000 		.4byte	.LVL27
+ 1612 057d 64020000 		.4byte	0x264
+ 1613 0581 0C       		.uleb128 0xc
+ 1614 0582 0A000000 		.4byte	.LVL28
+ 1615 0586 62030000 		.4byte	0x362
+ 1616 058a 0C       		.uleb128 0xc
+ 1617 058b 72000000 		.4byte	.LVL37
+ 1618 058f 64020000 		.4byte	0x264
+ 1619 0593 0A       		.uleb128 0xa
+ 1620 0594 7C000000 		.4byte	.LVL38
+ 1621 0598 6D080000 		.4byte	0x86d
+ 1622 059c AA050000 		.4byte	0x5aa
+ 1623 05a0 0B       		.uleb128 0xb
+ 1624 05a1 01       		.uleb128 0x1
+ 1625 05a2 50       		.byte	0x50
+ 1626 05a3 05       		.uleb128 0x5
+ 1627 05a4 03       		.byte	0x3
+ 1628 05a5 00000000 		.4byte	.LC53
+ 1629 05a9 00       		.byte	0
+ 1630 05aa 0C       		.uleb128 0xc
+ 1631 05ab 82000000 		.4byte	.LVL39
+ 1632 05af 79080000 		.4byte	0x879
+ 1633 05b3 0C       		.uleb128 0xc
+ 1634 05b4 86000000 		.4byte	.LVL40
+ 1635 05b8 6D080000 		.4byte	0x86d
+ 1636 05bc 0C       		.uleb128 0xc
+ 1637 05bd E2010000 		.4byte	.LVL75
+ 1638 05c1 62030000 		.4byte	0x362
+ 1639 05c5 0A       		.uleb128 0xa
+ 1640 05c6 EA010000 		.4byte	.LVL76
+ 1641 05ca 6D080000 		.4byte	0x86d
+ 1642 05ce DC050000 		.4byte	0x5dc
+ 1643 05d2 0B       		.uleb128 0xb
+ 1644 05d3 01       		.uleb128 0x1
+ 1645 05d4 50       		.byte	0x50
+ 1646 05d5 05       		.uleb128 0x5
+ 1647 05d6 03       		.byte	0x3
+ 1648 05d7 0C000000 		.4byte	.LC68
+ 1649 05db 00       		.byte	0
+ 1650 05dc 0C       		.uleb128 0xc
+ 1651 05dd F0010000 		.4byte	.LVL77
+ 1652 05e1 79080000 		.4byte	0x879
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 34
+
+
+ 1653 05e5 0C       		.uleb128 0xc
+ 1654 05e6 F4010000 		.4byte	.LVL78
+ 1655 05ea 6D080000 		.4byte	0x86d
+ 1656 05ee 00       		.byte	0
+ 1657 05ef 12       		.uleb128 0x12
+ 1658 05f0 EB000000 		.4byte	.LASF101
+ 1659 05f4 03       		.byte	0x3
+ 1660 05f5 25       		.byte	0x25
+ 1661 05f6 41000000 		.4byte	0x41
+ 1662 05fa 05       		.uleb128 0x5
+ 1663 05fb 03       		.byte	0x3
+ 1664 05fc 00000000 		.4byte	UT280
+ 1665 0600 12       		.uleb128 0x12
+ 1666 0601 37040000 		.4byte	.LASF102
+ 1667 0605 03       		.byte	0x3
+ 1668 0606 25       		.byte	0x25
+ 1669 0607 41000000 		.4byte	0x41
+ 1670 060b 05       		.uleb128 0x5
+ 1671 060c 03       		.byte	0x3
+ 1672 060d 00000000 		.4byte	UH280
+ 1673 0611 12       		.uleb128 0x12
+ 1674 0612 73060000 		.4byte	.LASF103
+ 1675 0616 03       		.byte	0x3
+ 1676 0617 25       		.byte	0x25
+ 1677 0618 41000000 		.4byte	0x41
+ 1678 061c 05       		.uleb128 0x5
+ 1679 061d 03       		.byte	0x3
+ 1680 061e 00000000 		.4byte	UP280
+ 1681 0622 12       		.uleb128 0x12
+ 1682 0623 80030000 		.4byte	.LASF104
+ 1683 0627 03       		.byte	0x3
+ 1684 0628 26       		.byte	0x26
+ 1685 0629 5D000000 		.4byte	0x5d
+ 1686 062d 05       		.uleb128 0x5
+ 1687 062e 03       		.byte	0x3
+ 1688 062f 00000000 		.4byte	temp280
+ 1689 0633 12       		.uleb128 0x12
+ 1690 0634 89090000 		.4byte	.LASF105
+ 1691 0638 03       		.byte	0x3
+ 1692 0639 26       		.byte	0x26
+ 1693 063a 5D000000 		.4byte	0x5d
+ 1694 063e 05       		.uleb128 0x5
+ 1695 063f 03       		.byte	0x3
+ 1696 0640 00000000 		.4byte	hum280
+ 1697 0644 12       		.uleb128 0x12
+ 1698 0645 BF0B0000 		.4byte	.LASF106
+ 1699 0649 03       		.byte	0x3
+ 1700 064a 26       		.byte	0x26
+ 1701 064b 5D000000 		.4byte	0x5d
+ 1702 064f 05       		.uleb128 0x5
+ 1703 0650 03       		.byte	0x3
+ 1704 0651 00000000 		.4byte	press280
+ 1705 0655 0D       		.uleb128 0xd
+ 1706 0656 6B000000 		.4byte	0x6b
+ 1707 065a 65060000 		.4byte	0x665
+ 1708 065e 0E       		.uleb128 0xe
+ 1709 065f 9F000000 		.4byte	0x9f
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 35
+
+
+ 1710 0663 15       		.byte	0x15
+ 1711 0664 00       		.byte	0
+ 1712 0665 12       		.uleb128 0x12
+ 1713 0666 BF010000 		.4byte	.LASF107
+ 1714 066a 01       		.byte	0x1
+ 1715 066b 0F       		.byte	0xf
+ 1716 066c 55060000 		.4byte	0x655
+ 1717 0670 05       		.uleb128 0x5
+ 1718 0671 03       		.byte	0x3
+ 1719 0672 00000000 		.4byte	SensorCalibrationData
+ 1720 0676 13       		.uleb128 0x13
+ 1721 0677 583100   		.ascii	"X1\000"
+ 1722 067a 01       		.byte	0x1
+ 1723 067b 10       		.byte	0x10
+ 1724 067c 41000000 		.4byte	0x41
+ 1725 0680 05       		.uleb128 0x5
+ 1726 0681 03       		.byte	0x3
+ 1727 0682 00000000 		.4byte	X1
+ 1728 0686 13       		.uleb128 0x13
+ 1729 0687 583200   		.ascii	"X2\000"
+ 1730 068a 01       		.byte	0x1
+ 1731 068b 10       		.byte	0x10
+ 1732 068c 41000000 		.4byte	0x41
+ 1733 0690 05       		.uleb128 0x5
+ 1734 0691 03       		.byte	0x3
+ 1735 0692 00000000 		.4byte	X2
+ 1736 0696 13       		.uleb128 0x13
+ 1737 0697 583300   		.ascii	"X3\000"
+ 1738 069a 01       		.byte	0x1
+ 1739 069b 10       		.byte	0x10
+ 1740 069c 41000000 		.4byte	0x41
+ 1741 06a0 05       		.uleb128 0x5
+ 1742 06a1 03       		.byte	0x3
+ 1743 06a2 00000000 		.4byte	X3
+ 1744 06a6 13       		.uleb128 0x13
+ 1745 06a7 423300   		.ascii	"B3\000"
+ 1746 06aa 01       		.byte	0x1
+ 1747 06ab 10       		.byte	0x10
+ 1748 06ac 41000000 		.4byte	0x41
+ 1749 06b0 05       		.uleb128 0x5
+ 1750 06b1 03       		.byte	0x3
+ 1751 06b2 00000000 		.4byte	B3
+ 1752 06b6 13       		.uleb128 0x13
+ 1753 06b7 423500   		.ascii	"B5\000"
+ 1754 06ba 01       		.byte	0x1
+ 1755 06bb 10       		.byte	0x10
+ 1756 06bc 41000000 		.4byte	0x41
+ 1757 06c0 05       		.uleb128 0x5
+ 1758 06c1 03       		.byte	0x3
+ 1759 06c2 00000000 		.4byte	B5
+ 1760 06c6 13       		.uleb128 0x13
+ 1761 06c7 423600   		.ascii	"B6\000"
+ 1762 06ca 01       		.byte	0x1
+ 1763 06cb 10       		.byte	0x10
+ 1764 06cc 41000000 		.4byte	0x41
+ 1765 06d0 05       		.uleb128 0x5
+ 1766 06d1 03       		.byte	0x3
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 36
+
+
+ 1767 06d2 00000000 		.4byte	B6
+ 1768 06d6 13       		.uleb128 0x13
+ 1769 06d7 555400   		.ascii	"UT\000"
+ 1770 06da 01       		.byte	0x1
+ 1771 06db 14       		.byte	0x14
+ 1772 06dc 41000000 		.4byte	0x41
+ 1773 06e0 05       		.uleb128 0x5
+ 1774 06e1 03       		.byte	0x3
+ 1775 06e2 00000000 		.4byte	UT
+ 1776 06e6 13       		.uleb128 0x13
+ 1777 06e7 555000   		.ascii	"UP\000"
+ 1778 06ea 01       		.byte	0x1
+ 1779 06eb 14       		.byte	0x14
+ 1780 06ec 41000000 		.4byte	0x41
+ 1781 06f0 05       		.uleb128 0x5
+ 1782 06f1 03       		.byte	0x3
+ 1783 06f2 00000000 		.4byte	UP
+ 1784 06f6 13       		.uleb128 0x13
+ 1785 06f7 423400   		.ascii	"B4\000"
+ 1786 06fa 01       		.byte	0x1
+ 1787 06fb 11       		.byte	0x11
+ 1788 06fc 48000000 		.4byte	0x48
+ 1789 0700 05       		.uleb128 0x5
+ 1790 0701 03       		.byte	0x3
+ 1791 0702 00000000 		.4byte	B4
+ 1792 0706 13       		.uleb128 0x13
+ 1793 0707 423700   		.ascii	"B7\000"
+ 1794 070a 01       		.byte	0x1
+ 1795 070b 11       		.byte	0x11
+ 1796 070c 48000000 		.4byte	0x48
+ 1797 0710 05       		.uleb128 0x5
+ 1798 0711 03       		.byte	0x3
+ 1799 0712 00000000 		.4byte	B7
+ 1800 0716 13       		.uleb128 0x13
+ 1801 0717 41433100 		.ascii	"AC1\000"
+ 1802 071b 01       		.byte	0x1
+ 1803 071c 12       		.byte	0x12
+ 1804 071d 33000000 		.4byte	0x33
+ 1805 0721 05       		.uleb128 0x5
+ 1806 0722 03       		.byte	0x3
+ 1807 0723 00000000 		.4byte	AC1
+ 1808 0727 13       		.uleb128 0x13
+ 1809 0728 41433200 		.ascii	"AC2\000"
+ 1810 072c 01       		.byte	0x1
+ 1811 072d 12       		.byte	0x12
+ 1812 072e 33000000 		.4byte	0x33
+ 1813 0732 05       		.uleb128 0x5
+ 1814 0733 03       		.byte	0x3
+ 1815 0734 00000000 		.4byte	AC2
+ 1816 0738 13       		.uleb128 0x13
+ 1817 0739 41433300 		.ascii	"AC3\000"
+ 1818 073d 01       		.byte	0x1
+ 1819 073e 12       		.byte	0x12
+ 1820 073f 33000000 		.4byte	0x33
+ 1821 0743 05       		.uleb128 0x5
+ 1822 0744 03       		.byte	0x3
+ 1823 0745 00000000 		.4byte	AC3
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 37
+
+
+ 1824 0749 13       		.uleb128 0x13
+ 1825 074a 423100   		.ascii	"B1\000"
+ 1826 074d 01       		.byte	0x1
+ 1827 074e 12       		.byte	0x12
+ 1828 074f 33000000 		.4byte	0x33
+ 1829 0753 05       		.uleb128 0x5
+ 1830 0754 03       		.byte	0x3
+ 1831 0755 00000000 		.4byte	B1
+ 1832 0759 13       		.uleb128 0x13
+ 1833 075a 423200   		.ascii	"B2\000"
+ 1834 075d 01       		.byte	0x1
+ 1835 075e 12       		.byte	0x12
+ 1836 075f 33000000 		.4byte	0x33
+ 1837 0763 05       		.uleb128 0x5
+ 1838 0764 03       		.byte	0x3
+ 1839 0765 00000000 		.4byte	B2
+ 1840 0769 13       		.uleb128 0x13
+ 1841 076a 4D4300   		.ascii	"MC\000"
+ 1842 076d 01       		.byte	0x1
+ 1843 076e 12       		.byte	0x12
+ 1844 076f 33000000 		.4byte	0x33
+ 1845 0773 05       		.uleb128 0x5
+ 1846 0774 03       		.byte	0x3
+ 1847 0775 00000000 		.4byte	MC
+ 1848 0779 13       		.uleb128 0x13
+ 1849 077a 4D4400   		.ascii	"MD\000"
+ 1850 077d 01       		.byte	0x1
+ 1851 077e 12       		.byte	0x12
+ 1852 077f 33000000 		.4byte	0x33
+ 1853 0783 05       		.uleb128 0x5
+ 1854 0784 03       		.byte	0x3
+ 1855 0785 00000000 		.4byte	MD
+ 1856 0789 13       		.uleb128 0x13
+ 1857 078a 41433400 		.ascii	"AC4\000"
+ 1858 078e 01       		.byte	0x1
+ 1859 078f 13       		.byte	0x13
+ 1860 0790 3A000000 		.4byte	0x3a
+ 1861 0794 05       		.uleb128 0x5
+ 1862 0795 03       		.byte	0x3
+ 1863 0796 00000000 		.4byte	AC4
+ 1864 079a 13       		.uleb128 0x13
+ 1865 079b 41433500 		.ascii	"AC5\000"
+ 1866 079f 01       		.byte	0x1
+ 1867 07a0 13       		.byte	0x13
+ 1868 07a1 3A000000 		.4byte	0x3a
+ 1869 07a5 05       		.uleb128 0x5
+ 1870 07a6 03       		.byte	0x3
+ 1871 07a7 00000000 		.4byte	AC5
+ 1872 07ab 13       		.uleb128 0x13
+ 1873 07ac 41433600 		.ascii	"AC6\000"
+ 1874 07b0 01       		.byte	0x1
+ 1875 07b1 13       		.byte	0x13
+ 1876 07b2 3A000000 		.4byte	0x3a
+ 1877 07b6 05       		.uleb128 0x5
+ 1878 07b7 03       		.byte	0x3
+ 1879 07b8 00000000 		.4byte	AC6
+ 1880 07bc 12       		.uleb128 0x12
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 38
+
+
+ 1881 07bd 4A0B0000 		.4byte	.LASF108
+ 1882 07c1 01       		.byte	0x1
+ 1883 07c2 15       		.byte	0x15
+ 1884 07c3 41000000 		.4byte	0x41
+ 1885 07c7 05       		.uleb128 0x5
+ 1886 07c8 03       		.byte	0x3
+ 1887 07c9 00000000 		.4byte	Temperature
+ 1888 07cd 12       		.uleb128 0x12
+ 1889 07ce 14030000 		.4byte	.LASF109
+ 1890 07d2 01       		.byte	0x1
+ 1891 07d3 15       		.byte	0x15
+ 1892 07d4 41000000 		.4byte	0x41
+ 1893 07d8 05       		.uleb128 0x5
+ 1894 07d9 03       		.byte	0x3
+ 1895 07da 00000000 		.4byte	Pressure
+ 1896 07de 12       		.uleb128 0x12
+ 1897 07df 06090000 		.4byte	.LASF110
+ 1898 07e3 01       		.byte	0x1
+ 1899 07e4 15       		.byte	0x15
+ 1900 07e5 41000000 		.4byte	0x41
+ 1901 07e9 05       		.uleb128 0x5
+ 1902 07ea 03       		.byte	0x3
+ 1903 07eb 00000000 		.4byte	Altitude
+ 1904 07ef 12       		.uleb128 0x12
+ 1905 07f0 26020000 		.4byte	.LASF111
+ 1906 07f4 01       		.byte	0x1
+ 1907 07f5 16       		.byte	0x16
+ 1908 07f6 8A000000 		.4byte	0x8a
+ 1909 07fa 05       		.uleb128 0x5
+ 1910 07fb 03       		.byte	0x3
+ 1911 07fc 00000000 		.4byte	PressureAtSeaLevel
+ 1912 0800 12       		.uleb128 0x12
+ 1913 0801 FA030000 		.4byte	.LASF112
+ 1914 0805 01       		.byte	0x1
+ 1915 0806 17       		.byte	0x17
+ 1916 0807 6B000000 		.4byte	0x6b
+ 1917 080b 05       		.uleb128 0x5
+ 1918 080c 03       		.byte	0x3
+ 1919 080d 00000000 		.4byte	CalibrationDataAvailable
+ 1920 0811 14       		.uleb128 0x14
+ 1921 0812 AE030000 		.4byte	.LASF113
+ 1922 0816 AE030000 		.4byte	.LASF113
+ 1923 081a 04       		.byte	0x4
+ 1924 081b 36       		.byte	0x36
+ 1925 081c 14       		.uleb128 0x14
+ 1926 081d CB040000 		.4byte	.LASF114
+ 1927 0821 CB040000 		.4byte	.LASF114
+ 1928 0825 05       		.byte	0x5
+ 1929 0826 36       		.byte	0x36
+ 1930 0827 15       		.uleb128 0x15
+ 1931 0828 74050000 		.4byte	.LASF115
+ 1932 082c 74050000 		.4byte	.LASF115
+ 1933 0830 06       		.byte	0x6
+ 1934 0831 1301     		.2byte	0x113
+ 1935 0833 15       		.uleb128 0x15
+ 1936 0834 EC0B0000 		.4byte	.LASF116
+ 1937 0838 EC0B0000 		.4byte	.LASF116
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 39
+
+
+ 1938 083c 06       		.byte	0x6
+ 1939 083d 0F01     		.2byte	0x10f
+ 1940 083f 15       		.uleb128 0x15
+ 1941 0840 D1030000 		.4byte	.LASF117
+ 1942 0844 D1030000 		.4byte	.LASF117
+ 1943 0848 06       		.byte	0x6
+ 1944 0849 1001     		.2byte	0x110
+ 1945 084b 15       		.uleb128 0x15
+ 1946 084c 92080000 		.4byte	.LASF118
+ 1947 0850 92080000 		.4byte	.LASF118
+ 1948 0854 06       		.byte	0x6
+ 1949 0855 1401     		.2byte	0x114
+ 1950 0857 14       		.uleb128 0x14
+ 1951 0858 68050000 		.4byte	.LASF119
+ 1952 085c 68050000 		.4byte	.LASF119
+ 1953 0860 07       		.byte	0x7
+ 1954 0861 72       		.byte	0x72
+ 1955 0862 14       		.uleb128 0x14
+ 1956 0863 240B0000 		.4byte	.LASF120
+ 1957 0867 240B0000 		.4byte	.LASF120
+ 1958 086b 08       		.byte	0x8
+ 1959 086c D9       		.byte	0xd9
+ 1960 086d 15       		.uleb128 0x15
+ 1961 086e 5E080000 		.4byte	.LASF121
+ 1962 0872 5E080000 		.4byte	.LASF121
+ 1963 0876 09       		.byte	0x9
+ 1964 0877 2A03     		.2byte	0x32a
+ 1965 0879 14       		.uleb128 0x14
+ 1966 087a 8C050000 		.4byte	.LASF122
+ 1967 087e 8C050000 		.4byte	.LASF122
+ 1968 0882 0A       		.byte	0xa
+ 1969 0883 10       		.byte	0x10
+ 1970 0884 00       		.byte	0
+ 1971              		.section	.debug_abbrev,"",%progbits
+ 1972              	.Ldebug_abbrev0:
+ 1973 0000 01       		.uleb128 0x1
+ 1974 0001 11       		.uleb128 0x11
+ 1975 0002 01       		.byte	0x1
+ 1976 0003 25       		.uleb128 0x25
+ 1977 0004 0E       		.uleb128 0xe
+ 1978 0005 13       		.uleb128 0x13
+ 1979 0006 0B       		.uleb128 0xb
+ 1980 0007 03       		.uleb128 0x3
+ 1981 0008 0E       		.uleb128 0xe
+ 1982 0009 1B       		.uleb128 0x1b
+ 1983 000a 0E       		.uleb128 0xe
+ 1984 000b 55       		.uleb128 0x55
+ 1985 000c 17       		.uleb128 0x17
+ 1986 000d 11       		.uleb128 0x11
+ 1987 000e 01       		.uleb128 0x1
+ 1988 000f 10       		.uleb128 0x10
+ 1989 0010 17       		.uleb128 0x17
+ 1990 0011 00       		.byte	0
+ 1991 0012 00       		.byte	0
+ 1992 0013 02       		.uleb128 0x2
+ 1993 0014 24       		.uleb128 0x24
+ 1994 0015 00       		.byte	0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 40
+
+
+ 1995 0016 0B       		.uleb128 0xb
+ 1996 0017 0B       		.uleb128 0xb
+ 1997 0018 3E       		.uleb128 0x3e
+ 1998 0019 0B       		.uleb128 0xb
+ 1999 001a 03       		.uleb128 0x3
+ 2000 001b 0E       		.uleb128 0xe
+ 2001 001c 00       		.byte	0
+ 2002 001d 00       		.byte	0
+ 2003 001e 03       		.uleb128 0x3
+ 2004 001f 24       		.uleb128 0x24
+ 2005 0020 00       		.byte	0
+ 2006 0021 0B       		.uleb128 0xb
+ 2007 0022 0B       		.uleb128 0xb
+ 2008 0023 3E       		.uleb128 0x3e
+ 2009 0024 0B       		.uleb128 0xb
+ 2010 0025 03       		.uleb128 0x3
+ 2011 0026 08       		.uleb128 0x8
+ 2012 0027 00       		.byte	0
+ 2013 0028 00       		.byte	0
+ 2014 0029 04       		.uleb128 0x4
+ 2015 002a 16       		.uleb128 0x16
+ 2016 002b 00       		.byte	0
+ 2017 002c 03       		.uleb128 0x3
+ 2018 002d 0E       		.uleb128 0xe
+ 2019 002e 3A       		.uleb128 0x3a
+ 2020 002f 0B       		.uleb128 0xb
+ 2021 0030 3B       		.uleb128 0x3b
+ 2022 0031 05       		.uleb128 0x5
+ 2023 0032 49       		.uleb128 0x49
+ 2024 0033 13       		.uleb128 0x13
+ 2025 0034 00       		.byte	0
+ 2026 0035 00       		.byte	0
+ 2027 0036 05       		.uleb128 0x5
+ 2028 0037 04       		.uleb128 0x4
+ 2029 0038 01       		.byte	0x1
+ 2030 0039 0B       		.uleb128 0xb
+ 2031 003a 0B       		.uleb128 0xb
+ 2032 003b 49       		.uleb128 0x49
+ 2033 003c 13       		.uleb128 0x13
+ 2034 003d 3A       		.uleb128 0x3a
+ 2035 003e 0B       		.uleb128 0xb
+ 2036 003f 3B       		.uleb128 0x3b
+ 2037 0040 05       		.uleb128 0x5
+ 2038 0041 01       		.uleb128 0x1
+ 2039 0042 13       		.uleb128 0x13
+ 2040 0043 00       		.byte	0
+ 2041 0044 00       		.byte	0
+ 2042 0045 06       		.uleb128 0x6
+ 2043 0046 28       		.uleb128 0x28
+ 2044 0047 00       		.byte	0
+ 2045 0048 03       		.uleb128 0x3
+ 2046 0049 0E       		.uleb128 0xe
+ 2047 004a 1C       		.uleb128 0x1c
+ 2048 004b 0B       		.uleb128 0xb
+ 2049 004c 00       		.byte	0
+ 2050 004d 00       		.byte	0
+ 2051 004e 07       		.uleb128 0x7
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 41
+
+
+ 2052 004f 2E       		.uleb128 0x2e
+ 2053 0050 01       		.byte	0x1
+ 2054 0051 3F       		.uleb128 0x3f
+ 2055 0052 19       		.uleb128 0x19
+ 2056 0053 03       		.uleb128 0x3
+ 2057 0054 0E       		.uleb128 0xe
+ 2058 0055 3A       		.uleb128 0x3a
+ 2059 0056 0B       		.uleb128 0xb
+ 2060 0057 3B       		.uleb128 0x3b
+ 2061 0058 0B       		.uleb128 0xb
+ 2062 0059 27       		.uleb128 0x27
+ 2063 005a 19       		.uleb128 0x19
+ 2064 005b 49       		.uleb128 0x49
+ 2065 005c 13       		.uleb128 0x13
+ 2066 005d 11       		.uleb128 0x11
+ 2067 005e 01       		.uleb128 0x1
+ 2068 005f 12       		.uleb128 0x12
+ 2069 0060 06       		.uleb128 0x6
+ 2070 0061 40       		.uleb128 0x40
+ 2071 0062 18       		.uleb128 0x18
+ 2072 0063 9742     		.uleb128 0x2117
+ 2073 0065 19       		.uleb128 0x19
+ 2074 0066 01       		.uleb128 0x1
+ 2075 0067 13       		.uleb128 0x13
+ 2076 0068 00       		.byte	0
+ 2077 0069 00       		.byte	0
+ 2078 006a 08       		.uleb128 0x8
+ 2079 006b 34       		.uleb128 0x34
+ 2080 006c 00       		.byte	0
+ 2081 006d 03       		.uleb128 0x3
+ 2082 006e 0E       		.uleb128 0xe
+ 2083 006f 3A       		.uleb128 0x3a
+ 2084 0070 0B       		.uleb128 0xb
+ 2085 0071 3B       		.uleb128 0x3b
+ 2086 0072 0B       		.uleb128 0xb
+ 2087 0073 49       		.uleb128 0x49
+ 2088 0074 13       		.uleb128 0x13
+ 2089 0075 02       		.uleb128 0x2
+ 2090 0076 18       		.uleb128 0x18
+ 2091 0077 00       		.byte	0
+ 2092 0078 00       		.byte	0
+ 2093 0079 09       		.uleb128 0x9
+ 2094 007a 34       		.uleb128 0x34
+ 2095 007b 00       		.byte	0
+ 2096 007c 03       		.uleb128 0x3
+ 2097 007d 0E       		.uleb128 0xe
+ 2098 007e 3A       		.uleb128 0x3a
+ 2099 007f 0B       		.uleb128 0xb
+ 2100 0080 3B       		.uleb128 0x3b
+ 2101 0081 0B       		.uleb128 0xb
+ 2102 0082 49       		.uleb128 0x49
+ 2103 0083 13       		.uleb128 0x13
+ 2104 0084 1C       		.uleb128 0x1c
+ 2105 0085 0A       		.uleb128 0xa
+ 2106 0086 00       		.byte	0
+ 2107 0087 00       		.byte	0
+ 2108 0088 0A       		.uleb128 0xa
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 42
+
+
+ 2109 0089 898201   		.uleb128 0x4109
+ 2110 008c 01       		.byte	0x1
+ 2111 008d 11       		.uleb128 0x11
+ 2112 008e 01       		.uleb128 0x1
+ 2113 008f 31       		.uleb128 0x31
+ 2114 0090 13       		.uleb128 0x13
+ 2115 0091 01       		.uleb128 0x1
+ 2116 0092 13       		.uleb128 0x13
+ 2117 0093 00       		.byte	0
+ 2118 0094 00       		.byte	0
+ 2119 0095 0B       		.uleb128 0xb
+ 2120 0096 8A8201   		.uleb128 0x410a
+ 2121 0099 00       		.byte	0
+ 2122 009a 02       		.uleb128 0x2
+ 2123 009b 18       		.uleb128 0x18
+ 2124 009c 9142     		.uleb128 0x2111
+ 2125 009e 18       		.uleb128 0x18
+ 2126 009f 00       		.byte	0
+ 2127 00a0 00       		.byte	0
+ 2128 00a1 0C       		.uleb128 0xc
+ 2129 00a2 898201   		.uleb128 0x4109
+ 2130 00a5 00       		.byte	0
+ 2131 00a6 11       		.uleb128 0x11
+ 2132 00a7 01       		.uleb128 0x1
+ 2133 00a8 31       		.uleb128 0x31
+ 2134 00a9 13       		.uleb128 0x13
+ 2135 00aa 00       		.byte	0
+ 2136 00ab 00       		.byte	0
+ 2137 00ac 0D       		.uleb128 0xd
+ 2138 00ad 01       		.uleb128 0x1
+ 2139 00ae 01       		.byte	0x1
+ 2140 00af 49       		.uleb128 0x49
+ 2141 00b0 13       		.uleb128 0x13
+ 2142 00b1 01       		.uleb128 0x1
+ 2143 00b2 13       		.uleb128 0x13
+ 2144 00b3 00       		.byte	0
+ 2145 00b4 00       		.byte	0
+ 2146 00b5 0E       		.uleb128 0xe
+ 2147 00b6 21       		.uleb128 0x21
+ 2148 00b7 00       		.byte	0
+ 2149 00b8 49       		.uleb128 0x49
+ 2150 00b9 13       		.uleb128 0x13
+ 2151 00ba 2F       		.uleb128 0x2f
+ 2152 00bb 0B       		.uleb128 0xb
+ 2153 00bc 00       		.byte	0
+ 2154 00bd 00       		.byte	0
+ 2155 00be 0F       		.uleb128 0xf
+ 2156 00bf 2E       		.uleb128 0x2e
+ 2157 00c0 00       		.byte	0
+ 2158 00c1 3F       		.uleb128 0x3f
+ 2159 00c2 19       		.uleb128 0x19
+ 2160 00c3 03       		.uleb128 0x3
+ 2161 00c4 0E       		.uleb128 0xe
+ 2162 00c5 3A       		.uleb128 0x3a
+ 2163 00c6 0B       		.uleb128 0xb
+ 2164 00c7 3B       		.uleb128 0x3b
+ 2165 00c8 0B       		.uleb128 0xb
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 43
+
+
+ 2166 00c9 49       		.uleb128 0x49
+ 2167 00ca 13       		.uleb128 0x13
+ 2168 00cb 11       		.uleb128 0x11
+ 2169 00cc 01       		.uleb128 0x1
+ 2170 00cd 12       		.uleb128 0x12
+ 2171 00ce 06       		.uleb128 0x6
+ 2172 00cf 40       		.uleb128 0x40
+ 2173 00d0 18       		.uleb128 0x18
+ 2174 00d1 9742     		.uleb128 0x2117
+ 2175 00d3 19       		.uleb128 0x19
+ 2176 00d4 00       		.byte	0
+ 2177 00d5 00       		.byte	0
+ 2178 00d6 10       		.uleb128 0x10
+ 2179 00d7 2E       		.uleb128 0x2e
+ 2180 00d8 01       		.byte	0x1
+ 2181 00d9 3F       		.uleb128 0x3f
+ 2182 00da 19       		.uleb128 0x19
+ 2183 00db 03       		.uleb128 0x3
+ 2184 00dc 0E       		.uleb128 0xe
+ 2185 00dd 3A       		.uleb128 0x3a
+ 2186 00de 0B       		.uleb128 0xb
+ 2187 00df 3B       		.uleb128 0x3b
+ 2188 00e0 0B       		.uleb128 0xb
+ 2189 00e1 27       		.uleb128 0x27
+ 2190 00e2 19       		.uleb128 0x19
+ 2191 00e3 11       		.uleb128 0x11
+ 2192 00e4 01       		.uleb128 0x1
+ 2193 00e5 12       		.uleb128 0x12
+ 2194 00e6 06       		.uleb128 0x6
+ 2195 00e7 40       		.uleb128 0x40
+ 2196 00e8 18       		.uleb128 0x18
+ 2197 00e9 9742     		.uleb128 0x2117
+ 2198 00eb 19       		.uleb128 0x19
+ 2199 00ec 01       		.uleb128 0x1
+ 2200 00ed 13       		.uleb128 0x13
+ 2201 00ee 00       		.byte	0
+ 2202 00ef 00       		.byte	0
+ 2203 00f0 11       		.uleb128 0x11
+ 2204 00f1 2E       		.uleb128 0x2e
+ 2205 00f2 01       		.byte	0x1
+ 2206 00f3 3F       		.uleb128 0x3f
+ 2207 00f4 19       		.uleb128 0x19
+ 2208 00f5 03       		.uleb128 0x3
+ 2209 00f6 0E       		.uleb128 0xe
+ 2210 00f7 3A       		.uleb128 0x3a
+ 2211 00f8 0B       		.uleb128 0xb
+ 2212 00f9 3B       		.uleb128 0x3b
+ 2213 00fa 0B       		.uleb128 0xb
+ 2214 00fb 27       		.uleb128 0x27
+ 2215 00fc 19       		.uleb128 0x19
+ 2216 00fd 11       		.uleb128 0x11
+ 2217 00fe 01       		.uleb128 0x1
+ 2218 00ff 12       		.uleb128 0x12
+ 2219 0100 06       		.uleb128 0x6
+ 2220 0101 40       		.uleb128 0x40
+ 2221 0102 18       		.uleb128 0x18
+ 2222 0103 9642     		.uleb128 0x2116
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 44
+
+
+ 2223 0105 19       		.uleb128 0x19
+ 2224 0106 01       		.uleb128 0x1
+ 2225 0107 13       		.uleb128 0x13
+ 2226 0108 00       		.byte	0
+ 2227 0109 00       		.byte	0
+ 2228 010a 12       		.uleb128 0x12
+ 2229 010b 34       		.uleb128 0x34
+ 2230 010c 00       		.byte	0
+ 2231 010d 03       		.uleb128 0x3
+ 2232 010e 0E       		.uleb128 0xe
+ 2233 010f 3A       		.uleb128 0x3a
+ 2234 0110 0B       		.uleb128 0xb
+ 2235 0111 3B       		.uleb128 0x3b
+ 2236 0112 0B       		.uleb128 0xb
+ 2237 0113 49       		.uleb128 0x49
+ 2238 0114 13       		.uleb128 0x13
+ 2239 0115 3F       		.uleb128 0x3f
+ 2240 0116 19       		.uleb128 0x19
+ 2241 0117 02       		.uleb128 0x2
+ 2242 0118 18       		.uleb128 0x18
+ 2243 0119 00       		.byte	0
+ 2244 011a 00       		.byte	0
+ 2245 011b 13       		.uleb128 0x13
+ 2246 011c 34       		.uleb128 0x34
+ 2247 011d 00       		.byte	0
+ 2248 011e 03       		.uleb128 0x3
+ 2249 011f 08       		.uleb128 0x8
+ 2250 0120 3A       		.uleb128 0x3a
+ 2251 0121 0B       		.uleb128 0xb
+ 2252 0122 3B       		.uleb128 0x3b
+ 2253 0123 0B       		.uleb128 0xb
+ 2254 0124 49       		.uleb128 0x49
+ 2255 0125 13       		.uleb128 0x13
+ 2256 0126 3F       		.uleb128 0x3f
+ 2257 0127 19       		.uleb128 0x19
+ 2258 0128 02       		.uleb128 0x2
+ 2259 0129 18       		.uleb128 0x18
+ 2260 012a 00       		.byte	0
+ 2261 012b 00       		.byte	0
+ 2262 012c 14       		.uleb128 0x14
+ 2263 012d 2E       		.uleb128 0x2e
+ 2264 012e 00       		.byte	0
+ 2265 012f 3F       		.uleb128 0x3f
+ 2266 0130 19       		.uleb128 0x19
+ 2267 0131 3C       		.uleb128 0x3c
+ 2268 0132 19       		.uleb128 0x19
+ 2269 0133 6E       		.uleb128 0x6e
+ 2270 0134 0E       		.uleb128 0xe
+ 2271 0135 03       		.uleb128 0x3
+ 2272 0136 0E       		.uleb128 0xe
+ 2273 0137 3A       		.uleb128 0x3a
+ 2274 0138 0B       		.uleb128 0xb
+ 2275 0139 3B       		.uleb128 0x3b
+ 2276 013a 0B       		.uleb128 0xb
+ 2277 013b 00       		.byte	0
+ 2278 013c 00       		.byte	0
+ 2279 013d 15       		.uleb128 0x15
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 45
+
+
+ 2280 013e 2E       		.uleb128 0x2e
+ 2281 013f 00       		.byte	0
+ 2282 0140 3F       		.uleb128 0x3f
+ 2283 0141 19       		.uleb128 0x19
+ 2284 0142 3C       		.uleb128 0x3c
+ 2285 0143 19       		.uleb128 0x19
+ 2286 0144 6E       		.uleb128 0x6e
+ 2287 0145 0E       		.uleb128 0xe
+ 2288 0146 03       		.uleb128 0x3
+ 2289 0147 0E       		.uleb128 0xe
+ 2290 0148 3A       		.uleb128 0x3a
+ 2291 0149 0B       		.uleb128 0xb
+ 2292 014a 3B       		.uleb128 0x3b
+ 2293 014b 05       		.uleb128 0x5
+ 2294 014c 00       		.byte	0
+ 2295 014d 00       		.byte	0
+ 2296 014e 00       		.byte	0
+ 2297              		.section	.debug_aranges,"",%progbits
+ 2298 0000 44000000 		.4byte	0x44
+ 2299 0004 0200     		.2byte	0x2
+ 2300 0006 00000000 		.4byte	.Ldebug_info0
+ 2301 000a 04       		.byte	0x4
+ 2302 000b 00       		.byte	0
+ 2303 000c 0000     		.2byte	0
+ 2304 000e 0000     		.2byte	0
+ 2305 0010 00000000 		.4byte	.LFB35
+ 2306 0014 60000000 		.4byte	.LFE35-.LFB35
+ 2307 0018 00000000 		.4byte	.LFB36
+ 2308 001c 8C000000 		.4byte	.LFE36-.LFB36
+ 2309 0020 00000000 		.4byte	.LFB37
+ 2310 0024 0C000000 		.4byte	.LFE37-.LFB37
+ 2311 0028 00000000 		.4byte	.LFB38
+ 2312 002c 0C000000 		.4byte	.LFE38-.LFB38
+ 2313 0030 00000000 		.4byte	.LFB39
+ 2314 0034 F0000000 		.4byte	.LFE39-.LFB39
+ 2315 0038 00000000 		.4byte	.LFB40
+ 2316 003c 80020000 		.4byte	.LFE40-.LFB40
+ 2317 0040 00000000 		.4byte	0
+ 2318 0044 00000000 		.4byte	0
+ 2319              		.section	.debug_ranges,"",%progbits
+ 2320              	.Ldebug_ranges0:
+ 2321 0000 00000000 		.4byte	.LFB35
+ 2322 0004 60000000 		.4byte	.LFE35
+ 2323 0008 00000000 		.4byte	.LFB36
+ 2324 000c 8C000000 		.4byte	.LFE36
+ 2325 0010 00000000 		.4byte	.LFB37
+ 2326 0014 0C000000 		.4byte	.LFE37
+ 2327 0018 00000000 		.4byte	.LFB38
+ 2328 001c 0C000000 		.4byte	.LFE38
+ 2329 0020 00000000 		.4byte	.LFB39
+ 2330 0024 F0000000 		.4byte	.LFE39
+ 2331 0028 00000000 		.4byte	.LFB40
+ 2332 002c 80020000 		.4byte	.LFE40
+ 2333 0030 00000000 		.4byte	0
+ 2334 0034 00000000 		.4byte	0
+ 2335              		.section	.debug_line,"",%progbits
+ 2336              	.Ldebug_line0:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 46
+
+
+ 2337 0000 CC010000 		.section	.debug_str,"MS",%progbits,1
+ 2337      0200BF00 
+ 2337      00000201 
+ 2337      FB0E0D00 
+ 2337      01010101 
+ 2338              	.LASF80:
+ 2339 0000 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 2339      455F4556 
+ 2339      545F4C32 
+ 2339      4341505F 
+ 2339      43424643 
+ 2340              	.LASF21:
+ 2341 0023 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ 2341      455F4556 
+ 2341      545F5354 
+ 2341      41434B5F 
+ 2341      42555359 
+ 2342              	.LASF10:
+ 2343 003f 75696E74 		.ascii	"uint16\000"
+ 2343      313600
+ 2344              	.LASF79:
+ 2345 0046 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 2345      455F4556 
+ 2345      545F4C32 
+ 2345      4341505F 
+ 2345      43424643 
+ 2346              	.LASF93:
+ 2347 0065 49324352 		.ascii	"I2CReadBufferP\000"
+ 2347      65616442 
+ 2347      75666665 
+ 2347      725000
+ 2348              	.LASF88:
+ 2349 0074 49324352 		.ascii	"I2CReadBufferT\000"
+ 2349      65616442 
+ 2349      75666665 
+ 2349      725400
+ 2350              	.LASF76:
+ 2351 0083 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 2351      455F4556 
+ 2351      545F4C32 
+ 2351      4341505F 
+ 2351      43424643 
+ 2352              	.LASF33:
+ 2353 00a1 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 2353      455F4556 
+ 2353      545F4741 
+ 2353      505F434F 
+ 2353      4E4E4543 
+ 2354              	.LASF78:
+ 2355 00ca 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 2355      455F4556 
+ 2355      545F4C32 
+ 2355      4341505F 
+ 2355      43424643 
+ 2356              	.LASF101:
+ 2357 00eb 55543238 		.ascii	"UT280\000"
+ 2357      3000
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 47
+
+
+ 2358              	.LASF38:
+ 2359 00f1 4359424C 		.ascii	"CYBLE_EVT_GAP_OOB_GENERATED_NOTIFICATION\000"
+ 2359      455F4556 
+ 2359      545F4741 
+ 2359      505F4F4F 
+ 2359      425F4745 
+ 2360              	.LASF58:
+ 2361 011a 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 2361      455F4556 
+ 2361      545F4741 
+ 2361      5454435F 
+ 2361      52454144 
+ 2362              	.LASF63:
+ 2363 0139 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 2363      455F4556 
+ 2363      545F4741 
+ 2363      5454535F 
+ 2363      45584543 
+ 2364              	.LASF94:
+ 2365 0158 49324357 		.ascii	"I2CWriteBufferP\000"
+ 2365      72697465 
+ 2365      42756666 
+ 2365      65725000 
+ 2366              	.LASF89:
+ 2367 0168 49324357 		.ascii	"I2CWriteBufferT\000"
+ 2367      72697465 
+ 2367      42756666 
+ 2367      65725400 
+ 2368              	.LASF18:
+ 2369 0178 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 2369      455F4556 
+ 2369      545F5449 
+ 2369      4D454F55 
+ 2369      5400
+ 2370              	.LASF4:
+ 2371 018a 6C6F6E67 		.ascii	"long int\000"
+ 2371      20696E74 
+ 2371      00
+ 2372              	.LASF7:
+ 2373 0193 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2373      206C6F6E 
+ 2373      6720756E 
+ 2373      7369676E 
+ 2373      65642069 
+ 2374              	.LASF20:
+ 2375 01aa 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
+ 2375      455F4556 
+ 2375      545F4843 
+ 2375      495F5354 
+ 2375      41545553 
+ 2376              	.LASF107:
+ 2377 01bf 53656E73 		.ascii	"SensorCalibrationData\000"
+ 2377      6F724361 
+ 2377      6C696272 
+ 2377      6174696F 
+ 2377      6E446174 
+ 2378              	.LASF83:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 48
+
+
+ 2379 01d5 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 2379      455F4556 
+ 2379      545F5045 
+ 2379      4E44494E 
+ 2379      475F464C 
+ 2380              	.LASF96:
+ 2381 01f3 72656164 		.ascii	"readPressure\000"
+ 2381      50726573 
+ 2381      73757265 
+ 2381      00
+ 2382              	.LASF72:
+ 2383 0200 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 2383      455F4556 
+ 2383      545F4C32 
+ 2383      4341505F 
+ 2383      434F4E4E 
+ 2384              	.LASF111:
+ 2385 0226 50726573 		.ascii	"PressureAtSeaLevel\000"
+ 2385      73757265 
+ 2385      41745365 
+ 2385      614C6576 
+ 2385      656C00
+ 2386              	.LASF32:
+ 2387 0239 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 2387      455F4556 
+ 2387      545F4741 
+ 2387      505F454E 
+ 2387      43525950 
+ 2388              	.LASF36:
+ 2389 0256 4359424C 		.ascii	"CYBLE_EVT_GAP_NUMERIC_COMPARISON_REQUEST\000"
+ 2389      455F4556 
+ 2389      545F4741 
+ 2389      505F4E55 
+ 2389      4D455249 
+ 2390              	.LASF6:
+ 2391 027f 6C6F6E67 		.ascii	"long long int\000"
+ 2391      206C6F6E 
+ 2391      6720696E 
+ 2391      7400
+ 2392              	.LASF0:
+ 2393 028d 7369676E 		.ascii	"signed char\000"
+ 2393      65642063 
+ 2393      68617200 
+ 2394              	.LASF17:
+ 2395 0299 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
+ 2395      455F4556 
+ 2395      545F5354 
+ 2395      41434B5F 
+ 2395      4F4E00
+ 2396              	.LASF22:
+ 2397 02ac 4359424C 		.ascii	"CYBLE_EVT_MEMORY_REQUEST\000"
+ 2397      455F4556 
+ 2397      545F4D45 
+ 2397      4D4F5259 
+ 2397      5F524551 
+ 2398              	.LASF34:
+ 2399 02c5 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 49
+
+
+ 2399      455F4556 
+ 2399      545F4741 
+ 2399      50435F53 
+ 2399      43414E5F 
+ 2400              	.LASF24:
+ 2401 02e4 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 2401      455F4556 
+ 2401      545F4741 
+ 2401      505F4155 
+ 2401      54485F52 
+ 2402              	.LASF56:
+ 2403 02fb 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ 2403      455F4556 
+ 2403      545F4741 
+ 2403      5454435F 
+ 2403      52454144 
+ 2404              	.LASF109:
+ 2405 0314 50726573 		.ascii	"Pressure\000"
+ 2405      73757265 
+ 2405      00
+ 2406              	.LASF16:
+ 2407 031d 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 2407      455F4556 
+ 2407      545F484F 
+ 2407      53545F49 
+ 2407      4E56414C 
+ 2408              	.LASF61:
+ 2409 0334 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 2409      455F4556 
+ 2409      545F4741 
+ 2409      5454535F 
+ 2409      57524954 
+ 2410              	.LASF29:
+ 2411 0352 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ 2411      455F4556 
+ 2411      545F4741 
+ 2411      50505F41 
+ 2411      44564552 
+ 2412              	.LASF9:
+ 2413 037a 75696E74 		.ascii	"uint8\000"
+ 2413      3800
+ 2414              	.LASF104:
+ 2415 0380 74656D70 		.ascii	"temp280\000"
+ 2415      32383000 
+ 2416              	.LASF64:
+ 2417 0388 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 2417      455F4556 
+ 2417      545F4741 
+ 2417      5454435F 
+ 2417      45584543 
+ 2418              	.LASF12:
+ 2419 03a7 646F7562 		.ascii	"double\000"
+ 2419      6C6500
+ 2420              	.LASF113:
+ 2421 03ae 4932435F 		.ascii	"I2C_1_scl_SetDriveMode\000"
+ 2421      315F7363 
+ 2421      6C5F5365 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 50
+
+
+ 2421      74447269 
+ 2421      76654D6F 
+ 2422              	.LASF92:
+ 2423 03c5 67657470 		.ascii	"getpress280\000"
+ 2423      72657373 
+ 2423      32383000 
+ 2424              	.LASF117:
+ 2425 03d1 4932435F 		.ascii	"I2C_1_I2CMasterClearStatus\000"
+ 2425      315F4932 
+ 2425      434D6173 
+ 2425      74657243 
+ 2425      6C656172 
+ 2426              	.LASF87:
+ 2427 03ec 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 2427      455F4556 
+ 2427      545F4D41 
+ 2427      5800
+ 2428              	.LASF112:
+ 2429 03fa 43616C69 		.ascii	"CalibrationDataAvailable\000"
+ 2429      62726174 
+ 2429      696F6E44 
+ 2429      61746141 
+ 2429      7661696C 
+ 2430              	.LASF82:
+ 2431 0413 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ 2431      455F4556 
+ 2431      545F4C32 
+ 2431      4341505F 
+ 2431      43424643 
+ 2432              	.LASF102:
+ 2433 0437 55483238 		.ascii	"UH280\000"
+ 2433      3000
+ 2434              	.LASF44:
+ 2435 043d 4359424C 		.ascii	"CYBLE_EVT_GAP_SCAN_REQ_RECVD\000"
+ 2435      455F4556 
+ 2435      545F4741 
+ 2435      505F5343 
+ 2435      414E5F52 
+ 2436              	.LASF71:
+ 2437 045a 4359424C 		.ascii	"CYBLE_EVT_GATTC_LONG_PROCEDURE_END\000"
+ 2437      455F4556 
+ 2437      545F4741 
+ 2437      5454435F 
+ 2437      4C4F4E47 
+ 2438              	.LASF69:
+ 2439 047d 4359424C 		.ascii	"CYBLE_EVT_GATTC_STOP_CMD_COMPLETE\000"
+ 2439      455F4556 
+ 2439      545F4741 
+ 2439      5454435F 
+ 2439      53544F50 
+ 2440              	.LASF8:
+ 2441 049f 756E7369 		.ascii	"unsigned int\000"
+ 2441      676E6564 
+ 2441      20696E74 
+ 2441      00
+ 2442              	.LASF84:
+ 2443 04ac 4359424C 		.ascii	"CYBLE_EVT_LE_PING_AUTH_TIMEOUT\000"
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 51
+
+
+ 2443      455F4556 
+ 2443      545F4C45 
+ 2443      5F50494E 
+ 2443      475F4155 
+ 2444              	.LASF114:
+ 2445 04cb 4932435F 		.ascii	"I2C_1_sda_SetDriveMode\000"
+ 2445      315F7364 
+ 2445      615F5365 
+ 2445      74447269 
+ 2445      76654D6F 
+ 2446              	.LASF5:
+ 2447 04e2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2447      20756E73 
+ 2447      69676E65 
+ 2447      6420696E 
+ 2447      7400
+ 2448              	.LASF43:
+ 2449 04f4 4359424C 		.ascii	"CYBLE_EVT_GAP_CONN_ESTB\000"
+ 2449      455F4556 
+ 2449      545F4741 
+ 2449      505F434F 
+ 2449      4E4E5F45 
+ 2450              	.LASF59:
+ 2451 050c 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 2451      455F4556 
+ 2451      545F4741 
+ 2451      5454535F 
+ 2451      57524954 
+ 2452              	.LASF51:
+ 2453 0526 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 2453      455F4556 
+ 2453      545F4741 
+ 2453      5454435F 
+ 2453      5843484E 
+ 2454              	.LASF68:
+ 2455 0544 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 2455      455F4556 
+ 2455      545F4741 
+ 2455      5454535F 
+ 2455      44415441 
+ 2456              	.LASF119:
+ 2457 0568 4932435F 		.ascii	"I2C_1_Start\000"
+ 2457      315F5374 
+ 2457      61727400 
+ 2458              	.LASF115:
+ 2459 0574 4932435F 		.ascii	"I2C_1_I2CMasterWriteBuf\000"
+ 2459      315F4932 
+ 2459      434D6173 
+ 2459      74657257 
+ 2459      72697465 
+ 2460              	.LASF122:
+ 2461 058c 6C746F61 		.ascii	"ltoa\000"
+ 2461      00
+ 2462              	.LASF97:
+ 2463 0591 72656164 		.ascii	"readTemp\000"
+ 2463      54656D70 
+ 2463      00
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 52
+
+
+ 2464              	.LASF30:
+ 2465 059a 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
+ 2465      455F4556 
+ 2465      545F4741 
+ 2465      505F4445 
+ 2465      56494345 
+ 2466              	.LASF45:
+ 2467 05b9 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ_REPLY_ERR\000"
+ 2467      455F4556 
+ 2467      545F4741 
+ 2467      505F4155 
+ 2467      54485F52 
+ 2468              	.LASF98:
+ 2469 05da 49324357 		.ascii	"I2CWriteBuffer\000"
+ 2469      72697465 
+ 2469      42756666 
+ 2469      657200
+ 2470              	.LASF26:
+ 2471 05e9 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 2471      455F4556 
+ 2471      545F4741 
+ 2471      505F5041 
+ 2471      53534B45 
+ 2472              	.LASF48:
+ 2473 060f 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 2473      455F4556 
+ 2473      545F4741 
+ 2473      54545F43 
+ 2473      4F4E4E45 
+ 2474              	.LASF124:
+ 2475 062a 626D6532 		.ascii	"bme280.c\000"
+ 2475      38302E63 
+ 2475      00
+ 2476              	.LASF74:
+ 2477 0633 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 2477      455F4556 
+ 2477      545F4C32 
+ 2477      4341505F 
+ 2477      434F4D4D 
+ 2478              	.LASF23:
+ 2479 064f 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ 2479      455F4556 
+ 2479      545F4741 
+ 2479      50435F53 
+ 2479      43414E5F 
+ 2480              	.LASF103:
+ 2481 0673 55503238 		.ascii	"UP280\000"
+ 2481      3000
+ 2482              	.LASF46:
+ 2483 0679 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_LOC_P256_KEYS_GEN_AND_SET_COMPLET"
+ 2483      455F4556 
+ 2483      545F4741 
+ 2483      505F534D 
+ 2483      505F4C4F 
+ 2484 06ac 4500     		.ascii	"E\000"
+ 2485              	.LASF75:
+ 2486 06ae 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 53
+
+
+ 2486      455F4556 
+ 2486      545F4C32 
+ 2486      4341505F 
+ 2486      43424643 
+ 2487              	.LASF53:
+ 2488 06cc 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
+ 2488      455F4556 
+ 2488      545F4741 
+ 2488      5454435F 
+ 2488      52454144 
+ 2489              	.LASF15:
+ 2490 06ed 73697A65 		.ascii	"sizetype\000"
+ 2490      74797065 
+ 2490      00
+ 2491              	.LASF28:
+ 2492 06f6 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
+ 2492      455F4556 
+ 2492      545F4741 
+ 2492      505F4155 
+ 2492      54485F46 
+ 2493              	.LASF60:
+ 2494 0710 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ 2494      455F4556 
+ 2494      545F4741 
+ 2494      5454435F 
+ 2494      57524954 
+ 2495              	.LASF123:
+ 2496 072a 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2496      43313120 
+ 2496      352E342E 
+ 2496      31203230 
+ 2496      31363036 
+ 2497 075d 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 2497      20726576 
+ 2497      6973696F 
+ 2497      6E203233 
+ 2497      37373135 
+ 2498 0790 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 2498      66756E63 
+ 2498      74696F6E 
+ 2498      2D736563 
+ 2498      74696F6E 
+ 2499              	.LASF41:
+ 2500 07b8 4359424C 		.ascii	"CYBLE_EVT_GAPC_DIRECT_ADV_REPORT\000"
+ 2500      455F4556 
+ 2500      545F4741 
+ 2500      50435F44 
+ 2500      49524543 
+ 2501              	.LASF39:
+ 2502 07d9 4359424C 		.ascii	"CYBLE_EVT_GAP_DATA_LENGTH_CHANGE\000"
+ 2502      455F4556 
+ 2502      545F4741 
+ 2502      505F4441 
+ 2502      54415F4C 
+ 2503              	.LASF27:
+ 2504 07fa 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 2504      455F4556 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 54
+
+
+ 2504      545F4741 
+ 2504      505F4155 
+ 2504      54485F43 
+ 2505              	.LASF65:
+ 2506 0816 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 2506      455F4556 
+ 2506      545F4741 
+ 2506      5454435F 
+ 2506      48414E44 
+ 2507              	.LASF52:
+ 2508 0837 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ 2508      455F4556 
+ 2508      545F4741 
+ 2508      5454435F 
+ 2508      52454144 
+ 2509              	.LASF121:
+ 2510 085e 55415254 		.ascii	"UART_UartPutString\000"
+ 2510      5F556172 
+ 2510      74507574 
+ 2510      53747269 
+ 2510      6E6700
+ 2511              	.LASF11:
+ 2512 0871 666C6F61 		.ascii	"float\000"
+ 2512      7400
+ 2513              	.LASF100:
+ 2514 0877 52656164 		.ascii	"ReadAndCalculateSensorData\000"
+ 2514      416E6443 
+ 2514      616C6375 
+ 2514      6C617465 
+ 2514      53656E73 
+ 2515              	.LASF118:
+ 2516 0892 4932435F 		.ascii	"I2C_1_I2CMasterReadBuf\000"
+ 2516      315F4932 
+ 2516      434D6173 
+ 2516      74657252 
+ 2516      65616442 
+ 2517              	.LASF1:
+ 2518 08a9 756E7369 		.ascii	"unsigned char\000"
+ 2518      676E6564 
+ 2518      20636861 
+ 2518      7200
+ 2519              	.LASF37:
+ 2520 08b7 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYPRESS_NOTIFICATION\000"
+ 2520      455F4556 
+ 2520      545F4741 
+ 2520      505F4B45 
+ 2520      59505245 
+ 2521              	.LASF2:
+ 2522 08db 73686F72 		.ascii	"short int\000"
+ 2522      7420696E 
+ 2522      7400
+ 2523              	.LASF66:
+ 2524 08e5 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
+ 2524      455F4556 
+ 2524      545F4741 
+ 2524      5454435F 
+ 2524      48414E44 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 55
+
+
+ 2525              	.LASF110:
+ 2526 0906 416C7469 		.ascii	"Altitude\000"
+ 2526      74756465 
+ 2526      00
+ 2527              	.LASF85:
+ 2528 090f 4359424C 		.ascii	"CYBLE_EVT_HCI_PKT\000"
+ 2528      455F4556 
+ 2528      545F4843 
+ 2528      495F504B 
+ 2528      5400
+ 2529              	.LASF125:
+ 2530 0921 433A5C55 		.ascii	"C:\\Users\\7709\\Desktop\\BLE\\peripheral\\BLE_Peri"
+ 2530      73657273 
+ 2530      5C373730 
+ 2530      395C4465 
+ 2530      736B746F 
+ 2531 094e 70686572 		.ascii	"pheral\\BLE_Peripheral.cydsn\000"
+ 2531      616C5C42 
+ 2531      4C455F50 
+ 2531      65726970 
+ 2531      68657261 
+ 2532              	.LASF62:
+ 2533 096a 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
+ 2533      455F4556 
+ 2533      545F4741 
+ 2533      5454535F 
+ 2533      50524550 
+ 2534              	.LASF105:
+ 2535 0989 68756D32 		.ascii	"hum280\000"
+ 2535      383000
+ 2536              	.LASF99:
+ 2537 0990 52656164 		.ascii	"ReadSensorCalibrationData\000"
+ 2537      53656E73 
+ 2537      6F724361 
+ 2537      6C696272 
+ 2537      6174696F 
+ 2538              	.LASF95:
+ 2539 09aa 53657452 		.ascii	"SetReadAddressBufferP\000"
+ 2539      65616441 
+ 2539      64647265 
+ 2539      73734275 
+ 2539      66666572 
+ 2540              	.LASF90:
+ 2541 09c0 53657452 		.ascii	"SetReadAddressBufferT\000"
+ 2541      65616441 
+ 2541      64647265 
+ 2541      73734275 
+ 2541      66666572 
+ 2542              	.LASF67:
+ 2543 09d6 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ 2543      455F4556 
+ 2543      545F4741 
+ 2543      5454535F 
+ 2543      48414E44 
+ 2544              	.LASF47:
+ 2545 09f7 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
+ 2545      455F4556 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 56
+
+
+ 2545      545F4741 
+ 2545      5454435F 
+ 2545      4552524F 
+ 2546              	.LASF42:
+ 2547 0a11 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_NEGOTIATED_AUTH_INFO\000"
+ 2547      455F4556 
+ 2547      545F4741 
+ 2547      505F534D 
+ 2547      505F4E45 
+ 2548              	.LASF54:
+ 2549 0a38 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 2549      455F4556 
+ 2549      545F4741 
+ 2549      5454435F 
+ 2549      46494E44 
+ 2550              	.LASF14:
+ 2551 0a56 6C6F6E67 		.ascii	"long double\000"
+ 2551      20646F75 
+ 2551      626C6500 
+ 2552              	.LASF86:
+ 2553 0a62 4359424C 		.ascii	"CYBLE_EVT_FLASH_CORRUPT\000"
+ 2553      455F4556 
+ 2553      545F464C 
+ 2553      4153485F 
+ 2553      434F5252 
+ 2554              	.LASF13:
+ 2555 0a7a 63686172 		.ascii	"char\000"
+ 2555      00
+ 2556              	.LASF31:
+ 2557 0a7f 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ 2557      455F4556 
+ 2557      545F4741 
+ 2557      505F4445 
+ 2557      56494345 
+ 2558              	.LASF70:
+ 2559 0aa1 4359424C 		.ascii	"CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ\000"
+ 2559      455F4556 
+ 2559      545F4741 
+ 2559      5454535F 
+ 2559      52454144 
+ 2560              	.LASF91:
+ 2561 0aca 67657474 		.ascii	"gettemp280\000"
+ 2561      656D7032 
+ 2561      383000
+ 2562              	.LASF81:
+ 2563 0ad5 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 2563      455F4556 
+ 2563      545F4C32 
+ 2563      4341505F 
+ 2563      43424643 
+ 2564              	.LASF19:
+ 2565 0af8 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 2565      455F4556 
+ 2565      545F4841 
+ 2565      52445741 
+ 2565      52455F45 
+ 2566              	.LASF3:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 57
+
+
+ 2567 0b11 73686F72 		.ascii	"short unsigned int\000"
+ 2567      7420756E 
+ 2567      7369676E 
+ 2567      65642069 
+ 2567      6E7400
+ 2568              	.LASF120:
+ 2569 0b24 43794465 		.ascii	"CyDelay\000"
+ 2569      6C617900 
+ 2570              	.LASF50:
+ 2571 0b2c 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 2571      455F4556 
+ 2571      545F4741 
+ 2571      5454535F 
+ 2571      58434E48 
+ 2572              	.LASF108:
+ 2573 0b4a 54656D70 		.ascii	"Temperature\000"
+ 2573      65726174 
+ 2573      75726500 
+ 2574              	.LASF25:
+ 2575 0b56 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
+ 2575      455F4556 
+ 2575      545F4741 
+ 2575      505F5041 
+ 2575      53534B45 
+ 2576              	.LASF57:
+ 2577 0b7a 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 2577      455F4556 
+ 2577      545F4741 
+ 2577      5454435F 
+ 2577      52454144 
+ 2578              	.LASF55:
+ 2579 0b98 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 2579      455F4556 
+ 2579      545F4741 
+ 2579      5454435F 
+ 2579      46494E44 
+ 2580              	.LASF106:
+ 2581 0bbf 70726573 		.ascii	"press280\000"
+ 2581      73323830 
+ 2581      00
+ 2582              	.LASF35:
+ 2583 0bc8 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 2583      455F4556 
+ 2583      545F4741 
+ 2583      505F4B45 
+ 2583      59494E46 
+ 2584              	.LASF116:
+ 2585 0bec 4932435F 		.ascii	"I2C_1_I2CMasterStatus\000"
+ 2585      315F4932 
+ 2585      434D6173 
+ 2585      74657253 
+ 2585      74617475 
+ 2586              	.LASF77:
+ 2587 0c02 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 2587      455F4556 
+ 2587      545F4C32 
+ 2587      4341505F 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccC6CyHV.s 			page 58
+
+
+ 2587      43424643 
+ 2588              	.LASF73:
+ 2589 0c23 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 2589      455F4556 
+ 2589      545F4C32 
+ 2589      4341505F 
+ 2589      434F4E4E 
+ 2590              	.LASF40:
+ 2591 0c49 4359424C 		.ascii	"CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE\000"
+ 2591      455F4556 
+ 2591      545F4741 
+ 2591      505F454E 
+ 2591      48414E43 
+ 2592              	.LASF49:
+ 2593 0c6d 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 2593      455F4556 
+ 2593      545F4741 
+ 2593      54545F44 
+ 2593      4953434F 
+ 2594              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

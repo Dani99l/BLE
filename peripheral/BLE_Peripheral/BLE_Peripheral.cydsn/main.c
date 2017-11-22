@@ -23,6 +23,7 @@ int main()
 
     while(1){
        state_machine();
+
     
     }
 }
@@ -47,18 +48,18 @@ void state_machine(){
         #endif
         
        
-        createPacket();
+       // createPacket();
         
-        I2C_1_Stop();
+        //I2C_1_Stop();
         CyDelay(5);
         mode=TX;
         break;
         
      case TX:
-       
+        UART_UartPutString("\n\r  TX  \n\r ");
         tx();
         #ifdef PRINT_MESSAGE_LOG   
-        UART_UartPutString("\n\r After TX mode \n\r ");
+        
         #endif
 
         mode=SLEEP;
@@ -136,7 +137,6 @@ void init_globalVariables(){
     sensor.humidity=0;
     sensor.pressure=0;
     sensor.temperature=0;
-    
 }
 
 void createPacket(){
@@ -190,32 +190,62 @@ void sleep_ble(){
     CYBLE_BLESS_STATE_T blePower;
     uint8 interruptStatus ;
     
-    CyBle_EnterLPM(CYBLE_BLESS_SLEEP);
+   /* Disable global interrupts to avoid any other tasks from interrupting this section of code*/
+    interruptStatus  = CyEnterCriticalSection();
+    
+    
+    #ifdef DEBUG_ble
+        output_pin_2_Write(1);
+    #endif /* End of #if DEBUG_ENABLE */
+    
     CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
-    isr_1_StartEx(WAKE_UP);
     
-    CyDelay(5);
-    interruptStatus=CyEnterCriticalSection();
-    blePower=CyBle_GetBleSsState();
+    #ifdef DEBUG_ble
+        output_pin_2_Write(0);
+    #endif /* End of #if DEBUG_ENABLE */
     
-     // if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON)){
-            output_pin_1_Write(0);
-            UART_UartPutString("\n\r edeepe \n\r ");
-            CySysPmDeepSleep();
-            CyDelay(1000);
-            CyDelay(1000);
+     /* Get current state of BLE sub system to check if it has successfully entered deep sleep state */
+    blePower = CyBle_GetBleSsState();
+     
+      
+    if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON))
+    {    
+    
+        #ifdef DEBUG_ble
             output_pin_1_Write(1);
-             
-        //}
+        #endif /* End of #if DEBUG_ENABLE */
+        
+        CySysPmDeepSleep();
+         
+        #ifdef DEBUG_ble
+            output_pin_1_Write(0);
+        #endif /* End of #if DEBUG_ENABLE */
+    }
    
-    while(CyBle_ExitLPM() != CYBLE_BLESS_ACTIVE){
-        UART_UartPutString("\n\r exit lpmode \n\r ");
-    };
-    
-    
-    /* Enable interrupts */
+    else if((blePower != CYBLE_BLESS_STATE_EVENT_CLOSE))
+    {
+        /* change HF clock source from IMO to ECO, as IMO can be stopped to save power */
+                    CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_ECO); 
+                    /* stop IMO for reducing power consumption */
+                    CySysClkImoStop(); 
+                    /* put the CPU to sleep */
+        #ifdef DEBUG_ble
+                    output_pin_1_Write(0);
+        #endif /* End of #if DEBUG_ENABLE */      
+
+                    CySysPmSleep();
+                    
+        #ifdef DEBUG_ble
+                    output_pin_1_Write(1);
+        #endif /* End of #if DEBUG_ENABLE */           
+                    /* starts execution after waking up, start IMO */
+                    CySysClkImoStart();
+                    /* change HF clock source back to IMO */
+                    CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_IMO);
+                    
+    }
     CyExitCriticalSection(interruptStatus );
- 
+
     CyBle_ProcessEvents();
 }
 
@@ -245,11 +275,11 @@ void sendtoble()
 //    buffer[PACKET_LENGHT-2]=(uint8)sensor.ID;
 //    buffer[PACKET_LENGHT-1]=(uint8)sensor.sequence;    
 //      
-//    buffer[PACKET_LENGHT-5]=5;
-//    buffer[PACKET_LENGHT-4]=4;
-//    buffer[PACKET_LENGHT-3]=3;
-//    buffer[PACKET_LENGHT-2]=2;
-//    buffer[PACKET_LENGHT-1]=1;  
+    buffer[PACKET_LENGHT-5]=5;
+    buffer[PACKET_LENGHT-4]=4;
+    buffer[PACKET_LENGHT-3]=3;
+    buffer[PACKET_LENGHT-2]=2;
+    buffer[PACKET_LENGHT-1]=1;  
 //    
     uartTxDataNtf.value.val  = buffer;
     uartTxDataNtf.value.len  = sizeof(buffer);
