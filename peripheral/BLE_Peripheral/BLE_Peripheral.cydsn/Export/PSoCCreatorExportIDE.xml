@@ -36,7 +36,6 @@
     <Folders>
       <Folder BuildType="STRICT" Path="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn">
         <Files Root="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn">
-          <File BuildType="BUILD" Toolchain="">main.c</File>
           <File BuildType="BUILD" Toolchain="">app_Ble.c</File>
           <File BuildType="BUILD" Toolchain="">app_UART.c</File>
           <File BuildType="BUILD" Toolchain="">app_LED.c</File>
@@ -44,6 +43,7 @@
           <File BuildType="BUILD" Toolchain="">HTU21D.c</File>
           <File BuildType="BUILD" Toolchain="">sleep.c</File>
           <File BuildType="BUILD" Toolchain="">bme280.c</File>
+          <File BuildType="BUILD" Toolchain="">main.c</File>
           <File BuildType="BUILD" Toolchain="">main.h</File>
           <File BuildType="BUILD" Toolchain="">app_Ble.h</File>
           <File BuildType="BUILD" Toolchain="">app_UART.h</File>
@@ -89,10 +89,6 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\BLE_eventHandler.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\BLE_custom.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\BLE_custom.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Conn_LED.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Conn_LED.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Conn_LED_aliases.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Conn_LED_PM.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\UART.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\UART.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\UART_SPI_UART.h</File>

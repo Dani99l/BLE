@@ -483,7 +483,49 @@ void enableNotifications()
 void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotification)
 {
     int i;
-    int clock;
+   int8 teste;
+    packetSum++;
+        
+    UART_UartPutString("\n\r ");
+    print_clock();
+    UART_UartPutString(" ");
+   // printRSSI();
+    UART_UartPutString(" ");    
+    teste=printRSSI(); 
+    UART_UartPutString(" ");    
+    UART_UartPutString(ultoa(teste));
+    UART_UartPutString(" ");    
+    UART_UartPutString(ultoa(packetSum));
+    UART_UartPutString(" ");    
+    
+    if(uartRxDataNotification->handleValPair.attrHandle == txCharHandle)
+    {
+        for (i=0;i<uartRxDataNotification->handleValPair.value.len;i++) {
+            UART_UartPutString(ultoa(uartRxDataNotification->handleValPair.value.val[i]));
+            UART_UartPutString(" ");
+        }
+
+    }
+    
+    if(packetSum>=1000){
+        packetSum=0;
+    }
+}
+
+int8 printRSSI(){
+    int8 rssi=0;
+    
+    rssi=CyBle_GetRssi();
+    
+    rssi=rssi-256;
+    UART_UartPutString(ultoa(rssi&0xff));
+    UART_UartPutString(" dbm ");
+    return rssi;
+}
+
+void print_clock(){
+    
+    int32 clock;
     int min;
     int sec;
     int hour;
@@ -491,42 +533,8 @@ void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotif
     
     clock=RTC_1_GetTime();
     clock=RTC_1_ConvertBCDToDec(clock);
-    min=RTC_1_GetMinutes(clock);
-    sec=RTC_1_GetSecond(clock);
-    hour=RTC_1_GetHours(clock);
-    if(uartRxDataNotification->handleValPair.attrHandle == txCharHandle)
-    {
-        packetSum++;
-        UART_UartPutString("\n\r ");
-        UART_UartPutString(ultoa(packetSum));
-        UART_UartPutString(" ");
-        /*UART_SpiUartPutArray(uartRxDataNotification->handleValPair.value.val, \
-            (uint32) uartRxDataNotification->handleValPair.value.len);*/
-        for (i=0;i<uartRxDataNotification->handleValPair.value.len;i++) {
-            UART_UartPutString(ultoa(uartRxDataNotification->handleValPair.value.val[i]));
-            UART_UartPutString(" ");
-        }
-        UART_UartPutString(ultoa(clock));
-        UART_UartPutString(" ");
-        UART_UartPutString(ultoa(hour));
-        UART_UartPutString(":");
-        UART_UartPutString(ultoa(min));
-        UART_UartPutString(":");
-        UART_UartPutString(ultoa(sec));
-        UART_UartPutString(" ");
-        
-        UART_UartPutString("\n\r");
-    }
-    
-    if(packetSum==250){
-        packetSum=0;
-    }
-}
-
-void print_clock(){
-    
-    
-    
+    UART_UartPutString(ultoa(clock));
+    UART_UartPutString("  ");
 }
 
 void process_packets(){
@@ -541,5 +549,4 @@ void set_init_clock(){
     clock.hour=UART_UartGetChar();
     UART_UartPutString("\n\r Minutes");
     clock.minute=UART_UartGetChar();
-    
 }

@@ -33,10 +33,6 @@
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\BLE_eventHandler.h" value="HEADER;;;;;BLE" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\BLE_custom.h" value="HEADER;;;;;BLE" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\BLE_custom.c" value="SOURCE_C;CortexM0;;;;BLE" />
-  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\Conn_LED.c" value="SOURCE_C;CortexM0;;;;Conn_LED" />
-  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\Conn_LED.h" value="HEADER;;;;;Conn_LED" />
-  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\Conn_LED_aliases.h" value="HEADER;;;;;Conn_LED" />
-  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\Conn_LED_PM.c" value="SOURCE_C;CortexM0;;;;Conn_LED" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\UART.c" value="SOURCE_C;CortexM0;;;;UART" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\UART.h" value="HEADER;;;;;UART" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\UART_SPI_UART.h" value="HEADER;;;;;UART" />

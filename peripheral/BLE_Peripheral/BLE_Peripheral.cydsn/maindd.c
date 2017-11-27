@@ -16,15 +16,12 @@
 //}
 
 int main()
-{       
-          
+{                 
     init_globalVariables();
     start();
-
+    startBLE();
     while(1){
-       state_machine();
-
-    
+    tx();
     }
 }
     
@@ -32,38 +29,41 @@ int main()
 // State machine allows to read the sensors, set the ble component and send data to the periferical
 
 void state_machine(){  
-     switch(mode){
+    
+    switch(mode){
         
      case START:
-        // init interrupts
-       //start();
-        UART_UartPutString("\n\r START  \n\r ");
+        #ifdef PRINT_MESSAGE_LOG   
+         UART_UartPutString("\n\r START  \n\r ");
+        #endif
         
-        CyDelay(500);
         mode=SENSOR_PACKET;
+        
         break;
         
      case SENSOR_PACKET:
         #ifdef PRINT_MESSAGE_LOG   
             UART_UartPutString("\n\r SENSOR \n\r ");     
         #endif
-        
        
-         createPacket();
-        
-        I2C_1_Stop();
-        CyDelay(5);
+        createPacket();
+        output_pin_2_Write(1);
         mode=TX;
         break;
         
      case TX:
         
-        tx();
-        
         #ifdef PRINT_MESSAGE_LOG   
         UART_UartPutString("\n\r  TX  \n\r ");
         #endif
-//          printRSSI();
+        
+    
+        tx();
+
+        #ifdef PRINT_MESSAGE_LOG   
+        UART_UartPutString("\n\r  afterTX  \n\r ");
+        #endif
+
         mode=SLEEP;
         break;
 
@@ -71,11 +71,18 @@ void state_machine(){
         //go to sleep mode untill next time to operate! 
         //check sleep time functions
        
-        //sleep_ble();
         #ifdef PRINT_MESSAGE_LOG   
-        UART_UartPutString("\n\r After sleep mode \n\r ");
+            UART_UartPutString("\n\r before sleep mode \n\r ");
         #endif
+    
+
+       // sleep_ble();
+        #ifdef PRINT_MESSAGE_LOG   
+            UART_UartPutString("\n\r After sleep mode \n\r ");
+        #endif
+        
         mode=START;
+        
         break;
      
      default:
@@ -88,8 +95,8 @@ void state_machine(){
 }
         
 void tx(){
-       start();
-       startBLE();
+      
+       //startBLE();
        CyDelay(5);
        int check=0;
        flag=1;
@@ -98,19 +105,16 @@ void tx(){
             if(CyBle_GattGetBusStatus() != CYBLE_STACK_STATE_BUSY){
                 sendtoble();
                 check++;
-               // UART_UartPutString("\n\r 00  \n\r ");
             }
             
-            UART_UartPutString("\n\r After  \n\r ");
             HandleBleProcessing();
             CyBle_ProcessEvents();
-                
+            output_pin_1_Write(1);
         }
-          HandleBleProcessing();
-          CyBle_ProcessEvents();
+       // stopBLE();
 }
 
-void Getsensor_data(){
+void checkLastData(){
        
     #ifdef DEBUG_ble  
      UART_UartPutString("\n\r Getsensor_data function \n\r ");     
@@ -162,18 +166,19 @@ void createPacket(){
     if(count>=1000){
         count=0;
     }
-
     
     buffer[PACKET_LENGHT-1]=(uint8)sensor.humidity;
     buffer[PACKET_LENGHT-2]=(uint8)sensor.temperature;
-    buffer[PACKET_LENGHT-3]=(uint8)sensor.ID;
-    buffer[PACKET_LENGHT-4]=(uint8)sensor.packets_lost;
+    buffer[PACKET_LENGHT-3]=(uint8)sensor.packets_lost;
+    buffer[PACKET_LENGHT-4]=(uint8)sensor.ID;
     buffer[PACKET_LENGHT-5]=(uint8)sensor.last_sequence;    
-    buffer[PACKET_LENGHT-6]=(uint8)sensor.sequence;    
+    buffer[PACKET_LENGHT-6]=(uint8)sensor.sequence;   
+    //I2C_1_Stop();
 }
 
 
 void startBLE(){
+    
    //This function init the BLE component, this means, BLE STACK 
    // AppCallBack manages the state BLE machine
     
@@ -186,21 +191,6 @@ void stopBLE(){
     //Stops any proccesing in BLE Stack
     CyBle_Shutdown(); 
 }
-
-//int8 printRSSI(){
-//    int8 rssi=0;
-//    
-//    rssi=CyBle_GetRssi();
-//    rssi=rssi&0xff;
-//    rssi=rssi-256;
-//    UART_UartPutString((ultoa(rssi)));
-//    
-//    UART_UartPutString(" \n\r ");
-//    UART_UartPutString(" dbm ");
-//    UART_UartPutString(" \n\r ");
-//    rssi=0;
-//    return (rssi&0Xff);
-//}
 
 
 
@@ -222,13 +212,20 @@ void sendtoble()
    //this functions sends data from uart RX and pushes it to the server 
     
     CYBLE_GATTS_HANDLE_VALUE_NTF_T      uartTxDataNtf;
+   
+    buffer[PACKET_LENGHT-1]=(uint8)1;
+    buffer[PACKET_LENGHT-2]=(uint8)2;
+    buffer[PACKET_LENGHT-3]=(uint8)3;
+    buffer[PACKET_LENGHT-4]=(uint8)4;
+    buffer[PACKET_LENGHT-5]=(uint8)5;    
+    buffer[PACKET_LENGHT-6]=(uint8)6;   
     
     uartTxDataNtf.value.val  = buffer;
     uartTxDataNtf.value.len  = sizeof(buffer);
     uartTxDataNtf.attrHandle = CYBLE_SERVER_UART_SERVER_UART_TX_DATA_CHAR_HANDLE;
   
     do{
-        UART_UartPutString("\n\r -- \n\r ");
+        
         api=CyBle_GattsNotification(cyBle_connHandle, &uartTxDataNtf);
         CyBle_ProcessEvents();
         flag=0;

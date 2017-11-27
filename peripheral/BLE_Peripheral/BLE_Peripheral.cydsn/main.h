@@ -42,7 +42,7 @@
     ***************************************/
     void AppCallBack(uint32 , void *);  
     void sendtoble();
-    void Getsensor_data();
+    void checkLastData();
     void createPacket();
     void start();
     void state_machine();    
@@ -50,12 +50,12 @@
     void init_globalVariables();
     void tx();
     void stopBLE();
-    
+    int8 printRSSI();
     /***************************************
     *       Variables declaration
     ***************************************/
     CYBLE_API_RESULT_T      bleApiResult;
-    uint8 count;
+    int count;
     uint8 buffer[PACKET_LENGHT];
     int api;
     int flag;

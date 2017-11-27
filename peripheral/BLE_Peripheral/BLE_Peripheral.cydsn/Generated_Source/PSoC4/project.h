@@ -32,8 +32,6 @@
 #include "BLE_Stack.h"
 #include "BLE_eventHandler.h"
 #include "BLE_custom.h"
-#include "Conn_LED.h"
-#include "Conn_LED_aliases.h"
 #include "UART.h"
 #include "UART_SPI_UART.h"
 #include "UART_PINS.h"

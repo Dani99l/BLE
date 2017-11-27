@@ -24,9 +24,9 @@
     /***************************************
     *   Conditional compilation parameters
     ***************************************/      
-//    #define     FLOW_CONTROL
-  //  #define     PRINT_MESSAGE_LOG
-//    #define     LOW_POWER_MODE
+    #define     FLOW_CONTROL
+    #define     PRINT_MESSAGE_LOG
+    #define     LOW_POWER_MODE
     CYBLE_API_RESULT_T      bleApiResult;
     
     /************APP BLE*****************/
@@ -70,7 +70,7 @@
     void print_clock();
     void set_init_clock();
     void process_packets();
-    
+    int8 printRSSI();
     
 #endif
 

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 1
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 1
 
 
    1              		.syntax unified
@@ -40,1226 +40,1483 @@ ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 1
    9:sleep.c       **** #define LOW_POWER_MODE
   10:sleep.c       **** int counter;
   11:sleep.c       **** 
-  12:sleep.c       **** void sleep_ble(){
-  29              		.loc 1 12 0
-  30              		.cfi_startproc
-  31              		@ args = 0, pretend = 0, frame = 0
-  32              		@ frame_needed = 1, uses_anonymous_args = 0
-  33 0000 80B5     		push	{r7, lr}
-  34              		.cfi_def_cfa_offset 8
-  35              		.cfi_offset 7, -8
-  36              		.cfi_offset 14, -4
-  37 0002 00AF     		add	r7, sp, #0
-  38              		.cfi_def_cfa_register 7
-  13:sleep.c       ****     
-  14:sleep.c       ****      /* Variable declarations */
-  15:sleep.c       **** //    CYBLE_BLESS_STATE_T blePower;
+  12:sleep.c       **** //void sleep_ble(){
+  13:sleep.c       **** //    
+  14:sleep.c       **** //     /* Variable declarations */
+  15:sleep.c       **** ////    CYBLE_BLESS_STATE_T blePower;
   16:sleep.c       **** //    uint8 interruptStatus ;
-  17:sleep.c       **** //    
-  18:sleep.c       ****    /* Disable global interrupts to avoid any other tasks from interrupting this section of code*/
-  19:sleep.c       ****    // interruptStatus  = CyEnterCriticalSection();
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 2
+  17:sleep.c       **** ////    
+  18:sleep.c       **** //   /* Disable global interrupts to avoid any other tasks from interrupting this section of code*/
+  19:sleep.c       **** //     interruptStatus  = CyEnterCriticalSection();
+  20:sleep.c       **** //    
+  21:sleep.c       **** //    
+  22:sleep.c       **** //    #ifdef LOW_POWER_MODE
+  23:sleep.c       **** //        output_pin_2_Write(1);
+  24:sleep.c       **** //    #endif 
+  25:sleep.c       **** //    
+  26:sleep.c       **** //   // blePower = CyBle_GetBleSsState();
+  27:sleep.c       **** //    //CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
+  28:sleep.c       **** //  //  blePower = CyBle_GetBleSsState();
+  29:sleep.c       **** //  //  CyBle_EnterLPM(CYBLE_BLESS_SLEEP);
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 2
 
 
-  20:sleep.c       ****     
-  21:sleep.c       ****     
-  22:sleep.c       ****     #ifdef LOW_POWER_MODE
-  23:sleep.c       ****         output_pin_2_Write(1);
-  39              		.loc 1 23 0
-  40 0004 0120     		movs	r0, #1
-  41 0006 FFF7FEFF 		bl	output_pin_2_Write
-  24:sleep.c       ****     #endif 
-  25:sleep.c       ****     
-  26:sleep.c       ****    // blePower = CyBle_GetBleSsState();
-  27:sleep.c       ****     //CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
-  28:sleep.c       ****   //  blePower = CyBle_GetBleSsState();
-  29:sleep.c       ****   //  CyBle_EnterLPM(CYBLE_BLESS_SLEEP);
-  30:sleep.c       **** //    while(blePower != CYBLE_BLESS_STATE_DEEPSLEEP){
-  31:sleep.c       ****     
-  32:sleep.c       ****     output_pin_2_Write(1);
-  42              		.loc 1 32 0
-  43 000a 0120     		movs	r0, #1
-  44 000c FFF7FEFF 		bl	output_pin_2_Write
-  33:sleep.c       ****     
-  34:sleep.c       ****     while(CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP)!=CYBLE_BLESS_DEEPSLEEP){
-  45              		.loc 1 34 0
-  46 0010 05E0     		b	.L2
-  47              	.L3:
-  35:sleep.c       ****         CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
-  48              		.loc 1 35 0
-  49 0012 0320     		movs	r0, #3
-  50 0014 FFF7FEFF 		bl	CyBle_EnterLPM
-  36:sleep.c       ****            output_pin_1_Write(0);
-  51              		.loc 1 36 0
-  52 0018 0020     		movs	r0, #0
-  53 001a FFF7FEFF 		bl	output_pin_1_Write
-  54              	.L2:
-  34:sleep.c       ****         CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
-  55              		.loc 1 34 0
-  56 001e 0320     		movs	r0, #3
-  57 0020 FFF7FEFF 		bl	CyBle_EnterLPM
-  58 0024 0300     		movs	r3, r0
-  59 0026 032B     		cmp	r3, #3
-  60 0028 F3D1     		bne	.L3
-  37:sleep.c       ****     }
-  38:sleep.c       **** //         output_pin_1_Write(1);
-  39:sleep.c       **** //    }
-  40:sleep.c       ****     
-  41:sleep.c       ****     #ifdef LOW_POWER_MODE
-  42:sleep.c       ****         output_pin_2_Write(0);
-  61              		.loc 1 42 0
-  62 002a 0020     		movs	r0, #0
-  63 002c FFF7FEFF 		bl	output_pin_2_Write
-  43:sleep.c       ****     #endif
-  44:sleep.c       ****     CyGlobalIntEnable;
-  64              		.loc 1 44 0
-  65              		.syntax divided
-  66              	@ 44 "sleep.c" 1
-  67 0030 62B6     		CPSIE   i
-  68              	@ 0 "" 2
-  45:sleep.c       ****      /* Get current state of BLE sub system to check if it has successfully entered deep sleep stat
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 3
+  30:sleep.c       **** ////    while(blePower != CYBLE_BLESS_STATE_DEEPSLEEP){
+  31:sleep.c       **** //    
+  32:sleep.c       **** //    output_pin_2_Write(1);
+  33:sleep.c       **** //    
+  34:sleep.c       **** //    while(CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP)!=CYBLE_BLESS_DEEPSLEEP){
+  35:sleep.c       **** //        CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
+  36:sleep.c       **** //           output_pin_1_Write(0);
+  37:sleep.c       **** //    }
+  38:sleep.c       **** ////         output_pin_1_Write(1);
+  39:sleep.c       **** ////    }
+  40:sleep.c       **** //    
+  41:sleep.c       **** //    #ifdef LOW_POWER_MODE
+  42:sleep.c       **** //        output_pin_2_Write(0);
+  43:sleep.c       **** //    #endif
+  44:sleep.c       **** //    CyGlobalIntEnable;
+  45:sleep.c       **** //    
+  46:sleep.c       **** //     /* Get current state of BLE sub system to check if it has successfully entered deep sleep st
+  47:sleep.c       **** ////    blePower = CyBle_GetBleSsState();
+  48:sleep.c       **** //     
+  49:sleep.c       **** ////      
+  50:sleep.c       **** ////    if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON))
+  51:sleep.c       **** ////    {    
+  52:sleep.c       **** ////    
+  53:sleep.c       **** ////        #ifdef LOW_POWER_MODE
+  54:sleep.c       **** ////            output_pin_1_Write(1);
+  55:sleep.c       **** ////        #endif /* End of #if DEBUG_ENABLE */
+  56:sleep.c       **** ////        
+  57:sleep.c       **** ////        CySysPmDeepSleep();
+  58:sleep.c       **** ////         
+  59:sleep.c       **** ////        #ifdef LOW_POWER_MODE
+  60:sleep.c       **** ////            output_pin_1_Write(0);
+  61:sleep.c       **** ////        #endif /* End of #if DEBUG_ENABLE */
+  62:sleep.c       **** ////    }
+  63:sleep.c       **** ////   
+  64:sleep.c       **** ////    else if((blePower != CYBLE_BLESS_STATE_EVENT_CLOSE))
+  65:sleep.c       **** ////    {
+  66:sleep.c       **** ////        /* change HF clock source from IMO to ECO, as IMO can be stopped to save power */
+  67:sleep.c       **** ////                    CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_ECO); 
+  68:sleep.c       **** ////                    /* stop IMO for reducing power consumption */
+  69:sleep.c       **** ////                    CySysClkImoStop(); 
+  70:sleep.c       **** ////                    /* put the CPU to sleep */
+  71:sleep.c       **** ////        #ifdef LOW_POWER_MODE
+  72:sleep.c       **** ////                    output_pin_1_Write(0);
+  73:sleep.c       **** ////        #endif /* End of #if DEBUG_ENABLE */      
+  74:sleep.c       **** ////
+  75:sleep.c       **** ////                    CySysPmSleep();
+  76:sleep.c       **** ////                    
+  77:sleep.c       **** ////        #ifdef LOW_POWER_MODE
+  78:sleep.c       **** ////                    output_pin_1_Write(1);
+  79:sleep.c       **** ////        #endif /* End of #if DEBUG_ENABLE */           
+  80:sleep.c       **** ////                    /* starts execution after waking up, start IMO */
+  81:sleep.c       **** ////                    CySysClkImoStart();
+  82:sleep.c       **** ////                    /* change HF clock source back to IMO */
+  83:sleep.c       **** ////                    CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_IMO);
+  84:sleep.c       **** ////                    
+  85:sleep.c       **** ////    }
+  86:sleep.c       **** //   CyExitCriticalSection(interruptStatus);
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 3
 
 
-  46:sleep.c       **** //    blePower = CyBle_GetBleSsState();
-  47:sleep.c       ****      
-  48:sleep.c       **** //      
-  49:sleep.c       **** //    if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON))
-  50:sleep.c       **** //    {    
-  51:sleep.c       **** //    
-  52:sleep.c       **** //        #ifdef LOW_POWER_MODE
-  53:sleep.c       **** //            output_pin_1_Write(1);
-  54:sleep.c       **** //        #endif /* End of #if DEBUG_ENABLE */
-  55:sleep.c       **** //        
-  56:sleep.c       **** //        CySysPmDeepSleep();
-  57:sleep.c       **** //         
-  58:sleep.c       **** //        #ifdef LOW_POWER_MODE
-  59:sleep.c       **** //            output_pin_1_Write(0);
-  60:sleep.c       **** //        #endif /* End of #if DEBUG_ENABLE */
-  61:sleep.c       **** //    }
-  62:sleep.c       **** //   
-  63:sleep.c       **** //    else if((blePower != CYBLE_BLESS_STATE_EVENT_CLOSE))
-  64:sleep.c       **** //    {
-  65:sleep.c       **** //        /* change HF clock source from IMO to ECO, as IMO can be stopped to save power */
-  66:sleep.c       **** //                    CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_ECO); 
-  67:sleep.c       **** //                    /* stop IMO for reducing power consumption */
-  68:sleep.c       **** //                    CySysClkImoStop(); 
-  69:sleep.c       **** //                    /* put the CPU to sleep */
-  70:sleep.c       **** //        #ifdef LOW_POWER_MODE
-  71:sleep.c       **** //                    output_pin_1_Write(0);
-  72:sleep.c       **** //        #endif /* End of #if DEBUG_ENABLE */      
-  73:sleep.c       **** //
-  74:sleep.c       **** //                    CySysPmSleep();
-  75:sleep.c       **** //                    
-  76:sleep.c       **** //        #ifdef LOW_POWER_MODE
-  77:sleep.c       **** //                    output_pin_1_Write(1);
-  78:sleep.c       **** //        #endif /* End of #if DEBUG_ENABLE */           
-  79:sleep.c       **** //                    /* starts execution after waking up, start IMO */
-  80:sleep.c       **** //                    CySysClkImoStart();
-  81:sleep.c       **** //                    /* change HF clock source back to IMO */
-  82:sleep.c       **** //                    CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_IMO);
-  83:sleep.c       **** //                    
-  84:sleep.c       **** //    }
-  85:sleep.c       ****  //   CyExitCriticalSection(interruptStatus);
-  86:sleep.c       **** 
-  87:sleep.c       ****    //CyBle_ProcessEvents();
-  88:sleep.c       **** }
-  69              		.loc 1 88 0
-  70              		.thumb
-  71              		.syntax unified
-  72 0032 C046     		nop
-  73 0034 BD46     		mov	sp, r7
-  74              		@ sp needed
-  75 0036 80BD     		pop	{r7, pc}
-  76              		.cfi_endproc
-  77              	.LFE35:
-  78              		.size	sleep_ble, .-sleep_ble
-  79              		.text
-  80              	.Letext0:
-  81              		.file 2 "Generated_Source\\PSoC4/BLE_Stack.h"
-  82              		.section	.debug_info,"",%progbits
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 4
+  87:sleep.c       **** //
+  88:sleep.c       **** //   //CyBle_ProcessEvents();
+  89:sleep.c       **** //}
+  90:sleep.c       **** void sleep_ble(){
+  29              		.loc 1 90 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 8
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+  33 0000 90B5     		push	{r4, r7, lr}
+  34              		.cfi_def_cfa_offset 12
+  35              		.cfi_offset 4, -12
+  36              		.cfi_offset 7, -8
+  37              		.cfi_offset 14, -4
+  38 0002 83B0     		sub	sp, sp, #12
+  39              		.cfi_def_cfa_offset 24
+  40 0004 00AF     		add	r7, sp, #0
+  41              		.cfi_def_cfa_register 7
+  91:sleep.c       ****     
+  92:sleep.c       ****      /* Variable declarations */
+  93:sleep.c       ****     CYBLE_BLESS_STATE_T blePower;
+  94:sleep.c       ****     uint8 interruptStatus ;
+  95:sleep.c       ****     
+  96:sleep.c       ****    /* Disable global interrupts to avoid any other tasks from interrupting this section of code*/
+  97:sleep.c       ****     interruptStatus  = CyEnterCriticalSection();
+  42              		.loc 1 97 0
+  43 0006 FC1D     		adds	r4, r7, #7
+  44 0008 FFF7FEFF 		bl	CyEnterCriticalSection
+  45 000c 0300     		movs	r3, r0
+  46 000e 2370     		strb	r3, [r4]
+  98:sleep.c       ****     
+  99:sleep.c       ****     
+ 100:sleep.c       ****     #ifdef DEBUG_ble
+ 101:sleep.c       ****         output_pin_2_Write(1);
+ 102:sleep.c       ****     #endif /* End of #if DEBUG_ENABLE */
+ 103:sleep.c       ****     
+ 104:sleep.c       ****     CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
+  47              		.loc 1 104 0
+  48 0010 0320     		movs	r0, #3
+  49 0012 FFF7FEFF 		bl	CyBle_EnterLPM
+ 105:sleep.c       ****     
+ 106:sleep.c       ****     #ifdef DEBUG_ble
+ 107:sleep.c       ****         output_pin_2_Write(0);
+ 108:sleep.c       ****     #endif /* End of #if DEBUG_ENABLE */
+ 109:sleep.c       ****     
+ 110:sleep.c       ****      /* Get current state of BLE sub system to check if it has successfully entered deep sleep stat
+ 111:sleep.c       ****     blePower = CyBle_GetBleSsState();
+  50              		.loc 1 111 0
+  51 0016 BC1D     		adds	r4, r7, #6
+  52 0018 FFF7FEFF 		bl	CyBle_GetBleSsState
+  53 001c 0300     		movs	r3, r0
+  54 001e 2370     		strb	r3, [r4]
+ 112:sleep.c       ****      
+ 113:sleep.c       ****       
+ 114:sleep.c       ****     if((blePower == CYBLE_BLESS_STATE_DEEPSLEEP || blePower == CYBLE_BLESS_STATE_ECO_ON))
+  55              		.loc 1 114 0
+  56 0020 BB1D     		adds	r3, r7, #6
+  57 0022 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 4
 
 
-  83              	.Ldebug_info0:
-  84 0000 97020000 		.4byte	0x297
-  85 0004 0400     		.2byte	0x4
-  86 0006 00000000 		.4byte	.Ldebug_abbrev0
-  87 000a 04       		.byte	0x4
-  88 000b 01       		.uleb128 0x1
-  89 000c 19040000 		.4byte	.LASF91
-  90 0010 0C       		.byte	0xc
-  91 0011 F5040000 		.4byte	.LASF92
-  92 0015 2D0A0000 		.4byte	.LASF93
-  93 0019 00000000 		.4byte	.Ldebug_ranges0+0
-  94 001d 00000000 		.4byte	0
-  95 0021 00000000 		.4byte	.Ldebug_line0
-  96 0025 02       		.uleb128 0x2
-  97 0026 01       		.byte	0x1
-  98 0027 06       		.byte	0x6
-  99 0028 76050000 		.4byte	.LASF0
- 100 002c 02       		.uleb128 0x2
- 101 002d 01       		.byte	0x1
- 102 002e 08       		.byte	0x8
- 103 002f 23050000 		.4byte	.LASF1
- 104 0033 02       		.uleb128 0x2
- 105 0034 02       		.byte	0x2
- 106 0035 05       		.byte	0x5
- 107 0036 CA000000 		.4byte	.LASF2
- 108 003a 02       		.uleb128 0x2
- 109 003b 02       		.byte	0x2
- 110 003c 07       		.byte	0x7
- 111 003d 44070000 		.4byte	.LASF3
- 112 0041 02       		.uleb128 0x2
- 113 0042 04       		.byte	0x4
- 114 0043 05       		.byte	0x5
- 115 0044 45030000 		.4byte	.LASF4
- 116 0048 02       		.uleb128 0x2
- 117 0049 04       		.byte	0x4
- 118 004a 07       		.byte	0x7
- 119 004b 07060000 		.4byte	.LASF5
- 120 004f 02       		.uleb128 0x2
- 121 0050 08       		.byte	0x8
- 122 0051 05       		.byte	0x5
- 123 0052 36010000 		.4byte	.LASF6
- 124 0056 02       		.uleb128 0x2
- 125 0057 08       		.byte	0x8
- 126 0058 07       		.byte	0x7
- 127 0059 0D030000 		.4byte	.LASF7
- 128 005d 03       		.uleb128 0x3
- 129 005e 04       		.byte	0x4
- 130 005f 05       		.byte	0x5
- 131 0060 696E7400 		.ascii	"int\000"
- 132 0064 02       		.uleb128 0x2
- 133 0065 04       		.byte	0x4
- 134 0066 07       		.byte	0x7
- 135 0067 DF050000 		.4byte	.LASF8
- 136 006b 02       		.uleb128 0x2
- 137 006c 04       		.byte	0x4
- 138 006d 04       		.byte	0x4
- 139 006e A4020000 		.4byte	.LASF9
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 5
+  58 0024 062B     		cmp	r3, #6
+  59 0026 03D0     		beq	.L2
+  60              		.loc 1 114 0 is_stmt 0 discriminator 1
+  61 0028 BB1D     		adds	r3, r7, #6
+  62 002a 1B78     		ldrb	r3, [r3]
+  63 002c 042B     		cmp	r3, #4
+  64 002e 02D1     		bne	.L3
+  65              	.L2:
+ 115:sleep.c       ****     {    
+ 116:sleep.c       ****     
+ 117:sleep.c       ****         #ifdef DEBUG_ble
+ 118:sleep.c       ****             output_pin_1_Write(1);
+ 119:sleep.c       ****         #endif /* End of #if DEBUG_ENABLE */
+ 120:sleep.c       ****         
+ 121:sleep.c       ****         CySysPmDeepSleep();
+  66              		.loc 1 121 0 is_stmt 1
+  67 0030 FFF7FEFF 		bl	CySysPmDeepSleep
+  68 0034 0FE0     		b	.L4
+  69              	.L3:
+ 122:sleep.c       ****          
+ 123:sleep.c       ****         #ifdef DEBUG_ble
+ 124:sleep.c       ****             output_pin_1_Write(0);
+ 125:sleep.c       ****         #endif /* End of #if DEBUG_ENABLE */
+ 126:sleep.c       ****     }
+ 127:sleep.c       ****    
+ 128:sleep.c       ****     else if((blePower != CYBLE_BLESS_STATE_EVENT_CLOSE))
+  70              		.loc 1 128 0
+  71 0036 BB1D     		adds	r3, r7, #6
+  72 0038 1B78     		ldrb	r3, [r3]
+  73 003a 022B     		cmp	r3, #2
+  74 003c 0BD0     		beq	.L4
+ 129:sleep.c       ****     {
+ 130:sleep.c       ****         /* change HF clock source from IMO to ECO, as IMO can be stopped to save power */
+ 131:sleep.c       ****                     CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_ECO); 
+  75              		.loc 1 131 0
+  76 003e 0220     		movs	r0, #2
+  77 0040 FFF7FEFF 		bl	CySysClkWriteHfclkDirect
+ 132:sleep.c       ****                     /* stop IMO for reducing power consumption */
+ 133:sleep.c       ****                     CySysClkImoStop(); 
+  78              		.loc 1 133 0
+  79 0044 FFF7FEFF 		bl	CySysClkImoStop
+ 134:sleep.c       ****                     /* put the CPU to sleep */
+ 135:sleep.c       ****         #ifdef DEBUG_ble
+ 136:sleep.c       ****                     output_pin_1_Write(0);
+ 137:sleep.c       ****         #endif /* End of #if DEBUG_ENABLE */      
+ 138:sleep.c       **** 
+ 139:sleep.c       ****                     CySysPmSleep();
+  80              		.loc 1 139 0
+  81 0048 FFF7FEFF 		bl	CySysPmSleep
+ 140:sleep.c       ****                     
+ 141:sleep.c       ****         #ifdef DEBUG_ble
+ 142:sleep.c       ****                     output_pin_1_Write(1);
+ 143:sleep.c       ****         #endif /* End of #if DEBUG_ENABLE */           
+ 144:sleep.c       ****                     /* starts execution after waking up, start IMO */
+ 145:sleep.c       ****                     CySysClkImoStart();
+  82              		.loc 1 145 0
+  83 004c FFF7FEFF 		bl	CySysClkImoStart
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 5
 
 
- 140 0072 02       		.uleb128 0x2
- 141 0073 08       		.byte	0x8
- 142 0074 04       		.byte	0x4
- 143 0075 F4070000 		.4byte	.LASF10
- 144 0079 02       		.uleb128 0x2
- 145 007a 01       		.byte	0x1
- 146 007b 08       		.byte	0x8
- 147 007c 23070000 		.4byte	.LASF11
- 148 0080 04       		.uleb128 0x4
- 149 0081 01       		.byte	0x1
- 150 0082 2C000000 		.4byte	0x2c
- 151 0086 02       		.byte	0x2
- 152 0087 3501     		.2byte	0x135
- 153 0089 3E020000 		.4byte	0x23e
- 154 008d 05       		.uleb128 0x5
- 155 008e 4E020000 		.4byte	.LASF12
- 156 0092 00       		.byte	0
- 157 0093 05       		.uleb128 0x5
- 158 0094 7A010000 		.4byte	.LASF13
- 159 0098 01       		.byte	0x1
- 160 0099 05       		.uleb128 0x5
- 161 009a 47090000 		.4byte	.LASF14
- 162 009e 02       		.byte	0x2
- 163 009f 05       		.uleb128 0x5
- 164 00a0 62080000 		.4byte	.LASF15
- 165 00a4 03       		.byte	0x3
- 166 00a5 05       		.uleb128 0x5
- 167 00a6 44010000 		.4byte	.LASF16
- 168 00aa 04       		.byte	0x4
- 169 00ab 05       		.uleb128 0x5
- 170 00ac D7030000 		.4byte	.LASF17
- 171 00b0 05       		.byte	0x5
- 172 00b1 05       		.uleb128 0x5
- 173 00b2 73000000 		.4byte	.LASF18
- 174 00b6 06       		.byte	0x6
- 175 00b7 05       		.uleb128 0x5
- 176 00b8 C0080000 		.4byte	.LASF19
- 177 00bc 20       		.byte	0x20
- 178 00bd 05       		.uleb128 0x5
- 179 00be 19060000 		.4byte	.LASF20
- 180 00c2 21       		.byte	0x21
- 181 00c3 05       		.uleb128 0x5
- 182 00c4 16000000 		.4byte	.LASF21
- 183 00c8 22       		.byte	0x22
- 184 00c9 05       		.uleb128 0x5
- 185 00ca F3030000 		.4byte	.LASF22
- 186 00ce 23       		.byte	0x23
- 187 00cf 05       		.uleb128 0x5
- 188 00d0 C3050000 		.4byte	.LASF23
- 189 00d4 24       		.byte	0x24
- 190 00d5 05       		.uleb128 0x5
- 191 00d6 D4000000 		.4byte	.LASF24
- 192 00da 25       		.byte	0x25
- 193 00db 05       		.uleb128 0x5
- 194 00dc 8E030000 		.4byte	.LASF25
- 195 00e0 26       		.byte	0x26
- 196 00e1 05       		.uleb128 0x5
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 6
+ 146:sleep.c       ****                     /* change HF clock source back to IMO */
+ 147:sleep.c       ****                     CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_IMO);
+  84              		.loc 1 147 0
+  85 0050 0020     		movs	r0, #0
+  86 0052 FFF7FEFF 		bl	CySysClkWriteHfclkDirect
+  87              	.L4:
+ 148:sleep.c       ****                     
+ 149:sleep.c       ****     }
+ 150:sleep.c       ****     CyExitCriticalSection(interruptStatus );
+  88              		.loc 1 150 0
+  89 0056 FB1D     		adds	r3, r7, #7
+  90 0058 1B78     		ldrb	r3, [r3]
+  91 005a 1800     		movs	r0, r3
+  92 005c FFF7FEFF 		bl	CyExitCriticalSection
+ 151:sleep.c       **** 
+ 152:sleep.c       ****     CyBle_ProcessEvents();
+  93              		.loc 1 152 0
+  94 0060 FFF7FEFF 		bl	CyBle_ProcessEvents
+ 153:sleep.c       **** }
+  95              		.loc 1 153 0
+  96 0064 C046     		nop
+  97 0066 BD46     		mov	sp, r7
+  98 0068 03B0     		add	sp, sp, #12
+  99              		@ sp needed
+ 100 006a 90BD     		pop	{r4, r7, pc}
+ 101              		.cfi_endproc
+ 102              	.LFE35:
+ 103              		.size	sleep_ble, .-sleep_ble
+ 104              		.text
+ 105              	.Letext0:
+ 106              		.file 2 "Generated_Source\\PSoC4/BLE_Stack.h"
+ 107              		.file 3 "Generated_Source\\PSoC4/cytypes.h"
+ 108              		.section	.debug_info,"",%progbits
+ 109              	.Ldebug_info0:
+ 110 0000 0E030000 		.4byte	0x30e
+ 111 0004 0400     		.2byte	0x4
+ 112 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 113 000a 04       		.byte	0x4
+ 114 000b 01       		.uleb128 0x1
+ 115 000c B8040000 		.4byte	.LASF103
+ 116 0010 0C       		.byte	0xc
+ 117 0011 94050000 		.4byte	.LASF104
+ 118 0015 370B0000 		.4byte	.LASF105
+ 119 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 120 001d 00000000 		.4byte	0
+ 121 0021 00000000 		.4byte	.Ldebug_line0
+ 122 0025 02       		.uleb128 0x2
+ 123 0026 01       		.byte	0x1
+ 124 0027 06       		.byte	0x6
+ 125 0028 29060000 		.4byte	.LASF0
+ 126 002c 02       		.uleb128 0x2
+ 127 002d 01       		.byte	0x1
+ 128 002e 08       		.byte	0x8
+ 129 002f E1050000 		.4byte	.LASF1
+ 130 0033 02       		.uleb128 0x2
+ 131 0034 02       		.byte	0x2
+ 132 0035 05       		.byte	0x5
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 6
 
 
- 197 00e2 6F030000 		.4byte	.LASF26
- 198 00e6 27       		.byte	0x27
- 199 00e7 05       		.uleb128 0x5
- 200 00e8 0B0A0000 		.4byte	.LASF27
- 201 00ec 28       		.byte	0x28
- 202 00ed 05       		.uleb128 0x5
- 203 00ee 51060000 		.4byte	.LASF28
- 204 00f2 29       		.byte	0x29
- 205 00f3 05       		.uleb128 0x5
- 206 00f4 D3060000 		.4byte	.LASF29
- 207 00f8 2A       		.byte	0x2a
- 208 00f9 05       		.uleb128 0x5
- 209 00fa 94070000 		.4byte	.LASF30
- 210 00fe 2B       		.byte	0x2b
- 211 00ff 05       		.uleb128 0x5
- 212 0100 E0010000 		.4byte	.LASF31
- 213 0104 2C       		.byte	0x2c
- 214 0105 05       		.uleb128 0x5
- 215 0106 C3020000 		.4byte	.LASF32
- 216 010a 2D       		.byte	0x2d
- 217 010b 05       		.uleb128 0x5
- 218 010c A6000000 		.4byte	.LASF33
- 219 0110 2E       		.byte	0x2e
- 220 0111 05       		.uleb128 0x5
- 221 0112 AC0A0000 		.4byte	.LASF34
- 222 0116 2F       		.byte	0x2f
- 223 0117 05       		.uleb128 0x5
- 224 0118 15010000 		.4byte	.LASF35
- 225 011c 30       		.byte	0x30
- 226 011d 05       		.uleb128 0x5
- 227 011e C5040000 		.4byte	.LASF36
- 228 0122 31       		.byte	0x31
- 229 0123 05       		.uleb128 0x5
- 230 0124 EC020000 		.4byte	.LASF37
- 231 0128 32       		.byte	0x32
- 232 0129 05       		.uleb128 0x5
- 233 012a FC060000 		.4byte	.LASF38
- 234 012e 33       		.byte	0x33
- 235 012f 05       		.uleb128 0x5
- 236 0130 6E060000 		.4byte	.LASF39
- 237 0134 34       		.byte	0x34
- 238 0135 05       		.uleb128 0x5
- 239 0136 31080000 		.4byte	.LASF40
- 240 013a 35       		.byte	0x35
- 241 013b 05       		.uleb128 0x5
- 242 013c 24030000 		.4byte	.LASF41
- 243 0140 36       		.byte	0x36
- 244 0141 05       		.uleb128 0x5
- 245 0142 8D010000 		.4byte	.LASF42
- 246 0146 37       		.byte	0x37
- 247 0147 05       		.uleb128 0x5
- 248 0148 8C000000 		.4byte	.LASF43
- 249 014c 40       		.byte	0x40
- 250 014d 05       		.uleb128 0x5
- 251 014e EC050000 		.4byte	.LASF44
- 252 0152 41       		.byte	0x41
- 253 0153 05       		.uleb128 0x5
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 7
+ 133 0036 E6000000 		.4byte	.LASF2
+ 134 003a 02       		.uleb128 0x2
+ 135 003b 02       		.byte	0x2
+ 136 003c 07       		.byte	0x7
+ 137 003d F7070000 		.4byte	.LASF3
+ 138 0041 02       		.uleb128 0x2
+ 139 0042 04       		.byte	0x4
+ 140 0043 05       		.byte	0x5
+ 141 0044 F7030000 		.4byte	.LASF4
+ 142 0048 02       		.uleb128 0x2
+ 143 0049 04       		.byte	0x4
+ 144 004a 07       		.byte	0x7
+ 145 004b BA060000 		.4byte	.LASF5
+ 146 004f 02       		.uleb128 0x2
+ 147 0050 08       		.byte	0x8
+ 148 0051 05       		.byte	0x5
+ 149 0052 67010000 		.4byte	.LASF6
+ 150 0056 02       		.uleb128 0x2
+ 151 0057 08       		.byte	0x8
+ 152 0058 07       		.byte	0x7
+ 153 0059 BF030000 		.4byte	.LASF7
+ 154 005d 03       		.uleb128 0x3
+ 155 005e 04       		.byte	0x4
+ 156 005f 05       		.byte	0x5
+ 157 0060 696E7400 		.ascii	"int\000"
+ 158 0064 02       		.uleb128 0x2
+ 159 0065 04       		.byte	0x4
+ 160 0066 07       		.byte	0x7
+ 161 0067 92060000 		.4byte	.LASF8
+ 162 006b 04       		.uleb128 0x4
+ 163 006c 0A080000 		.4byte	.LASF97
+ 164 0070 03       		.byte	0x3
+ 165 0071 D201     		.2byte	0x1d2
+ 166 0073 2C000000 		.4byte	0x2c
+ 167 0077 02       		.uleb128 0x2
+ 168 0078 04       		.byte	0x4
+ 169 0079 04       		.byte	0x4
+ 170 007a 56030000 		.4byte	.LASF9
+ 171 007e 02       		.uleb128 0x2
+ 172 007f 08       		.byte	0x8
+ 173 0080 04       		.byte	0x4
+ 174 0081 B6080000 		.4byte	.LASF10
+ 175 0085 02       		.uleb128 0x2
+ 176 0086 01       		.byte	0x1
+ 177 0087 08       		.byte	0x8
+ 178 0088 D6070000 		.4byte	.LASF11
+ 179 008c 05       		.uleb128 0x5
+ 180 008d 01       		.byte	0x1
+ 181 008e 2C000000 		.4byte	0x2c
+ 182 0092 02       		.byte	0x2
+ 183 0093 3501     		.2byte	0x135
+ 184 0095 4A020000 		.4byte	0x24a
+ 185 0099 06       		.uleb128 0x6
+ 186 009a E3020000 		.4byte	.LASF12
+ 187 009e 00       		.byte	0
+ 188 009f 06       		.uleb128 0x6
+ 189 00a0 E7010000 		.4byte	.LASF13
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 7
 
 
- 254 0154 EE000000 		.4byte	.LASF45
- 255 0158 42       		.byte	0x42
- 256 0159 05       		.uleb128 0x5
- 257 015a C2010000 		.4byte	.LASF46
- 258 015e 43       		.byte	0x43
- 259 015f 05       		.uleb128 0x5
- 260 0160 29090000 		.4byte	.LASF47
- 261 0164 44       		.byte	0x44
- 262 0165 05       		.uleb128 0x5
- 263 0166 E4080000 		.4byte	.LASF48
- 264 016a 45       		.byte	0x45
- 265 016b 05       		.uleb128 0x5
- 266 016c 59010000 		.4byte	.LASF49
- 267 0170 46       		.byte	0x46
- 268 0171 05       		.uleb128 0x5
- 269 0172 58050000 		.4byte	.LASF50
- 270 0176 47       		.byte	0x47
- 271 0177 05       		.uleb128 0x5
- 272 0178 9C050000 		.4byte	.LASF51
- 273 017c 48       		.byte	0x48
- 274 017d 05       		.uleb128 0x5
- 275 017e AA020000 		.4byte	.LASF52
- 276 0182 49       		.byte	0x49
- 277 0183 05       		.uleb128 0x5
- 278 0184 57070000 		.4byte	.LASF53
- 279 0188 4A       		.byte	0x4a
- 280 0189 05       		.uleb128 0x5
- 281 018a 04020000 		.4byte	.LASF54
- 282 018e 4B       		.byte	0x4b
- 283 018f 05       		.uleb128 0x5
- 284 0190 82050000 		.4byte	.LASF55
- 285 0194 4C       		.byte	0x4c
- 286 0195 05       		.uleb128 0x5
- 287 0196 59000000 		.4byte	.LASF56
- 288 019a 4D       		.byte	0x4d
- 289 019b 05       		.uleb128 0x5
- 290 019c 0B090000 		.4byte	.LASF57
- 291 01a0 4E       		.byte	0x4e
- 292 01a1 05       		.uleb128 0x5
- 293 01a2 3A000000 		.4byte	.LASF58
- 294 01a6 4F       		.byte	0x4f
- 295 01a7 05       		.uleb128 0x5
- 296 01a8 EC090000 		.4byte	.LASF59
- 297 01ac 50       		.byte	0x50
- 298 01ad 05       		.uleb128 0x5
- 299 01ae 75070000 		.4byte	.LASF60
- 300 01b2 51       		.byte	0x51
- 301 01b3 05       		.uleb128 0x5
- 302 01b4 B6030000 		.4byte	.LASF61
- 303 01b8 52       		.byte	0x52
- 304 01b9 05       		.uleb128 0x5
- 305 01ba 4E030000 		.4byte	.LASF62
- 306 01be 53       		.byte	0x53
- 307 01bf 05       		.uleb128 0x5
- 308 01c0 2D020000 		.4byte	.LASF63
- 309 01c4 54       		.byte	0x54
- 310 01c5 05       		.uleb128 0x5
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 8
+ 190 00a4 01       		.byte	0x1
+ 191 00a5 06       		.uleb128 0x6
+ 192 00a6 510A0000 		.4byte	.LASF14
+ 193 00aa 02       		.byte	0x2
+ 194 00ab 06       		.uleb128 0x6
+ 195 00ac 40090000 		.4byte	.LASF15
+ 196 00b0 03       		.byte	0x3
+ 197 00b1 06       		.uleb128 0x6
+ 198 00b2 52010000 		.4byte	.LASF16
+ 199 00b6 04       		.byte	0x4
+ 200 00b7 06       		.uleb128 0x6
+ 201 00b8 10090000 		.4byte	.LASF17
+ 202 00bc 05       		.byte	0x5
+ 203 00bd 06       		.uleb128 0x6
+ 204 00be 8F000000 		.4byte	.LASF18
+ 205 00c2 06       		.byte	0x6
+ 206 00c3 06       		.uleb128 0x6
+ 207 00c4 9E090000 		.4byte	.LASF19
+ 208 00c8 20       		.byte	0x20
+ 209 00c9 06       		.uleb128 0x6
+ 210 00ca CC060000 		.4byte	.LASF20
+ 211 00ce 21       		.byte	0x21
+ 212 00cf 06       		.uleb128 0x6
+ 213 00d0 30000000 		.4byte	.LASF21
+ 214 00d4 22       		.byte	0x22
+ 215 00d5 06       		.uleb128 0x6
+ 216 00d6 92040000 		.4byte	.LASF22
+ 217 00da 23       		.byte	0x23
+ 218 00db 06       		.uleb128 0x6
+ 219 00dc 76060000 		.4byte	.LASF23
+ 220 00e0 24       		.byte	0x24
+ 221 00e1 06       		.uleb128 0x6
+ 222 00e2 F0000000 		.4byte	.LASF24
+ 223 00e6 25       		.byte	0x25
+ 224 00e7 06       		.uleb128 0x6
+ 225 00e8 4D020000 		.4byte	.LASF25
+ 226 00ec 26       		.byte	0x26
+ 227 00ed 06       		.uleb128 0x6
+ 228 00ee 21040000 		.4byte	.LASF26
+ 229 00f2 27       		.byte	0x27
+ 230 00f3 06       		.uleb128 0x6
+ 231 00f4 150B0000 		.4byte	.LASF27
+ 232 00f8 28       		.byte	0x28
+ 233 00f9 06       		.uleb128 0x6
+ 234 00fa 04070000 		.4byte	.LASF28
+ 235 00fe 29       		.byte	0x29
+ 236 00ff 06       		.uleb128 0x6
+ 237 0100 86070000 		.4byte	.LASF29
+ 238 0104 2A       		.byte	0x2a
+ 239 0105 06       		.uleb128 0x6
+ 240 0106 56080000 		.4byte	.LASF30
+ 241 010a 2B       		.byte	0x2b
+ 242 010b 06       		.uleb128 0x6
+ 243 010c 75020000 		.4byte	.LASF31
+ 244 0110 2C       		.byte	0x2c
+ 245 0111 06       		.uleb128 0x6
+ 246 0112 75030000 		.4byte	.LASF32
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 8
 
 
- 311 01c6 760A0000 		.4byte	.LASF64
- 312 01ca 55       		.byte	0x55
- 313 01cb 05       		.uleb128 0x5
- 314 01cc CA090000 		.4byte	.LASF65
- 315 01d0 56       		.byte	0x56
- 316 01d1 05       		.uleb128 0x5
- 317 01d2 A1090000 		.4byte	.LASF66
- 318 01d6 57       		.byte	0x57
- 319 01d7 05       		.uleb128 0x5
- 320 01d8 86060000 		.4byte	.LASF67
- 321 01dc 58       		.byte	0x58
- 322 01dd 05       		.uleb128 0x5
- 323 01de FD040000 		.4byte	.LASF68
- 324 01e2 70       		.byte	0x70
- 325 01e3 05       		.uleb128 0x5
- 326 01e4 9A080000 		.4byte	.LASF69
- 327 01e8 71       		.byte	0x71
- 328 01e9 05       		.uleb128 0x5
- 329 01ea 28070000 		.4byte	.LASF70
- 330 01ee 72       		.byte	0x72
- 331 01ef 05       		.uleb128 0x5
- 332 01f0 65020000 		.4byte	.LASF71
- 333 01f4 73       		.byte	0x73
- 334 01f5 05       		.uleb128 0x5
- 335 01f6 A7040000 		.4byte	.LASF72
- 336 01fa 74       		.byte	0x74
- 337 01fb 05       		.uleb128 0x5
- 338 01fc 30060000 		.4byte	.LASF73
- 339 0200 75       		.byte	0x75
- 340 0201 05       		.uleb128 0x5
- 341 0202 83020000 		.4byte	.LASF74
- 342 0206 76       		.byte	0x76
- 343 0207 05       		.uleb128 0x5
- 344 0208 7B080000 		.4byte	.LASF75
- 345 020c 77       		.byte	0x77
- 346 020d 05       		.uleb128 0x5
- 347 020e D1070000 		.4byte	.LASF76
- 348 0212 78       		.byte	0x78
- 349 0213 05       		.uleb128 0x5
- 350 0214 0E080000 		.4byte	.LASF77
- 351 0218 79       		.byte	0x79
- 352 0219 05       		.uleb128 0x5
- 353 021a 59090000 		.4byte	.LASF78
- 354 021e 7A       		.byte	0x7a
- 355 021f 05       		.uleb128 0x5
- 356 0220 B3070000 		.4byte	.LASF79
- 357 0224 FA       		.byte	0xfa
- 358 0225 05       		.uleb128 0x5
- 359 0226 39050000 		.4byte	.LASF80
- 360 022a FB       		.byte	0xfb
- 361 022b 05       		.uleb128 0x5
- 362 022c 9A0A0000 		.4byte	.LASF81
- 363 0230 FC       		.byte	0xfc
- 364 0231 05       		.uleb128 0x5
- 365 0232 BB060000 		.4byte	.LASF82
- 366 0236 FD       		.byte	0xfd
- 367 0237 05       		.uleb128 0x5
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 9
+ 247 0116 2D       		.byte	0x2d
+ 248 0117 06       		.uleb128 0x6
+ 249 0118 C2000000 		.4byte	.LASF33
+ 250 011c 2E       		.byte	0x2e
+ 251 011d 06       		.uleb128 0x6
+ 252 011e B60B0000 		.4byte	.LASF34
+ 253 0122 2F       		.byte	0x2f
+ 254 0123 06       		.uleb128 0x6
+ 255 0124 31010000 		.4byte	.LASF35
+ 256 0128 30       		.byte	0x30
+ 257 0129 06       		.uleb128 0x6
+ 258 012a 64050000 		.4byte	.LASF36
+ 259 012e 31       		.byte	0x31
+ 260 012f 06       		.uleb128 0x6
+ 261 0130 9E030000 		.4byte	.LASF37
+ 262 0134 32       		.byte	0x32
+ 263 0135 06       		.uleb128 0x6
+ 264 0136 AF070000 		.4byte	.LASF38
+ 265 013a 33       		.byte	0x33
+ 266 013b 06       		.uleb128 0x6
+ 267 013c 21070000 		.4byte	.LASF39
+ 268 0140 34       		.byte	0x34
+ 269 0141 06       		.uleb128 0x6
+ 270 0142 F3080000 		.4byte	.LASF40
+ 271 0146 35       		.byte	0x35
+ 272 0147 06       		.uleb128 0x6
+ 273 0148 D6030000 		.4byte	.LASF41
+ 274 014c 36       		.byte	0x36
+ 275 014d 06       		.uleb128 0x6
+ 276 014e FA010000 		.4byte	.LASF42
+ 277 0152 37       		.byte	0x37
+ 278 0153 06       		.uleb128 0x6
+ 279 0154 A8000000 		.4byte	.LASF43
+ 280 0158 40       		.byte	0x40
+ 281 0159 06       		.uleb128 0x6
+ 282 015a 9F060000 		.4byte	.LASF44
+ 283 015e 41       		.byte	0x41
+ 284 015f 06       		.uleb128 0x6
+ 285 0160 0A010000 		.4byte	.LASF45
+ 286 0164 42       		.byte	0x42
+ 287 0165 06       		.uleb128 0x6
+ 288 0166 2F020000 		.4byte	.LASF46
+ 289 016a 43       		.byte	0x43
+ 290 016b 06       		.uleb128 0x6
+ 291 016c 330A0000 		.4byte	.LASF47
+ 292 0170 44       		.byte	0x44
+ 293 0171 06       		.uleb128 0x6
+ 294 0172 EE090000 		.4byte	.LASF48
+ 295 0176 45       		.byte	0x45
+ 296 0177 06       		.uleb128 0x6
+ 297 0178 C6010000 		.4byte	.LASF49
+ 298 017c 46       		.byte	0x46
+ 299 017d 06       		.uleb128 0x6
+ 300 017e 0B060000 		.4byte	.LASF50
+ 301 0182 47       		.byte	0x47
+ 302 0183 06       		.uleb128 0x6
+ 303 0184 4F060000 		.4byte	.LASF51
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 9
 
 
- 368 0238 93090000 		.4byte	.LASF83
- 369 023c FF       		.byte	0xff
- 370 023d 00       		.byte	0
- 371 023e 04       		.uleb128 0x4
- 372 023f 01       		.byte	0x1
- 373 0240 2C000000 		.4byte	0x2c
- 374 0244 02       		.byte	0x2
- 375 0245 6004     		.2byte	0x460
- 376 0247 6A020000 		.4byte	0x26a
- 377 024b 05       		.uleb128 0x5
- 378 024c FB070000 		.4byte	.LASF84
- 379 0250 01       		.byte	0x1
- 380 0251 05       		.uleb128 0x5
- 381 0252 A9060000 		.4byte	.LASF85
- 382 0256 02       		.byte	0x2
- 383 0257 05       		.uleb128 0x5
- 384 0258 7D090000 		.4byte	.LASF86
- 385 025c 03       		.byte	0x3
- 386 025d 05       		.uleb128 0x5
- 387 025e 00000000 		.4byte	.LASF87
- 388 0262 04       		.byte	0x4
- 389 0263 05       		.uleb128 0x5
- 390 0264 4E080000 		.4byte	.LASF88
- 391 0268 FF       		.byte	0xff
- 392 0269 00       		.byte	0
- 393 026a 02       		.uleb128 0x2
- 394 026b 04       		.byte	0x4
- 395 026c 07       		.byte	0x7
- 396 026d 0C010000 		.4byte	.LASF89
- 397 0271 02       		.uleb128 0x2
- 398 0272 08       		.byte	0x8
- 399 0273 04       		.byte	0x4
- 400 0274 E9040000 		.4byte	.LASF90
- 401 0278 06       		.uleb128 0x6
- 402 0279 23020000 		.4byte	.LASF94
- 403 027d 01       		.byte	0x1
- 404 027e 0C       		.byte	0xc
- 405 027f 00000000 		.4byte	.LFB35
- 406 0283 38000000 		.4byte	.LFE35-.LFB35
- 407 0287 01       		.uleb128 0x1
- 408 0288 9C       		.byte	0x9c
- 409 0289 07       		.uleb128 0x7
- 410 028a 31050000 		.4byte	.LASF95
- 411 028e 01       		.byte	0x1
- 412 028f 0A       		.byte	0xa
- 413 0290 5D000000 		.4byte	0x5d
- 414 0294 05       		.uleb128 0x5
- 415 0295 03       		.byte	0x3
- 416 0296 00000000 		.4byte	counter
- 417 029a 00       		.byte	0
- 418              		.section	.debug_abbrev,"",%progbits
- 419              	.Ldebug_abbrev0:
- 420 0000 01       		.uleb128 0x1
- 421 0001 11       		.uleb128 0x11
- 422 0002 01       		.byte	0x1
- 423 0003 25       		.uleb128 0x25
- 424 0004 0E       		.uleb128 0xe
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 10
+ 304 0188 48       		.byte	0x48
+ 305 0189 06       		.uleb128 0x6
+ 306 018a 5C030000 		.4byte	.LASF52
+ 307 018e 49       		.byte	0x49
+ 308 018f 06       		.uleb128 0x6
+ 309 0190 19080000 		.4byte	.LASF53
+ 310 0194 4A       		.byte	0x4a
+ 311 0195 06       		.uleb128 0x6
+ 312 0196 99020000 		.4byte	.LASF54
+ 313 019a 4B       		.byte	0x4b
+ 314 019b 06       		.uleb128 0x6
+ 315 019c 35060000 		.4byte	.LASF55
+ 316 01a0 4C       		.byte	0x4c
+ 317 01a1 06       		.uleb128 0x6
+ 318 01a2 AC010000 		.4byte	.LASF56
+ 319 01a6 4D       		.byte	0x4d
+ 320 01a7 06       		.uleb128 0x6
+ 321 01a8 150A0000 		.4byte	.LASF57
+ 322 01ac 4E       		.byte	0x4e
+ 323 01ad 06       		.uleb128 0x6
+ 324 01ae 54000000 		.4byte	.LASF58
+ 325 01b2 4F       		.byte	0x4f
+ 326 01b3 06       		.uleb128 0x6
+ 327 01b4 F60A0000 		.4byte	.LASF59
+ 328 01b8 50       		.byte	0x50
+ 329 01b9 06       		.uleb128 0x6
+ 330 01ba 37080000 		.4byte	.LASF60
+ 331 01be 51       		.byte	0x51
+ 332 01bf 06       		.uleb128 0x6
+ 333 01c0 59040000 		.4byte	.LASF61
+ 334 01c4 52       		.byte	0x52
+ 335 01c5 06       		.uleb128 0x6
+ 336 01c6 00040000 		.4byte	.LASF62
+ 337 01ca 53       		.byte	0x53
+ 338 01cb 06       		.uleb128 0x6
+ 339 01cc C2020000 		.4byte	.LASF63
+ 340 01d0 54       		.byte	0x54
+ 341 01d1 06       		.uleb128 0x6
+ 342 01d2 800B0000 		.4byte	.LASF64
+ 343 01d6 55       		.byte	0x55
+ 344 01d7 06       		.uleb128 0x6
+ 345 01d8 D40A0000 		.4byte	.LASF65
+ 346 01dc 56       		.byte	0x56
+ 347 01dd 06       		.uleb128 0x6
+ 348 01de AB0A0000 		.4byte	.LASF66
+ 349 01e2 57       		.byte	0x57
+ 350 01e3 06       		.uleb128 0x6
+ 351 01e4 39070000 		.4byte	.LASF67
+ 352 01e8 58       		.byte	0x58
+ 353 01e9 06       		.uleb128 0x6
+ 354 01ea BB050000 		.4byte	.LASF68
+ 355 01ee 70       		.byte	0x70
+ 356 01ef 06       		.uleb128 0x6
+ 357 01f0 78090000 		.4byte	.LASF69
+ 358 01f4 71       		.byte	0x71
+ 359 01f5 06       		.uleb128 0x6
+ 360 01f6 DB070000 		.4byte	.LASF70
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 10
 
 
- 425 0005 13       		.uleb128 0x13
- 426 0006 0B       		.uleb128 0xb
- 427 0007 03       		.uleb128 0x3
- 428 0008 0E       		.uleb128 0xe
- 429 0009 1B       		.uleb128 0x1b
- 430 000a 0E       		.uleb128 0xe
- 431 000b 55       		.uleb128 0x55
- 432 000c 17       		.uleb128 0x17
- 433 000d 11       		.uleb128 0x11
- 434 000e 01       		.uleb128 0x1
- 435 000f 10       		.uleb128 0x10
- 436 0010 17       		.uleb128 0x17
- 437 0011 00       		.byte	0
- 438 0012 00       		.byte	0
- 439 0013 02       		.uleb128 0x2
- 440 0014 24       		.uleb128 0x24
- 441 0015 00       		.byte	0
- 442 0016 0B       		.uleb128 0xb
- 443 0017 0B       		.uleb128 0xb
- 444 0018 3E       		.uleb128 0x3e
- 445 0019 0B       		.uleb128 0xb
- 446 001a 03       		.uleb128 0x3
- 447 001b 0E       		.uleb128 0xe
- 448 001c 00       		.byte	0
- 449 001d 00       		.byte	0
- 450 001e 03       		.uleb128 0x3
- 451 001f 24       		.uleb128 0x24
- 452 0020 00       		.byte	0
- 453 0021 0B       		.uleb128 0xb
- 454 0022 0B       		.uleb128 0xb
- 455 0023 3E       		.uleb128 0x3e
- 456 0024 0B       		.uleb128 0xb
- 457 0025 03       		.uleb128 0x3
- 458 0026 08       		.uleb128 0x8
- 459 0027 00       		.byte	0
- 460 0028 00       		.byte	0
- 461 0029 04       		.uleb128 0x4
- 462 002a 04       		.uleb128 0x4
- 463 002b 01       		.byte	0x1
- 464 002c 0B       		.uleb128 0xb
- 465 002d 0B       		.uleb128 0xb
- 466 002e 49       		.uleb128 0x49
- 467 002f 13       		.uleb128 0x13
- 468 0030 3A       		.uleb128 0x3a
- 469 0031 0B       		.uleb128 0xb
- 470 0032 3B       		.uleb128 0x3b
- 471 0033 05       		.uleb128 0x5
- 472 0034 01       		.uleb128 0x1
- 473 0035 13       		.uleb128 0x13
- 474 0036 00       		.byte	0
- 475 0037 00       		.byte	0
- 476 0038 05       		.uleb128 0x5
- 477 0039 28       		.uleb128 0x28
- 478 003a 00       		.byte	0
- 479 003b 03       		.uleb128 0x3
- 480 003c 0E       		.uleb128 0xe
- 481 003d 1C       		.uleb128 0x1c
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 11
+ 361 01fa 72       		.byte	0x72
+ 362 01fb 06       		.uleb128 0x6
+ 363 01fc FA020000 		.4byte	.LASF71
+ 364 0200 73       		.byte	0x73
+ 365 0201 06       		.uleb128 0x6
+ 366 0202 46050000 		.4byte	.LASF72
+ 367 0206 74       		.byte	0x74
+ 368 0207 06       		.uleb128 0x6
+ 369 0208 E3060000 		.4byte	.LASF73
+ 370 020c 75       		.byte	0x75
+ 371 020d 06       		.uleb128 0x6
+ 372 020e 35030000 		.4byte	.LASF74
+ 373 0212 76       		.byte	0x76
+ 374 0213 06       		.uleb128 0x6
+ 375 0214 59090000 		.4byte	.LASF75
+ 376 0218 77       		.byte	0x77
+ 377 0219 06       		.uleb128 0x6
+ 378 021a 93080000 		.4byte	.LASF76
+ 379 021e 78       		.byte	0x78
+ 380 021f 06       		.uleb128 0x6
+ 381 0220 D0080000 		.4byte	.LASF77
+ 382 0224 79       		.byte	0x79
+ 383 0225 06       		.uleb128 0x6
+ 384 0226 630A0000 		.4byte	.LASF78
+ 385 022a 7A       		.byte	0x7a
+ 386 022b 06       		.uleb128 0x6
+ 387 022c 75080000 		.4byte	.LASF79
+ 388 0230 FA       		.byte	0xfa
+ 389 0231 06       		.uleb128 0x6
+ 390 0232 9C050000 		.4byte	.LASF80
+ 391 0236 FB       		.byte	0xfb
+ 392 0237 06       		.uleb128 0x6
+ 393 0238 A40B0000 		.4byte	.LASF81
+ 394 023c FC       		.byte	0xfc
+ 395 023d 06       		.uleb128 0x6
+ 396 023e 6E070000 		.4byte	.LASF82
+ 397 0242 FD       		.byte	0xfd
+ 398 0243 06       		.uleb128 0x6
+ 399 0244 9D0A0000 		.4byte	.LASF83
+ 400 0248 FF       		.byte	0xff
+ 401 0249 00       		.byte	0
+ 402 024a 05       		.uleb128 0x5
+ 403 024b 01       		.byte	0x1
+ 404 024c 2C000000 		.4byte	0x2c
+ 405 0250 02       		.byte	0x2
+ 406 0251 6004     		.2byte	0x460
+ 407 0253 76020000 		.4byte	0x276
+ 408 0257 06       		.uleb128 0x6
+ 409 0258 BD080000 		.4byte	.LASF84
+ 410 025c 01       		.byte	0x1
+ 411 025d 06       		.uleb128 0x6
+ 412 025e 5C070000 		.4byte	.LASF85
+ 413 0262 02       		.byte	0x2
+ 414 0263 06       		.uleb128 0x6
+ 415 0264 870A0000 		.4byte	.LASF86
+ 416 0268 03       		.byte	0x3
+ 417 0269 06       		.uleb128 0x6
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 11
 
 
- 482 003e 0B       		.uleb128 0xb
- 483 003f 00       		.byte	0
- 484 0040 00       		.byte	0
- 485 0041 06       		.uleb128 0x6
- 486 0042 2E       		.uleb128 0x2e
- 487 0043 00       		.byte	0
- 488 0044 3F       		.uleb128 0x3f
- 489 0045 19       		.uleb128 0x19
- 490 0046 03       		.uleb128 0x3
- 491 0047 0E       		.uleb128 0xe
- 492 0048 3A       		.uleb128 0x3a
- 493 0049 0B       		.uleb128 0xb
- 494 004a 3B       		.uleb128 0x3b
- 495 004b 0B       		.uleb128 0xb
- 496 004c 11       		.uleb128 0x11
- 497 004d 01       		.uleb128 0x1
- 498 004e 12       		.uleb128 0x12
- 499 004f 06       		.uleb128 0x6
- 500 0050 40       		.uleb128 0x40
- 501 0051 18       		.uleb128 0x18
- 502 0052 9642     		.uleb128 0x2116
- 503 0054 19       		.uleb128 0x19
- 504 0055 00       		.byte	0
- 505 0056 00       		.byte	0
- 506 0057 07       		.uleb128 0x7
- 507 0058 34       		.uleb128 0x34
- 508 0059 00       		.byte	0
- 509 005a 03       		.uleb128 0x3
- 510 005b 0E       		.uleb128 0xe
- 511 005c 3A       		.uleb128 0x3a
- 512 005d 0B       		.uleb128 0xb
- 513 005e 3B       		.uleb128 0x3b
- 514 005f 0B       		.uleb128 0xb
- 515 0060 49       		.uleb128 0x49
- 516 0061 13       		.uleb128 0x13
- 517 0062 3F       		.uleb128 0x3f
- 518 0063 19       		.uleb128 0x19
- 519 0064 02       		.uleb128 0x2
- 520 0065 18       		.uleb128 0x18
- 521 0066 00       		.byte	0
- 522 0067 00       		.byte	0
- 523 0068 00       		.byte	0
- 524              		.section	.debug_aranges,"",%progbits
- 525 0000 1C000000 		.4byte	0x1c
- 526 0004 0200     		.2byte	0x2
- 527 0006 00000000 		.4byte	.Ldebug_info0
- 528 000a 04       		.byte	0x4
- 529 000b 00       		.byte	0
- 530 000c 0000     		.2byte	0
- 531 000e 0000     		.2byte	0
- 532 0010 00000000 		.4byte	.LFB35
- 533 0014 38000000 		.4byte	.LFE35-.LFB35
- 534 0018 00000000 		.4byte	0
- 535 001c 00000000 		.4byte	0
- 536              		.section	.debug_ranges,"",%progbits
- 537              	.Ldebug_ranges0:
- 538 0000 00000000 		.4byte	.LFB35
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 12
+ 418 026a 1A000000 		.4byte	.LASF87
+ 419 026e 04       		.byte	0x4
+ 420 026f 06       		.uleb128 0x6
+ 421 0270 2C090000 		.4byte	.LASF88
+ 422 0274 FF       		.byte	0xff
+ 423 0275 00       		.byte	0
+ 424 0276 05       		.uleb128 0x5
+ 425 0277 01       		.byte	0x1
+ 426 0278 2C000000 		.4byte	0x2c
+ 427 027c 02       		.byte	0x2
+ 428 027d 8004     		.2byte	0x480
+ 429 027f B4020000 		.4byte	0x2b4
+ 430 0283 06       		.uleb128 0x6
+ 431 0284 40040000 		.4byte	.LASF89
+ 432 0288 01       		.byte	0x1
+ 433 0289 06       		.uleb128 0x6
+ 434 028a 75010000 		.4byte	.LASF90
+ 435 028e 02       		.byte	0x2
+ 436 028f 06       		.uleb128 0x6
+ 437 0290 7A040000 		.4byte	.LASF91
+ 438 0294 03       		.byte	0x3
+ 439 0295 06       		.uleb128 0x6
+ 440 0296 93010000 		.4byte	.LASF92
+ 441 029a 04       		.byte	0x4
+ 442 029b 06       		.uleb128 0x6
+ 443 029c 18030000 		.4byte	.LASF93
+ 444 02a0 05       		.byte	0x5
+ 445 02a1 06       		.uleb128 0x6
+ 446 02a2 C2090000 		.4byte	.LASF94
+ 447 02a6 06       		.byte	0x6
+ 448 02a7 06       		.uleb128 0x6
+ 449 02a8 73000000 		.4byte	.LASF95
+ 450 02ac 07       		.byte	0x7
+ 451 02ad 06       		.uleb128 0x6
+ 452 02ae 00000000 		.4byte	.LASF96
+ 453 02b2 FF       		.byte	0xff
+ 454 02b3 00       		.byte	0
+ 455 02b4 04       		.uleb128 0x4
+ 456 02b5 F7050000 		.4byte	.LASF98
+ 457 02b9 02       		.byte	0x2
+ 458 02ba 9104     		.2byte	0x491
+ 459 02bc 76020000 		.4byte	0x276
+ 460 02c0 02       		.uleb128 0x2
+ 461 02c1 04       		.byte	0x4
+ 462 02c2 07       		.byte	0x7
+ 463 02c3 28010000 		.4byte	.LASF99
+ 464 02c7 02       		.uleb128 0x2
+ 465 02c8 08       		.byte	0x8
+ 466 02c9 04       		.byte	0x4
+ 467 02ca 88050000 		.4byte	.LASF100
+ 468 02ce 07       		.uleb128 0x7
+ 469 02cf B8020000 		.4byte	.LASF106
+ 470 02d3 01       		.byte	0x1
+ 471 02d4 5A       		.byte	0x5a
+ 472 02d5 00000000 		.4byte	.LFB35
+ 473 02d9 6C000000 		.4byte	.LFE35-.LFB35
+ 474 02dd 01       		.uleb128 0x1
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 12
 
 
- 539 0004 38000000 		.4byte	.LFE35
- 540 0008 00000000 		.4byte	0
- 541 000c 00000000 		.4byte	0
- 542              		.section	.debug_line,"",%progbits
- 543              	.Ldebug_line0:
- 544 0000 68000000 		.section	.debug_str,"MS",%progbits,1
- 544      02004400 
- 544      00000201 
- 544      FB0E0D00 
- 544      01010101 
- 545              	.LASF87:
- 546 0000 4359424C 		.ascii	"CYBLE_BLESS_HIBERNATE\000"
- 546      455F424C 
- 546      4553535F 
- 546      48494245 
- 546      524E4154 
- 547              	.LASF21:
- 548 0016 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
- 548      455F4556 
- 548      545F4741 
- 548      505F5041 
- 548      53534B45 
- 549              	.LASF58:
- 550 003a 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
- 550      455F4556 
- 550      545F4741 
- 550      5454535F 
- 550      50524550 
- 551              	.LASF56:
- 552 0059 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
- 552      455F4556 
- 552      545F4741 
- 552      5454435F 
- 552      57524954 
- 553              	.LASF18:
- 554 0073 4359424C 		.ascii	"CYBLE_EVT_MEMORY_REQUEST\000"
- 554      455F4556 
- 554      545F4D45 
- 554      4D4F5259 
- 554      5F524551 
- 555              	.LASF43:
- 556 008c 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
- 556      455F4556 
- 556      545F4741 
- 556      5454435F 
- 556      4552524F 
- 557              	.LASF33:
- 558 00a6 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYPRESS_NOTIFICATION\000"
- 558      455F4556 
- 558      545F4741 
- 558      505F4B45 
- 558      59505245 
- 559              	.LASF2:
- 560 00ca 73686F72 		.ascii	"short int\000"
- 560      7420696E 
- 560      7400
- 561              	.LASF24:
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 13
+ 475 02de 9C       		.byte	0x9c
+ 476 02df 00030000 		.4byte	0x300
+ 477 02e3 08       		.uleb128 0x8
+ 478 02e4 10080000 		.4byte	.LASF101
+ 479 02e8 01       		.byte	0x1
+ 480 02e9 5D       		.byte	0x5d
+ 481 02ea B4020000 		.4byte	0x2b4
+ 482 02ee 02       		.uleb128 0x2
+ 483 02ef 91       		.byte	0x91
+ 484 02f0 6E       		.sleb128 -18
+ 485 02f1 08       		.uleb128 0x8
+ 486 02f2 DE090000 		.4byte	.LASF102
+ 487 02f6 01       		.byte	0x1
+ 488 02f7 5E       		.byte	0x5e
+ 489 02f8 6B000000 		.4byte	0x6b
+ 490 02fc 02       		.uleb128 0x2
+ 491 02fd 91       		.byte	0x91
+ 492 02fe 6F       		.sleb128 -17
+ 493 02ff 00       		.byte	0
+ 494 0300 09       		.uleb128 0x9
+ 495 0301 EF050000 		.4byte	.LASF107
+ 496 0305 01       		.byte	0x1
+ 497 0306 0A       		.byte	0xa
+ 498 0307 5D000000 		.4byte	0x5d
+ 499 030b 05       		.uleb128 0x5
+ 500 030c 03       		.byte	0x3
+ 501 030d 00000000 		.4byte	counter
+ 502 0311 00       		.byte	0
+ 503              		.section	.debug_abbrev,"",%progbits
+ 504              	.Ldebug_abbrev0:
+ 505 0000 01       		.uleb128 0x1
+ 506 0001 11       		.uleb128 0x11
+ 507 0002 01       		.byte	0x1
+ 508 0003 25       		.uleb128 0x25
+ 509 0004 0E       		.uleb128 0xe
+ 510 0005 13       		.uleb128 0x13
+ 511 0006 0B       		.uleb128 0xb
+ 512 0007 03       		.uleb128 0x3
+ 513 0008 0E       		.uleb128 0xe
+ 514 0009 1B       		.uleb128 0x1b
+ 515 000a 0E       		.uleb128 0xe
+ 516 000b 55       		.uleb128 0x55
+ 517 000c 17       		.uleb128 0x17
+ 518 000d 11       		.uleb128 0x11
+ 519 000e 01       		.uleb128 0x1
+ 520 000f 10       		.uleb128 0x10
+ 521 0010 17       		.uleb128 0x17
+ 522 0011 00       		.byte	0
+ 523 0012 00       		.byte	0
+ 524 0013 02       		.uleb128 0x2
+ 525 0014 24       		.uleb128 0x24
+ 526 0015 00       		.byte	0
+ 527 0016 0B       		.uleb128 0xb
+ 528 0017 0B       		.uleb128 0xb
+ 529 0018 3E       		.uleb128 0x3e
+ 530 0019 0B       		.uleb128 0xb
+ 531 001a 03       		.uleb128 0x3
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 13
 
 
- 562 00d4 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
- 562      455F4556 
- 562      545F4741 
- 562      505F4155 
- 562      54485F46 
- 563              	.LASF45:
- 564 00ee 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
- 564      455F4556 
- 564      545F4741 
- 564      54545F44 
- 564      4953434F 
- 565              	.LASF89:
- 566 010c 73697A65 		.ascii	"sizetype\000"
- 566      74797065 
- 566      00
- 567              	.LASF35:
- 568 0115 4359424C 		.ascii	"CYBLE_EVT_GAP_DATA_LENGTH_CHANGE\000"
- 568      455F4556 
- 568      545F4741 
- 568      505F4441 
- 568      54415F4C 
- 569              	.LASF6:
- 570 0136 6C6F6E67 		.ascii	"long long int\000"
- 570      206C6F6E 
- 570      6720696E 
- 570      7400
- 571              	.LASF16:
- 572 0144 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
- 572      455F4556 
- 572      545F4843 
- 572      495F5354 
- 572      41545553 
- 573              	.LASF49:
- 574 0159 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
- 574      455F4556 
- 574      545F4741 
- 574      5454435F 
- 574      52454144 
- 575              	.LASF13:
- 576 017a 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
- 576      455F4556 
- 576      545F5354 
- 576      41434B5F 
- 576      4F4E00
- 577              	.LASF42:
- 578 018d 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_LOC_P256_KEYS_GEN_AND_SET_COMPLET"
- 578      455F4556 
- 578      545F4741 
- 578      505F534D 
- 578      505F4C4F 
- 579 01c0 4500     		.ascii	"E\000"
- 580              	.LASF46:
- 581 01c2 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
- 581      455F4556 
- 581      545F4741 
- 581      5454535F 
- 581      58434E48 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 14
+ 532 001b 0E       		.uleb128 0xe
+ 533 001c 00       		.byte	0
+ 534 001d 00       		.byte	0
+ 535 001e 03       		.uleb128 0x3
+ 536 001f 24       		.uleb128 0x24
+ 537 0020 00       		.byte	0
+ 538 0021 0B       		.uleb128 0xb
+ 539 0022 0B       		.uleb128 0xb
+ 540 0023 3E       		.uleb128 0x3e
+ 541 0024 0B       		.uleb128 0xb
+ 542 0025 03       		.uleb128 0x3
+ 543 0026 08       		.uleb128 0x8
+ 544 0027 00       		.byte	0
+ 545 0028 00       		.byte	0
+ 546 0029 04       		.uleb128 0x4
+ 547 002a 16       		.uleb128 0x16
+ 548 002b 00       		.byte	0
+ 549 002c 03       		.uleb128 0x3
+ 550 002d 0E       		.uleb128 0xe
+ 551 002e 3A       		.uleb128 0x3a
+ 552 002f 0B       		.uleb128 0xb
+ 553 0030 3B       		.uleb128 0x3b
+ 554 0031 05       		.uleb128 0x5
+ 555 0032 49       		.uleb128 0x49
+ 556 0033 13       		.uleb128 0x13
+ 557 0034 00       		.byte	0
+ 558 0035 00       		.byte	0
+ 559 0036 05       		.uleb128 0x5
+ 560 0037 04       		.uleb128 0x4
+ 561 0038 01       		.byte	0x1
+ 562 0039 0B       		.uleb128 0xb
+ 563 003a 0B       		.uleb128 0xb
+ 564 003b 49       		.uleb128 0x49
+ 565 003c 13       		.uleb128 0x13
+ 566 003d 3A       		.uleb128 0x3a
+ 567 003e 0B       		.uleb128 0xb
+ 568 003f 3B       		.uleb128 0x3b
+ 569 0040 05       		.uleb128 0x5
+ 570 0041 01       		.uleb128 0x1
+ 571 0042 13       		.uleb128 0x13
+ 572 0043 00       		.byte	0
+ 573 0044 00       		.byte	0
+ 574 0045 06       		.uleb128 0x6
+ 575 0046 28       		.uleb128 0x28
+ 576 0047 00       		.byte	0
+ 577 0048 03       		.uleb128 0x3
+ 578 0049 0E       		.uleb128 0xe
+ 579 004a 1C       		.uleb128 0x1c
+ 580 004b 0B       		.uleb128 0xb
+ 581 004c 00       		.byte	0
+ 582 004d 00       		.byte	0
+ 583 004e 07       		.uleb128 0x7
+ 584 004f 2E       		.uleb128 0x2e
+ 585 0050 01       		.byte	0x1
+ 586 0051 3F       		.uleb128 0x3f
+ 587 0052 19       		.uleb128 0x19
+ 588 0053 03       		.uleb128 0x3
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 14
 
 
- 582              	.LASF31:
- 583 01e0 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
- 583      455F4556 
- 583      545F4741 
- 583      505F4B45 
- 583      59494E46 
- 584              	.LASF54:
- 585 0204 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
- 585      455F4556 
- 585      545F4741 
- 585      5454435F 
- 585      52454144 
- 586              	.LASF94:
- 587 0223 736C6565 		.ascii	"sleep_ble\000"
- 587      705F626C 
- 587      6500
- 588              	.LASF63:
- 589 022d 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
- 589      455F4556 
- 589      545F4741 
- 589      5454535F 
- 589      48414E44 
- 590              	.LASF12:
- 591 024e 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
- 591      455F4556 
- 591      545F484F 
- 591      53545F49 
- 591      4E56414C 
- 592              	.LASF71:
- 593 0265 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
- 593      455F4556 
- 593      545F4C32 
- 593      4341505F 
- 593      43424643 
- 594              	.LASF74:
- 595 0283 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
- 595      455F4556 
- 595      545F4C32 
- 595      4341505F 
- 595      43424643 
- 596              	.LASF9:
- 597 02a4 666C6F61 		.ascii	"float\000"
- 597      7400
- 598              	.LASF52:
- 599 02aa 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
- 599      455F4556 
- 599      545F4741 
- 599      5454435F 
- 599      52454144 
- 600              	.LASF32:
- 601 02c3 4359424C 		.ascii	"CYBLE_EVT_GAP_NUMERIC_COMPARISON_REQUEST\000"
- 601      455F4556 
- 601      545F4741 
- 601      505F4E55 
- 601      4D455249 
- 602              	.LASF37:
- 603 02ec 4359424C 		.ascii	"CYBLE_EVT_GAPC_DIRECT_ADV_REPORT\000"
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 15
+ 589 0054 0E       		.uleb128 0xe
+ 590 0055 3A       		.uleb128 0x3a
+ 591 0056 0B       		.uleb128 0xb
+ 592 0057 3B       		.uleb128 0x3b
+ 593 0058 0B       		.uleb128 0xb
+ 594 0059 11       		.uleb128 0x11
+ 595 005a 01       		.uleb128 0x1
+ 596 005b 12       		.uleb128 0x12
+ 597 005c 06       		.uleb128 0x6
+ 598 005d 40       		.uleb128 0x40
+ 599 005e 18       		.uleb128 0x18
+ 600 005f 9642     		.uleb128 0x2116
+ 601 0061 19       		.uleb128 0x19
+ 602 0062 01       		.uleb128 0x1
+ 603 0063 13       		.uleb128 0x13
+ 604 0064 00       		.byte	0
+ 605 0065 00       		.byte	0
+ 606 0066 08       		.uleb128 0x8
+ 607 0067 34       		.uleb128 0x34
+ 608 0068 00       		.byte	0
+ 609 0069 03       		.uleb128 0x3
+ 610 006a 0E       		.uleb128 0xe
+ 611 006b 3A       		.uleb128 0x3a
+ 612 006c 0B       		.uleb128 0xb
+ 613 006d 3B       		.uleb128 0x3b
+ 614 006e 0B       		.uleb128 0xb
+ 615 006f 49       		.uleb128 0x49
+ 616 0070 13       		.uleb128 0x13
+ 617 0071 02       		.uleb128 0x2
+ 618 0072 18       		.uleb128 0x18
+ 619 0073 00       		.byte	0
+ 620 0074 00       		.byte	0
+ 621 0075 09       		.uleb128 0x9
+ 622 0076 34       		.uleb128 0x34
+ 623 0077 00       		.byte	0
+ 624 0078 03       		.uleb128 0x3
+ 625 0079 0E       		.uleb128 0xe
+ 626 007a 3A       		.uleb128 0x3a
+ 627 007b 0B       		.uleb128 0xb
+ 628 007c 3B       		.uleb128 0x3b
+ 629 007d 0B       		.uleb128 0xb
+ 630 007e 49       		.uleb128 0x49
+ 631 007f 13       		.uleb128 0x13
+ 632 0080 3F       		.uleb128 0x3f
+ 633 0081 19       		.uleb128 0x19
+ 634 0082 02       		.uleb128 0x2
+ 635 0083 18       		.uleb128 0x18
+ 636 0084 00       		.byte	0
+ 637 0085 00       		.byte	0
+ 638 0086 00       		.byte	0
+ 639              		.section	.debug_aranges,"",%progbits
+ 640 0000 1C000000 		.4byte	0x1c
+ 641 0004 0200     		.2byte	0x2
+ 642 0006 00000000 		.4byte	.Ldebug_info0
+ 643 000a 04       		.byte	0x4
+ 644 000b 00       		.byte	0
+ 645 000c 0000     		.2byte	0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 15
 
 
- 603      455F4556 
- 603      545F4741 
- 603      50435F44 
- 603      49524543 
- 604              	.LASF7:
- 605 030d 6C6F6E67 		.ascii	"long long unsigned int\000"
- 605      206C6F6E 
- 605      6720756E 
- 605      7369676E 
- 605      65642069 
- 606              	.LASF41:
- 607 0324 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ_REPLY_ERR\000"
- 607      455F4556 
- 607      545F4741 
- 607      505F4155 
- 607      54485F52 
- 608              	.LASF4:
- 609 0345 6C6F6E67 		.ascii	"long int\000"
- 609      20696E74 
- 609      00
- 610              	.LASF62:
- 611 034e 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
- 611      455F4556 
- 611      545F4741 
- 611      5454435F 
- 611      48414E44 
- 612              	.LASF26:
- 613 036f 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
- 613      455F4556 
- 613      545F4741 
- 613      505F4445 
- 613      56494345 
- 614              	.LASF25:
- 615 038e 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
- 615      455F4556 
- 615      545F4741 
- 615      50505F41 
- 615      44564552 
- 616              	.LASF61:
- 617 03b6 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
- 617      455F4556 
- 617      545F4741 
- 617      5454435F 
- 617      48414E44 
- 618              	.LASF17:
- 619 03d7 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
- 619      455F4556 
- 619      545F5354 
- 619      41434B5F 
- 619      42555359 
- 620              	.LASF22:
- 621 03f3 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
- 621      455F4556 
- 621      545F4741 
- 621      505F5041 
- 621      53534B45 
- 622              	.LASF91:
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 16
-
-
- 623 0419 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 623      43313120 
- 623      352E342E 
- 623      31203230 
- 623      31363036 
- 624 044c 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
- 624      20726576 
- 624      6973696F 
- 624      6E203233 
- 624      37373135 
- 625 047f 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
- 625      66756E63 
- 625      74696F6E 
- 625      2D736563 
- 625      74696F6E 
- 626              	.LASF72:
- 627 04a7 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
- 627      455F4556 
- 627      545F4C32 
- 627      4341505F 
- 627      43424643 
- 628              	.LASF36:
- 629 04c5 4359424C 		.ascii	"CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE\000"
- 629      455F4556 
- 629      545F4741 
- 629      505F454E 
- 629      48414E43 
- 630              	.LASF90:
- 631 04e9 6C6F6E67 		.ascii	"long double\000"
- 631      20646F75 
- 631      626C6500 
- 632              	.LASF92:
- 633 04f5 736C6565 		.ascii	"sleep.c\000"
- 633      702E6300 
- 634              	.LASF68:
- 635 04fd 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
- 635      455F4556 
- 635      545F4C32 
- 635      4341505F 
- 635      434F4E4E 
- 636              	.LASF1:
- 637 0523 756E7369 		.ascii	"unsigned char\000"
- 637      676E6564 
- 637      20636861 
- 637      7200
- 638              	.LASF95:
- 639 0531 636F756E 		.ascii	"counter\000"
- 639      74657200 
- 640              	.LASF80:
- 641 0539 4359424C 		.ascii	"CYBLE_EVT_LE_PING_AUTH_TIMEOUT\000"
- 641      455F4556 
- 641      545F4C45 
- 641      5F50494E 
- 641      475F4155 
- 642              	.LASF50:
- 643 0558 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
- 643      455F4556 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 17
-
-
- 643      545F4741 
- 643      5454435F 
- 643      46494E44 
- 644              	.LASF0:
- 645 0576 7369676E 		.ascii	"signed char\000"
- 645      65642063 
- 645      68617200 
- 646              	.LASF55:
- 647 0582 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
- 647      455F4556 
- 647      545F4741 
- 647      5454535F 
- 647      57524954 
- 648              	.LASF51:
- 649 059c 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
- 649      455F4556 
- 649      545F4741 
- 649      5454435F 
- 649      46494E44 
- 650              	.LASF23:
- 651 05c3 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
- 651      455F4556 
- 651      545F4741 
- 651      505F4155 
- 651      54485F43 
- 652              	.LASF8:
- 653 05df 756E7369 		.ascii	"unsigned int\000"
- 653      676E6564 
- 653      20696E74 
- 653      00
- 654              	.LASF44:
- 655 05ec 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
- 655      455F4556 
- 655      545F4741 
- 655      54545F43 
- 655      4F4E4E45 
- 656              	.LASF5:
- 657 0607 6C6F6E67 		.ascii	"long unsigned int\000"
- 657      20756E73 
- 657      69676E65 
- 657      6420696E 
- 657      7400
- 658              	.LASF20:
- 659 0619 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
- 659      455F4556 
- 659      545F4741 
- 659      505F4155 
- 659      54485F52 
- 660              	.LASF73:
- 661 0630 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
- 661      455F4556 
- 661      545F4C32 
- 661      4341505F 
- 661      43424643 
- 662              	.LASF28:
- 663 0651 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
- 663      455F4556 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 18
-
-
- 663      545F4741 
- 663      505F454E 
- 663      43525950 
- 664              	.LASF39:
- 665 066e 4359424C 		.ascii	"CYBLE_EVT_GAP_CONN_ESTB\000"
+ 646 000e 0000     		.2byte	0
+ 647 0010 00000000 		.4byte	.LFB35
+ 648 0014 6C000000 		.4byte	.LFE35-.LFB35
+ 649 0018 00000000 		.4byte	0
+ 650 001c 00000000 		.4byte	0
+ 651              		.section	.debug_ranges,"",%progbits
+ 652              	.Ldebug_ranges0:
+ 653 0000 00000000 		.4byte	.LFB35
+ 654 0004 6C000000 		.4byte	.LFE35
+ 655 0008 00000000 		.4byte	0
+ 656 000c 00000000 		.4byte	0
+ 657              		.section	.debug_line,"",%progbits
+ 658              	.Ldebug_line0:
+ 659 0000 7C000000 		.section	.debug_str,"MS",%progbits,1
+ 659      02005100 
+ 659      00000201 
+ 659      FB0E0D00 
+ 659      01010101 
+ 660              	.LASF96:
+ 661 0000 4359424C 		.ascii	"CYBLE_BLESS_STATE_INVALID\000"
+ 661      455F424C 
+ 661      4553535F 
+ 661      53544154 
+ 661      455F494E 
+ 662              	.LASF87:
+ 663 001a 4359424C 		.ascii	"CYBLE_BLESS_HIBERNATE\000"
+ 663      455F424C 
+ 663      4553535F 
+ 663      48494245 
+ 663      524E4154 
+ 664              	.LASF21:
+ 665 0030 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
  665      455F4556 
  665      545F4741 
- 665      505F434F 
- 665      4E4E5F45 
- 666              	.LASF67:
- 667 0686 4359424C 		.ascii	"CYBLE_EVT_GATTC_LONG_PROCEDURE_END\000"
+ 665      505F5041 
+ 665      53534B45 
+ 666              	.LASF58:
+ 667 0054 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
  667      455F4556 
  667      545F4741 
- 667      5454435F 
- 667      4C4F4E47 
- 668              	.LASF85:
- 669 06a9 4359424C 		.ascii	"CYBLE_BLESS_SLEEP\000"
+ 667      5454535F 
+ 667      50524550 
+ 668              	.LASF95:
+ 669 0073 4359424C 		.ascii	"CYBLE_BLESS_STATE_HIBERNATE\000"
  669      455F424C 
  669      4553535F 
- 669      534C4545 
- 669      5000
- 670              	.LASF82:
- 671 06bb 4359424C 		.ascii	"CYBLE_EVT_FLASH_CORRUPT\000"
+ 669      53544154 
+ 669      455F4849 
+ 670              	.LASF18:
+ 671 008f 4359424C 		.ascii	"CYBLE_EVT_MEMORY_REQUEST\000"
  671      455F4556 
- 671      545F464C 
- 671      4153485F 
- 671      434F5252 
- 672              	.LASF29:
- 673 06d3 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 671      545F4D45 
+ 671      4D4F5259 
+ 671      5F524551 
+ 672              	.LASF43:
+ 673 00a8 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
  673      455F4556 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 16
+
+
  673      545F4741 
- 673      505F434F 
- 673      4E4E4543 
- 674              	.LASF38:
- 675 06fc 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_NEGOTIATED_AUTH_INFO\000"
+ 673      5454435F 
+ 673      4552524F 
+ 674              	.LASF33:
+ 675 00c2 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYPRESS_NOTIFICATION\000"
  675      455F4556 
  675      545F4741 
- 675      505F534D 
- 675      505F4E45 
- 676              	.LASF11:
- 677 0723 63686172 		.ascii	"char\000"
- 677      00
- 678              	.LASF70:
- 679 0728 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 675      505F4B45 
+ 675      59505245 
+ 676              	.LASF2:
+ 677 00e6 73686F72 		.ascii	"short int\000"
+ 677      7420696E 
+ 677      7400
+ 678              	.LASF24:
+ 679 00f0 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
  679      455F4556 
- 679      545F4C32 
- 679      4341505F 
- 679      434F4D4D 
- 680              	.LASF3:
- 681 0744 73686F72 		.ascii	"short unsigned int\000"
- 681      7420756E 
- 681      7369676E 
- 681      65642069 
- 681      6E7400
- 682              	.LASF53:
- 683 0757 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
- 683      455F4556 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 19
-
-
- 683      545F4741 
- 683      5454435F 
- 683      52454144 
- 684              	.LASF60:
- 685 0775 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 679      545F4741 
+ 679      505F4155 
+ 679      54485F46 
+ 680              	.LASF45:
+ 681 010a 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 681      455F4556 
+ 681      545F4741 
+ 681      54545F44 
+ 681      4953434F 
+ 682              	.LASF99:
+ 683 0128 73697A65 		.ascii	"sizetype\000"
+ 683      74797065 
+ 683      00
+ 684              	.LASF35:
+ 685 0131 4359424C 		.ascii	"CYBLE_EVT_GAP_DATA_LENGTH_CHANGE\000"
  685      455F4556 
  685      545F4741 
- 685      5454435F 
- 685      45584543 
- 686              	.LASF30:
- 687 0794 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ 685      505F4441 
+ 685      54415F4C 
+ 686              	.LASF16:
+ 687 0152 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
  687      455F4556 
- 687      545F4741 
- 687      50435F53 
- 687      43414E5F 
- 688              	.LASF79:
- 689 07b3 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
- 689      455F4556 
- 689      545F5045 
- 689      4E44494E 
- 689      475F464C 
- 690              	.LASF76:
- 691 07d1 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 687      545F4843 
+ 687      495F5354 
+ 687      41545553 
+ 688              	.LASF6:
+ 689 0167 6C6F6E67 		.ascii	"long long int\000"
+ 689      206C6F6E 
+ 689      6720696E 
+ 689      7400
+ 690              	.LASF90:
+ 691 0175 4359424C 		.ascii	"CYBLE_BLESS_STATE_EVENT_CLOSE\000"
+ 691      455F424C 
+ 691      4553535F 
+ 691      53544154 
  691      455F4556 
- 691      545F4C32 
- 691      4341505F 
- 691      43424643 
- 692              	.LASF10:
- 693 07f4 646F7562 		.ascii	"double\000"
- 693      6C6500
- 694              	.LASF84:
- 695 07fb 4359424C 		.ascii	"CYBLE_BLESS_ACTIVE\000"
- 695      455F424C 
- 695      4553535F 
- 695      41435449 
- 695      564500
- 696              	.LASF77:
- 697 080e 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 692              	.LASF92:
+ 693 0193 4359424C 		.ascii	"CYBLE_BLESS_STATE_ECO_ON\000"
+ 693      455F424C 
+ 693      4553535F 
+ 693      53544154 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 17
+
+
+ 693      455F4543 
+ 694              	.LASF56:
+ 695 01ac 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ 695      455F4556 
+ 695      545F4741 
+ 695      5454435F 
+ 695      57524954 
+ 696              	.LASF49:
+ 697 01c6 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
  697      455F4556 
- 697      545F4C32 
- 697      4341505F 
- 697      43424643 
- 698              	.LASF40:
- 699 0831 4359424C 		.ascii	"CYBLE_EVT_GAP_SCAN_REQ_RECVD\000"
+ 697      545F4741 
+ 697      5454435F 
+ 697      52454144 
+ 698              	.LASF13:
+ 699 01e7 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
  699      455F4556 
- 699      545F4741 
- 699      505F5343 
- 699      414E5F52 
- 700              	.LASF88:
- 701 084e 4359424C 		.ascii	"CYBLE_BLESS_INVALID\000"
- 701      455F424C 
- 701      4553535F 
- 701      494E5641 
- 701      4C494400 
- 702              	.LASF15:
- 703 0862 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
- 703      455F4556 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 20
+ 699      545F5354 
+ 699      41434B5F 
+ 699      4F4E00
+ 700              	.LASF42:
+ 701 01fa 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_LOC_P256_KEYS_GEN_AND_SET_COMPLET"
+ 701      455F4556 
+ 701      545F4741 
+ 701      505F534D 
+ 701      505F4C4F 
+ 702 022d 4500     		.ascii	"E\000"
+ 703              	.LASF46:
+ 704 022f 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 704      455F4556 
+ 704      545F4741 
+ 704      5454535F 
+ 704      58434E48 
+ 705              	.LASF25:
+ 706 024d 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ 706      455F4556 
+ 706      545F4741 
+ 706      50505F41 
+ 706      44564552 
+ 707              	.LASF31:
+ 708 0275 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 708      455F4556 
+ 708      545F4741 
+ 708      505F4B45 
+ 708      59494E46 
+ 709              	.LASF54:
+ 710 0299 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 710      455F4556 
+ 710      545F4741 
+ 710      5454435F 
+ 710      52454144 
+ 711              	.LASF106:
+ 712 02b8 736C6565 		.ascii	"sleep_ble\000"
+ 712      705F626C 
+ 712      6500
+ 713              	.LASF63:
+ 714 02c2 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ 714      455F4556 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 18
 
 
- 703      545F4841 
- 703      52445741 
- 703      52455F45 
- 704              	.LASF75:
- 705 087b 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
- 705      455F4556 
- 705      545F4C32 
- 705      4341505F 
- 705      43424643 
- 706              	.LASF69:
- 707 089a 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
- 707      455F4556 
- 707      545F4C32 
- 707      4341505F 
- 707      434F4E4E 
- 708              	.LASF19:
- 709 08c0 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
- 709      455F4556 
- 709      545F4741 
- 709      50435F53 
- 709      43414E5F 
- 710              	.LASF48:
- 711 08e4 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
- 711      455F4556 
- 711      545F4741 
- 711      5454435F 
- 711      52454144 
- 712              	.LASF57:
- 713 090b 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
- 713      455F4556 
- 713      545F4741 
- 713      5454535F 
- 713      57524954 
- 714              	.LASF47:
- 715 0929 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
- 715      455F4556 
- 715      545F4741 
- 715      5454435F 
- 715      5843484E 
- 716              	.LASF14:
- 717 0947 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
- 717      455F4556 
- 717      545F5449 
- 717      4D454F55 
- 717      5400
- 718              	.LASF78:
- 719 0959 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
- 719      455F4556 
- 719      545F4C32 
- 719      4341505F 
- 719      43424643 
- 720              	.LASF86:
- 721 097d 4359424C 		.ascii	"CYBLE_BLESS_DEEPSLEEP\000"
- 721      455F424C 
- 721      4553535F 
- 721      44454550 
- 721      534C4545 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 21
+ 714      545F4741 
+ 714      5454535F 
+ 714      48414E44 
+ 715              	.LASF12:
+ 716 02e3 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 716      455F4556 
+ 716      545F484F 
+ 716      53545F49 
+ 716      4E56414C 
+ 717              	.LASF71:
+ 718 02fa 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ 718      455F4556 
+ 718      545F4C32 
+ 718      4341505F 
+ 718      43424643 
+ 719              	.LASF93:
+ 720 0318 4359424C 		.ascii	"CYBLE_BLESS_STATE_ECO_STABLE\000"
+ 720      455F424C 
+ 720      4553535F 
+ 720      53544154 
+ 720      455F4543 
+ 721              	.LASF74:
+ 722 0335 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 722      455F4556 
+ 722      545F4C32 
+ 722      4341505F 
+ 722      43424643 
+ 723              	.LASF9:
+ 724 0356 666C6F61 		.ascii	"float\000"
+ 724      7400
+ 725              	.LASF52:
+ 726 035c 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ 726      455F4556 
+ 726      545F4741 
+ 726      5454435F 
+ 726      52454144 
+ 727              	.LASF32:
+ 728 0375 4359424C 		.ascii	"CYBLE_EVT_GAP_NUMERIC_COMPARISON_REQUEST\000"
+ 728      455F4556 
+ 728      545F4741 
+ 728      505F4E55 
+ 728      4D455249 
+ 729              	.LASF37:
+ 730 039e 4359424C 		.ascii	"CYBLE_EVT_GAPC_DIRECT_ADV_REPORT\000"
+ 730      455F4556 
+ 730      545F4741 
+ 730      50435F44 
+ 730      49524543 
+ 731              	.LASF7:
+ 732 03bf 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 732      206C6F6E 
+ 732      6720756E 
+ 732      7369676E 
+ 732      65642069 
+ 733              	.LASF41:
+ 734 03d6 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ_REPLY_ERR\000"
+ 734      455F4556 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 19
 
 
- 722              	.LASF83:
- 723 0993 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
- 723      455F4556 
- 723      545F4D41 
- 723      5800
- 724              	.LASF66:
- 725 09a1 4359424C 		.ascii	"CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ\000"
- 725      455F4556 
- 725      545F4741 
- 725      5454535F 
- 725      52454144 
- 726              	.LASF65:
- 727 09ca 4359424C 		.ascii	"CYBLE_EVT_GATTC_STOP_CMD_COMPLETE\000"
- 727      455F4556 
- 727      545F4741 
- 727      5454435F 
- 727      53544F50 
- 728              	.LASF59:
- 729 09ec 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
- 729      455F4556 
- 729      545F4741 
- 729      5454535F 
- 729      45584543 
- 730              	.LASF27:
- 731 0a0b 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
- 731      455F4556 
- 731      545F4741 
- 731      505F4445 
- 731      56494345 
- 732              	.LASF93:
- 733 0a2d 433A5C55 		.ascii	"C:\\Users\\7709\\Desktop\\BLE\\peripheral\\BLE_Peri"
- 733      73657273 
- 733      5C373730 
- 733      395C4465 
- 733      736B746F 
- 734 0a5a 70686572 		.ascii	"pheral\\BLE_Peripheral.cydsn\000"
- 734      616C5C42 
- 734      4C455F50 
- 734      65726970 
- 734      68657261 
- 735              	.LASF64:
- 736 0a76 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
- 736      455F4556 
- 736      545F4741 
- 736      5454535F 
- 736      44415441 
- 737              	.LASF81:
- 738 0a9a 4359424C 		.ascii	"CYBLE_EVT_HCI_PKT\000"
+ 734      545F4741 
+ 734      505F4155 
+ 734      54485F52 
+ 735              	.LASF4:
+ 736 03f7 6C6F6E67 		.ascii	"long int\000"
+ 736      20696E74 
+ 736      00
+ 737              	.LASF62:
+ 738 0400 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
  738      455F4556 
- 738      545F4843 
- 738      495F504B 
- 738      5400
- 739              	.LASF34:
- 740 0aac 4359424C 		.ascii	"CYBLE_EVT_GAP_OOB_GENERATED_NOTIFICATION\000"
+ 738      545F4741 
+ 738      5454435F 
+ 738      48414E44 
+ 739              	.LASF26:
+ 740 0421 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
  740      455F4556 
  740      545F4741 
- 740      505F4F4F 
-ARM GAS  C:\Users\7709\AppData\Local\Temp\cciJ5l6M.s 			page 22
+ 740      505F4445 
+ 740      56494345 
+ 741              	.LASF89:
+ 742 0440 4359424C 		.ascii	"CYBLE_BLESS_STATE_ACTIVE\000"
+ 742      455F424C 
+ 742      4553535F 
+ 742      53544154 
+ 742      455F4143 
+ 743              	.LASF61:
+ 744 0459 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 744      455F4556 
+ 744      545F4741 
+ 744      5454435F 
+ 744      48414E44 
+ 745              	.LASF91:
+ 746 047a 4359424C 		.ascii	"CYBLE_BLESS_STATE_SLEEP\000"
+ 746      455F424C 
+ 746      4553535F 
+ 746      53544154 
+ 746      455F534C 
+ 747              	.LASF22:
+ 748 0492 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 748      455F4556 
+ 748      545F4741 
+ 748      505F5041 
+ 748      53534B45 
+ 749              	.LASF103:
+ 750 04b8 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 750      43313120 
+ 750      352E342E 
+ 750      31203230 
+ 750      31363036 
+ 751 04eb 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 751      20726576 
+ 751      6973696F 
+ 751      6E203233 
+ 751      37373135 
+ 752 051e 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 752      66756E63 
+ 752      74696F6E 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 20
 
 
- 740      425F4745 
- 741              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 752      2D736563 
+ 752      74696F6E 
+ 753              	.LASF72:
+ 754 0546 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 754      455F4556 
+ 754      545F4C32 
+ 754      4341505F 
+ 754      43424643 
+ 755              	.LASF36:
+ 756 0564 4359424C 		.ascii	"CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE\000"
+ 756      455F4556 
+ 756      545F4741 
+ 756      505F454E 
+ 756      48414E43 
+ 757              	.LASF100:
+ 758 0588 6C6F6E67 		.ascii	"long double\000"
+ 758      20646F75 
+ 758      626C6500 
+ 759              	.LASF104:
+ 760 0594 736C6565 		.ascii	"sleep.c\000"
+ 760      702E6300 
+ 761              	.LASF80:
+ 762 059c 4359424C 		.ascii	"CYBLE_EVT_LE_PING_AUTH_TIMEOUT\000"
+ 762      455F4556 
+ 762      545F4C45 
+ 762      5F50494E 
+ 762      475F4155 
+ 763              	.LASF68:
+ 764 05bb 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 764      455F4556 
+ 764      545F4C32 
+ 764      4341505F 
+ 764      434F4E4E 
+ 765              	.LASF1:
+ 766 05e1 756E7369 		.ascii	"unsigned char\000"
+ 766      676E6564 
+ 766      20636861 
+ 766      7200
+ 767              	.LASF107:
+ 768 05ef 636F756E 		.ascii	"counter\000"
+ 768      74657200 
+ 769              	.LASF98:
+ 770 05f7 4359424C 		.ascii	"CYBLE_BLESS_STATE_T\000"
+ 770      455F424C 
+ 770      4553535F 
+ 770      53544154 
+ 770      455F5400 
+ 771              	.LASF50:
+ 772 060b 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 772      455F4556 
+ 772      545F4741 
+ 772      5454435F 
+ 772      46494E44 
+ 773              	.LASF0:
+ 774 0629 7369676E 		.ascii	"signed char\000"
+ 774      65642063 
+ 774      68617200 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 21
+
+
+ 775              	.LASF55:
+ 776 0635 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 776      455F4556 
+ 776      545F4741 
+ 776      5454535F 
+ 776      57524954 
+ 777              	.LASF51:
+ 778 064f 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 778      455F4556 
+ 778      545F4741 
+ 778      5454435F 
+ 778      46494E44 
+ 779              	.LASF23:
+ 780 0676 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 780      455F4556 
+ 780      545F4741 
+ 780      505F4155 
+ 780      54485F43 
+ 781              	.LASF8:
+ 782 0692 756E7369 		.ascii	"unsigned int\000"
+ 782      676E6564 
+ 782      20696E74 
+ 782      00
+ 783              	.LASF44:
+ 784 069f 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 784      455F4556 
+ 784      545F4741 
+ 784      54545F43 
+ 784      4F4E4E45 
+ 785              	.LASF5:
+ 786 06ba 6C6F6E67 		.ascii	"long unsigned int\000"
+ 786      20756E73 
+ 786      69676E65 
+ 786      6420696E 
+ 786      7400
+ 787              	.LASF20:
+ 788 06cc 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 788      455F4556 
+ 788      545F4741 
+ 788      505F4155 
+ 788      54485F52 
+ 789              	.LASF73:
+ 790 06e3 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 790      455F4556 
+ 790      545F4C32 
+ 790      4341505F 
+ 790      43424643 
+ 791              	.LASF28:
+ 792 0704 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 792      455F4556 
+ 792      545F4741 
+ 792      505F454E 
+ 792      43525950 
+ 793              	.LASF39:
+ 794 0721 4359424C 		.ascii	"CYBLE_EVT_GAP_CONN_ESTB\000"
+ 794      455F4556 
+ 794      545F4741 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 22
+
+
+ 794      505F434F 
+ 794      4E4E5F45 
+ 795              	.LASF67:
+ 796 0739 4359424C 		.ascii	"CYBLE_EVT_GATTC_LONG_PROCEDURE_END\000"
+ 796      455F4556 
+ 796      545F4741 
+ 796      5454435F 
+ 796      4C4F4E47 
+ 797              	.LASF85:
+ 798 075c 4359424C 		.ascii	"CYBLE_BLESS_SLEEP\000"
+ 798      455F424C 
+ 798      4553535F 
+ 798      534C4545 
+ 798      5000
+ 799              	.LASF82:
+ 800 076e 4359424C 		.ascii	"CYBLE_EVT_FLASH_CORRUPT\000"
+ 800      455F4556 
+ 800      545F464C 
+ 800      4153485F 
+ 800      434F5252 
+ 801              	.LASF29:
+ 802 0786 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 802      455F4556 
+ 802      545F4741 
+ 802      505F434F 
+ 802      4E4E4543 
+ 803              	.LASF38:
+ 804 07af 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_NEGOTIATED_AUTH_INFO\000"
+ 804      455F4556 
+ 804      545F4741 
+ 804      505F534D 
+ 804      505F4E45 
+ 805              	.LASF11:
+ 806 07d6 63686172 		.ascii	"char\000"
+ 806      00
+ 807              	.LASF70:
+ 808 07db 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 808      455F4556 
+ 808      545F4C32 
+ 808      4341505F 
+ 808      434F4D4D 
+ 809              	.LASF3:
+ 810 07f7 73686F72 		.ascii	"short unsigned int\000"
+ 810      7420756E 
+ 810      7369676E 
+ 810      65642069 
+ 810      6E7400
+ 811              	.LASF97:
+ 812 080a 75696E74 		.ascii	"uint8\000"
+ 812      3800
+ 813              	.LASF101:
+ 814 0810 626C6550 		.ascii	"blePower\000"
+ 814      6F776572 
+ 814      00
+ 815              	.LASF53:
+ 816 0819 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 816      455F4556 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 23
+
+
+ 816      545F4741 
+ 816      5454435F 
+ 816      52454144 
+ 817              	.LASF60:
+ 818 0837 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 818      455F4556 
+ 818      545F4741 
+ 818      5454435F 
+ 818      45584543 
+ 819              	.LASF30:
+ 820 0856 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ 820      455F4556 
+ 820      545F4741 
+ 820      50435F53 
+ 820      43414E5F 
+ 821              	.LASF79:
+ 822 0875 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 822      455F4556 
+ 822      545F5045 
+ 822      4E44494E 
+ 822      475F464C 
+ 823              	.LASF76:
+ 824 0893 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 824      455F4556 
+ 824      545F4C32 
+ 824      4341505F 
+ 824      43424643 
+ 825              	.LASF10:
+ 826 08b6 646F7562 		.ascii	"double\000"
+ 826      6C6500
+ 827              	.LASF84:
+ 828 08bd 4359424C 		.ascii	"CYBLE_BLESS_ACTIVE\000"
+ 828      455F424C 
+ 828      4553535F 
+ 828      41435449 
+ 828      564500
+ 829              	.LASF77:
+ 830 08d0 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 830      455F4556 
+ 830      545F4C32 
+ 830      4341505F 
+ 830      43424643 
+ 831              	.LASF40:
+ 832 08f3 4359424C 		.ascii	"CYBLE_EVT_GAP_SCAN_REQ_RECVD\000"
+ 832      455F4556 
+ 832      545F4741 
+ 832      505F5343 
+ 832      414E5F52 
+ 833              	.LASF17:
+ 834 0910 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ 834      455F4556 
+ 834      545F5354 
+ 834      41434B5F 
+ 834      42555359 
+ 835              	.LASF88:
+ 836 092c 4359424C 		.ascii	"CYBLE_BLESS_INVALID\000"
+ 836      455F424C 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 24
+
+
+ 836      4553535F 
+ 836      494E5641 
+ 836      4C494400 
+ 837              	.LASF15:
+ 838 0940 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 838      455F4556 
+ 838      545F4841 
+ 838      52445741 
+ 838      52455F45 
+ 839              	.LASF75:
+ 840 0959 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 840      455F4556 
+ 840      545F4C32 
+ 840      4341505F 
+ 840      43424643 
+ 841              	.LASF69:
+ 842 0978 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 842      455F4556 
+ 842      545F4C32 
+ 842      4341505F 
+ 842      434F4E4E 
+ 843              	.LASF19:
+ 844 099e 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ 844      455F4556 
+ 844      545F4741 
+ 844      50435F53 
+ 844      43414E5F 
+ 845              	.LASF94:
+ 846 09c2 4359424C 		.ascii	"CYBLE_BLESS_STATE_DEEPSLEEP\000"
+ 846      455F424C 
+ 846      4553535F 
+ 846      53544154 
+ 846      455F4445 
+ 847              	.LASF102:
+ 848 09de 696E7465 		.ascii	"interruptStatus\000"
+ 848      72727570 
+ 848      74537461 
+ 848      74757300 
+ 849              	.LASF48:
+ 850 09ee 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ 850      455F4556 
+ 850      545F4741 
+ 850      5454435F 
+ 850      52454144 
+ 851              	.LASF57:
+ 852 0a15 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 852      455F4556 
+ 852      545F4741 
+ 852      5454535F 
+ 852      57524954 
+ 853              	.LASF47:
+ 854 0a33 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 854      455F4556 
+ 854      545F4741 
+ 854      5454435F 
+ 854      5843484E 
+ 855              	.LASF14:
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 25
+
+
+ 856 0a51 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 856      455F4556 
+ 856      545F5449 
+ 856      4D454F55 
+ 856      5400
+ 857              	.LASF78:
+ 858 0a63 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ 858      455F4556 
+ 858      545F4C32 
+ 858      4341505F 
+ 858      43424643 
+ 859              	.LASF86:
+ 860 0a87 4359424C 		.ascii	"CYBLE_BLESS_DEEPSLEEP\000"
+ 860      455F424C 
+ 860      4553535F 
+ 860      44454550 
+ 860      534C4545 
+ 861              	.LASF83:
+ 862 0a9d 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 862      455F4556 
+ 862      545F4D41 
+ 862      5800
+ 863              	.LASF66:
+ 864 0aab 4359424C 		.ascii	"CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ\000"
+ 864      455F4556 
+ 864      545F4741 
+ 864      5454535F 
+ 864      52454144 
+ 865              	.LASF65:
+ 866 0ad4 4359424C 		.ascii	"CYBLE_EVT_GATTC_STOP_CMD_COMPLETE\000"
+ 866      455F4556 
+ 866      545F4741 
+ 866      5454435F 
+ 866      53544F50 
+ 867              	.LASF59:
+ 868 0af6 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 868      455F4556 
+ 868      545F4741 
+ 868      5454535F 
+ 868      45584543 
+ 869              	.LASF27:
+ 870 0b15 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ 870      455F4556 
+ 870      545F4741 
+ 870      505F4445 
+ 870      56494345 
+ 871              	.LASF105:
+ 872 0b37 433A5C55 		.ascii	"C:\\Users\\7709\\Desktop\\BLE\\peripheral\\BLE_Peri"
+ 872      73657273 
+ 872      5C373730 
+ 872      395C4465 
+ 872      736B746F 
+ 873 0b64 70686572 		.ascii	"pheral\\BLE_Peripheral.cydsn\000"
+ 873      616C5C42 
+ 873      4C455F50 
+ 873      65726970 
+ 873      68657261 
+ARM GAS  C:\Users\7709\AppData\Local\Temp\ccs5WPHa.s 			page 26
+
+
+ 874              	.LASF64:
+ 875 0b80 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 875      455F4556 
+ 875      545F4741 
+ 875      5454535F 
+ 875      44415441 
+ 876              	.LASF81:
+ 877 0ba4 4359424C 		.ascii	"CYBLE_EVT_HCI_PKT\000"
+ 877      455F4556 
+ 877      545F4843 
+ 877      495F504B 
+ 877      5400
+ 878              	.LASF34:
+ 879 0bb6 4359424C 		.ascii	"CYBLE_EVT_GAP_OOB_GENERATED_NOTIFICATION\000"
+ 879      455F4556 
+ 879      545F4741 
+ 879      505F4F4F 
+ 879      425F4745 
+ 880              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

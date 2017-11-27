@@ -13,7 +13,13 @@
 #include "teste.h"
 /* [] END OF FILE */
 static char _buf[30];
- 
+static char _2buf[8];
+
+
+
+
+
+
 char* ultoa( uint32 val) {
   char* p;
  
@@ -25,7 +31,22 @@ char* ultoa( uint32 val) {
   } while (val);
   return p;
 }
+
+char* ul2a( uint32 val) {
+  char* p;
  
+  p = _buf + sizeof(_buf);
+  *--p = '\0';
+  do {
+      *--p = '0' + val%10;
+      val /= 10;
+  } while (val);
+  
+  return p;
+}
+
+
+
 char* ltoa(int32 val) {
   char* p;
   uint16 flg = 0;
