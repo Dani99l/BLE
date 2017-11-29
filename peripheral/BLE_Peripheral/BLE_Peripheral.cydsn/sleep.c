@@ -5,11 +5,11 @@
 */
 
 #include "Sleep.h"
-
+#include "wdt_timer.h"
 #define LOW_POWER_MODE
 int counter;
 
-//void sleep_ble(){
+//void deepsleep_ble(){
 //    
 //     /* Variable declarations */
 ////    CYBLE_BLESS_STATE_T blePower;
@@ -87,7 +87,7 @@ int counter;
 //
 //   //CyBle_ProcessEvents();
 //}
-void sleep_ble(){
+void deepsleep_ble(){
     
      /* Variable declarations */
     CYBLE_BLESS_STATE_T blePower;
@@ -152,5 +152,23 @@ void sleep_ble(){
     CyBle_ProcessEvents();
 }
 
-
+void sleep_ble(){
+     /* change HF clock source from IMO to ECO, as IMO can be stopped to save power */
+     //CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_ECO); 
+     /* stop IMO for reducing power consumption */
+   //  CySysClkImoStop(); 
+     /* put the CPU to sleep */
+    UART_UartPutString("\n\r Going to sleep \n\r ");
+    CyDelay(1000);
+    UART_SCB_IRQ_Disable();
+    I2C_1_SCB_IRQ_Disable();
+    BLE_bless_isr_Disable();
+    setup_wdt(); //waits 32000u
+  //for(int i=0; i< 9000; i++){
+    
+        CySysPmSleep();
+   //}
+//    CySysWdtDisable(CY_SYS_WDT_COUNTER0_MASK);
+//    CyGlobalIntEnable;
+}
 /* [] END OF FILE */

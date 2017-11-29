@@ -16,7 +16,7 @@
 ***************************************/
 
 void setTimerTosleep();
+void deepsleep_ble();
 void sleep_ble();
-
 
 /* [] END OF FILE */

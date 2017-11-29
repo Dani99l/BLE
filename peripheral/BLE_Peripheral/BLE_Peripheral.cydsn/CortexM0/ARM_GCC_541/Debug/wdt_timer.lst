@@ -1,0 +1,539 @@
+ARM GAS  C:\Users\7709\AppData\Local\Temp\cczjreKt.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"wdt_timer.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.WDT_ISR,"ax",%progbits
+  20              		.align	2
+  21              		.global	WDT_ISR
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	WDT_ISR, %function
+  25              	WDT_ISR:
+  26              	.LFB35:
+  27              		.file 1 "wdt_timer.c"
+   1:wdt_timer.c   **** /* ========================================
+   2:wdt_timer.c   ****  *
+   3:wdt_timer.c   ****  * Copyright YOUR COMPANY, THE YEAR
+   4:wdt_timer.c   ****  * All Rights Reserved
+   5:wdt_timer.c   ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:wdt_timer.c   ****  *
+   7:wdt_timer.c   ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:wdt_timer.c   ****  * WHICH IS THE PROPERTY OF your company.
+   9:wdt_timer.c   ****  *
+  10:wdt_timer.c   ****  * ========================================
+  11:wdt_timer.c   **** */
+  12:wdt_timer.c   **** 
+  13:wdt_timer.c   **** #include "wdt_timer.h"
+  14:wdt_timer.c   **** 
+  15:wdt_timer.c   **** CY_ISR(WDT_ISR)
+  16:wdt_timer.c   **** {
+  28              		.loc 1 16 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32 0000 80B5     		push	{r7, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              		.cfi_def_cfa_register 7
+  17:wdt_timer.c   ****     //  LED toggle to test if ISR code is running
+  18:wdt_timer.c   ****         output_pin_1_Write(0u); 
+  38              		.loc 1 18 0
+  39 0004 0020     		movs	r0, #0
+ARM GAS  C:\Users\7709\AppData\Local\Temp\cczjreKt.s 			page 2
+
+
+  40 0006 FFF7FEFF 		bl	output_pin_1_Write
+  19:wdt_timer.c   ****         CyDelay(200);
+  41              		.loc 1 19 0
+  42 000a C820     		movs	r0, #200
+  43 000c FFF7FEFF 		bl	CyDelay
+  20:wdt_timer.c   ****          output_pin_1_Write(1u);
+  44              		.loc 1 20 0
+  45 0010 0120     		movs	r0, #1
+  46 0012 FFF7FEFF 		bl	output_pin_1_Write
+  21:wdt_timer.c   ****         CySysWdtClearInterrupt(CY_SYS_WDT_COUNTER0_INT);
+  47              		.loc 1 21 0
+  48 0016 0420     		movs	r0, #4
+  49 0018 FFF7FEFF 		bl	CySysWdtClearInterrupt
+  22:wdt_timer.c   **** }
+  50              		.loc 1 22 0
+  51 001c C046     		nop
+  52 001e BD46     		mov	sp, r7
+  53              		@ sp needed
+  54 0020 80BD     		pop	{r7, pc}
+  55              		.cfi_endproc
+  56              	.LFE35:
+  57              		.size	WDT_ISR, .-WDT_ISR
+  58 0022 C046     		.section	.text.setup_wdt,"ax",%progbits
+  59              		.align	2
+  60              		.global	setup_wdt
+  61              		.code	16
+  62              		.thumb_func
+  63              		.type	setup_wdt, %function
+  64              	setup_wdt:
+  65              	.LFB36:
+  23:wdt_timer.c   **** 
+  24:wdt_timer.c   **** void setup_wdt(){
+  66              		.loc 1 24 0
+  67              		.cfi_startproc
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 1, uses_anonymous_args = 0
+  70 0000 80B5     		push	{r7, lr}
+  71              		.cfi_def_cfa_offset 8
+  72              		.cfi_offset 7, -8
+  73              		.cfi_offset 14, -4
+  74 0002 00AF     		add	r7, sp, #0
+  75              		.cfi_def_cfa_register 7
+  25:wdt_timer.c   ****     
+  26:wdt_timer.c   ****      /* Setup WDT Counter 0 to generate interrupt on match */ 
+  27:wdt_timer.c   ****     CySysWdtSetMode(CY_SYS_WDT_COUNTER0,CY_SYS_WDT_MODE_INT); 
+  76              		.loc 1 27 0
+  77 0004 0121     		movs	r1, #1
+  78 0006 0020     		movs	r0, #0
+  79 0008 FFF7FEFF 		bl	CySysWdtSetMode
+  28:wdt_timer.c   **** 
+  29:wdt_timer.c   ****     /* Write match count */ 
+  30:wdt_timer.c   ****     CySysWdtSetMatch(CY_SYS_WDT_COUNTER0, PERIOD); 
+  80              		.loc 1 30 0
+  81 000c 104B     		ldr	r3, .L3
+  82 000e 1900     		movs	r1, r3
+  83 0010 0020     		movs	r0, #0
+  84 0012 FFF7FEFF 		bl	CySysWdtSetMatch
+ARM GAS  C:\Users\7709\AppData\Local\Temp\cczjreKt.s 			page 3
+
+
+  31:wdt_timer.c   ****      
+  32:wdt_timer.c   ****     /* Enable clear of counter on match */ 
+  33:wdt_timer.c   ****     CySysWdtSetClearOnMatch(CY_SYS_WDT_COUNTER0, 1u); 
+  85              		.loc 1 33 0
+  86 0016 0121     		movs	r1, #1
+  87 0018 0020     		movs	r0, #0
+  88 001a FFF7FEFF 		bl	CySysWdtSetClearOnMatch
+  34:wdt_timer.c   **** 
+  35:wdt_timer.c   ****     /* Enable WDT counter 0 */ 
+  36:wdt_timer.c   ****     CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK);
+  89              		.loc 1 36 0
+  90 001e 0120     		movs	r0, #1
+  91 0020 FFF7FEFF 		bl	CySysWdtEnable
+  37:wdt_timer.c   **** 
+  38:wdt_timer.c   ****     // Test if WDT resets...
+  39:wdt_timer.c   ****     output_pin_2_Write(0u);
+  92              		.loc 1 39 0
+  93 0024 0020     		movs	r0, #0
+  94 0026 FFF7FEFF 		bl	output_pin_2_Write
+  40:wdt_timer.c   ****     CyDelay(2000);
+  95              		.loc 1 40 0
+  96 002a FA23     		movs	r3, #250
+  97 002c DB00     		lsls	r3, r3, #3
+  98 002e 1800     		movs	r0, r3
+  99 0030 FFF7FEFF 		bl	CyDelay
+  41:wdt_timer.c   ****     output_pin_2_Write(1u);
+ 100              		.loc 1 41 0
+ 101 0034 0120     		movs	r0, #1
+ 102 0036 FFF7FEFF 		bl	output_pin_2_Write
+  42:wdt_timer.c   **** 
+  43:wdt_timer.c   ****     /* Map interrupt vector to the WDT_ISR */ 
+  44:wdt_timer.c   ****     isr_WDT_StartEx(WDT_ISR);  
+ 103              		.loc 1 44 0
+ 104 003a 064B     		ldr	r3, .L3+4
+ 105 003c 1800     		movs	r0, r3
+ 106 003e FFF7FEFF 		bl	isr_WDT_StartEx
+  45:wdt_timer.c   ****     /* Enable Global Interrupt */ 
+  46:wdt_timer.c   ****     CyGlobalIntEnable;
+ 107              		.loc 1 46 0
+ 108              		.syntax divided
+ 109              	@ 46 "wdt_timer.c" 1
+ 110 0042 62B6     		CPSIE   i
+ 111              	@ 0 "" 2
+  47:wdt_timer.c   ****     
+  48:wdt_timer.c   ****      /* 200us delay to ensure WDT configuration is complete */ 
+  49:wdt_timer.c   ****     CyDelayUs(200); 
+ 112              		.loc 1 49 0
+ 113              		.thumb
+ 114              		.syntax unified
+ 115 0044 C820     		movs	r0, #200
+ 116 0046 FFF7FEFF 		bl	CyDelayUs
+  50:wdt_timer.c   **** }
+ 117              		.loc 1 50 0
+ 118 004a C046     		nop
+ 119 004c BD46     		mov	sp, r7
+ 120              		@ sp needed
+ 121 004e 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\7709\AppData\Local\Temp\cczjreKt.s 			page 4
+
+
+ 122              	.L4:
+ 123              		.align	2
+ 124              	.L3:
+ 125 0050 FFFF0000 		.word	65535
+ 126 0054 00000000 		.word	WDT_ISR
+ 127              		.cfi_endproc
+ 128              	.LFE36:
+ 129              		.size	setup_wdt, .-setup_wdt
+ 130              		.text
+ 131              	.Letext0:
+ 132              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 133              		.section	.debug_info,"",%progbits
+ 134              	.Ldebug_info0:
+ 135 0000 B9000000 		.4byte	0xb9
+ 136 0004 0400     		.2byte	0x4
+ 137 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 138 000a 04       		.byte	0x4
+ 139 000b 01       		.uleb128 0x1
+ 140 000c 06010000 		.4byte	.LASF14
+ 141 0010 0C       		.byte	0xc
+ 142 0011 15000000 		.4byte	.LASF15
+ 143 0015 2E000000 		.4byte	.LASF16
+ 144 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 145 001d 00000000 		.4byte	0
+ 146 0021 00000000 		.4byte	.Ldebug_line0
+ 147 0025 02       		.uleb128 0x2
+ 148 0026 01       		.byte	0x1
+ 149 0027 06       		.byte	0x6
+ 150 0028 DE000000 		.4byte	.LASF0
+ 151 002c 02       		.uleb128 0x2
+ 152 002d 01       		.byte	0x1
+ 153 002e 08       		.byte	0x8
+ 154 002f A0000000 		.4byte	.LASF1
+ 155 0033 02       		.uleb128 0x2
+ 156 0034 02       		.byte	0x2
+ 157 0035 05       		.byte	0x5
+ 158 0036 FC000000 		.4byte	.LASF2
+ 159 003a 02       		.uleb128 0x2
+ 160 003b 02       		.byte	0x2
+ 161 003c 07       		.byte	0x7
+ 162 003d CB000000 		.4byte	.LASF3
+ 163 0041 02       		.uleb128 0x2
+ 164 0042 04       		.byte	0x4
+ 165 0043 05       		.byte	0x5
+ 166 0044 B3000000 		.4byte	.LASF4
+ 167 0048 02       		.uleb128 0x2
+ 168 0049 04       		.byte	0x4
+ 169 004a 07       		.byte	0x7
+ 170 004b 77000000 		.4byte	.LASF5
+ 171 004f 02       		.uleb128 0x2
+ 172 0050 08       		.byte	0x8
+ 173 0051 05       		.byte	0x5
+ 174 0052 00000000 		.4byte	.LASF6
+ 175 0056 02       		.uleb128 0x2
+ 176 0057 08       		.byte	0x8
+ 177 0058 07       		.byte	0x7
+ 178 0059 89000000 		.4byte	.LASF7
+ARM GAS  C:\Users\7709\AppData\Local\Temp\cczjreKt.s 			page 5
+
+
+ 179 005d 03       		.uleb128 0x3
+ 180 005e 04       		.byte	0x4
+ 181 005f 05       		.byte	0x5
+ 182 0060 696E7400 		.ascii	"int\000"
+ 183 0064 02       		.uleb128 0x2
+ 184 0065 04       		.byte	0x4
+ 185 0066 07       		.byte	0x7
+ 186 0067 21000000 		.4byte	.LASF8
+ 187 006b 04       		.uleb128 0x4
+ 188 006c 0E000000 		.4byte	.LASF17
+ 189 0070 02       		.byte	0x2
+ 190 0071 D401     		.2byte	0x1d4
+ 191 0073 48000000 		.4byte	0x48
+ 192 0077 02       		.uleb128 0x2
+ 193 0078 04       		.byte	0x4
+ 194 0079 04       		.byte	0x4
+ 195 007a F6000000 		.4byte	.LASF9
+ 196 007e 02       		.uleb128 0x2
+ 197 007f 08       		.byte	0x8
+ 198 0080 04       		.byte	0x4
+ 199 0081 BC000000 		.4byte	.LASF10
+ 200 0085 02       		.uleb128 0x2
+ 201 0086 01       		.byte	0x1
+ 202 0087 08       		.byte	0x8
+ 203 0088 AE000000 		.4byte	.LASF11
+ 204 008c 02       		.uleb128 0x2
+ 205 008d 08       		.byte	0x8
+ 206 008e 04       		.byte	0x4
+ 207 008f EA000000 		.4byte	.LASF12
+ 208 0093 02       		.uleb128 0x2
+ 209 0094 04       		.byte	0x4
+ 210 0095 07       		.byte	0x7
+ 211 0096 94010000 		.4byte	.LASF13
+ 212 009a 05       		.uleb128 0x5
+ 213 009b C3000000 		.4byte	.LASF18
+ 214 009f 01       		.byte	0x1
+ 215 00a0 0F       		.byte	0xf
+ 216 00a1 00000000 		.4byte	.LFB35
+ 217 00a5 22000000 		.4byte	.LFE35-.LFB35
+ 218 00a9 01       		.uleb128 0x1
+ 219 00aa 9C       		.byte	0x9c
+ 220 00ab 06       		.uleb128 0x6
+ 221 00ac 9D010000 		.4byte	.LASF19
+ 222 00b0 01       		.byte	0x1
+ 223 00b1 18       		.byte	0x18
+ 224 00b2 00000000 		.4byte	.LFB36
+ 225 00b6 58000000 		.4byte	.LFE36-.LFB36
+ 226 00ba 01       		.uleb128 0x1
+ 227 00bb 9C       		.byte	0x9c
+ 228 00bc 00       		.byte	0
+ 229              		.section	.debug_abbrev,"",%progbits
+ 230              	.Ldebug_abbrev0:
+ 231 0000 01       		.uleb128 0x1
+ 232 0001 11       		.uleb128 0x11
+ 233 0002 01       		.byte	0x1
+ 234 0003 25       		.uleb128 0x25
+ 235 0004 0E       		.uleb128 0xe
+ARM GAS  C:\Users\7709\AppData\Local\Temp\cczjreKt.s 			page 6
+
+
+ 236 0005 13       		.uleb128 0x13
+ 237 0006 0B       		.uleb128 0xb
+ 238 0007 03       		.uleb128 0x3
+ 239 0008 0E       		.uleb128 0xe
+ 240 0009 1B       		.uleb128 0x1b
+ 241 000a 0E       		.uleb128 0xe
+ 242 000b 55       		.uleb128 0x55
+ 243 000c 17       		.uleb128 0x17
+ 244 000d 11       		.uleb128 0x11
+ 245 000e 01       		.uleb128 0x1
+ 246 000f 10       		.uleb128 0x10
+ 247 0010 17       		.uleb128 0x17
+ 248 0011 00       		.byte	0
+ 249 0012 00       		.byte	0
+ 250 0013 02       		.uleb128 0x2
+ 251 0014 24       		.uleb128 0x24
+ 252 0015 00       		.byte	0
+ 253 0016 0B       		.uleb128 0xb
+ 254 0017 0B       		.uleb128 0xb
+ 255 0018 3E       		.uleb128 0x3e
+ 256 0019 0B       		.uleb128 0xb
+ 257 001a 03       		.uleb128 0x3
+ 258 001b 0E       		.uleb128 0xe
+ 259 001c 00       		.byte	0
+ 260 001d 00       		.byte	0
+ 261 001e 03       		.uleb128 0x3
+ 262 001f 24       		.uleb128 0x24
+ 263 0020 00       		.byte	0
+ 264 0021 0B       		.uleb128 0xb
+ 265 0022 0B       		.uleb128 0xb
+ 266 0023 3E       		.uleb128 0x3e
+ 267 0024 0B       		.uleb128 0xb
+ 268 0025 03       		.uleb128 0x3
+ 269 0026 08       		.uleb128 0x8
+ 270 0027 00       		.byte	0
+ 271 0028 00       		.byte	0
+ 272 0029 04       		.uleb128 0x4
+ 273 002a 16       		.uleb128 0x16
+ 274 002b 00       		.byte	0
+ 275 002c 03       		.uleb128 0x3
+ 276 002d 0E       		.uleb128 0xe
+ 277 002e 3A       		.uleb128 0x3a
+ 278 002f 0B       		.uleb128 0xb
+ 279 0030 3B       		.uleb128 0x3b
+ 280 0031 05       		.uleb128 0x5
+ 281 0032 49       		.uleb128 0x49
+ 282 0033 13       		.uleb128 0x13
+ 283 0034 00       		.byte	0
+ 284 0035 00       		.byte	0
+ 285 0036 05       		.uleb128 0x5
+ 286 0037 2E       		.uleb128 0x2e
+ 287 0038 00       		.byte	0
+ 288 0039 3F       		.uleb128 0x3f
+ 289 003a 19       		.uleb128 0x19
+ 290 003b 03       		.uleb128 0x3
+ 291 003c 0E       		.uleb128 0xe
+ 292 003d 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\7709\AppData\Local\Temp\cczjreKt.s 			page 7
+
+
+ 293 003e 0B       		.uleb128 0xb
+ 294 003f 3B       		.uleb128 0x3b
+ 295 0040 0B       		.uleb128 0xb
+ 296 0041 27       		.uleb128 0x27
+ 297 0042 19       		.uleb128 0x19
+ 298 0043 11       		.uleb128 0x11
+ 299 0044 01       		.uleb128 0x1
+ 300 0045 12       		.uleb128 0x12
+ 301 0046 06       		.uleb128 0x6
+ 302 0047 40       		.uleb128 0x40
+ 303 0048 18       		.uleb128 0x18
+ 304 0049 9642     		.uleb128 0x2116
+ 305 004b 19       		.uleb128 0x19
+ 306 004c 00       		.byte	0
+ 307 004d 00       		.byte	0
+ 308 004e 06       		.uleb128 0x6
+ 309 004f 2E       		.uleb128 0x2e
+ 310 0050 00       		.byte	0
+ 311 0051 3F       		.uleb128 0x3f
+ 312 0052 19       		.uleb128 0x19
+ 313 0053 03       		.uleb128 0x3
+ 314 0054 0E       		.uleb128 0xe
+ 315 0055 3A       		.uleb128 0x3a
+ 316 0056 0B       		.uleb128 0xb
+ 317 0057 3B       		.uleb128 0x3b
+ 318 0058 0B       		.uleb128 0xb
+ 319 0059 11       		.uleb128 0x11
+ 320 005a 01       		.uleb128 0x1
+ 321 005b 12       		.uleb128 0x12
+ 322 005c 06       		.uleb128 0x6
+ 323 005d 40       		.uleb128 0x40
+ 324 005e 18       		.uleb128 0x18
+ 325 005f 9642     		.uleb128 0x2116
+ 326 0061 19       		.uleb128 0x19
+ 327 0062 00       		.byte	0
+ 328 0063 00       		.byte	0
+ 329 0064 00       		.byte	0
+ 330              		.section	.debug_aranges,"",%progbits
+ 331 0000 24000000 		.4byte	0x24
+ 332 0004 0200     		.2byte	0x2
+ 333 0006 00000000 		.4byte	.Ldebug_info0
+ 334 000a 04       		.byte	0x4
+ 335 000b 00       		.byte	0
+ 336 000c 0000     		.2byte	0
+ 337 000e 0000     		.2byte	0
+ 338 0010 00000000 		.4byte	.LFB35
+ 339 0014 22000000 		.4byte	.LFE35-.LFB35
+ 340 0018 00000000 		.4byte	.LFB36
+ 341 001c 58000000 		.4byte	.LFE36-.LFB36
+ 342 0020 00000000 		.4byte	0
+ 343 0024 00000000 		.4byte	0
+ 344              		.section	.debug_ranges,"",%progbits
+ 345              	.Ldebug_ranges0:
+ 346 0000 00000000 		.4byte	.LFB35
+ 347 0004 22000000 		.4byte	.LFE35
+ 348 0008 00000000 		.4byte	.LFB36
+ 349 000c 58000000 		.4byte	.LFE36
+ARM GAS  C:\Users\7709\AppData\Local\Temp\cczjreKt.s 			page 8
+
+
+ 350 0010 00000000 		.4byte	0
+ 351 0014 00000000 		.4byte	0
+ 352              		.section	.debug_line,"",%progbits
+ 353              	.Ldebug_line0:
+ 354 0000 7A000000 		.section	.debug_str,"MS",%progbits,1
+ 354      02004600 
+ 354      00000201 
+ 354      FB0E0D00 
+ 354      01010101 
+ 355              	.LASF6:
+ 356 0000 6C6F6E67 		.ascii	"long long int\000"
+ 356      206C6F6E 
+ 356      6720696E 
+ 356      7400
+ 357              	.LASF17:
+ 358 000e 75696E74 		.ascii	"uint32\000"
+ 358      333200
+ 359              	.LASF15:
+ 360 0015 7764745F 		.ascii	"wdt_timer.c\000"
+ 360      74696D65 
+ 360      722E6300 
+ 361              	.LASF8:
+ 362 0021 756E7369 		.ascii	"unsigned int\000"
+ 362      676E6564 
+ 362      20696E74 
+ 362      00
+ 363              	.LASF16:
+ 364 002e 433A5C55 		.ascii	"C:\\Users\\7709\\Desktop\\BLE\\peripheral\\BLE_Peri"
+ 364      73657273 
+ 364      5C373730 
+ 364      395C4465 
+ 364      736B746F 
+ 365 005b 70686572 		.ascii	"pheral\\BLE_Peripheral.cydsn\000"
+ 365      616C5C42 
+ 365      4C455F50 
+ 365      65726970 
+ 365      68657261 
+ 366              	.LASF5:
+ 367 0077 6C6F6E67 		.ascii	"long unsigned int\000"
+ 367      20756E73 
+ 367      69676E65 
+ 367      6420696E 
+ 367      7400
+ 368              	.LASF7:
+ 369 0089 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 369      206C6F6E 
+ 369      6720756E 
+ 369      7369676E 
+ 369      65642069 
+ 370              	.LASF1:
+ 371 00a0 756E7369 		.ascii	"unsigned char\000"
+ 371      676E6564 
+ 371      20636861 
+ 371      7200
+ 372              	.LASF11:
+ 373 00ae 63686172 		.ascii	"char\000"
+ 373      00
+ARM GAS  C:\Users\7709\AppData\Local\Temp\cczjreKt.s 			page 9
+
+
+ 374              	.LASF4:
+ 375 00b3 6C6F6E67 		.ascii	"long int\000"
+ 375      20696E74 
+ 375      00
+ 376              	.LASF10:
+ 377 00bc 646F7562 		.ascii	"double\000"
+ 377      6C6500
+ 378              	.LASF18:
+ 379 00c3 5744545F 		.ascii	"WDT_ISR\000"
+ 379      49535200 
+ 380              	.LASF3:
+ 381 00cb 73686F72 		.ascii	"short unsigned int\000"
+ 381      7420756E 
+ 381      7369676E 
+ 381      65642069 
+ 381      6E7400
+ 382              	.LASF0:
+ 383 00de 7369676E 		.ascii	"signed char\000"
+ 383      65642063 
+ 383      68617200 
+ 384              	.LASF12:
+ 385 00ea 6C6F6E67 		.ascii	"long double\000"
+ 385      20646F75 
+ 385      626C6500 
+ 386              	.LASF9:
+ 387 00f6 666C6F61 		.ascii	"float\000"
+ 387      7400
+ 388              	.LASF2:
+ 389 00fc 73686F72 		.ascii	"short int\000"
+ 389      7420696E 
+ 389      7400
+ 390              	.LASF14:
+ 391 0106 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 391      43313120 
+ 391      352E342E 
+ 391      31203230 
+ 391      31363036 
+ 392 0139 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 392      20726576 
+ 392      6973696F 
+ 392      6E203233 
+ 392      37373135 
+ 393 016c 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 393      66756E63 
+ 393      74696F6E 
+ 393      2D736563 
+ 393      74696F6E 
+ 394              	.LASF13:
+ 395 0194 73697A65 		.ascii	"sizetype\000"
+ 395      74797065 
+ 395      00
+ 396              	.LASF19:
+ 397 019d 73657475 		.ascii	"setup_wdt\000"
+ 397      705F7764 
+ 397      7400
+ 398              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

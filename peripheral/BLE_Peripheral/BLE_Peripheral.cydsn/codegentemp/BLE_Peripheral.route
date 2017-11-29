@@ -6,6 +6,8 @@ net ClockBlock_HFCLK
 	term   ":interrupt_9.clock"
 	switch ":m0s8clockblockcell.hfclk==>:interrupt_10.clock"
 	term   ":interrupt_10.clock"
+	switch ":m0s8clockblockcell.hfclk==>:interrupt_8.clock"
+	term   ":interrupt_8.clock"
 end ClockBlock_HFCLK
 net Net_3507
 	term   ":m0s8scbcell_0.interrupt"
@@ -33,6 +35,12 @@ net Net_3548
 	switch ":m0s8scbcell_1__i2c_sda__hsiom_permute.m0s8scbcell_1__i2c_sda==>:m0s8scbcell_1.i2c_sda"
 	term   ":m0s8scbcell_1.i2c_sda"
 end Net_3548
+net WDT_INT_OUT
+	term   ":m0s8srsscell.interrupt_wdt"
+	switch ":m0s8srsscell.interrupt_wdt==>:interrupt_idmux_8.in_0"
+	switch ":interrupt_idmux_8.interrupt_idmux_8__out==>:interrupt_8.interrupt"
+	term   ":interrupt_8.interrupt"
+end WDT_INT_OUT
 net \BLE:Net_15\
 	term   ":p4blecell.interrupt"
 	switch ":p4blecell.interrupt==>:interrupt_idmux_12.in_0"

@@ -722,6 +722,17 @@
 #define UART_tx__PS CYREG_GPIO_PRT1_PS
 #define UART_tx__SHIFT 5u
 
+/* isr_WDT */
+#define isr_WDT__INTC_CLR_EN_REG CYREG_CM0_ICER
+#define isr_WDT__INTC_CLR_PD_REG CYREG_CM0_ICPR
+#define isr_WDT__INTC_MASK 0x100u
+#define isr_WDT__INTC_NUMBER 8u
+#define isr_WDT__INTC_PRIOR_MASK 0xC0u
+#define isr_WDT__INTC_PRIOR_NUM 3u
+#define isr_WDT__INTC_PRIOR_REG CYREG_CM0_IPR2
+#define isr_WDT__INTC_SET_EN_REG CYREG_CM0_ISER
+#define isr_WDT__INTC_SET_PD_REG CYREG_CM0_ISPR
+
 /* output_pin_1 */
 #define output_pin_1__0__DR CYREG_GPIO_PRT3_DR
 #define output_pin_1__0__DR_CLR CYREG_GPIO_PRT3_DR_CLR

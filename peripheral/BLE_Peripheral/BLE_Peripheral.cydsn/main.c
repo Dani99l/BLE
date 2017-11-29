@@ -11,20 +11,16 @@
 
 #include "main.h"
 #include "stdio.h"
-//CY_ISR(WAKE_UP){
-//    isr_1_ClearPending();
-//}
+
 
 int main()
-{       
+{      
           
     init_globalVariables();
     start();
 
     while(1){
        state_machine();
-
-    
     }
 }
     
@@ -63,19 +59,27 @@ void state_machine(){
         #ifdef PRINT_MESSAGE_LOG   
         UART_UartPutString("\n\r  TX  \n\r ");
         #endif
-//          printRSSI();
+
         mode=SLEEP;
         break;
 
      case SLEEP:
+        {
         //go to sleep mode untill next time to operate! 
         //check sleep time functions
-       
-        //sleep_ble();
-        #ifdef PRINT_MESSAGE_LOG   
-        UART_UartPutString("\n\r After sleep mode \n\r ");
+       char cc;
+        
+        cc=UART_UartGetChar();
+        if(cc=='s'){
+           sleep_ble();
+         #ifdef PRINT_MESSAGE_LOG   
+            UART_UartPutString("\n\r After sleep mode \n\r ");
         #endif
+        }
+        
+
         mode=START;
+        }
         break;
      
      default:

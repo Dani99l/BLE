@@ -250,16 +250,16 @@
 <OpenDocs>
 <name v=".\BLE_Central.cydsn\BLE_Central.cydwr" />
 <name v=".\BLE_Central.cydsn\main.c" />
-<name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\UART_SPI_UART.c" />
-<name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\UART_SPI_UART.h" />
-<name v=".\BLE_Central.cydsn\app_UART.c" />
-<name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\BLE.h" />
-<name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\RTC_1.c" />
 <name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\RTC_1.h" />
-<name v=".\BLE_Central.cydsn\main.h" />
-<name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\UART_UART.c" />
 <name v=".\BLE_Central.cydsn\TopDesign\TopDesign.cysch" />
 <name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\BLE.c" />
+<name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\cydevice_trm.h" />
+<name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\cyfitter.h" />
+<name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\BLE_StackGap.h" />
+<name v=".\BLE_Central.cydsn\main.h" />
+<name v=".\BLE_Central.cydsn\Generated_Source\PSoC4\BLE_Stack.h" />
+<name v=".\BLE_Central.cydsn\teste.h" />
+<name v=".\BLE_Central.cydsn\teste.c" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -267,7 +267,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="937, 531" SelectedTabbedMdiWindow="98a0a555-abb0-45c1-9278-20c1da1a2985"><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\BLE_Central.cydwr" Guid="b2fe9747-bbbe-4126-b10b-d62ca7215e7d" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\main.c" Guid="98a0a555-abb0-45c1-9278-20c1da1a2985" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\UART_SPI_UART.c" Guid="d049e413-d128-4b08-a423-93b24cba2cea" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\UART_SPI_UART.h" Guid="f7e76354-50bf-4ae5-b018-f883d52ef6e1" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\app_UART.c" Guid="2fb0e648-1cc2-44c6-9382-655898ab68a0" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\BLE.h" Guid="5432615b-d63e-4efb-acde-7492d267dacf" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\RTC_1.c" Guid="ebd8cd14-586c-4351-be5f-a4753c3e6a1f" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\RTC_1.h" Guid="9fc9c779-4f27-42d6-af78-ee7ae84fbb72" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\main.h" Guid="274fd38c-ed01-452d-b739-874fe734a165" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\UART_UART.c" Guid="8982a7d5-974b-4730-b121-abb995799dfb" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\TopDesign\TopDesign.cysch" Guid="b8089f1d-3546-4ec2-919f-081c05a1707b" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\BLE.c" Guid="98c5ed49-e5e9-48af-9ff7-e6fa1164d109" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="6b345914-1ddf-4b61-921d-f54a7934e79d" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="905, 531" SelectedTabbedMdiWindow="78271529-9e33-4502-82d9-2d2f25457631"><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\BLE_Central.cydwr" Guid="b2fe9747-bbbe-4126-b10b-d62ca7215e7d" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\main.c" Guid="98a0a555-abb0-45c1-9278-20c1da1a2985" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\RTC_1.h" Guid="9fc9c779-4f27-42d6-af78-ee7ae84fbb72" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\TopDesign\TopDesign.cysch" Guid="b8089f1d-3546-4ec2-919f-081c05a1707b" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\BLE.c" Guid="98c5ed49-e5e9-48af-9ff7-e6fa1164d109" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="6b345914-1ddf-4b61-921d-f54a7934e79d" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\cydevice_trm.h" Guid="00f3ae6f-8201-4545-815d-eb99d21beee7" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\cyfitter.h" Guid="e2db541f-3db9-4fbb-86ce-e163de12a253" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\BLE_StackGap.h" Guid="65261e54-2274-4704-9933-a91527dfcffb" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\main.h" Guid="56de669b-6d81-44ca-8bc3-7e54df56f6aa" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\Generated_Source\PSoC4\BLE_Stack.h" Guid="70ea8322-3ebc-4b9e-b4b5-109a2e24aaa9" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\teste.h" Guid="ac0cfb97-f7cc-4c38-a576-d0ce0f3a3caf" /><DocumentWindow Key="C:\Users\7709\Desktop\BLE\central\BLE_Central\BLE_Central.cydsn\teste.c" Guid="78271529-9e33-4502-82d9-2d2f25457631" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
