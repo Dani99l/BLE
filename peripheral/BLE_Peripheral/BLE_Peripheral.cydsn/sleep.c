@@ -38,7 +38,7 @@ void deep_sleep_ble(){
     I2C_1_SCB_IRQ_Disable();
     BLE_bless_isr_Disable();
     setup_wdt(); //waits  2s
-   for(int i=0; i< 10; i++){
+   for(int i=0; i< 100; i++){
     
         CySysPmDeepSleep();
        // output_pin_3_Write(1);
