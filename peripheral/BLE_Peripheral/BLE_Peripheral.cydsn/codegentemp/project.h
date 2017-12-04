@@ -49,6 +49,8 @@
 #include "output_pin_1.h"
 #include "output_pin_1_aliases.h"
 #include "isr_WDT.h"
+#include "output_pin_3.h"
+#include "output_pin_3_aliases.h"
 #include "BLE_bless_isr.h"
 #include "UART_SCBCLK.h"
 #include "UART_tx.h"

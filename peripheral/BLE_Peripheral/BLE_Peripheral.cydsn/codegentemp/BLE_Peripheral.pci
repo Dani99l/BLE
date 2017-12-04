@@ -1,6 +1,10 @@
 # BLE_Peripheral
-# 2017-11-28 17:03:44Z
+# 2017-12-04 10:08:29Z
 
+# IO_6@[IOP=(0)][IoId=(6)] is reserved: SWDDebugEnabled
+dont_use_io iocell 0 6
+# IO_7@[IOP=(0)][IoId=(7)] is reserved: SWDDebugEnabled
+dont_use_io iocell 0 7
 # IO_0@[IOP=(6)][IoId=(0)] is reserved: KhzXtalEnabled
 dont_use_io iocell 6 0
 # IO_1@[IOP=(6)][IoId=(1)] is reserved: KhzXtalEnabled
@@ -12,3 +16,4 @@ set_io "\UART:rx(0)\" iocell 1 4
 set_io "\I2C_1:sda(0)\" iocell 3 4
 set_io "\I2C_1:scl(0)\" iocell 3 5
 set_io "output_pin_1(0)" iocell 3 6
+set_io "output_pin_3(0)" iocell 2 6

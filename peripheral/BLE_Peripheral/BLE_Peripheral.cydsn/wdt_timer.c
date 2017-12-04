@@ -35,10 +35,10 @@ void setup_wdt(){
     /* Enable WDT counter 0 */ 
     CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK);
 
-    // Test if WDT resets...
-    output_pin_2_Write(0u);
-    CyDelay(2000);
-    output_pin_2_Write(1u);
+//    // Test if WDT resets...
+//    output_pin_2_Write(0u);
+//    CyDelay(2000);
+//    output_pin_2_Write(1u);
 
     /* Map interrupt vector to the WDT_ISR */ 
     isr_WDT_StartEx(WDT_ISR);  

@@ -119,7 +119,9 @@ void startBLE(){
 void stopBLE(){
     //Stops any proccesing in BLE Stack
     CyBle_Stop();
-}// uint8   buffer[2]={'4','3'};
+
+}
+
 
 void start(){
     
@@ -128,6 +130,7 @@ void start(){
     /* Start UART and BLE component and display project information */
     UART_Start();  
     UART_UartPutString("\n\r Star central role \n\r ");
+    UART_UartPutString("\n\r Hour   RSSI    PacketReceived  PacketPeripheral \n\r ");
 }
 
 
@@ -257,7 +260,8 @@ void AppCallBack(uint32 event, void *eventParam)
         case CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT:
             #ifdef PRINT_MESSAGE_LOG   
              UART_UartPutString("\n\r CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT \n\r");
-            #endif             
+            #endif           
+            Conn_LED_Write(1);
            advReport = (CYBLE_GAPC_ADV_REPORT_T *) eventParam;
             
             /* check if report has manfacturing data corresponding to the intended matching peer */
@@ -274,7 +278,8 @@ void AppCallBack(uint32 event, void *eventParam)
                 #ifdef PRINT_MESSAGE_LOG   
                     UART_UartPutString("\n\r\n\rServer with matching custom service discovered...");
                 #endif
-            }           
+            }
+            Conn_LED_Write(0);
         break;    
             
         case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
@@ -483,32 +488,34 @@ void enableNotifications()
 void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotification)
 {
     int i;
-   int8 teste;
+   
     packetSum++;
         
     UART_UartPutString("\n\r ");
     print_clock();
     UART_UartPutString(" ");
-   // printRSSI();
-    UART_UartPutString(" ");    
-    teste=printRSSI(); 
-    UART_UartPutString(" ");    
-    UART_UartPutString(ultoa(teste));
+    printRSSI();
+    UART_UartPutString(" ");
     UART_UartPutString(" ");    
     UART_UartPutString(ultoa(packetSum));
+    UART_UartPutString(" ");    
+    UART_UartPutString(" ");    
     UART_UartPutString(" ");    
     
     if(uartRxDataNotification->handleValPair.attrHandle == txCharHandle)
     {
+        Scan_LED_Write(1);
         for (i=0;i<uartRxDataNotification->handleValPair.value.len;i++) {
             UART_UartPutString(ultoa(uartRxDataNotification->handleValPair.value.val[i]));
             UART_UartPutString(" ");
-        }
-
+        
+            }
     }
+    Scan_LED_Write(1);
     
     if(packetSum>=1000){
         packetSum=0;
+        
     }
 }
 
@@ -516,8 +523,7 @@ int8 printRSSI(){
     int8 rssi=0;
     
     rssi=CyBle_GetRssi();
-    
-    rssi=rssi-256;
+   // rssi=rssi-256;
     UART_UartPutString(ultoa(rssi&0xff));
     UART_UartPutString(" dbm ");
     return rssi;
@@ -544,9 +550,19 @@ void process_packets(){
 }
 
 void set_init_clock(){
+    
     UART_UartPutString("\n\r Set actual hour and minutes \n\r");
     UART_UartPutString("\n\r Hour");
     clock.hour=UART_UartGetChar();
-    UART_UartPutString("\n\r Minutes");
+    UART_UartPutString("\n\r Hour");
     clock.minute=UART_UartGetChar();
+     UART_UartPutString("\n\r Minutes");
+    clock.minute=UART_UartGetChar();    
+    UART_UartPutString("\n\r Minutes");
+    clock.second=UART_UartGetChar();
+//    
+//        RTC_1_INITIAL_SECOND       clock.second  
+//        RTC_1_INITIAL_MINUTE       clock.minute
+//        RTC_1_INITIAL_HOUR          clock.hour
+
 }

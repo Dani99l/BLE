@@ -18,9 +18,20 @@ int main()
           
     init_globalVariables();
     start();
-
+  //  startBLE();
+    
     while(1){
-       state_machine();
+        
+        startBLE();
+//        CyDelay(100);
+//        
+//        CyDelay(100);
+//        
+//        CyDelay(100);
+//        
+//        CyDelay(100);
+        state_machine();
+
     }
 }
     
@@ -40,12 +51,12 @@ void state_machine(){
         break;
         
      case SENSOR_PACKET:
+        
         #ifdef PRINT_MESSAGE_LOG   
             UART_UartPutString("\n\r SENSOR \n\r ");     
         #endif
         
-       
-         createPacket();
+        createPacket();
         
         I2C_1_Stop();
         CyDelay(5);
@@ -69,14 +80,18 @@ void state_machine(){
         //check sleep time functions
        char cc;
         
-        cc=UART_UartGetChar();
-        if(cc=='s'){
-           sleep_ble();
+//        cc=UART_UartGetChar();
+//        if(cc=='s'){
+          sleep_ble();
+          //deep_sleep_ble();
+            
+            
          #ifdef PRINT_MESSAGE_LOG   
             UART_UartPutString("\n\r After sleep mode \n\r ");
         #endif
-        }
         
+//        }
+//        
 
         mode=START;
         }
@@ -94,9 +109,12 @@ void state_machine(){
 void tx(){
        start();
        startBLE();
-       CyDelay(5);
+       CyDelay(50);
+
+       
        int check=0;
        flag=1;
+    
         while(flag && check<1){
 
             if(CyBle_GattGetBusStatus() != CYBLE_STACK_STATE_BUSY){
@@ -190,22 +208,6 @@ void stopBLE(){
     //Stops any proccesing in BLE Stack
     CyBle_Shutdown(); 
 }
-
-//int8 printRSSI(){
-//    int8 rssi=0;
-//    
-//    rssi=CyBle_GetRssi();
-//    rssi=rssi&0xff;
-//    rssi=rssi-256;
-//    UART_UartPutString((ultoa(rssi)));
-//    
-//    UART_UartPutString(" \n\r ");
-//    UART_UartPutString(" dbm ");
-//    UART_UartPutString(" \n\r ");
-//    rssi=0;
-//    return (rssi&0Xff);
-//}
-
 
 
 void start(){

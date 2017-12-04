@@ -164,11 +164,29 @@ void sleep_ble(){
     I2C_1_SCB_IRQ_Disable();
     BLE_bless_isr_Disable();
     setup_wdt(); //waits 32000u
-  //for(int i=0; i< 9000; i++){
+  for(int i=0; i< 90; i++){
     
         CySysPmSleep();
-   //}
+   }
 //    CySysWdtDisable(CY_SYS_WDT_COUNTER0_MASK);
 //    CyGlobalIntEnable;
+}
+
+void deep_sleep_ble(){
+
+    
+     /* put the CPU to sleep */
+    UART_UartPutString("\n\r Going to sleep \n\r ");
+    CyDelay(1000);
+    UART_SCB_IRQ_Disable();
+    I2C_1_SCB_IRQ_Disable();
+    BLE_bless_isr_Disable();
+    setup_wdt(); //waits 2s
+   for(int i=0; i< 90; i++){
+    
+        CySysPmDeepSleep();
+        output_pin_3_Write(1);
+   }
+    output_pin_3_Write(0);
 }
 /* [] END OF FILE */

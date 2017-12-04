@@ -69,6 +69,10 @@
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\output_pin_1_PM.c" value="SOURCE_C;CortexM0;;;;output_pin_1" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\isr_WDT.c" value="SOURCE_C;CortexM0;;;;isr_WDT" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\isr_WDT.h" value="HEADER;;;;;isr_WDT" />
+  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\output_pin_3.c" value="SOURCE_C;CortexM0;;;;output_pin_3" />
+  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\output_pin_3.h" value="HEADER;;;;;output_pin_3" />
+  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\output_pin_3_aliases.h" value="HEADER;;;;;output_pin_3" />
+  <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\output_pin_3_PM.c" value="SOURCE_C;CortexM0;;;;output_pin_3" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\BLE_bless_isr.c" value="SOURCE_C;CortexM0;;;;BLE_bless_isr" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\BLE_bless_isr.h" value="HEADER;;;;;BLE_bless_isr" />
   <file name="C:\Users\7709\Desktop\BLE\peripheral\BLE_Peripheral\BLE_Peripheral.cydsn\codegentemp\UART_SCBCLK.c" value="SOURCE_C;CortexM0;;;;UART_SCBCLK" />

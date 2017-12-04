@@ -24,9 +24,9 @@
     /***************************************
     *   Conditional compilation parameters
     ***************************************/      
-    #define     FLOW_CONTROL
-    #define     PRINT_MESSAGE_LOG
-    #define     LOW_POWER_MODE
+//    #define     FLOW_CONTROL
+//    #define     PRINT_MESSAGE_LOG
+//    #define     LOW_POWER_MODE
     CYBLE_API_RESULT_T      bleApiResult;
     
     /************APP BLE*****************/
@@ -51,9 +51,9 @@
     
     
     struct Clock{
-       uint8 hour;
-       uint8 minute;
-       uint8 second;
+       int32 hour;
+       int32 minute;
+       int32 second;
     }clock;
     /***************************************
     *       Function Prototypes

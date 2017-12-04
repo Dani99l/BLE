@@ -138,7 +138,7 @@
     #define CYBLE_SLOW_ADV_ENABLED                  (0x01u)
     #define CYBLE_SLOW_ADV_INT_MIN                  (0x0640u)
     #define CYBLE_SLOW_ADV_INT_MAX                  (0x4000u)
-    #define CYBLE_SLOW_ADV_TIMEOUT                  (0x0096u)
+    #define CYBLE_SLOW_ADV_TIMEOUT                  (0x0000u)
     #define CYBLE_GAPP_CONNECTION_INTERVAL_MIN      (0x0006u)
     #define CYBLE_GAPP_CONNECTION_INTERVAL_MAX      (0x0018u)
     #define CYBLE_GAPP_CONNECTION_SLAVE_LATENCY     (0x0000u)

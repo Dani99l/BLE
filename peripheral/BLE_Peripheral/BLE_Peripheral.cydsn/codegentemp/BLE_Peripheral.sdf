@@ -1,6 +1,6 @@
 (DELAYFILE
  (SDFVERSION "IEEE 1497 4.0")
- (DATE "2017-11-28T17:03:45Z")
+ (DATE "2017-12-04T10:08:31Z")
  (DESIGN "BLE_Peripheral")
  (VENDOR "Cypress Semiconductor")
  (PROGRAM "PSoC Creator")
@@ -34,6 +34,7 @@
     (INTERCONNECT \\I2C_1\:sda\(0\)_PAD\\ \\I2C_1\:sda\(0\)\\.pad_in (0.000:0.000:0.000))
     (INTERCONNECT \\I2C_1\:scl\(0\)_PAD\\ \\I2C_1\:scl\(0\)\\.pad_in (0.000:0.000:0.000))
     (INTERCONNECT output_pin_1\(0\)_PAD output_pin_1\(0\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT output_pin_3\(0\)_PAD output_pin_3\(0\).pad_in (0.000:0.000:0.000))
    )
   )
  )
