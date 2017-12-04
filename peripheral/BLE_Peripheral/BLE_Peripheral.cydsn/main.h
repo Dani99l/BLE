@@ -50,7 +50,7 @@
     void init_globalVariables();
     void tx();
     void stopBLE();
-   
+   void clean_txbuffer();
     void global_int();
     /***************************************
     *       Variables declaration

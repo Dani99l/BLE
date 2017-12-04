@@ -21,7 +21,7 @@ void sleep_ble(){
     BLE_bless_isr_Disable();
     setup_wdt(); //waits 32000u
     
-    for(int i=0; i< 10; i++){
+    for(int i=0; i<2; i++){
         
          CySysPmSleep();
     }
@@ -37,12 +37,15 @@ void deep_sleep_ble(){
     UART_SCB_IRQ_Disable();
     I2C_1_SCB_IRQ_Disable();
     BLE_bless_isr_Disable();
-    setup_wdt(); //waits  2s
-   for(int i=0; i< 10; i++){
-    
+   // setup_wdt(); //waits  2s
+   for(int i=0; i< 2; i++){
+         setup_wdt(); //waits  2s
         CySysPmDeepSleep();
        // output_pin_3_Write(1);
    }
+    CyGlobalIntEnable;
+    
+    UART_Start();
     //output_pin_3_Write(0);
 }
 

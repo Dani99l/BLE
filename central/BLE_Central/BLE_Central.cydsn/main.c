@@ -130,7 +130,7 @@ void start(){
     /* Start UART and BLE component and display project information */
     UART_Start();  
     UART_UartPutString("\n\r Star central role \n\r ");
-    UART_UartPutString("\n\r Hour   RSSI    PacketReceived  PacketPeripheral \n\r ");
+    UART_UartPutString("\n\r Hour   RSSI    PacketSum  DataPacket \n\r ");
 }
 
 
@@ -513,7 +513,7 @@ void packetReceivedToPrint(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *uartRxDataNotif
     }
     Scan_LED_Write(1);
     
-    if(packetSum>=1000){
+    if(packetSum>=250){
         packetSum=0;
         
     }
@@ -523,7 +523,13 @@ int8 printRSSI(){
     int8 rssi=0;
     
     rssi=CyBle_GetRssi();
-   // rssi=rssi-256;
+    if(rssi>0){
+        UART_UartPutString(" +");
+    }
+    if(rssi<0){
+     UART_UartPutString(" -");   
+    }
+    rssi=rssi-0x100;
     UART_UartPutString(ultoa(rssi&0xff));
     UART_UartPutString(" dbm ");
     return rssi;

@@ -15,17 +15,18 @@
 
 int main()
 {      
-          
+
     init_globalVariables();
     global_int();
     start();
   //  startBLE();
-    
+    startBLE();
     while(1){
         
-        startBLE();
         
-        CyDelay(100);       //diabolico! testar com 100 e 200 e verifcar adver
+        HandleBleProcessing();
+         CyBle_ProcessEvents();
+        CyDelay(500);       //diabolico! testar com 100 e 200 e verifcar adver
 
         state_machine();
 
@@ -87,11 +88,11 @@ void state_machine(){
             
     //        cc=UART_UartGetChar();
     //        if(cc=='s'){
-            //  sleep_ble();
+            //sleep_ble();
           
-            output_pin_2_Write(1);    
+        //    output_pin_2_Write(1);    
             deep_sleep_ble();
-            output_pin_2_Write(0);
+         //   output_pin_2_Write(0);
             
             #ifdef PRINT_MESSAGE_LOG   
                 UART_UartPutString("\n\r After sleep mode \n\r ");
@@ -170,7 +171,6 @@ void init_globalVariables(){
 
 void createPacket(){
  
-    // Packet is a buffer with total data that will be sent 
     // It depends on MTU(maximum bytes allowed )
     
     CyDelay(500);
@@ -189,13 +189,35 @@ void createPacket(){
         count=0;
     }
 
-    
+    UART_UartPutString("\n\r -  \n\r ");
     buffer[PACKET_LENGHT-1]=(uint8)sensor.humidity;
+    UART_UartPutString(ultoa(sensor.humidity));
+    UART_UartPutString(" - ");
     buffer[PACKET_LENGHT-2]=(uint8)sensor.temperature;
+    UART_UartPutString(ultoa(sensor.temperature));
+    UART_UartPutString(" - ");
     buffer[PACKET_LENGHT-3]=(uint8)sensor.ID;
+    UART_UartPutString(ultoa(sensor.ID));
+    UART_UartPutString(" - ");
     buffer[PACKET_LENGHT-4]=(uint8)sensor.packets_lost;
-    buffer[PACKET_LENGHT-5]=(uint8)sensor.last_sequence;    
-    buffer[PACKET_LENGHT-6]=(uint8)sensor.sequence;    
+    UART_UartPutString(ultoa(sensor.packets_lost));
+    UART_UartPutString(" - ");
+    buffer[PACKET_LENGHT-5]=(uint8)sensor.last_sequence;
+    UART_UartPutString(" - ");
+    UART_UartPutString(ultoa(sensor.last_sequence));
+    buffer[PACKET_LENGHT-6]=(uint8)sensor.sequence;   
+    UART_UartPutString(" - ");
+    UART_UartPutString(ultoa(sensor.sequence));
+}
+
+void clean_txbuffer(){
+    buffer[PACKET_LENGHT-1]=0;
+    buffer[PACKET_LENGHT-2]=0;
+    buffer[PACKET_LENGHT-3]=0;
+    buffer[PACKET_LENGHT-4]=0;
+    buffer[PACKET_LENGHT-5]=0;    
+    buffer[PACKET_LENGHT-6]=0;  
+    
 }
 
 
@@ -247,4 +269,5 @@ void sendtoble()
         CyBle_ProcessEvents();
         flag=0;
     }while(api!=CYBLE_ERROR_OK && CyBle_GetState()== CYBLE_STATE_CONNECTED);  
+
 }

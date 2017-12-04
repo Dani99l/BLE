@@ -1,5 +1,5 @@
 -- Project:   BLE_Peripheral
--- Generated: 12/04/2017 14:35:55
+-- Generated: 12/04/2017 17:46:07
 -- PSoC Creator  4.1 Update 1
 
 ENTITY BLE_Peripheral IS
