@@ -17,6 +17,7 @@ int main()
 {      
           
     init_globalVariables();
+    global_int();
     start();
   //  startBLE();
     
@@ -38,15 +39,17 @@ int main()
 
 // State machine allows to read the sensors, set the ble component and send data to the periferical
 
-void state_machine(){  
+void state_machine(){ 
+    
      switch(mode){
-        
+               
      case START:
         // init interrupts
        //start();
         UART_UartPutString("\n\r START  \n\r ");
         
         CyDelay(500);
+        
         mode=SENSOR_PACKET;
         break;
         
@@ -78,12 +81,12 @@ void state_machine(){
         {
         //go to sleep mode untill next time to operate! 
         //check sleep time functions
-       char cc;
+      // char cc;
         
 //        cc=UART_UartGetChar();
 //        if(cc=='s'){
-          sleep_ble();
-          //deep_sleep_ble();
+        //  sleep_ble();
+          deep_sleep_ble();
             
             
          #ifdef PRINT_MESSAGE_LOG   
@@ -107,16 +110,17 @@ void state_machine(){
 }
         
 void tx(){
-       start();
+    
+       global_int();
        startBLE();
        CyDelay(50);
 
        
        int check=0;
-       flag=1;
+      // flag=1;
     
-        while(flag && check<1){
-
+        //while(flag && check<1){
+        while(check<1){
             if(CyBle_GattGetBusStatus() != CYBLE_STACK_STATE_BUSY){
                 sendtoble();
                 check++;
@@ -211,14 +215,18 @@ void stopBLE(){
 
 
 void start(){
-  
-    CyGlobalIntEnable;
-    
-    UART_Start();
     
     UART_UartPutString("\n\r --------------------- \n\r ");
     UART_UartPutString("\n\r Start peripheral role \n\r ");
     UART_UartPutString("\n\r --------------------- \n\r ");
+}
+
+void global_int(){
+    
+    CyGlobalIntEnable;
+    
+    UART_Start();
+    
 }
 
 

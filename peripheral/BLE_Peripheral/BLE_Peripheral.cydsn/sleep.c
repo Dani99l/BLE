@@ -153,35 +153,33 @@ void deepsleep_ble(){
 }
 
 void sleep_ble(){
-     /* change HF clock source from IMO to ECO, as IMO can be stopped to save power */
-     //CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_ECO); 
-     /* stop IMO for reducing power consumption */
-   //  CySysClkImoStop(); 
+
+    
      /* put the CPU to sleep */
     UART_UartPutString("\n\r Going to sleep \n\r ");
-    CyDelay(1000);
+    CyDelay(10);
     UART_SCB_IRQ_Disable();
     I2C_1_SCB_IRQ_Disable();
     BLE_bless_isr_Disable();
     setup_wdt(); //waits 32000u
-  for(int i=0; i< 90; i++){
     
-        CySysPmSleep();
-   }
-//    CySysWdtDisable(CY_SYS_WDT_COUNTER0_MASK);
-//    CyGlobalIntEnable;
+    for(int i=0; i< 10; i++){
+        
+         CySysPmSleep();
+    }
+    
 }
 
 void deep_sleep_ble(){
 
     
      /* put the CPU to sleep */
-    UART_UartPutString("\n\r Going to sleep \n\r ");
-    CyDelay(1000);
+    UART_UartPutString("\n\r Going to deep sleep \n\r ");
+    CyDelay(10);
     UART_SCB_IRQ_Disable();
     I2C_1_SCB_IRQ_Disable();
     BLE_bless_isr_Disable();
-    setup_wdt(); //waits 2s
+    setup_wdt(); //waits  2s
    for(int i=0; i< 90; i++){
     
         CySysPmDeepSleep();

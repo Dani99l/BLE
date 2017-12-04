@@ -50,7 +50,8 @@
     void init_globalVariables();
     void tx();
     void stopBLE();
-    int8 printRSSI();
+   
+    void global_int();
     /***************************************
     *       Variables declaration
     ***************************************/
