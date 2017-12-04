@@ -11,7 +11,7 @@
 <CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256 type_name="CyDesigner.Common.ProjMgmt.Model.CyConfigDependencies" version="1">
 <dependency_info name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0" xml_contents_version="2">
 <CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021 type_name="CyDesigner.Common.Base.CyFileDeps" version="1">
-<file name=".\CortexM0\ARM_GCC_541\Debug\sleep.o">
+<file name=".\CortexM0\ARM_GCC_541\Debug\main.o">
 <dep name=".\Generated_Source\PSoC4\BLE.h" />
 <dep name=".\Generated_Source\PSoC4\BLE_HAL_PVT.h" />
 <dep name=".\Generated_Source\PSoC4\BLE_STACK_PVT.h" />
@@ -75,8 +75,14 @@
 <dep name=".\Generated_Source\PSoC4\output_pin_3_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
 <dep name=".\Sleep.h" />
-<dep name=".\sleep.c" />
-<dep name=".\wdt_timer.h" />
+<dep name=".\app_Ble.h" />
+<dep name=".\app_LED.h" />
+<dep name=".\app_UART.h" />
+<dep name=".\bme280.h" />
+<dep name=".\htu21d.h" />
+<dep name=".\main.c" />
+<dep name=".\main.h" />
+<dep name=".\teste.h" />
 </file>
 <file name=".\Generated_Source\PSoC4\BLE.h" />
 <file name=".\Generated_Source\PSoC4\BLE_HAL_PVT.h" />
@@ -141,8 +147,14 @@
 <file name=".\Generated_Source\PSoC4\output_pin_3_aliases.h" />
 <file name=".\Generated_Source\PSoC4\project.h" />
 <file name=".\Sleep.h" />
-<file name=".\sleep.c" />
-<file name=".\wdt_timer.h" />
+<file name=".\app_Ble.h" />
+<file name=".\app_LED.h" />
+<file name=".\app_UART.h" />
+<file name=".\bme280.h" />
+<file name=".\htu21d.h" />
+<file name=".\main.c" />
+<file name=".\main.h" />
+<file name=".\teste.h" />
 <file name=".\CortexM0\ARM_GCC_541\Debug\app_Ble.o">
 <dep name=".\Generated_Source\PSoC4\BLE.h" />
 <dep name=".\Generated_Source\PSoC4\BLE_HAL_PVT.h" />
@@ -218,13 +230,6 @@
 <dep name=".\teste.h" />
 </file>
 <file name=".\app_Ble.c" />
-<file name=".\app_Ble.h" />
-<file name=".\app_LED.h" />
-<file name=".\app_UART.h" />
-<file name=".\bme280.h" />
-<file name=".\htu21d.h" />
-<file name=".\main.h" />
-<file name=".\teste.h" />
 <file name=".\CortexM0\ARM_GCC_541\Debug\app_LED.o">
 <dep name=".\Generated_Source\PSoC4\BLE.h" />
 <dep name=".\Generated_Source\PSoC4\BLE_HAL_PVT.h" />
@@ -373,7 +378,7 @@
 <dep name=".\teste.h" />
 </file>
 <file name=".\app_UART.c" />
-<file name=".\CortexM0\ARM_GCC_541\Debug\main.o">
+<file name=".\CortexM0\ARM_GCC_541\Debug\sleep.o">
 <dep name=".\Generated_Source\PSoC4\BLE.h" />
 <dep name=".\Generated_Source\PSoC4\BLE_HAL_PVT.h" />
 <dep name=".\Generated_Source\PSoC4\BLE_STACK_PVT.h" />
@@ -437,16 +442,11 @@
 <dep name=".\Generated_Source\PSoC4\output_pin_3_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
 <dep name=".\Sleep.h" />
-<dep name=".\app_Ble.h" />
-<dep name=".\app_LED.h" />
-<dep name=".\app_UART.h" />
-<dep name=".\bme280.h" />
-<dep name=".\htu21d.h" />
-<dep name=".\main.c" />
-<dep name=".\main.h" />
-<dep name=".\teste.h" />
+<dep name=".\sleep.c" />
+<dep name=".\wdt_timer.h" />
 </file>
-<file name=".\main.c" />
+<file name=".\sleep.c" />
+<file name=".\wdt_timer.h" />
 <file name=".\CortexM0\ARM_GCC_541\Debug\wdt_timer.o">
 <dep name=".\Generated_Source\PSoC4\BLE.h" />
 <dep name=".\Generated_Source\PSoC4\BLE_HAL_PVT.h" />
@@ -3449,7 +3449,7 @@
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
 <link_deps_times>
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0" v="131568584636874583" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0" v="131568629880598359" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Release@CortexM0" v="131557549195834970" />
 </link_deps_times>
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>

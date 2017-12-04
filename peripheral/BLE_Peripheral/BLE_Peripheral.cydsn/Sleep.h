@@ -16,7 +16,14 @@
 ***************************************/
 
 void setTimerTosleep();
-void deepsleep_ble();
 void sleep_ble();
 void deep_sleep_ble();
+void wakeup_deepSleep();
+
+/***************************************
+##  Variables
+***************************************/
+
+int timeToSleep;
+uint8 ciclos;
 /* [] END OF FILE */

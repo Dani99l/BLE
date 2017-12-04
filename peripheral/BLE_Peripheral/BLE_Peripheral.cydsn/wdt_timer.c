@@ -15,9 +15,9 @@
 CY_ISR(WDT_ISR)
 {
     //  LED toggle to test if ISR code is running
-        output_pin_1_Write(0u); 
+        //output_pin_1_Write(0u); 
         CyDelay(200);
-         output_pin_1_Write(1u);
+       //  output_pin_1_Write(1u);
         CySysWdtClearInterrupt(CY_SYS_WDT_COUNTER0_INT);
 }
 

@@ -24,13 +24,9 @@ int main()
     while(1){
         
         startBLE();
-//        CyDelay(100);
-//        
-//        CyDelay(100);
-//        
-//        CyDelay(100);
-//        
-//        CyDelay(100);
+        
+        CyDelay(100);       //diabolico! testar com 100 e 200 e verifcar se faz adver
+
         state_machine();
 
     }
@@ -46,6 +42,7 @@ void state_machine(){
      case START:
         // init interrupts
        //start();
+        global_int();
         UART_UartPutString("\n\r START  \n\r ");
         
         CyDelay(500);
@@ -79,24 +76,22 @@ void state_machine(){
 
      case SLEEP:
         {
-        //go to sleep mode untill next time to operate! 
-        //check sleep time functions
-      // char cc;
-        
-//        cc=UART_UartGetChar();
-//        if(cc=='s'){
-        //  sleep_ble();
-          deep_sleep_ble();
+            //go to sleep mode untill next time to operate! 
+            //check sleep time functions
+          // char cc;
             
+    //        cc=UART_UartGetChar();
+    //        if(cc=='s'){
+            //  sleep_ble();
+          
+                
+            deep_sleep_ble();
+             
+            #ifdef PRINT_MESSAGE_LOG   
+                UART_UartPutString("\n\r After sleep mode \n\r ");
+            #endif
             
-         #ifdef PRINT_MESSAGE_LOG   
-            UART_UartPutString("\n\r After sleep mode \n\r ");
-        #endif
-        
-//        }
-//        
-
-        mode=START;
+            mode=START;
         }
         break;
      
