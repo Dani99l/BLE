@@ -25,7 +25,7 @@ int main()
         
         startBLE();
         
-        CyDelay(100);       //diabolico! testar com 100 e 200 e verifcar se faz adver
+        CyDelay(100);       //diabolico! testar com 100 e 200 e verifcar adver
 
         state_machine();
 
@@ -55,17 +55,22 @@ void state_machine(){
         #ifdef PRINT_MESSAGE_LOG   
             UART_UartPutString("\n\r SENSOR \n\r ");     
         #endif
-        
-        createPacket();
-        
-        I2C_1_Stop();
+        output_pin_3_Write(1);
         CyDelay(5);
+        createPacket();
+        I2C_1_Stop();
+        CyDelay(15);
+        output_pin_3_Write(0);
+
         mode=TX;
         break;
         
      case TX:
-        
+        output_pin_1_Write(1);
+        CyDelay(5);
         tx();
+        CyDelay(15);
+        output_pin_1_Write(0);
         
         #ifdef PRINT_MESSAGE_LOG   
         UART_UartPutString("\n\r  TX  \n\r ");
@@ -84,9 +89,10 @@ void state_machine(){
     //        if(cc=='s'){
             //  sleep_ble();
           
-                
+            output_pin_2_Write(1);    
             deep_sleep_ble();
-             
+            output_pin_2_Write(0);
+            
             #ifdef PRINT_MESSAGE_LOG   
                 UART_UartPutString("\n\r After sleep mode \n\r ");
             #endif
@@ -107,22 +113,22 @@ void state_machine(){
 void tx(){
     
        global_int();
-       startBLE();
+     //  startBLE();        
        CyDelay(50);
 
        
        int check=0;
-      // flag=1;
+       flag=1;
     
         //while(flag && check<1){
-        while(check<1){
+        while(flag && check<1){
             if(CyBle_GattGetBusStatus() != CYBLE_STACK_STATE_BUSY){
                 sendtoble();
                 check++;
                // UART_UartPutString("\n\r 00  \n\r ");
             }
             
-            UART_UartPutString("\n\r After  \n\r ");
+           // UART_UartPutString("\n\r After  \n\r ");
             HandleBleProcessing();
             CyBle_ProcessEvents();
                 
@@ -180,7 +186,7 @@ void createPacket(){
     sensor.packets_lost=sensor.sequence-sensor.last_sequence;
     count++;
     
-    if(count>=1000){
+    if(count>=250){
         count=0;
     }
 
