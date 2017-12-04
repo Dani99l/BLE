@@ -561,7 +561,7 @@ void set_init_clock(){
     UART_UartPutString("\n\r Minutes");
     clock.second=UART_UartGetChar();
 //    
-        RTC_1_INITIAL_SECOND       clock.second  
+//        RTC_1_INITIAL_SECOND       clock.second  
 //        RTC_1_INITIAL_MINUTE       clock.minute
 //        RTC_1_INITIAL_HOUR          clock.hour
 

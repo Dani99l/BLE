@@ -142,7 +142,7 @@ void AppCallBack(uint32 event, void *eventParam)
             
         case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
                 #ifdef PRINT_MESSAGE_LOG   
-                 UART_UartPutString("\n\r CYBLE_EVT_GAP_DEVICE_DISCONNECTED \n\r ");
+               //  UART_UartPutString("\n\r CYBLE_EVT_GAP_DEVICE_DISCONNECTED \n\r ");
                 #endif
             break;
             

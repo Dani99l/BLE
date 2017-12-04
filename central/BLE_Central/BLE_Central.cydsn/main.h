@@ -41,6 +41,8 @@
     *       Glabal Variables
     ***************************************/
     int packetSum;
+//    int temp[250];
+//    int hum[250];
     
     enum states{
         START,
@@ -55,6 +57,8 @@
        int32 minute;
        int32 second;
     }clock;
+    
+    
     /***************************************
     *       Function Prototypes
     ***************************************/

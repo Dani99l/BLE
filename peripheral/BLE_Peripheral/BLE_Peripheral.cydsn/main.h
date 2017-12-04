@@ -28,8 +28,8 @@
     *   Conditional compilation parameters
     ***************************************/      
   
-     #define     PRINT_MESSAGE_LOG
-     #define     DEBUG_ble
+   //  #define     PRINT_MESSAGE_LOG
+    // #define     DEBUG_ble
      #define     LOW_POWER_MODE
      
     /***************************************
@@ -56,13 +56,15 @@
     *       Variables declaration
     ***************************************/
     CYBLE_API_RESULT_T      bleApiResult;
-    int count;
+    uint8 count;
     uint8 buffer[PACKET_LENGHT];
     int api;
     int flag;
     
-    int lasTemp, lastHum;
-    int sameTemp, sameHum;
+    uint8 lasTemp;
+    uint8 lastHum;
+    uint8 sameHum;
+    uint8 sameTemp;
     
     struct Packet{
         uint8 ID;

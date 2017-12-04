@@ -165,7 +165,6 @@ void init_globalVariables(){
     sensor.ID=0;
     sensor.sequence=0;
     sensor.humidity=0;
-    sensor.pressure=0;
     sensor.temperature=0;
 }
 
@@ -179,12 +178,12 @@ void createPacket(){
     CyDelay(500);
     sensor.temperature = (uint8)getTemp();
     CyDelay(500);
-    sensor.humidity= (uint8)getHum();
-    sensor.pressure=3;
-    sensor.ID=2;
+    sensor.humidity= (uint8)getHum();    
+    sensor.ID=5;
+    count++;
     sensor.sequence=count;
     sensor.packets_lost=sensor.sequence-sensor.last_sequence;
-    count++;
+    
     
     if(count>=250){
         count=0;
